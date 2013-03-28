@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_nc_mairie_siale_domain_Param" modelAttribute="param" path="/params" render="${empty dependencies}" z="1Emj/KK4LTmApsbGvzs4oRAVCyE=">
+        <field:textarea field="nom" id="c_nc_mairie_siale_domain_Param_nom" required="true" z="XpUAmomUw+see0EZVxlUyVFVQt0="/>
+        <field:select field="typeParam" id="c_nc_mairie_siale_domain_Param_typeParam" itemValue="id" items="${typeparams}" path="/typeparams" required="true" z="iR3cjP15JmlcmEdeA5IpmgJ9H3E="/>
+        <field:checkbox field="actif" id="c_nc_mairie_siale_domain_Param_actif" z="XzUW00x1vLqmJAWty05ICvaZt30="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_nc_mairie_siale_domain_Param" render="${not empty dependencies}" z="M8DGCkpZUz8/ztpfUNDyrTBAX4M="/>
+</div>

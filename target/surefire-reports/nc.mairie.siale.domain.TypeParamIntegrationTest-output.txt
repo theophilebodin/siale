@@ -1,0 +1,27 @@
+2013-03-18 16:32:02,950 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:02,981 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:02,996 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,012 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,028 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,043 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,059 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,059 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)
+2013-03-18 16:32:03,075 [main] ERROR org.hibernate.util.JDBCExceptionReporter - Cannot create PoolableConnectionFactory (ORA-00604: error occurred at recursive SQL level 1
+ORA-01882: timezone region  not found
+)

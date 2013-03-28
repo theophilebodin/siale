@@ -1,0 +1,65 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="new page title" border="normal" id="main">
+
+<zscript>
+<![CDATA[
+
+int i=0;
+         
+void addItem() {
+	
+	i++;
+	
+	nc.mairie.siale.domain.Param p1 = nc.mairie.siale.domain.Param.findParam(new Long(1));
+	nc.mairie.siale.domain.Param p2 = nc.mairie.siale.domain.Param.findParam(new Long(1));
+	
+	Listitem item1 = new Listitem(valeur(p1));
+	Listitem item2 = new Listitem(valeur(p1));
+	
+	activitesListBox.appendChild(item1);
+	activitesListBox.appendChild(item2);
+	
+}
+
+String valeur(nc.mairie.siale.domain.Param p) {
+//	return "chargement n°"+(i)+
+//			"--------- Param Id : "+p.getId()+" Nom : "+p.getNom()+" hashcode " +String.valueOf(p.hashCode())+
+//			"--------- Type param id :"+p.getTypeParam().getId()+" hashCode : "+p.getTypeParam().hashCode();
+	return  p.toString()+ 
+			"-------------PARAM hashcode :" +String.valueOf(p.hashCode())+
+			"-------------TYPE_PARAM hashcode : "+p.getTypeParam().hashCode();
+}
+
+
+]]>
+</zscript>
+
+<textbox rows="14" cols="200">
+<attribute name="value">
+void addItem() {
+	i++;
+	
+	nc.mairie.siale.domain.Param p1 = nc.mairie.siale.domain.Param.findParam(new Long(1));
+	nc.mairie.siale.domain.Param p2 = nc.mairie.siale.domain.Param.findParam(new Long(1));
+	
+	Listitem item1 = new Listitem(valeur(p1));
+	Listitem item2 = new Listitem(valeur(p1));
+	
+	activitesListBox.appendChild(item1);
+	activitesListBox.appendChild(item2);
+}
+</attribute>
+</textbox>
+
+
+<listbox id="activitesListBox" rows="18"	emptyMessage="Pas d'éléments">
+								<listhead>
+									<listheader label="Nom" />
+								</listhead>
+								
+							</listbox>
+<button label="click" onClick="addItem()"/>
+
+</window>
+</zk>

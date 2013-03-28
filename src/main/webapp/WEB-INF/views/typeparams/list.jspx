@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_nc_mairie_siale_domain_TypeParam" items="${typeparams}" z="FB5BU47FihdtSA+IJENukB1+mww=">
+        <table:table data="${typeparams}" id="l_nc_mairie_siale_domain_TypeParam" path="/typeparams" z="KySAJUxp66PILvP5vbBkNIRJ+64=">
+            <table:column id="c_nc_mairie_siale_domain_TypeParam_nom" property="nom" z="aIxlKD0wsa7ULvsO1zzmOcL4MPE="/>
+        </table:table>
+    </page:list>
+</div>

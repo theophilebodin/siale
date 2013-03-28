@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_MissionAction" object="${missionaction}" path="/missionactions" z="YIGVerQDh5Xq6vjccbK4qQ1n568=">
+        <field:display date="true" dateTimePattern="${missionAction_dateaction_date_format}" field="dateAction" id="s_nc_mairie_siale_domain_MissionAction_dateAction" object="${missionaction}" z="MGzWLO3qkpmOWaD+PQTH2c7b+3c="/>
+        <field:display field="theAction" id="s_nc_mairie_siale_domain_MissionAction_theAction" object="${missionaction}" z="DJkCHtuWqcCAirp2nNXogdurflo="/>
+    </page:show>
+</div>

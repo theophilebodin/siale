@@ -1,0 +1,264 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="gestionMissions" height="100%" border="normal"
+	apply="nc.mairie.siale.viewmodel.GestionMissionsModel"
+	contentStyle="overflow:auto">
+
+	<div id="zoneListe" visible="@{gestionMissions.actionMission.aucune}">
+		<groupbox>
+			<hbox>
+				<listbox id="missionsListBox" rows="10" mold="paging"
+					pageSize="10" model="@{gestionMissions.listeMission}"
+					selectedItem="@{gestionMissions.missionCourant}">
+
+					<custom-attributes
+						org.zkoss.zul.listbox.autoSort="true" />
+					<listhead>
+						<listheader label="Date prévue"
+							sortDirection="ascending" sort="auto(datePrevue)" width="80px" />
+						<listheader label="Nom" sort="auto(nomEtablissement)"/>
+						<listheader label="Type" width="95px" sort="auto(typeEtablissement)"/>
+						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
+						<listheader label="Cloturé" width="50px" sort="auto(cloturee)"
+							align="center" />
+						<listheader  width="85px">
+										<image id="ajouterMission" src="/images/add.png" tooltiptext="Ajouter"/>
+						</listheader>
+
+					</listhead>
+					<listitem id="missionsListItem" self="@{each=mission}">
+						<listcell
+							label="@{mission.datePrevue, converter='org.zkoss.zkplus.databind.DateFormatConverter'}"
+							self="@{format(dd/MM/yyyy)}" />
+						<listcell label="@{mission.nomEtablissement}" />
+						<listcell label="@{mission.typeEtablissement}" />
+						<listcell
+							label="@{mission.activitePrincipale.nom}" />
+						<listcell
+							label="@{mission.cloturee, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+							<listcell>
+									<image id="modifierMission" src="/images/update.png" tooltiptext="Modifier"/>
+									<image id="supprimerMission" src="/images/delete.png" tooltiptext="Supprimer"/>
+									<image id="saisirMission" src="/_gestion_missions/Stylo_16x16.png" tooltiptext="Saisir" width="16" height="16"/>
+									<image id="notationMission" src="/_gestion_missions/Bareme_16x16.png" tooltiptext="Notation" width="16" height="16"/>
+							</listcell>
+					</listitem>
+				</listbox>
+
+
+				
+			</hbox>
+		</groupbox>
+	</div>
+	<div id="zoneSaisie" visible="@{gestionMissions.actionMission.enCours}">
+
+
+<hbox>
+<!-- 					<panel style="margin-bottom:10px" -->
+<!-- 						title="Etablissement" border="normal" id="panelEtablissement"> -->
+					<panel 
+						title="Etablissement" border="normal" id="panelEtablissement">
+						<panelchildren>
+							<grid>
+							
+							
+								<columns>
+									<column label="TypeEtablissement"
+										width="200px" />
+									<column label="Etablissement"
+										visible="@{gestionMissions.missionCourant.etablissementSelected}" />
+									<column label="Nom du projet"
+										visible="@{gestionMissions.missionCourant.projetSelected}" />
+									<column
+										label="Etablissement non déclaré"
+										visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
+
+								</columns>
+								<rows>
+									<row>
+										<combobox mold="rounded"
+											id="typeEtablissementCourant"
+											model="@{gestionMissions.listeTypeEtablissement}"
+											selectedItem="@{gestionMissions.missionCourant.typeEtablissement}"
+											readonly="true">
+										</combobox>
+										<combobox autocomplete="true"
+											autodrop="true" id="etablissementListBox"
+											model="@{gestionMissions.listeEtablissement}"
+											selectedItem="@{gestionMissions.missionCourant.etablissement}"
+											constraint="no empty"
+											visible="@{gestionMissions.missionCourant.etablissementSelected}">
+											<attribute name="onChanging">
+					<![CDATA[
+	gestionMissions.onChangingDETOURNE$etablissementListBox(event.getValue());
+]]>
+					</attribute>
+
+											<comboitem
+												self="@{each=element}" label="@{element.libelle}" />
+										</combobox>
+										<textbox id="projetTextBox"
+											value="@{gestionMissions.missionCourant.projet}" 
+											constraint="no empty"
+											visible="@{gestionMissions.missionCourant.projetSelected}"/>
+										<textbox id="nonDeclareTextBox"
+											value="@{gestionMissions.missionCourant.etablissementNonDeclare}" 
+											constraint="no empty" 
+											visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
+									</row>
+								</rows>
+							</grid>
+						</panelchildren>
+					</panel>
+
+</hbox>
+
+
+<hbox >
+
+
+					<panel title="Activités" border="normal" >
+						<panelchildren>
+
+
+
+
+
+<listbox rows="3"
+	id="missionActivitesListBox"
+								model="@{gestionMissions.missionCourant.missionActivites}"
+								selectedItem="@{gestionMissions.missionActiviteCourant}"
+								emptyMessage="Pas d'éléments">
+								<listhead>
+									<listheader label="Nom" />
+									<listheader label="Principale"	width="70px" />
+									<listheader  width="55px">
+										<image id="ajouterMissionActivite" src="/images/add.png" tooltiptext="Ajouter"/>
+									</listheader>
+								</listhead>
+									<listitem id="missionActivitesListItem" self="@{each=missionActivite}">
+								
+									<listcell
+										label="@{missionActivite.theActivite.nom}" />
+ 									<listcell label="@{missionActivite.principale, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" ></listcell>
+									<listcell>
+									<image id="modifierMissionActivite" src="/images/update.png" tooltiptext="Modifier"/>
+									<image id="supprimerMissionActivite" src="/images/delete.png" tooltiptext="Supprimer"/>
+									</listcell>
+									
+								</listitem>
+							</listbox>
+<div>
+
+
+
+<include id="includeSaisieActivite" src="/_gestion_missions/SaisieActivite.zul"/>
+
+
+
+	</div>
+
+
+
+
+						</panelchildren>
+					</panel>
+					<panel title="Contrôleurs" border="normal" >
+						<panelchildren>
+						
+						
+						
+<listbox rows="3" 
+		id="missionControleursListBox"
+								model="@{gestionMissions.listeControleurControleurSIALECourant}"
+								selectedItem="@{gestionMissions.controleurCourant}"
+								emptyMessage="Pas d'éléments">
+								<listhead>
+									<listheader label="Nom" />
+									<listheader  width="55px">
+										<image id="ajouterControleur" src="/images/add.png" tooltiptext="Ajouter"/>
+									</listheader>
+								</listhead>
+									<listitem id="missionControleursListItem" self="@{each=iControleur}">
+								
+									<listcell
+										label="@{iControleur.nomAffichage}" />
+ 									<listcell>
+									<image id="modifierControleur" src="/images/update.png" tooltiptext="Modifier"/>
+									<image id="supprimerControleur" src="/images/delete.png" tooltiptext="Supprimer"/>
+									</listcell>
+									
+								</listitem>
+							</listbox>
+<div>
+
+
+
+<include id="includeSaisieControleur" src="/_gestion_missions/SaisieControleur.zul"/>
+
+
+
+	</div>						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						</panelchildren>
+					</panel>
+
+</hbox>
+
+					<panel title="Rendez-vous" border="normal" >
+						<panelchildren>
+<vbox>
+<grid>
+		<columns>
+			<column label="Date prévue" />
+			<column label="Duree (hh:mm)" />
+			<column label="Envoi Outlook" />
+		</columns>
+		<rows>
+			<row>	
+ 			<datebox cols="16" value="@{gestionMissions.missionCourant.datePrevue}" format="dd/MM/yyyy HH:mm" constraint="no empty"/>
+<!-- 			<datebox cols="20" value="@{gestionMissions.missionCourant.datePrevue}" format="Long+Medium" constraint="no empty"/> -->
+			
+			<timebox value="@{gestionMissions.missionCourant.dureePrevueRDV}" format="HH:mm" constraint="no empty"/>
+			<checkbox id="envoiOutlookCheckBox"></checkbox>
+			</row>
+		</rows>
+	</grid>
+</vbox>
+		</panelchildren>
+		</panel>	
+
+<panel title="Clôture">
+<panelchildren>
+<groupbox >
+<div align="center">
+	Cloturer <checkbox id="missionClotureeCheckBox" checked="@{gestionMissions.missionCourant.cloturee}"/>
+</div>
+</groupbox>
+
+</panelchildren>
+</panel>
+
+
+		<groupbox >
+			<div align="center">
+				<button id="validerMission" label="Valider" width="80px" />
+				<button id="annulerMission" label="Annuler" width="80px" />
+			</div>
+		</groupbox>
+	</div>
+</window>
+			
+
+</zk>

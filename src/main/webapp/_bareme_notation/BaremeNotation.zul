@@ -1,0 +1,51 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window id="baremeNotation" height="100%" border="normal"
+		apply="nc.mairie.siale.viewmodel.BaremeNotationModel"
+		contentStyle="overflow:auto">
+		
+		<div id="zoneListeBareme">
+			<panel title="Liste des baremes " border="normal" id="panelBareme" >
+				<panelchildren>
+					<listbox id="baremeListBox"
+						model="@{baremeNotation.listeBareme}"
+						selectedItem="@{baremeNotation.baremeCourant}">
+						<custom-attributes
+					org.zkoss.zul.listbox.autoSort="true" />
+						<listhead>
+							<listheader label="Date de creation"
+								sortDirection="descending" sort="auto(dateCreation)" />
+							<listheader label="Nom"
+								sortDirection="ascending" sort="auto(nom)" />
+							<listheader width="55px">
+								<image id="ajouterBareme"
+									src="/images/add.png" tooltiptext="Ajouter" />
+							</listheader>
+						</listhead>
+						<listitem id="baremeListItem" self="@{each=bareme}">
+							<listcell label="@{bareme.dateCreation}" />
+							<listcell label="@{bareme.nom}" />
+							<listcell>
+								<image id="modifierBareme"
+									src="/images/update.png" tooltiptext="Modifier" />
+								<image id="supprimerBareme"
+									src="/images/delete.png" tooltiptext="Supprimer" />
+							</listcell>
+						</listitem>
+					</listbox>
+				</panelchildren>
+			</panel>
+		</div>
+
+
+<div>
+
+<include id="includeSaisieBareme" src="/_bareme_notation/SaisieBaremeNotation.zul"/>
+
+</div>
+
+
+
+	</window>
+</zk>

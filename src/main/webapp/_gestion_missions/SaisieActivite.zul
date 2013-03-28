@@ -1,0 +1,46 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="zoneSaisieActivite" mode="modal" position="center"
+		visible="@{gestionMissions.actionActivite.enCours}" width="400px"
+		title="@{gestionMissions.actionActivite}">
+
+		<grid>
+			<columns>
+				<column label="" />
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Activite"></label>
+					<combobox mold="rounded" 
+						id="saisiComboActivites"
+						model="@{gestionMissions.listeActivite}"
+						selectedItem="@{gestionMissions.missionActiviteCourant.theActivite, save-when='validerMissionActivite.onClick'}"
+						readonly="true" 
+						disabled="@{gestionMissions.actionActivite.suppression}"
+						constraint="no empty">
+
+						<comboitem self="@{each=activite}"
+							label="@{activite.nom}" />
+
+					</combobox>
+
+				</row>
+				<row>
+					<label value="Principale" />
+					<checkbox
+						checked="@{gestionMissions.missionActiviteCourant.principale, save-when='validerMissionActivite.onClick'}"
+						value="Principale" disabled="@{gestionMissions.actionActivite.suppression}" />
+				</row>
+
+			</rows>
+		</grid>
+
+
+
+		<div align="center">
+			<button id="validerMissionActivite" label="Valider" />
+			<button id="annulerMissionActivite" label="Annuler" />
+		</div>
+	</window>
+</zk>

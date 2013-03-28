@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<zk>
+    <system-config>
+        <disable-event-thread/>
+		<ui-factory-class>org.zkoss.zk.roo.ui.ComposerFactory</ui-factory-class>
+    </system-config>
+    <listener>
+        <description>ThreadLocal Synchronization Listener</description>
+        <listener-class>org.zkoss.zkplus.util.ThreadLocalListener</listener-class>
+    </listener>
+    <preference>
+            <name>ThreadLocal</name>
+            <value>
+                org.springframework.transaction.support.TransactionSynchronizationManager=resources,
+                synchronizations,currentTransactionName,currentTransactionReadOnly,actualTransactionActive;
+                org.springframework.orm.hibernate3.SessionFactoryUtils=deferredCloseHolder;
+                org.springframework.transaction.interceptor.TransactionAspectSupport=transactionInfoHolder;
+                org.springframework.web.context.request.RequestContextHolder=requestAttributesHolder,inheritableRequestAttributesHolder;
+            </value>
+    </preference>
+    
+    <library-property>
+    <name>org.zkoss.zul.Button.mold</name>
+    <value>trendy</value>
+	</library-property>
+	<library-property>
+    <name>org.zkoss.zul.Doublespinner.mold</name>
+    <value>rounded</value>
+	</library-property>
+	
+	
+	
+	
+</zk>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_nc_mairie_siale_domain_NoteCritere" modelAttribute="noteCritere" path="/notecriteres" versionField="Version" z="Ll4Sa8OTBPZ4x1MwMYyxN1t+2Lw=">
+        <field:input field="nom" id="c_nc_mairie_siale_domain_NoteCritere_nom" required="true" z="xYKPKwQjB1D2FFcSMo5pmMMnAUU="/>
+        <field:input field="ponderation" id="c_nc_mairie_siale_domain_NoteCritere_ponderation" z="DsXIG9BQX+SDe8GJbmO5FcyqbAM="/>
+        <field:select field="noteGroupe" id="c_nc_mairie_siale_domain_NoteCritere_noteGroupe" itemValue="id" items="${notegroupes}" path="/notegroupes" required="true" z="Vfq/f+YY+kEbhEgI4eLOCF0f36k="/>
+    </form:update>
+</div>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_nc_mairie_siale_domain_TypeParam" modelAttribute="typeParam" path="/typeparams" render="${empty dependencies}" z="5Gijy70FEs2r8OF+HiSytKzWQxI=">
+        <field:input field="nom" id="c_nc_mairie_siale_domain_TypeParam_nom" max="20" min="2" required="true" z="g7L1jrdEw5u2TnIAzhB5KOcMvLM="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_nc_mairie_siale_domain_TypeParam" render="${not empty dependencies}" z="C30rLyrG96NFZYJhSV05PxcqJ3U="/>
+</div>

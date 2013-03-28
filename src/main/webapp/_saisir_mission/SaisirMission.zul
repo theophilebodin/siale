@@ -1,0 +1,219 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="saisirMission" height="100%"
+		apply="nc.mairie.siale.viewmodel.SaisirMissionsModel"
+		contentStyle="overflow:auto">
+		<div>
+
+			<panel style="margin-bottom:10px" border="normal"
+				id="panelSaisie">
+				<panelchildren>
+
+					<grid>
+						<columns>
+							<column label="" width="120px" />
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Nom :" />
+								<label
+									value="@{saisirMission.missionCourant.nomEtablissement}"
+									style="font-weight:bold" />
+							</row>
+							<row>
+								<label value="Type :" />
+								<label
+									value="@{saisirMission.missionCourant.typeEtablissement}" />
+							</row>
+							<row>
+								<label value="Activité principale :" />
+								<label
+									value="@{saisirMission.missionCourant.activitePrincipale.nom}" />
+							</row>
+						</rows>
+					</grid>
+				</panelchildren>
+			</panel>
+
+	<hbox widths="60%,40%" >
+	
+				<panel title="Informations" border="normal" height="165px">
+					<panelchildren>
+
+
+
+						<grid>
+							<columns>
+								<column label="" width="120px" />
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Suite Donnée :" />
+									<combobox mold="rounded"
+										id="saisiComboSUITE_DONNEE"
+										model="@{saisirMission.listeSuiteDonnee}"
+										selectedItem="@{saisirMission.missionCourant.suiteDonnee, save-when='validerMission.onClick'}"
+										readonly="true" constraint="no empty">
+
+										<comboitem
+											self="@{each=suitedonnee}" label="@{suitedonnee.nom}" />
+
+									</combobox>
+								</row>
+								<row>
+									<label value="Observations :" />
+									<textbox
+										value="@{saisirMission.missionCourant.observation}" rows="5" constraint="no empty"
+										cols="55" />
+
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+
+				<panel title="Actions" border="normal" height="165px">
+					<panelchildren>
+
+
+						<grid height="100%">
+							<columns>
+								<column label="" width="55px" />
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Action :"></label>
+									<combobox mold="rounded"
+										id="saisiComboActions" 
+										model="@{saisirMission.listeAction}"
+										selectedItem="@{saisirMission.missionCourant.missionAction.theAction}"
+										readonly="true" 
+										constraint="no empty">
+										<comboitem self="@{each=action}"
+											label="@{action.nom}" />
+									</combobox>
+								</row>
+								<row>
+									<label value="Date :" />
+									<datebox
+										value="@{saisirMission.missionCourant.missionAction.dateAction}"
+										format="short" 
+										constraint="no empty, no future" />
+								</row>
+							</rows>
+						</grid>
+
+
+
+					</panelchildren>
+				</panel>
+
+			</hbox>
+			<hbox widths="60%,40%" >
+
+
+				<panel title="Documents" border="normal" height="164px">
+					<panelchildren>
+						<listbox rows="3" id="missionDocumentsListBox"
+							model="@{saisirMission.missionCourant.missionDocuments}"
+							selectedItem="@{saisirMission.missionDocumentCourant}"
+							emptyMessage="Pas d'éléments">
+							<listhead>
+								<listheader label="Document" />
+								<listheader label="Date" width="75px"/>
+								<listheader width="55px">
+									<image id="ajouterMissionDocument"
+										src="/images/add.png" tooltiptext="Ajouter" />
+								</listheader>
+							</listhead>
+							<listitem id="missionDocumentsListItem" self="@{each=missionDocument}">
+								<listcell
+									label="@{missionDocument.theDocument.nom}" />
+								<listcell
+									label="@{missionDocument.dateDocument, converter='org.zkoss.zkplus.databind.DateFormatConverter'}"
+									self="@{format(dd/MM/yyyy)}" />
+								<listcell>
+									<image id="modifierMissionDocument"
+										src="/images/update.png" tooltiptext="Modifier" />
+									<image id="supprimerMissionDocument"
+										src="/images/delete.png" tooltiptext="Supprimer" />
+								</listcell>
+
+							</listitem>
+						</listbox>
+						<div>
+
+
+
+							<include id="includeSaisieDocument"
+								src="/_saisir_mission/SaisieDocument.zul" />
+
+
+
+						</div>
+
+
+
+
+					</panelchildren>
+				</panel>
+
+
+				<panel title="Prélèvements" border="normal" id="panelPrelevements" height="164px">
+					<panelchildren>
+
+						<grid>
+							<columns>
+								<column label="" width="150px" />
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Nombre:" />
+									<intbox id="prelevement_nb" 
+										value="@{saisirMission.missionCourant.prelevement_nb}" constraint="no negative">
+									</intbox>
+								</row>
+								<row>
+									<label value="Satisfaisant" />
+									<intbox id="prelevement_satisfaisant"
+										value="@{saisirMission.missionCourant.prelevement_satisfaisant}" constraint="no negative">
+									</intbox>
+								</row>
+								<row>
+									<label value="Mediocre" />
+									<intbox id="prelevement_mediocre"
+										value="@{saisirMission.missionCourant.prelevement_mediocre}" constraint="no negative">
+									</intbox>
+								</row>
+								<row>
+									<label value="Non satisfaisant" />
+									<intbox id="prelevement_non_satisfaisant"
+										value="@{saisirMission.missionCourant.prelevement_non_satisfaisant}" constraint="no negative">
+									</intbox>
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+
+			</hbox>
+
+
+
+			<groupbox>
+				<div align="center">
+					<button id="validerMission" label="Valider"
+						width="80px" />
+					<button id="annulerMission" label="Annuler"
+						width="80px" />
+				</div>
+			</groupbox>
+		</div>
+
+
+	</window>
+</zk>

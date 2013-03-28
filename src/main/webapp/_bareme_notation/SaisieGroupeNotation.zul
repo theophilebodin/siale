@@ -1,0 +1,104 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+
+<window id="zoneSaisieGroupe" 
+			mode="modal"
+			position="center"
+			visible="@{baremeNotation.actionNoteGroupe.enCours}" width="600px"
+			title="@{baremeNotation.actionNoteGroupe}">
+
+
+
+
+			<grid>
+				<columns>
+					<column label="" width="100px"/>
+					<column label="" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Nom :" />
+						<textbox
+							id="noteGroupeNom"
+							value="@{baremeNotation.noteGroupeCourant.nom, save-when='validerNoteGroupe.onClick'}" 
+							constraint="no empty"/>
+					</row>
+					<row>
+						<label value="Pondération :" />
+						<doublespinner step="0.1" 
+							format="0.##" locale="en"
+							value="@{baremeNotation.noteGroupeCourant.ponderation, save-when='validerNoteGroupe.onClick' }" 
+							constraint="no negative, no empty, min 0.01 max 1.0:doit être compris entre 0,01 et 1,0"/>						
+<!-- 						<doublebox -->
+<!-- 							value="@{baremeNotation.noteGroupeCourant.ponderation, save-when='validerNoteGroupe.onClick' }"  -->
+<!-- 							constraint="no negative, no empty"/> -->
+					</row>
+				</rows>
+			</grid>
+
+
+
+			<listbox id="noteCritereListBox" rows="5" 
+				model="@{baremeNotation.listeNoteCritere}"
+				selectedItem="@{baremeNotation.noteCritereCourant}">
+
+				<custom-attributes
+					org.zkoss.zul.listbox.autoSort="true" />
+				<listhead>
+					<listheader label="Critere"
+						sortDirection="ascending" sort="auto(nom)" />
+					<listheader label="Pondération"
+						 sort="auto(ponderation)" />
+					<listheader width="55px">
+						<image id="ajouterNoteCritere"
+							src="/images/add.png" tooltiptext="Ajouter" 
+							visible="@{baremeNotation.baremeEditable }" />
+					</listheader>
+				</listhead>
+				<listitem id="noteCritereListItem" self="@{each=noteCritere}">
+					<listcell label="@{noteCritere.nom}" />
+					<listcell label="@{noteCritere.ponderation}" />
+					<listcell>
+						<image id="modifierNoteCritere"
+							src="/images/update.png" tooltiptext="Modifier" />
+						<image id="supprimerNoteCritere"
+							src="/images/delete.png" tooltiptext="Supprimer"
+							visible="@{baremeNotation.baremeEditable }" />
+					</listcell>
+				</listitem>
+				<listfoot>
+					<listfooter>
+						<label value="Total :"/>
+					</listfooter>
+					<listfooter>
+						<label id="sommePonderationCritere" value="@{baremeNotation.noteGroupeCourant.sommePonderationArrondie }" />
+					</listfooter>
+				</listfoot>
+			</listbox>
+
+  
+
+			<groupbox>
+				<div align="center">
+					<button id="validerNoteGroupe" label="Ok" visible="@{baremeNotation.baremeEditable }"
+						width="80px" />
+					<button id="annulerNoteGroupe" label="Annuler" disabled="@{(!baremeNotation.baremeEditable) }"
+						width="80px" />
+				</div>
+			</groupbox>
+
+<div>
+
+
+
+<include id="includeSaisieCritere" src="/_bareme_notation/SaisieCritereNotation.zul"/>
+
+
+
+	</div>						
+			
+
+</window>
+	
+</zk>

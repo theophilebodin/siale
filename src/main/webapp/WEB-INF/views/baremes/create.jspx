@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_nc_mairie_siale_domain_Bareme" modelAttribute="bareme" path="/baremes" render="${empty dependencies}" z="Tmrp8Olk31aMAR933zSNKUsdMmg=">
+        <field:input field="nom" id="c_nc_mairie_siale_domain_Bareme_nom" required="true" z="03bgxi3UmsCt/UhLhkF1lD5ao0k="/>
+        <field:datetime dateTimePattern="${bareme_datecreation_date_format}" field="dateCreation" id="c_nc_mairie_siale_domain_Bareme_dateCreation" required="true" z="oyHVq2+Sc2Gcck2c1WdfrYEN/0k="/>
+        <field:simple field="noteGroupes" id="c_nc_mairie_siale_domain_Bareme_noteGroupes" messageCode="entity_reference_not_managed" messageCodeAttribute="Note Groupe" z="0a49WAMWuRlPr5Ch4wMjATd22Rc="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_nc_mairie_siale_domain_Bareme" render="${not empty dependencies}" z="dEdVSEPPEUAwvvbOTgoYLbCYRCY="/>
+</div>

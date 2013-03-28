@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_nc_mairie_siale_domain_Mission" modelAttribute="mission" path="/missions" versionField="Version" z="jiR71KIv1m1jykrW2edTJb5GfHI=">
+        <field:input field="projet" id="c_nc_mairie_siale_domain_Mission_projet" z="JHptR9CNGxAd/IgS9GSzg3DXCno="/>
+        <field:input field="etablissementNonDeclare" id="c_nc_mairie_siale_domain_Mission_etablissementNonDeclare" z="sgyXY74xprJGq0dcwDgEOBV2EWI="/>
+        <field:select field="etablissement" id="c_nc_mairie_siale_domain_Mission_etablissement" itemValue="id" items="${etablissements}" path="/etablissements" z="oAY8FUFBYVQF4z7scQdMvKKXLRI="/>
+        <field:input field="prelevement_nb" id="c_nc_mairie_siale_domain_Mission_prelevement_nb" z="LbVuVYIyfAs04PoYoy0WglVGCVQ="/>
+        <field:input field="prelevement_satisfaisant" id="c_nc_mairie_siale_domain_Mission_prelevement_satisfaisant" z="+bQnKehwCrBPKB9rnllslW8cN1o="/>
+        <field:input field="prelevement_mediocre" id="c_nc_mairie_siale_domain_Mission_prelevement_mediocre" z="ycA4AFdMr3g9sHsI8pA1rg4eIIk="/>
+        <field:input field="prelevement_non_satisfaisant" id="c_nc_mairie_siale_domain_Mission_prelevement_non_satisfaisant" z="AUd0OtIipSrrEG8ik3TdOHY5dZ8="/>
+        <field:simple field="missionActivites" id="c_nc_mairie_siale_domain_Mission_missionActivites" messageCode="entity_reference_not_managed" messageCodeAttribute="Mission Activite" z="G2toTJZrWzJW1e3adJ5XhptugDU="/>
+        <field:select field="controleurs" id="c_nc_mairie_siale_domain_Mission_controleurs" itemValue="id" items="${params}" multiple="true" path="/params" z="ZTydMVj40dGSYx22lhKfFQqQxcc="/>
+        <field:select field="suiteDonnee" id="c_nc_mairie_siale_domain_Mission_suiteDonnee" itemValue="id" items="${params}" path="/params" z="XgKiw9WhkeL9lajw3BvB9iniaYM="/>
+        <field:select field="missionAction" id="c_nc_mairie_siale_domain_Mission_missionAction" itemValue="id" items="${missionactions}" path="/missionactions" z="YTV39QASLla6LR8GGYkjrlox8fU="/>
+        <field:datetime dateTimePattern="${mission_dateintervention_date_format}" field="dateIntervention" id="c_nc_mairie_siale_domain_Mission_dateIntervention" z="QxxaKzQzNdbahpeCGQSeAwxqGyA="/>
+        <field:datetime dateTimePattern="${mission_dateprevue_date_format}" field="datePrevue" id="c_nc_mairie_siale_domain_Mission_datePrevue" required="true" z="XaOgx4BL6DOGNY5Fa3PmWEhIOLA="/>
+        <field:textarea field="observation" id="c_nc_mairie_siale_domain_Mission_observation" z="nnl4P81xSJ2ajRjgbpLgZeIGMOU="/>
+        <field:checkbox field="cloturee" id="c_nc_mairie_siale_domain_Mission_cloturee" z="QMpIWR9+IerFK2DUC3KWrj0xKu0="/>
+        <field:select field="controleursSIALE" id="c_nc_mairie_siale_domain_Mission_controleursSIALE" itemValue="id" items="${controleursiales}" multiple="true" path="/controleursiales" z="ammUmrnI8cywlEhkDXVPOHtlcfM="/>
+        <field:select field="typeEtablissement" id="c_nc_mairie_siale_domain_Mission_typeEtablissement" items="${typeetablissements}" path="typeetablissements" z="i3d5ERoatjM85vloMv1G7t69DjY="/>
+        <field:datetime dateTimePattern="${mission_dureeprevuerdv_date_format}" field="dureePrevueRDV" id="c_nc_mairie_siale_domain_Mission_dureePrevueRDV" z="Cd1jfwQ1Dk0rogy87pGeKDpa2kU="/>
+        <field:simple field="missionDocuments" id="c_nc_mairie_siale_domain_Mission_missionDocuments" messageCode="entity_reference_not_managed" messageCodeAttribute="Mission Document" z="jmxrYz2Vnyu0r5pBcONZYdymG4Y="/>
+        <field:simple field="notations" id="c_nc_mairie_siale_domain_Mission_notations" messageCode="entity_reference_not_managed" messageCodeAttribute="Notation" z="jj0pd9Q+8m+6IZs29ADHctWPbv4="/>
+        <field:select field="bareme" id="c_nc_mairie_siale_domain_Mission_bareme" itemValue="id" items="${baremes}" path="/baremes" z="DQjbmPoZdXxa4Dm5S++qPdvT+rE="/>
+        <field:datetime dateTimePattern="${mission_datenotation_date_format}" field="dateNotation" id="c_nc_mairie_siale_domain_Mission_dateNotation" z="Flq0USUxYnt5RHgiKfVPJLRAbe8="/>
+    </form:update>
+</div>

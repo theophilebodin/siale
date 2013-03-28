@@ -1,0 +1,83 @@
+<zk>
+
+
+	<window id="index" width="1024px" height="100%" apply="nc.mairie.siale.viewmodel.AccueilModel" mode="overlapped" position="center,top" sizable="true">
+		<borderlayout>
+			<north size="124px">
+			
+			
+					<borderlayout>
+		        	<west size="200px"  border="none">
+		        	<div>
+		        	<hbox pack="center" align="center">	
+		        		<image src="/_accueil/logo_SIALE.GIF"/>
+		        	</hbox>
+		        	</div>
+		        	</west>
+		        	<center border="none" >
+		        	<div hflex="true">
+		        	<hbox align="center" >
+						<image id="titreImage"/>
+						<label id="titreLabel" value="Titre" style="color:#0C7A9A;font-size:30px" />
+					</hbox>
+		        	</div>
+		        	</center>
+		        	
+		        </borderlayout>
+			
+			</north>
+			<west size="200px" splittable="true" flex="true" collapsible="true" title="Menu"> 
+<div>
+
+    
+
+
+<!-- <menubar id="menuBarOld" orient="vertical">
+	<menuitem id="menuMission" label="Enquête" image="/_accueil/icon-24x24.png"/>
+
+	<menu label="Paramètres">
+		<menupopup popup="false">
+			<menuitem id="menuGenerique" label="Générique" />
+			<menuitem id="menuDroits" label="Droits" />
+			<menuitem id="menuImportVisha" label="importVisha" />
+			<menuitem id="menuBaremeNotation" label="Barême Notation" />
+		</menupopup>
+	</menu>
+	
+</menubar> -->
+
+<tabbox mold="accordion" >
+	<tabs>
+		<tab label="Missions" />
+		<tab label="Parametres" />
+	</tabs>
+	<tabpanels>
+		<tabpanel>
+		<listbox id="menuListboxMission" style="border:none"/>
+		</tabpanel>
+		<tabpanel>
+		<listbox id="menuListboxParametre" style="border:none"/>
+		</tabpanel>
+	</tabpanels>
+</tabbox>
+
+
+<!-- 	<listbox id="menuListbox" style="border:none"/> -->
+</div>
+				
+			</west>
+			<center flex="true">
+				<div id="contentDiv" >
+					
+				</div>
+			</center>
+			<south size="20px">
+				<hbox pack="center" width="100%">
+					<html><![CDATA[
+						<span style="color:#0C7A9A">© Mairie de Noumea 2013</span>
+					]]></html>
+				</hbox>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

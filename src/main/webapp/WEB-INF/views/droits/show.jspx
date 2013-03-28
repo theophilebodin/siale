@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_Droit" object="${droit}" path="/droits" z="DYcLjBya7LuTFMnRAJHIXfptsSA=">
+        <field:display field="nom" id="s_nc_mairie_siale_domain_Droit_nom" object="${droit}" z="VXmLnXmGgTo9Zt6zdKGo0Qwz1Gw="/>
+    </page:show>
+</div>

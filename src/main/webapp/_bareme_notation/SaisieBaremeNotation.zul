@@ -1,0 +1,93 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+
+		<window id="zoneSaisieBareme" 
+			mode="modal"
+			position="center"
+			visible="@{baremeNotation.actionBareme.enCours}" width="800px"
+			title="@{baremeNotation.actionBareme}">
+		
+	<div>			
+			<grid>
+		<columns>
+			<column label=""  width="120px"/>
+			<column label=""/>
+		</columns>
+		<rows>
+			<row>	
+				<label value="Nom :"/>
+				<textbox value="@{baremeNotation.baremeCourant.nom }"/>
+			</row>
+			<row>	
+				<label value="Date de création :'"/>
+				<label value="@{baremeNotation.baremeCourant.dateCreation }"/>
+			</row>
+		</rows>
+	</grid>
+			
+			
+<label value="Tant que vous n'avez pas Validé, vos modifications ne seront pas prises en compte" visible="@{baremeNotation.saisieNonSauvergardee }" style="color:red;"/>
+
+			<listbox id="noteGroupeListBox"
+				rows="10" mold="paging" pageSize="10"
+				model="@{baremeNotation.listeNoteGroupe}"
+				selectedItem="@{baremeNotation.noteGroupeCourant}">
+
+				<custom-attributes
+					org.zkoss.zul.listbox.autoSort="true" />
+				<listhead>
+					<listheader label="Groupement"
+						sortDirection="ascending" sort="auto(nom)" />
+					<listheader label="Pondération" sort="auto(ponderation)" />
+					<listheader label="nb Criteres" sort="auto(nombreCriteres)"/>
+					<listheader width="55px">
+						<image id="ajouterNoteGroupe"
+							src="/images/add.png" tooltiptext="Ajouter" 
+							visible="@{baremeNotation.baremeEditable }" />
+					</listheader>
+				</listhead>
+				<listitem id="noteGroupeListItem" self="@{each=noteGroupe}">
+					<listcell label="@{noteGroupe.nom}" />
+					<listcell label="@{noteGroupe.ponderation}" />
+					<listcell label="@{noteGroupe.nombreCriteres}" />
+					<listcell>
+						<image id="modifierNoteGroupe"
+							src="/images/update.png" tooltiptext="Modifier" />
+						<image id="supprimerNoteGroupe"
+							src="/images/delete.png" tooltiptext="Supprimer"
+							visible="@{baremeNotation.baremeEditable }" />
+					</listcell>
+				</listitem>
+				<listfoot>
+					<listfooter>
+						<label value="Total :"/>
+					</listfooter>
+					<listfooter>
+						<label id="sommePonderationGroupe" value="@{baremeNotation.baremeCourant.sommePonderationArrondie }"/>
+					</listfooter>
+				</listfoot>
+			</listbox>
+			<groupbox>
+				<div align="center">
+					<label value="Non modifiable" if="@{! baremeNotation.baremeEditable }"/>
+					<button id="validerBareme" label="Valider" visible="@{baremeNotation.baremeEditable }"
+						width="80px" />
+					<button id="annulerBareme" label="Annuler"
+						width="80px" />
+				</div>
+			</groupbox>
+
+</div>
+		<div>
+
+
+<include id="includeSaisieGroupe" src="/_bareme_notation/SaisieGroupeNotation.zul"/>
+
+
+
+		</div>
+		
+		
+	</window>
+</zk>

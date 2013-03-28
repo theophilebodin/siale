@@ -1,0 +1,73 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+
+
+<window id="main" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.GestionParametresModel"
+	contentStyle="overflow:auto">
+
+Paramètre : 
+
+<combobox mold="rounded" id="typeParamlb" model="@{mainCtrl.listeTypeParam}" selectedItem="@{mainCtrl.typeParamCourant}" constraint="no empty" readonly="true">
+<comboitem self="@{each=typeParamCombo}" label="@{typeParamCombo.nom}">
+</comboitem>
+</combobox>
+
+
+
+<!-- <listbox id="typeParamlb" mold="select" rows="1" model="@{mainCtrl.listeTypeParam}" selectedItem="@{mainCtrl.typeParamCourant}"> -->
+<!-- <custom-attributes org.zkoss.zul.listbox.autoSort="true"/> -->
+<!-- <listhead> -->
+<!-- <listheader sortDirection="ascending" sort="auto(nom)" /> -->
+<!-- </listhead> -->
+<!-- <listitem self="@{each=typeParamCombo}"> -->
+<!-- 			<listcell label="@{typeParamCombo.nom}" /> -->
+<!-- 		</listitem> -->
+<!-- </listbox> -->
+
+
+
+
+<!-- nom : <label value="@{mainCtrl.typeParamCourant.nom}" /> -->
+
+
+
+
+<listbox id="paramlb" rows="10" mold="paging" pageSize="10"
+		model="@{mainCtrl.listeParam}"
+		selectedItem="@{mainCtrl.paramCourant}" >
+		 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>
+		<listhead>
+			<listheader label="Nom" sortDirection="ascending" sort="auto(nom)"/>
+			<listheader label="Actif" sort="auto"/>
+		</listhead>
+		<listitem self="@{each=param}">
+			<listcell label="@{param.nom}" />
+			<listcell label="@{param.actif, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+		</listitem>
+	</listbox>
+	<grid>
+		<columns sizable="true">
+			<column width="100px"/>
+			<column/>
+		</columns>
+		<rows>
+				<row>
+				Nom : <textbox id="paramtb" constraint="no empty" value="@{mainCtrl.paramCourant.nom,save-when=none}" cols="50" />
+			</row>
+				<row>
+				Actif : <checkbox id="paramActicCheckBox" checked="@{mainCtrl.paramCourant.actif,save-when=none}"/>  
+				
+			</row>
+		</rows>
+	</grid>
+
+	<hbox pack="center" width="100%">
+		<div>
+			<button id="add" label="Add" />
+			<button id="update" label="Update" />
+			<button id="delete" label="Delete" />
+		</div>
+	</hbox>
+	
+ 
+</window>

@@ -1,0 +1,65 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+
+
+<window id="main" height="100%" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('nc.mairie.siale.viewmodel.problemMVVM.GestionParametresModelMVVM')" >
+
+Paramètre : 
+
+<combobox mold="rounded" id="typeParamListBox" constraint="no empty" readonly="true" 
+	model="@bind(vm.listeTypeParam)"
+	selectedItem="@bind(vm.typeParamCourant)"
+	onSelect="@command('typeParamSelected')">
+	<template name="model">
+		<comboitem label="@bind(each.nom)">
+		</comboitem>
+	</template>
+</combobox>
+
+
+
+<listbox id="paramListBox" rows="10" mold="paging" pageSize="10"
+	model="@load(vm.listeParam)"
+	selectedItem="@bind(vm.paramCourant)"
+	emptyMessage="Pas de paramètres">
+		 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>
+		<listhead>
+			<listheader label="Nom" sortDirection="ascending" sort="auto(nom)"/>
+			<listheader label="Actif" sort="auto"/>
+		</listhead>
+		<template name="model" var="p">
+			<listitem>
+				<listcell label="@load(p.nom)"/>
+<!-- 				<listcell label="@load(each.actif) @converter('nc.mairie.siale.technique.BooleanConverterMVVM', format='dd/MM/yyyy')"/> -->
+				<listcell label="@load(p.actif ? 'Oui' : 'Non')" />
+				
+			</listitem>
+		</template>
+	</listbox>
+		<grid  form="@id('fx') @load(vm.paramCourant) @save(vm.paramCourant, before='updatePressed') @save(vm.nouveauParam, before='addPressed')">
+			<columns sizable="true">
+				<column width="100px"/>
+				<column/>
+			</columns>
+				<rows>
+					<row>
+					Nom : <textbox id="paramtb" constraint="no empty" value="@bind(fx.nom)" cols="50" />
+					</row>
+					<row>
+					Actif : <checkbox id="paramActicCheckBox" checked="@bind(fx.actif)" />
+					
+					</row>
+				</rows>
+		</grid>
+	
+
+	<hbox pack="center" width="100%">
+		<div>
+			<button id="add" label="Add" onClick="@command('addPressed')"/>
+			<button id="update" label="Update" onClick="@command('updatePressed')"/>
+			<button id="delete" label="Delete" onClick="@command('deletePressed')" />
+		</div>
+	</hbox>
+	
+ 
+</window>
+
