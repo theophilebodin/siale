@@ -1,4 +1,5 @@
 <?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
 
 
 <window id="main" height="100%" border="normal" 
