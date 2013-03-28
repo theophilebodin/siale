@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import nc.mairie.siale.technique.RisqueEtablissement;
 import nc.mairie.siale.technique.TypeEtablissement;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -92,6 +94,10 @@ public class Mission {
     @DateTimeFormat(style = "M-")
     private Date dateNotation;
 
+    private RisqueEtablissement risqueEtablissement;
+    
+    private Double noteEtablissement;
+    
     public void setTypeEtablissement(TypeEtablissement typeEtablissement) {
         this.typeEtablissement = typeEtablissement;
         switch(typeEtablissement) {

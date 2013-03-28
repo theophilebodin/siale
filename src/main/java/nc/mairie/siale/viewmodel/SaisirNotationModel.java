@@ -9,11 +9,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import nc.mairie.siale.domain.Bareme;
 import nc.mairie.siale.domain.Mission;
@@ -23,11 +21,11 @@ import nc.mairie.siale.domain.NoteGroupe;
 
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.Nombre;
+import nc.mairie.siale.technique.RisqueEtablissement;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -60,73 +58,14 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 	List<NoteGroupeNotation> listeNoteGroupeNotation;
 	
 	
-    Person person = new Person();
-    
-	public Person getPerson() {
-		System.out.println("dans getPerson");
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	
-	
-	
-    public class Person {
-    	int firstName;
-    	String lastName;
-    	
-    	String fullName;
-    	
-    	public void setFirstName (int firstName) {
-    		this.firstName = firstName; 
-    		
-    	}
-    	
-    	public int getFirstName() {
-    		return firstName;
-    		
-    	}
-    	public void setLastName (String lastName) {
-    		this.lastName = lastName; 
-    	}
-    	
-    	public String getLastName() {
-    		return lastName;
-    	}
-    	
-    	public void setFullName (String fullName) {
-    		this.fullName = fullName; 
-    	}
-    	
-    	public String getFullName() {
-    		return firstName + " " +lastName;
-    	}
-    }
-    
-    
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	private double noteGlobaleCalculee=0;
+	private RisqueEtablissement niveauEtablissementCalcule;
+			
 		
 		
 	public static class NoteGroupeNotation {
 		private NoteGroupe noteGroupe;
 		private List<Notation> notations;
-		private int espion=0;
 		
 		public NoteGroupe getNoteGroupe() {
 			return noteGroupe;
@@ -301,10 +240,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 					}
 		});
 		
-		
-		person.setFirstName(100);
-        person.setLastName("Bush");
-		
 //		//test
 //		for (NoteGroupeNotation noteGroupeNotation : listeNoteGroupeNotation) {
 //			System.out.println(noteGroupeNotation.getNoteGroupe().getNom());
@@ -356,15 +291,11 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(saisirNotation);
 		
-		//TODO controle des saisies
-		
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();
 		
-		//TODO stockage du risquecalculé et note calculé dans mission ?
-		
-		//missionCourant.setMissionAction(null);
-		
+		missionCourant.setNoteEtablissement(noteGlobaleCalculee);
+		missionCourant.setRisqueEtablissement(niveauEtablissementCalcule);
 		
 		setMissionCourant(missionCourant.merge());
 		
@@ -372,7 +303,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 			
 	}
 
-	private double noteGlobaleCalculee=0;
 	
 	public double getCalculNoteGlobale () {
 		//TODO à calculer
@@ -389,16 +319,15 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		return noteGlobaleCalculee;
 	}
 		
-	private String niveauEtablissementCalcule;
 	
-	public String calculNiveauEtablissement() {
+	public RisqueEtablissement calculNiveauEtablissement() {
 		if (getMissionCourant().getSuiteDonnee().getNom().equals("FERMETURE")) {
-			niveauEtablissementCalcule = "MAJEUR";
+			niveauEtablissementCalcule = RisqueEtablissement.MAJEUR;
 		}
-		else if (noteGlobaleCalculee < 1.51) niveauEtablissementCalcule = "FAIBLE";
-		else if (noteGlobaleCalculee < 2.51) niveauEtablissementCalcule = "MODERE";
-		else if (noteGlobaleCalculee < 3.51) niveauEtablissementCalcule = "ELEVE";
-		else niveauEtablissementCalcule = "TRES ELEVE";
+		else if (noteGlobaleCalculee < 1.51) niveauEtablissementCalcule = RisqueEtablissement.FAIBLE;
+		else if (noteGlobaleCalculee < 2.51) niveauEtablissementCalcule = RisqueEtablissement.MODERE;
+		else if (noteGlobaleCalculee < 3.51) niveauEtablissementCalcule = RisqueEtablissement.ELEVE;
+		else niveauEtablissementCalcule = RisqueEtablissement.TRES_ELEVE;
 		
 		return niveauEtablissementCalcule;
 		  

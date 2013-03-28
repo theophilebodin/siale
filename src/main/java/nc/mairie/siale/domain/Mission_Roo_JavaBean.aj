@@ -14,6 +14,7 @@ import nc.mairie.siale.domain.MissionActivite;
 import nc.mairie.siale.domain.MissionDocument;
 import nc.mairie.siale.domain.Notation;
 import nc.mairie.siale.domain.Param;
+import nc.mairie.siale.technique.RisqueEtablissement;
 
 privileged aspect Mission_Roo_JavaBean {
     
@@ -183,6 +184,22 @@ privileged aspect Mission_Roo_JavaBean {
     
     public void Mission.setDateNotation(Date dateNotation) {
         this.dateNotation = dateNotation;
+    }
+    
+    public RisqueEtablissement Mission.getRisqueEtablissement() {
+        return this.risqueEtablissement;
+    }
+    
+    public void Mission.setRisqueEtablissement(RisqueEtablissement risqueEtablissement) {
+        this.risqueEtablissement = risqueEtablissement;
+    }
+    
+    public Double Mission.getNoteEtablissement() {
+        return this.noteEtablissement;
+    }
+    
+    public void Mission.setNoteEtablissement(Double noteEtablissement) {
+        this.noteEtablissement = noteEtablissement;
     }
     
 }

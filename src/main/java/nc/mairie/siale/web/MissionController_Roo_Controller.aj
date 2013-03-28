@@ -16,6 +16,7 @@ import nc.mairie.siale.domain.MissionActivite;
 import nc.mairie.siale.domain.MissionDocument;
 import nc.mairie.siale.domain.Notation;
 import nc.mairie.siale.domain.Param;
+import nc.mairie.siale.technique.RisqueEtablissement;
 import nc.mairie.siale.technique.TypeEtablissement;
 import nc.mairie.siale.web.MissionController;
 import org.joda.time.format.DateTimeFormat;
@@ -116,6 +117,7 @@ privileged aspect MissionController_Roo_Controller {
         uiModel.addAttribute("missiondocuments", MissionDocument.findAllMissionDocuments());
         uiModel.addAttribute("notations", Notation.findAllNotations());
         uiModel.addAttribute("params", Param.findAllParams());
+        uiModel.addAttribute("risqueetablissements", Arrays.asList(RisqueEtablissement.values()));
         uiModel.addAttribute("typeetablissements", Arrays.asList(TypeEtablissement.values()));
     }
     

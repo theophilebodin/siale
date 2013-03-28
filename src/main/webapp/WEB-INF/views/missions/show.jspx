@@ -22,5 +22,7 @@
         <field:display date="true" dateTimePattern="${mission_dureeprevuerdv_date_format}" field="dureePrevueRDV" id="s_nc_mairie_siale_domain_Mission_dureePrevueRDV" object="${mission}" z="SFpvN7jGdbOXQ6EoqSNJPL8Ua88="/>
         <field:display field="bareme" id="s_nc_mairie_siale_domain_Mission_bareme" object="${mission}" z="IH/QWaL17to5wM9rXEKrdJADLB8="/>
         <field:display date="true" dateTimePattern="${mission_datenotation_date_format}" field="dateNotation" id="s_nc_mairie_siale_domain_Mission_dateNotation" object="${mission}" z="VVADwCN48ErZyJCDJsDrEjwt6Pk="/>
+        <field:display field="risqueEtablissement" id="s_nc_mairie_siale_domain_Mission_risqueEtablissement" object="${mission}" z="I7Y4GlKDoVUGmI74tKG5iTe5jbU="/>
+        <field:display field="noteEtablissement" id="s_nc_mairie_siale_domain_Mission_noteEtablissement" object="${mission}" z="fPSjVDBSzo309NGMZiLfcrlMKN0="/>
     </page:show>
 </div>

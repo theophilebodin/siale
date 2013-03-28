@@ -25,5 +25,7 @@
         <field:simple field="notations" id="c_nc_mairie_siale_domain_Mission_notations" messageCode="entity_reference_not_managed" messageCodeAttribute="Notation" z="jj0pd9Q+8m+6IZs29ADHctWPbv4="/>
         <field:select field="bareme" id="c_nc_mairie_siale_domain_Mission_bareme" itemValue="id" items="${baremes}" path="/baremes" z="DQjbmPoZdXxa4Dm5S++qPdvT+rE="/>
         <field:datetime dateTimePattern="${mission_datenotation_date_format}" field="dateNotation" id="c_nc_mairie_siale_domain_Mission_dateNotation" z="Flq0USUxYnt5RHgiKfVPJLRAbe8="/>
+        <field:select field="risqueEtablissement" id="c_nc_mairie_siale_domain_Mission_risqueEtablissement" items="${risqueetablissements}" path="risqueetablissements" z="FYhTn6dkuX12E7TU46dCQrK2ZDo="/>
+        <field:input field="noteEtablissement" id="c_nc_mairie_siale_domain_Mission_noteEtablissement" validationMessageCode="field_invalid_number" z="RaimL1F4FHx9DT0iHpSp0IitDLU="/>
     </form:update>
 </div>

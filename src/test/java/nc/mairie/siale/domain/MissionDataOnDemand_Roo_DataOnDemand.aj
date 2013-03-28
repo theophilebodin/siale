@@ -19,6 +19,7 @@ import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.domain.MissionActionDataOnDemand;
 import nc.mairie.siale.domain.MissionDataOnDemand;
 import nc.mairie.siale.domain.ParamDataOnDemand;
+import nc.mairie.siale.technique.RisqueEtablissement;
 import nc.mairie.siale.technique.TypeEtablissement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,12 +52,14 @@ privileged aspect MissionDataOnDemand_Roo_DataOnDemand {
         setDatePrevue(obj, index);
         setDureePrevueRDV(obj, index);
         setEtablissementNonDeclare(obj, index);
+        setNoteEtablissement(obj, index);
         setObservation(obj, index);
         setPrelevement_mediocre(obj, index);
         setPrelevement_nb(obj, index);
         setPrelevement_non_satisfaisant(obj, index);
         setPrelevement_satisfaisant(obj, index);
         setProjet(obj, index);
+        setRisqueEtablissement(obj, index);
         setTypeEtablissement(obj, index);
         return obj;
     }
@@ -91,6 +94,11 @@ privileged aspect MissionDataOnDemand_Roo_DataOnDemand {
         obj.setEtablissementNonDeclare(etablissementNonDeclare);
     }
     
+    public void MissionDataOnDemand.setNoteEtablissement(Mission obj, int index) {
+        Double noteEtablissement = new Integer(index).doubleValue();
+        obj.setNoteEtablissement(noteEtablissement);
+    }
+    
     public void MissionDataOnDemand.setObservation(Mission obj, int index) {
         String observation = "observation_" + index;
         if (observation.length() > 1000) {
@@ -122,6 +130,11 @@ privileged aspect MissionDataOnDemand_Roo_DataOnDemand {
     public void MissionDataOnDemand.setProjet(Mission obj, int index) {
         String projet = "projet_" + index;
         obj.setProjet(projet);
+    }
+    
+    public void MissionDataOnDemand.setRisqueEtablissement(Mission obj, int index) {
+        RisqueEtablissement risqueEtablissement = null;
+        obj.setRisqueEtablissement(risqueEtablissement);
     }
     
     public void MissionDataOnDemand.setTypeEtablissement(Mission obj, int index) {
