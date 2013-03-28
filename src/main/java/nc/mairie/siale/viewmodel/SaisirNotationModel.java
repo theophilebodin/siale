@@ -30,6 +30,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Window;
 
 
@@ -57,6 +58,8 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 	
 	List<NoteGroupeNotation> listeNoteGroupeNotation;
 	
+	@Wire
+	Combobox baremeListBox;
 	
 	private double noteGlobaleCalculee=0;
 	private RisqueEtablissement niveauEtablissementCalcule;
@@ -82,7 +85,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		
 		//Calcule la moyenne pondérés des notes saisies pour le groupe
 		public double getCalculeNoteGroupe() {
-			//TODO à calculer
 			double total = 0;
 			double diviseur = 0;
 			for (Notation notation : notations) {
@@ -104,7 +106,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 
 				@Override
 				public int compare(Notation o1, Notation o2) {
-					// TODO Auto-generated method stub
 					return o1.getNoteCritere().getNom().compareTo(o2.getNoteCritere().getNom());
 				}
 				
@@ -150,54 +151,25 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		
 		listeBareme = Bareme.findAllBaremes();
 		
-		//TODO les listes
-		
-//		Comparator<Param> comparator = new Comparator<Param>() {
-//			@Override
-//			public int compare(Param o1, Param o2) {
-//				return o1.getNom().compareTo(o2.getNom());
-//			}
-//		};
-//		
-//		listeSuiteDonnee= Param.findParamsActifsByNomDuTypeParam("SUITE_DONNEE").getResultList();
-//		Collections.sort(listeSuiteDonnee,comparator);
-//		
-//		listeAction = Param.findParamsActifsByNomDuTypeParam("ACTION").getResultList();
-//		Collections.sort(listeAction,comparator);
-//		
-//		listeDocument = Param.findParamsActifsByNomDuTypeParam("DOCUMENT").getResultList();
-//		Collections.sort(listeDocument,comparator);
+		Collections.sort(listeBareme, new Comparator<Bareme>() {
+
+			@Override
+			public int compare(Bareme o1, Bareme o2) {
+				return -1 * o1.getDateCreation().compareTo(o2.getDateCreation());
+			}
+		});
 		
 	}
 	
 	
 
-
-	
-	
-	@Override
-	public void doAfterCompose(Component comp) throws Exception {
-		super.doAfterCompose(comp);
-	
-		comp.setAttribute(comp.getId(), this, true);
-	
-		final Execution execution = Executions.getCurrent();
-		Long id = (Long)execution.getArg().get("idMission");
+	public void initialiseNotations() {
 		
-		setMissionCourant(Mission.findMission(id));
-
-		//Si la date de notation n'est pas renseignée, on le fait
-		if (missionCourant.getDateNotation() == null) {
-			missionCourant.setDateNotation(new Date());
+		//si le bareme change, RAZ des notations
+		if (baremeCourant.getId()!=missionCourant.getBareme().getId()) {
+			missionCourant.getNotations().clear();
+			missionCourant.setBareme(baremeCourant);
 		}
-		
-		//TODO virer ça en dur
-		//TODO virer ça en dur
-		if (missionCourant.getBareme() == null) {
-			missionCourant.setBareme(Bareme.findBareme(new Long(330)));
-		}
-		
-		setBaremeCourant(missionCourant.getBareme());
 		
 		//si pas de notations, on les génère
 		if (missionCourant.getNotations().size() ==0) {
@@ -235,10 +207,41 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 					@Override
 					public int compare(NoteGroupeNotation o1,
 							NoteGroupeNotation o2) {
-						// TODO Auto-generated method stub
 						return o1.getNoteGroupe().getNom().compareTo(o2.getNoteGroupe().getNom());
 					}
 		});
+	}
+	
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+	
+		comp.setAttribute(comp.getId(), this, true);
+	
+		final Execution execution = Executions.getCurrent();
+		Long id = (Long)execution.getArg().get("idMission");
+		
+		setMissionCourant(Mission.findMission(id));
+
+		//Initialisetion des listes 
+		initialiseAllListes();
+		
+		//Si la date de notation n'est pas renseignée, on le fait
+		if (missionCourant.getDateNotation() == null) {
+			missionCourant.setDateNotation(new Date());
+		}
+	
+		
+		//Si le bareme n'est pas défini, on prend le plus récent
+		if (missionCourant.getBareme() == null) {
+			missionCourant.setBareme(listeBareme.get(0));
+		}
+		
+		setBaremeCourant(missionCourant.getBareme());
+		
+		initialiseNotations();
+
 		
 //		//test
 //		for (NoteGroupeNotation noteGroupeNotation : listeNoteGroupeNotation) {
@@ -249,12 +252,15 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 //			
 //		}
 		
-		//Initialisetion des listes 
-		initialiseAllListes();
-		
 		binder = new AnnotateDataBinder(comp);
 		binder.loadAll();
 
+	}
+	
+	@Listen("onSelect = #baremeListBox")
+	public void onSelect$baremeListBox() {
+		initialiseNotations();
+		binder.loadAll();
 	}
 
 	public void rappelGestionMission() {
@@ -305,7 +311,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 
 	
 	public double getCalculNoteGlobale () {
-		//TODO à calculer
 		double total = 0;
 		double diviseur = 0;
 		for (NoteGroupeNotation noteGroupeNotation : listeNoteGroupeNotation) {
@@ -332,4 +337,6 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		return niveauEtablissementCalcule;
 		  
 	}
+	
+
 }

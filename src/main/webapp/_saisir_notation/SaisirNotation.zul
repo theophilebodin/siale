@@ -46,6 +46,22 @@
 								style="font-weight:bold"/>
 								
 							</row>
+							<row>
+								<label value="Bareme :" />
+									<combobox
+										 mold="rounded"
+										id="baremeListBox"
+										model="@{saisirNotation.listeBareme}"
+										selectedItem="@{saisirNotation.baremeCourant}"
+										readonly="true" constraint="no empty">
+
+										<comboitem
+											self="@{each=bareme}" label="@{bareme.nom}" />
+
+									</combobox>
+								<label value="@{saisirNotation.baremeCourant.nom}"/>
+								<label value=""/>
+							</row>
 						</rows>
 					</grid>
 				</panelchildren>
