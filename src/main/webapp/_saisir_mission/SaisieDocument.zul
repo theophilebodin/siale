@@ -1,5 +1,5 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
 <zk>
 	<window id="zoneSaisieDocument" mode="modal" position="center"
 		visible="@{saisirMission.actionDocument.enCours}" width="400px"
