@@ -167,7 +167,8 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	}
 	
 	
-	@Listen("onClick = #annulerMission")
+	@Listen("onClick = #annulerMission;" +
+			"onCancel= #saisirMission")
 	public void onClick$annulerMission() {
 	
 		rappelGestionMission();
@@ -233,7 +234,8 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		binder.loadComponent(zoneSaisieDocument);
 	}
 
-	@Listen("onClick = #includeSaisieDocument #zoneSaisieDocument #annulerMissionDocument")
+	@Listen("onClick = #includeSaisieDocument #zoneSaisieDocument #annulerMissionDocument;" +
+			"onCancel= #includeSaisieDocument #zoneSaisieDocument")
 	public void onClick$annulerMissionDocument() {
 
 		setActionDocument(Action.AUCUNE);

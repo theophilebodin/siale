@@ -264,7 +264,8 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 	}
 	
 
-	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #annulerBareme")
+	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #annulerBareme;" +
+			"onCancel= #includeSaisieBareme #zoneSaisieBareme")
 	public void onClick$annulerBareme() {
 		if (getBaremeCourant() != null && getBaremeCourant().getId() != null ){
 			setBaremeCourant(Bareme.findBareme(getBaremeCourant().getId()));
@@ -359,7 +360,8 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		
 	}
 
-	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe #annulerNoteGroupe")
+	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe #annulerNoteGroupe;" +
+			"onCancel= #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe")
 	public void onClick$annulerNoteGroupe() throws Exception {
 		
 		if (actionNoteGroupe != Action.AJOUT) {
@@ -457,7 +459,8 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		binder.loadComponent(zoneSaisieCritere);
 	}
 
-	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe #includeSaisieCritere #zoneSaisieCritere #annulerNoteCritere")
+	@Listen("onClick = #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe #includeSaisieCritere #zoneSaisieCritere #annulerNoteCritere;" +
+			"onCancel= #includeSaisieBareme #zoneSaisieBareme #includeSaisieGroupe #zoneSaisieGroupe #includeSaisieCritere #zoneSaisieCritere")
 	public void onClick$annulerNoteCritere() {
 	
 		if (actionNoteCritere != Action.AJOUT) {

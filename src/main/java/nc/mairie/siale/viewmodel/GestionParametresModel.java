@@ -228,7 +228,8 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 
 	}
 
-	@Listen("onClick =  #includeSaisieParametre #zoneSaisieParametre #annulerParametre")
+	@Listen("onClick = #includeSaisieParametre #zoneSaisieParametre #annulerParametre;" +
+			"onCancel= #includeSaisieParametre #zoneSaisieParametre")
 	public void onClick$annulerParametre() {
 
 		if (actionParametre != Action.AJOUT) {

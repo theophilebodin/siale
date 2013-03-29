@@ -275,7 +275,8 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 	}
 	
 	
-	@Listen("onClick = #annulerNotation")
+	@Listen("onClick = #annulerNotation;" +
+			"onCancel= #saisirNotation")
 	public void onClick$annulerNotation() {
 	
 //		//test

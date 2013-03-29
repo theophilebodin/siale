@@ -353,7 +353,8 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 
 	}
 
-	@Listen("onClick = #annulerMission")
+	@Listen("onClick = #annulerMission;" +
+			"onCancel= #gestionMissions")
 	public void onClick$annulerMission() {
 		if (getMissionCourant() != null && getMissionCourant().getId() != null ){
 			setMissionCourant(Mission.findMission(getMissionCourant().getId()));
@@ -704,7 +705,8 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		binder.loadComponent(zoneSaisieActivite);
 	}
 
-	@Listen("onClick = #includeSaisieActivite #zoneSaisieActivite #annulerMissionActivite")
+	@Listen("onClick = #includeSaisieActivite #zoneSaisieActivite #annulerMissionActivite;" +
+			"onCancel= #includeSaisieActivite #zoneSaisieActivite")
 	public void onClick$annulerMissionActivite() {
 
 		if (actionActivite != Action.AJOUT) {
@@ -842,7 +844,8 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		binder.loadComponent(zoneSaisieControleur);
 	}
 
-	@Listen("onClick = #includeSaisieControleur #zoneSaisieControleur #annulerControleur")
+	@Listen("onClick = #includeSaisieControleur #zoneSaisieControleur #annulerControleur;" +
+			"onCancel= #includeSaisieControleur #zoneSaisieControleur")
 	public void onClick$annulerControleur() {
 		setActionControleur(Action.AUCUNE);
 		
