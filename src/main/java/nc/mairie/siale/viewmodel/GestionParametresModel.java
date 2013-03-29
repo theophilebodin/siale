@@ -206,10 +206,15 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 						@Override
 						public void onEvent(Event e) throws Exception {
 			                if(Messagebox.ON_OK.equals(e.getName())){
-			                	//OK est sélectionné donc on supprime
+			        			//SGBD
+			                	try {
+			        				paramCourant.remove();
+			        			} catch (Exception excp) {
+			        				alert("Suppresson impossible car le paramètre est utilisé par des missions");
+			        				return;
+			        			}
+			                	//VIEW
 			        			listeParam.remove(paramCourant);
-			            		paramCourant.remove();
-			        			
 			        			actionParametre = Action.AUCUNE;
 			        			binder.loadAll();
 			                }else if(Messagebox.ON_CANCEL.equals(e.getName())){
