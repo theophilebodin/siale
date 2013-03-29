@@ -9,15 +9,23 @@ import java.util.List;
 
 import nc.mairie.siale.domain.Param;
 import nc.mairie.siale.domain.TypeParam;
+import nc.mairie.siale.technique.Action;
+import nc.mairie.siale.technique.ControleSaisie;
+import nc.mairie.siale.technique.CurrentUser;
 
-import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.WrongValueException;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 
 
@@ -25,7 +33,7 @@ import org.zkoss.zul.Textbox;
  * @author boulu72
  *
  */
-public class GestionParametresModel extends GenericForwardComposer<Component> {
+public class GestionParametresModel extends SelectorComposer<Component> {
 
 
 	/**
@@ -44,7 +52,39 @@ public class GestionParametresModel extends GenericForwardComposer<Component> {
 	
 	List<Param> listeParam;
 	Param paramCourant;
+	Param paramCourantSAV;
 	
+	Action actionParametre;
+	
+	@Wire
+	Include includeSaisieParametre;
+	
+	@Wire("#includeSaisieParametre #zoneSaisieParametre")
+	Window zoneSaisieParametre;
+	
+	boolean parametreEditable = false;
+	
+	
+	public boolean isParametreEditable() {
+		return parametreEditable;
+	}
+
+
+	public void setParametreEditable(boolean parametreEditable) {
+		this.parametreEditable = parametreEditable;
+	}
+
+
+	public Action getActionParametre() {
+		return actionParametre;
+	}
+
+
+	public void setActionParametre(Action actionParametre) {
+		this.actionParametre = actionParametre;
+	}
+
+
 	public Param getParamCourant() {
 		return paramCourant;
 	}
@@ -91,7 +131,7 @@ public class GestionParametresModel extends GenericForwardComposer<Component> {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 	
-		comp.setAttribute(comp.getId() + "Ctrl", this, true);
+		comp.setAttribute(comp.getId(), this, true);
 		
 		listeTypeParam = TypeParam.findAllTypeParams();
 		Collections.sort(listeTypeParam, new Comparator<TypeParam>() {
@@ -102,92 +142,222 @@ public class GestionParametresModel extends GenericForwardComposer<Component> {
 			}
 		});
 
-		binder = new AnnotateDataBinder(comp);
-		binder.loadAll();
-
-	}
-
-	
-	public void onClick$update(){
+		//Si admin alord parameditable
+		setParametreEditable(CurrentUser.isAdmin());
 		
-		
-		if (paramCourant == null) {
-			alert("Vous devez d'abotrd sélectionner une ligne");
-			return;
+		if (!isParametreEditable()) {
+			alert("Vous n'êtes pas administrateur.\nVous ne pouvez que consulter les paramètres");
 		}
 		
-		paramCourant.setNom(getParamCourantNom());
-		paramCourant.setActif(getParamCourantActif());
-		
-		
-		//mise à jour
-		int index = listeParam.indexOf(paramCourant);
-		paramCourant = paramCourant.merge();
-		listeParam.set(index, paramCourant);
-
-
+		binder = new AnnotateDataBinder(comp);
 		binder.loadAll();
-				
+		
+
+
 	}
 	
-	public void onClick$add() {
+
+	@Listen("onClick = #ajouterParametre")
+	public void onClick$ajouterParametre() {
 		
 		if (getTypeParamCourant() == null) {
 			alert("Un type de paramètre doit être sélectionné");
 			return;
 		}
 		
+		actionParametre = Action.AJOUT;
+		
+		Param param = new Param();
+		param.setTypeParam(getTypeParamCourant());
+		param.setActif(true);
+		setParamCourant(param);
+		binder.loadComponent(zoneSaisieParametre);
+	}
+	
+	@Listen("onClick = #modifierParametre; onDoubleClick = #parametreListItem")
+	public void onClick$modifierParametre() {
+		//Si on a doublecliqué et pas éditable
+		if (!isParametreEditable()) return;
+		try {
+			paramCourantSAV = paramCourant.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		
+		actionParametre=  isParametreEditable() ?  Action.MODIFICATION : Action.CONSULTATION ;
+		binder.loadComponent(zoneSaisieParametre);
+	}
+
+	@Listen("onClick =  #supprimerParametre")
+	public void onClick$supprimerParametre() {
+		//TODO rg de suppression
+		
+		Messagebox.show("Confirmez-vous la suppression ?",
+			    "Question", Messagebox.OK | Messagebox.CANCEL,
+			    Messagebox.QUESTION,
+			        new EventListener<Event>() {
+						
+						@Override
+						public void onEvent(Event e) throws Exception {
+			                if(Messagebox.ON_OK.equals(e.getName())){
+			                	//OK est sélectionné donc on supprime
+			        			listeParam.remove(paramCourant);
+			            		paramCourant.remove();
+			        			
+			        			actionParametre = Action.AUCUNE;
+			        			binder.loadAll();
+			                }else if(Messagebox.ON_CANCEL.equals(e.getName())){
+			                    //Cancel is clicked
+			                	return;
+			                }
+			            }
+			
+			        }
+			    );
+
+	}
+
+	@Listen("onClick =  #includeSaisieParametre #zoneSaisieParametre #annulerParametre")
+	public void onClick$annulerParametre() {
+
+		if (actionParametre != Action.AJOUT) {
+			listeParam.remove(paramCourant);
+			listeParam.add(paramCourantSAV);
+			setParamCourant(paramCourantSAV);
+		}
+		
+		actionParametre = Action.AUCUNE;
+		binder.loadAll();
+	}
+	
+	@Listen("onClick = #includeSaisieParametre #zoneSaisieParametre #validerParametre")
+	public void onClick$validerParametre() {
+		
+		//On vérifie l'arborescence des zones de saisie
+		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisieParametre);
+		
+		
 		//On vérifie qu'il n'existe pas déjà
-		List<Param> listeParamByName = Param.findParamsByNomLike(getParamCourantNom()).getResultList();
-		for (Param param : listeParamByName) {
-			//si le même type param alors erreur
-			if (param.getTypeParam().getId().equals(getTypeParamCourant().getId())) {
-				alert("Ce nom existe déjà pour ce type de paramêtre");
-				return;
+		for (Param param : listeParam) {
+			if (param != getParamCourant() && param.getNom().equals(getParamCourant().getNom())) {
+				controleSaisie.ajouteErreur(zoneSaisieParametre.getFellow("paramtb"), 
+						"Ce nom existe déjà pour ce type de paramêtre");
+				break;
 			}
 		}
 		
+		//Si erreurs, on les met et on ne va pas plus loin
+		controleSaisie.afficheErreursSilYEnA();
 		
-		Param param = new Param();
-		param.setNom(getParamCourantNom());
-		param.setTypeParam(getTypeParamCourant());
-		param.setActif(getParamCourantActif());
+		switch (actionParametre) {
+		case AJOUT:
+			
+			
 		
-		param.persist();
-		
-		listeParam.add(param);
-		paramCourant = param;
-		
-		binder.loadAll();
-		
-	}
-	
-	public void onClick$delete() {
-		
-	
-		if (paramCourant == null) {
-			alert("Rien de sélectionné");
-			return;
+			setParamCourant(paramCourant.merge());
+			
+			listeParam.add(paramCourant);
+//			
+//			binder.loadAll();
+			break;
+		case MODIFICATION:
+			setParamCourant(paramCourant.merge());
+			break;
+		case SUPPRESSION:
+			//Fait directement après validation
+			break;
+		default:
+			break;
 		}
 		
-		paramCourant.remove();
 		
-		listeParam.remove(paramCourant);
-		paramCourant = null;
-
+		//initialiseAllListes();
+		actionParametre = Action.AUCUNE;
 		binder.loadAll();
 	}
 
-	private String getParamCourantNom() throws WrongValueException {
-		String nom = paramtb.getValue();
-		if (Strings.isBlank(nom)) {
-			throw new WrongValueException(paramtb, "Ne doit pas être vide!");
-		}
-		return nom;
-	}
+
 	
-	private boolean getParamCourantActif() throws WrongValueException {
-		return paramActicCheckBox.isChecked();
-	}
+//	public void onClick$update(){
+//		
+//		
+//		if (paramCourant == null) {
+//			alert("Vous devez d'abotrd sélectionner une ligne");
+//			return;
+//		}
+//		
+//		paramCourant.setNom(getParamCourantNom());
+//		paramCourant.setActif(getParamCourantActif());
+//		
+//		
+//		//mise à jour
+//		int index = listeParam.indexOf(paramCourant);
+//		paramCourant = paramCourant.merge();
+//		listeParam.set(index, paramCourant);
+//
+//
+//		binder.loadAll();
+//				
+//	}
+//	
+//	public void onClick$add() {
+//		
+//		if (getTypeParamCourant() == null) {
+//			alert("Un type de paramètre doit être sélectionné");
+//			return;
+//		}
+//		
+//		//On vérifie qu'il n'existe pas déjà
+//		List<Param> listeParamByName = Param.findParamsByNomLike(getParamCourantNom()).getResultList();
+//		for (Param param : listeParamByName) {
+//			//si le même type param alors erreur
+//			if (param.getTypeParam().getId().equals(getTypeParamCourant().getId())) {
+//				alert("Ce nom existe déjà pour ce type de paramêtre");
+//				return;
+//			}
+//		}
+//		
+//		
+//		Param param = new Param();
+//		param.setNom(getParamCourantNom());
+//		param.setTypeParam(getTypeParamCourant());
+//		param.setActif(getParamCourantActif());
+//		
+//		param.persist();
+//		
+//		listeParam.add(param);
+//		paramCourant = param;
+//		
+//		binder.loadAll();
+//		
+//	}
+//	
+//	public void onClick$delete() {
+//		
+//	
+//		if (paramCourant == null) {
+//			alert("Rien de sélectionné");
+//			return;
+//		}
+//		
+//		paramCourant.remove();
+//		
+//		listeParam.remove(paramCourant);
+//		paramCourant = null;
+//
+//		binder.loadAll();
+//	}
+//
+//	private String getParamCourantNom() throws WrongValueException {
+//		String nom = paramtb.getValue();
+//		if (Strings.isBlank(nom)) {
+//			throw new WrongValueException(paramtb, "Ne doit pas être vide!");
+//		}
+//		return nom;
+//	}
+//	
+//	private boolean getParamCourantActif() throws WrongValueException {
+//		return paramActicCheckBox.isChecked();
+//	}
 	
 }
