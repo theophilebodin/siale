@@ -44,7 +44,7 @@ public class Param implements Cloneable{
     @Override
     public Param clone() throws CloneNotSupportedException {
     	Param res = (Param)super.clone();
-    	res.setTypeParam(typeParam.clone());
+    	//res.setTypeParam(typeParam.clone());
     	return res;
     }
     

@@ -412,8 +412,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			}
 		}
 		
-		//TODO etab ne peut être modifié si des notations la concernent
-		
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();
 		
@@ -467,7 +465,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 
 	@Listen("onClick = #notationMission")
 	public void onClick$notationMission() {
-		//TODO: onClick$notationMission
 		
 		if (isSauverMissionDisabled()) {
 			alert("Seul un contrôleur de la mission est autorisé");
@@ -698,7 +695,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		try {
 			missionActiviteCourantSAV = this.missionActiviteCourant.clone();
 		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setActionActivite(Action.MODIFICATION);

@@ -26,8 +26,7 @@ public class MissionActivite implements Cloneable{
     public MissionActivite clone() throws CloneNotSupportedException {
     	MissionActivite res = (MissionActivite)super.clone();
     	res.setPrincipale(new Boolean(principale));
-    	res.setTheActivite(theActivite == null ? null : theActivite.clone());
-    	// TODO Auto-generated method stub
+    	//res.setTheActivite(theActivite == null ? null : theActivite.clone());
     	return res;
     }
 }

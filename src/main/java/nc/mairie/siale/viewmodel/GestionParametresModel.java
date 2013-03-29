@@ -196,7 +196,6 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 
 	@Listen("onClick =  #supprimerParametre")
 	public void onClick$supprimerParametre() {
-		//TODO rg de suppression
 		
 		Messagebox.show("Confirmez-vous la suppression ?",
 			    "Question", Messagebox.OK | Messagebox.CANCEL,
