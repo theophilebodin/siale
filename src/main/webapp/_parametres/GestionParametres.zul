@@ -16,7 +16,7 @@
 </div>
 
 
-<listbox id="paramlb" rows="10" mold="paging" pageSize="10"
+<listbox id="paramListBox" rows="10" mold="paging" pageSize="10"
 		model="@{gestionParametres.listeParam}"
 		selectedItem="@{gestionParametres.paramCourant}" >
 		 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>

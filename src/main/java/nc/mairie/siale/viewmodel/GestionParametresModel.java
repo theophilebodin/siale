@@ -57,6 +57,9 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 	Action actionParametre;
 	
 	@Wire
+	Window gestionParametres;
+	
+	@Wire
 	Include includeSaisieParametre;
 	
 	@Wire("#includeSaisieParametre #zoneSaisieParametre")
@@ -114,6 +117,9 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 
 	public void setTypeParamCourant(TypeParam typeParamCourant) {
 		this.typeParamCourant = typeParamCourant;
+		//on remet le paging au début
+		((Listbox)gestionParametres.getFellow("paramListBox")).setActivePage(0);
+		
 //		List<Param> list = Param.findParamsByTypeParam(getTypeParamCourant()).getResultList();
 //		setListeParam(list);
 		setParamCourant(null);
@@ -227,7 +233,7 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 		}
 		
 		actionParametre = Action.AUCUNE;
-		binder.loadAll();
+		binder.loadComponent(zoneSaisieParametre);
 	}
 	
 	@Listen("onClick = #includeSaisieParametre #zoneSaisieParametre #validerParametre")
@@ -270,94 +276,9 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 			break;
 		}
 		
-		
 		//initialiseAllListes();
 		actionParametre = Action.AUCUNE;
 		binder.loadAll();
 	}
-
-
-	
-//	public void onClick$update(){
-//		
-//		
-//		if (paramCourant == null) {
-//			alert("Vous devez d'abotrd sélectionner une ligne");
-//			return;
-//		}
-//		
-//		paramCourant.setNom(getParamCourantNom());
-//		paramCourant.setActif(getParamCourantActif());
-//		
-//		
-//		//mise à jour
-//		int index = listeParam.indexOf(paramCourant);
-//		paramCourant = paramCourant.merge();
-//		listeParam.set(index, paramCourant);
-//
-//
-//		binder.loadAll();
-//				
-//	}
-//	
-//	public void onClick$add() {
-//		
-//		if (getTypeParamCourant() == null) {
-//			alert("Un type de paramètre doit être sélectionné");
-//			return;
-//		}
-//		
-//		//On vérifie qu'il n'existe pas déjà
-//		List<Param> listeParamByName = Param.findParamsByNomLike(getParamCourantNom()).getResultList();
-//		for (Param param : listeParamByName) {
-//			//si le même type param alors erreur
-//			if (param.getTypeParam().getId().equals(getTypeParamCourant().getId())) {
-//				alert("Ce nom existe déjà pour ce type de paramêtre");
-//				return;
-//			}
-//		}
-//		
-//		
-//		Param param = new Param();
-//		param.setNom(getParamCourantNom());
-//		param.setTypeParam(getTypeParamCourant());
-//		param.setActif(getParamCourantActif());
-//		
-//		param.persist();
-//		
-//		listeParam.add(param);
-//		paramCourant = param;
-//		
-//		binder.loadAll();
-//		
-//	}
-//	
-//	public void onClick$delete() {
-//		
-//	
-//		if (paramCourant == null) {
-//			alert("Rien de sélectionné");
-//			return;
-//		}
-//		
-//		paramCourant.remove();
-//		
-//		listeParam.remove(paramCourant);
-//		paramCourant = null;
-//
-//		binder.loadAll();
-//	}
-//
-//	private String getParamCourantNom() throws WrongValueException {
-//		String nom = paramtb.getValue();
-//		if (Strings.isBlank(nom)) {
-//			throw new WrongValueException(paramtb, "Ne doit pas être vide!");
-//		}
-//		return nom;
-//	}
-//	
-//	private boolean getParamCourantActif() throws WrongValueException {
-//		return paramActicCheckBox.isChecked();
-//	}
 	
 }
