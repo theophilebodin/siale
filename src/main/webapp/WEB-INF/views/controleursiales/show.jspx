@@ -7,5 +7,6 @@
         <field:display field="nom" id="s_nc_mairie_siale_domain_ControleurSIALE_nom" object="${controleursiale}" z="Est72ltbbSKbuc7gjPEBozl10Dk="/>
         <field:display field="username" id="s_nc_mairie_siale_domain_ControleurSIALE_username" object="${controleursiale}" z="54pJ3nmXlm2UFS1ByPm+7MtPK0s="/>
         <field:display field="droits" id="s_nc_mairie_siale_domain_ControleurSIALE_droits" object="${controleursiale}" z="896COBxTDZAEKLylzDdz98JGtCk="/>
+        <field:display field="actif" id="s_nc_mairie_siale_domain_ControleurSIALE_actif" object="${controleursiale}" z="c7JaQ6dnBlig4dEQ6/HatdRDHW4="/>
     </page:show>
 </div>

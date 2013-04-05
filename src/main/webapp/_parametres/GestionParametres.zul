@@ -23,9 +23,9 @@
 		<listhead>
 			<listheader label="Nom" sortDirection="ascending" sort="auto(nom)"/>
 			<listheader label="Actif" sort="auto"/>
-			<listheader width="55px" visible="@{gestionParametres.parametreEditable }">
+			<listheader width="64px" visible="@{gestionParametres.parametreEditable }">
 				<image id="ajouterParametre"
-					src="/images/add.png" tooltiptext="Ajouter" visible="@{gestionParametres.parametreEditable }"/>
+					src="/_images/add_24x24.png" tooltiptext="Ajouter" visible="@{gestionParametres.parametreEditable }"/>
 			</listheader>
 		</listhead>
 		<listitem id="parametreListItem" self="@{each=param}">
@@ -33,9 +33,9 @@
 			<listcell label="@{param.actif, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
 			<listcell visible="@{gestionParametres.parametreEditable }">
 				<image id="modifierParametre"
-					src="/images/update.png" tooltiptext="Modifier" />
+					src="/_images/update_24x24.png" tooltiptext="Modifier" />
 				<image id="supprimerParametre"
-					src="/images/delete.png" tooltiptext="Supprimer" visible="@{gestionParametres.parametreEditable }"/>
+					src="/_images/delete_24x24.png" tooltiptext="Supprimer" visible="@{gestionParametres.parametreEditable }"/>
 			</listcell>
 		</listitem>
 	</listbox>

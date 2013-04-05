@@ -7,5 +7,6 @@
         <field:input field="nom" id="c_nc_mairie_siale_domain_ControleurSIALE_nom" required="true" z="KPa5BOn7/JDIO0akLFxwzjJKSp0="/>
         <field:input field="username" id="c_nc_mairie_siale_domain_ControleurSIALE_username" required="true" z="z39t/JIvIFFea3k6sFPszmt1CmQ="/>
         <field:select field="droits" id="c_nc_mairie_siale_domain_ControleurSIALE_droits" itemValue="id" items="${droits}" multiple="true" path="/droits" z="W6ZnEUSCrqHL13zOi2KzuQsCZzo="/>
+        <field:checkbox field="actif" id="c_nc_mairie_siale_domain_ControleurSIALE_actif" z="Vz5HXHXQJALJa+MOTJSKIcTAT7o="/>
     </form:update>
 </div>

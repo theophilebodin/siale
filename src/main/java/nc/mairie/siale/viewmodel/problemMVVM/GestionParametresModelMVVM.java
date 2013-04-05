@@ -11,12 +11,10 @@ import nc.mairie.siale.domain.Param;
 import nc.mairie.siale.domain.TypeParam;
 import nc.mairie.siale.technique.TypeEtablissement;
 
-import org.hibernate.validator.util.privilegedactions.SetAccessibility;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.lang.Strings;
-import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Messagebox;
 
 /**

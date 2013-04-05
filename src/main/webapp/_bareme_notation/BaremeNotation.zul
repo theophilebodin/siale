@@ -19,9 +19,9 @@
 								sortDirection="descending" sort="auto(dateCreation)" />
 							<listheader label="Nom"
 								sortDirection="ascending" sort="auto(nom)" />
-							<listheader width="55px">
+							<listheader width="64px">
 								<image id="ajouterBareme"
-									src="/images/add.png" tooltiptext="Ajouter" />
+									src="/_images/add_24x24.png" tooltiptext="Ajouter" />
 							</listheader>
 						</listhead>
 						<listitem id="baremeListItem" self="@{each=bareme}">
@@ -29,9 +29,9 @@
 							<listcell label="@{bareme.nom}" />
 							<listcell>
 								<image id="modifierBareme"
-									src="/images/update.png" tooltiptext="Modifier" />
+									src="/_images/update_24x24.png" tooltiptext="Modifier" />
 								<image id="supprimerBareme"
-									src="/images/delete.png" tooltiptext="Supprimer" />
+									src="/_images/delete_24x24.png" tooltiptext="Supprimer" />
 							</listcell>
 						</listitem>
 					</listbox>

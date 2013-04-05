@@ -2,6 +2,7 @@ package nc.mairie.siale.technique;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zkplus.databind.TypeConverter;
+import org.zkoss.zul.Listcell;
 
 public class BooleanTypeConverter implements TypeConverter{
 
@@ -11,13 +12,18 @@ public class BooleanTypeConverter implements TypeConverter{
 	}
 
 	@Override
-	public Object coerceToUi(Object arg0, Component arg1) {
+	public Object coerceToUi(Object arg0, Component comp) {
 //		Order order = (Order) val;
 //		String info = order.getStatus()+" : "+
 //				Consts.YYYY_MM_DD_hh_ss.format(order.getCreateDate());
 //		return info;
 		if (arg0 instanceof Boolean) {
-			return ((Boolean)arg0).booleanValue() ? "Oui" : "Non"; 
+			if (comp instanceof Listcell) {
+				((Listcell) comp).setImage(((Boolean)arg0).booleanValue() ? "/_images/OUI_24x24.png" : "/_images/NON_24x24.png");
+				return null;
+			} else {
+				return ((Boolean)arg0).booleanValue() ? "Oui" : "Non";
+			} 
 		}
 		return null;
 	}

@@ -33,6 +33,14 @@ privileged aspect ControleurSIALE_Roo_JavaBean {
         this.username = username;
     }
     
+    public boolean ControleurSIALE.isActif() {
+        return this.actif;
+    }
+    
+    public void ControleurSIALE.setActif(boolean actif) {
+        this.actif = actif;
+    }
+    
     public Set<Droit> ControleurSIALE.getDroits() {
         return this.droits;
     }

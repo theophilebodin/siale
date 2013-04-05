@@ -22,8 +22,8 @@
 						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
 						<listheader label="Cloturé" width="50px" sort="auto(cloturee)"
 							align="center" />
-						<listheader  width="85px">
-										<image id="ajouterMission" src="/images/add.png" tooltiptext="Ajouter"/>
+						<listheader  width="120px">
+										<image id="ajouterMission" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 						</listheader>
 
 					</listhead>
@@ -38,10 +38,10 @@
 						<listcell
 							label="@{mission.cloturee, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
 							<listcell>
-									<image id="modifierMission" src="/images/update.png" tooltiptext="Modifier"/>
-									<image id="supprimerMission" src="/images/delete.png" tooltiptext="Supprimer"/>
-									<image id="saisirMission" src="/_gestion_missions/Stylo_16x16.png" tooltiptext="Saisir" width="16" height="16"/>
-									<image id="notationMission" src="/_gestion_missions/Bareme_16x16.png" tooltiptext="Notation" width="16" height="16"/>
+									<image id="modifierMission" src="/_images/update_24x24.png" tooltiptext="Modifier"/>
+									<image id="supprimerMission" src="/_images/delete_24x24.png" tooltiptext="Supprimer"/>
+									<image id="saisirMission" src="/_images/Stylo_24x24.png" tooltiptext="Saisir" width="16" height="16"/>
+									<image id="notationMission" src="/_images/Bareme_24x24.png" tooltiptext="Notation" width="16" height="16"/>
 							</listcell>
 					</listitem>
 				</listbox>
@@ -133,8 +133,8 @@
 								<listhead>
 									<listheader label="Nom" />
 									<listheader label="Principale"	width="70px" />
-									<listheader  width="55px">
-										<image id="ajouterMissionActivite" src="/images/add.png" tooltiptext="Ajouter"/>
+									<listheader  width="64px">
+										<image id="ajouterMissionActivite" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 									</listheader>
 								</listhead>
 									<listitem id="missionActivitesListItem" self="@{each=missionActivite}">
@@ -143,8 +143,8 @@
 										label="@{missionActivite.theActivite.nom}" />
  									<listcell label="@{missionActivite.principale, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" ></listcell>
 									<listcell>
-									<image id="modifierMissionActivite" src="/images/update.png" tooltiptext="Modifier"/>
-									<image id="supprimerMissionActivite" src="/images/delete.png" tooltiptext="Supprimer"/>
+									<image id="modifierMissionActivite" src="/_images/update_24x24.png" tooltiptext="Modifier"/>
+									<image id="supprimerMissionActivite" src="/_images/delete_24x24.png" tooltiptext="Supprimer"/>
 									</listcell>
 									
 								</listitem>
@@ -153,7 +153,7 @@
 
 
 
-<include id="includeSaisieActivite" src="/_gestion_missions/SaisieActivite.zul"/>
+<include id="includeSaisieActivite" src="/_missions/SaisieActivite.zul"/>
 
 
 
@@ -176,8 +176,8 @@
 								emptyMessage="Pas d'éléments">
 								<listhead>
 									<listheader label="Nom" />
-									<listheader  width="55px">
-										<image id="ajouterControleur" src="/images/add.png" tooltiptext="Ajouter"/>
+									<listheader  width="64px">
+										<image id="ajouterControleur" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 									</listheader>
 								</listhead>
 									<listitem id="missionControleursListItem" self="@{each=iControleur}">
@@ -185,8 +185,8 @@
 									<listcell
 										label="@{iControleur.nomAffichage}" />
  									<listcell>
-									<image id="modifierControleur" src="/images/update.png" tooltiptext="Modifier"/>
-									<image id="supprimerControleur" src="/images/delete.png" tooltiptext="Supprimer"/>
+									<image id="modifierControleur" src="/_images/update_24x24.png" tooltiptext="Modifier"/>
+									<image id="supprimerControleur" src="/_images/delete_24x24.png" tooltiptext="Supprimer"/>
 									</listcell>
 									
 								</listitem>
@@ -195,7 +195,7 @@
 
 
 
-<include id="includeSaisieControleur" src="/_gestion_missions/SaisieControleur.zul"/>
+<include id="includeSaisieControleur" src="/_missions/SaisieControleur.zul"/>
 
 
 

@@ -9,8 +9,8 @@
 		<listhead>
 			<listheader label="Nom" />
 			<listheader label="Principale" width="70px" />
-			<listheader width="55px">
-				<image src="/images/add.png" tooltiptext="Ajouter"
+			<listheader width="64px">
+				<image src="/_images/add_24x24.png" tooltiptext="Ajouter"
 					onClick="@command('addMissionActivite')" />
 			</listheader>
 
@@ -22,9 +22,9 @@
 				<listcell
 					label="@bind(missionActivite.principale ? 'Oui' : 'Non')" />
 				<listcell>
-					<image src="/images/delete.png" tooltiptext="Supprimer"
+					<image src="/_images/delete_24x24.png" tooltiptext="Supprimer"
 						onClick="@command('removeMissionActivite', missionActivite=missionActivite)" />
-					<image src="/images/update.png" tooltiptext="Modifier"
+					<image src="/_images/update_24x24.png" tooltiptext="Modifier"
 						onClick="@command('updateMissionActivite', missionActivite=missionActivite)" />
 				</listcell>
 			</listitem>

@@ -52,12 +52,13 @@ public class AccueilModel extends GenericForwardComposer<Component>{
 		ControleurSIALE controleurSIALE = ControleurSIALE.findControleurSIALE(new Long(1));
 		CurrentUser.setCurrentUser(controleurSIALE);
 		
-		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_gestion_missions/GestionMissions.zul","/_accueil/mission.png"));
+		menuModelMission.add(new MenuNode("Droits TEMP","Gestion des droits","/_droits/GestionDroits.zul","/_accueil/droits.png"));
+		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		
 		menuModelParametre.add(new MenuNode("Paramètres","Gestion des paramètres","/_parametres/GestionParametres.zul","/_accueil/parametres.png"));
-		if (CurrentUser.isAdmin()) {
-			menuModelParametre.add(new MenuNode("**Droits","Gestion des droits","borderlayout_fn2.zul","/_accueil/droits.png"));
+		if (CurrentUser.getCurrentUser().isAdmin()) {
+			menuModelParametre.add(new MenuNode("Droits","Gestion des droits","/_droits/GestionDroits.zul","/_accueil/droits.png"));
 		}
 		menuModelParametre.add(new MenuNode("**Import VISHA","Import VISHA","borderlayout_fn3.zul","/_accueil/VISHA.png"));
 		menuModelParametre.add(new MenuNode("Barême notation","Barême des notations","/_bareme_notation/BaremeNotation.zul","/_accueil/Bareme.png"));

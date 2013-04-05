@@ -8,6 +8,7 @@
             <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_nom" property="nom" z="F5jj55+sktBOf2z6Hj1PD/jD810="/>
             <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_username" property="username" z="L9QonawLrp3xPcvVXMGDDx0jxIo="/>
             <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_droits" property="droits" z="NzpPHVDAfE3Fp9/tSOHAgAPNKSU="/>
+            <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_actif" property="actif" z="Ii6PUBUH1T844gt53SH8FxiGPIU="/>
         </table:table>
     </page:list>
 </div>

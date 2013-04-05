@@ -42,9 +42,9 @@
 						sortDirection="ascending" sort="auto(nom)" />
 					<listheader label="Pondération" sort="auto(ponderation)" />
 					<listheader label="nb Criteres" sort="auto(nombreCriteres)"/>
-					<listheader width="55px">
+					<listheader width="64px">
 						<image id="ajouterNoteGroupe"
-							src="/images/add.png" tooltiptext="Ajouter" 
+							src="/_images/add_24x24.png" tooltiptext="Ajouter" 
 							visible="@{baremeNotation.baremeEditable }" />
 					</listheader>
 				</listhead>
@@ -54,9 +54,9 @@
 					<listcell label="@{noteGroupe.nombreCriteres}" />
 					<listcell>
 						<image id="modifierNoteGroupe"
-							src="/images/update.png" tooltiptext="Modifier" />
+							src="/_images/update_24x24.png" tooltiptext="Modifier" />
 						<image id="supprimerNoteGroupe"
-							src="/images/delete.png" tooltiptext="Supprimer"
+							src="/_images/delete_24x24.png" tooltiptext="Supprimer"
 							visible="@{baremeNotation.baremeEditable }" />
 					</listcell>
 				</listitem>

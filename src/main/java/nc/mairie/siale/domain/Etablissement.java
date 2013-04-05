@@ -2,7 +2,6 @@ package nc.mairie.siale.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import org.springframework.roo.addon.javabean.RooJavaBean;

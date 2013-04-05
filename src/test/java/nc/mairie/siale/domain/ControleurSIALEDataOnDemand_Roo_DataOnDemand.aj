@@ -24,10 +24,16 @@ privileged aspect ControleurSIALEDataOnDemand_Roo_DataOnDemand {
     
     public ControleurSIALE ControleurSIALEDataOnDemand.getNewTransientControleurSIALE(int index) {
         ControleurSIALE obj = new ControleurSIALE();
+        setActif(obj, index);
         setNom(obj, index);
         setPrenom(obj, index);
         setUsername(obj, index);
         return obj;
+    }
+    
+    public void ControleurSIALEDataOnDemand.setActif(ControleurSIALE obj, int index) {
+        Boolean actif = true;
+        obj.setActif(actif);
     }
     
     public void ControleurSIALEDataOnDemand.setNom(ControleurSIALE obj, int index) {

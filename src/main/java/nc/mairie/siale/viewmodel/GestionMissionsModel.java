@@ -309,7 +309,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		c.setTime(new Date());
 		c.add(Calendar.MONTH, -6);
 		
-		if (CurrentUser.isAdmin()) {
+		if (CurrentUser.getCurrentUser().isAdmin()) {
 			res = Mission.findMissionsByClotureeNotOrDatePrevueGreaterThan(true, c.getTime()).getResultList();
 					//findAllMissions();
 		} else {

@@ -149,7 +149,7 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 		});
 
 		//Si admin alord parameditable
-		setParametreEditable(CurrentUser.isAdmin());
+		setParametreEditable(CurrentUser.getCurrentUser().isAdmin());
 		
 		if (!isParametreEditable()) {
 			alert("Vous n'êtes pas administrateur.\nVous ne pouvez que consulter les paramètres");

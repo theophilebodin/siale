@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -19,18 +18,15 @@ import nc.mairie.siale.domain.Etablissement;
 import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.domain.MissionActivite;
 import nc.mairie.siale.domain.Param;
-import nc.mairie.siale.domain.TypeParam;
 import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.TypeEtablissement;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.DependsOn;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.WrongValueException;
-import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 
@@ -174,10 +170,10 @@ public class GestionMissionsModelMVVM {
 	
 	protected List<Mission> initialiseListeMissions() {
 		List<Mission> uneListe;
-		if (CurrentUser.isAdmin()) {
+		if (CurrentUser.getCurrentUser().isAdmin()) {
 			uneListe = Mission.findAllMissions();
 		} else {
-			Set<ControleurSIALE> setControleurs = new HashSet();
+			Set<ControleurSIALE> setControleurs = new HashSet<ControleurSIALE>();
 			setControleurs.add(CurrentUser.getCurrentUser());
 			uneListe = Mission.findMissionsByControleursSIALE(setControleurs).getResultList();
 		}

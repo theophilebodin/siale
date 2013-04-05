@@ -162,8 +162,8 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("idMission", getMissionCourant().getId());
 		
-		//Window window= (Window) Executions.createComponents("/_gestion_missions/GestionMissions.zul", parent , args);
-		Executions.createComponents("/_gestion_missions/GestionMissions.zul", parent , args);
+		//Window window= (Window) Executions.createComponents("/_missions/GestionMissions.zul", parent , args);
+		Executions.createComponents("/_missions/GestionMissions.zul", parent , args);
 	}
 	
 	

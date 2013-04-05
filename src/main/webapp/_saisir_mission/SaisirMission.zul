@@ -125,9 +125,9 @@
 							<listhead>
 								<listheader label="Document" />
 								<listheader label="Date" width="75px"/>
-								<listheader width="55px">
+								<listheader width="64px">
 									<image id="ajouterMissionDocument"
-										src="/images/add.png" tooltiptext="Ajouter" />
+										src="/_images/add_24x24.png" tooltiptext="Ajouter" />
 								</listheader>
 							</listhead>
 							<listitem id="missionDocumentsListItem" self="@{each=missionDocument}">
@@ -138,9 +138,9 @@
 									self="@{format(dd/MM/yyyy)}" />
 								<listcell>
 									<image id="modifierMissionDocument"
-										src="/images/update.png" tooltiptext="Modifier" />
+										src="/_images/update_24x24.png" tooltiptext="Modifier" />
 									<image id="supprimerMissionDocument"
-										src="/images/delete.png" tooltiptext="Supprimer" />
+										src="/_images/delete_24x24.png" tooltiptext="Supprimer" />
 								</listcell>
 
 							</listitem>
