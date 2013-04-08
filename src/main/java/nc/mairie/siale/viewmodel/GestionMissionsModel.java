@@ -17,6 +17,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import nc.mairie.siale.domain.ControleurSIALE;
+import nc.mairie.siale.domain.Droit;
 import nc.mairie.siale.domain.Etablissement;
 import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.domain.MissionAction;
@@ -24,6 +25,7 @@ import nc.mairie.siale.domain.MissionActivite;
 import nc.mairie.siale.domain.Notation;
 import nc.mairie.siale.domain.Param;
 import nc.mairie.siale.technique.Action;
+import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.Outlook;
@@ -278,21 +280,25 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		});
 		listeControleurControleurSIALE = new ArrayList<Object>();
 		listeControleurControleurSIALE.addAll(Param.findParamsActifsByNomDuTypeParam("CONTROLEUR").getResultList());
-		listeControleurControleurSIALE.addAll(ControleurSIALE.findAllControleurSIALEs());
+		//ajout seulment des actifs et contoleurs
+		//listeControleurControleurSIALE.addAll(ControleurSIALE.findAllControleurSIALEs());
+		Set<Droit> setDroit= new HashSet<Droit>();
+		setDroit.add(Constantes.droitControleur);
+		listeControleurControleurSIALE.addAll(ControleurSIALE.findControleurSIALEsByActifNotAndDroits(false, setDroit).getResultList());
 		Collections.sort(listeControleurControleurSIALE, new Comparator<Object>() {
 			@Override
 			public int compare(Object o1, Object o2) {
 				if (o1 instanceof Param) {
 					if (o2 instanceof Param) {
-						return ((Param)o1).getId().compareTo(((Param)o2).getId());
+						return ((Param)o1).getNom().compareTo(((Param)o2).getNom());
 					} else {
-						return ((Param)o1).getId().compareTo(((ControleurSIALE)o2).getId());
+						return ((Param)o1).getNom().compareTo(((ControleurSIALE)o2).getNomAffichage());
 					}
 				} else {
 					if (o2 instanceof Param) {
-						return ((ControleurSIALE)o1).getId().compareTo(((Param)o2).getId());
+						return ((ControleurSIALE)o1).getNomAffichage().compareTo(((Param)o2).getNom());
 					} else {
-						return ((ControleurSIALE)o1).getId().compareTo(((ControleurSIALE)o2).getId());
+						return ((ControleurSIALE)o1).getNomAffichage().compareTo(((ControleurSIALE)o2).getNom());
 					}
 				}
 			}
@@ -830,7 +836,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		//ok si pas user courant
 		if (getControleurCourant() instanceof ControleurSIALE) {
 			if (((ControleurSIALE)getControleurCourant()).getId().equals(CurrentUser.getCurrentUser().getId())) {
-				Messagebox.show("Impossible de vous supprimer de la liste des controleurs");
+				Messagebox.show("Impossible de vous modifier de la liste des controleurs");
 				return;
 			}
 		}
