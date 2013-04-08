@@ -8,15 +8,22 @@ import java.util.Comparator;
 import java.util.List;
 
 import nc.mairie.siale.domain.ControleurSIALE;
+import nc.mairie.siale.domain.Droit;
 import nc.mairie.siale.technique.Action;
+import nc.mairie.siale.technique.Constantes;
+import nc.mairie.siale.technique.ControleSaisie;
+import nc.mairie.siale.technique.CurrentUser;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Include;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 
@@ -50,17 +57,10 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	
 	@Wire
 	Include includeSaisieControleurSIALE;
-	
 	@Wire("#includeSaisieControleurSIALE #zoneSaisieControleurSIALE")
 	Window zoneSaisieControleurSIALE;
 	
-	@Wire("#includeSaisieControleurSIALE #zoneSaisieControleurSIALE #controleurCheckbox")
-	Checkbox controleurCheckbox;
-	
-	@Wire("#includeSaisieControleurSIALE #zoneSaisieControleurSIALE #controleurCheckbox")
-	Checkbox administrateurCheckbox;
-	
-	
+		
 	public List<ControleurSIALE> getListeControleurSIALE() {
 		return listeControleurSIALE;
 	}
@@ -129,70 +129,62 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	public void onClick$ajouterControleurSIALE() {
 		System.out.println("onClick$ajouterControleurSIALE");
 		
-//		if (getTypeParamCourant() == null) {
-//			alert("Un type de paramètre doit être sélectionné");
-//			return;
-//		}
-//		
-//		actionControleurSIALE = Action.AJOUT;
-//		
-//		Param param = new Param();
-//		param.setTypeParam(getTypeParamCourant());
-//		param.setActif(true);
-//		setParamCourant(param);
-//		binder.loadComponent(zoneSaisieControleurSIALE);
+		actionControleurSIALE = Action.AJOUT;
+
+		ControleurSIALE c = new ControleurSIALE();
+		//TODO avant recherche
+		c.setNom("nompopol");
+		c.setPrenom("prenompopol");
+		c.setUsername("popol72");
+		c.setActif(true);
+		c.getDroits().add(Constantes.droitControleur);
+		setControleurSIALECourant(c);
+		binder.loadComponent(zoneSaisieControleurSIALE);
 	}
 	
 	@Listen("onClick = #modifierControleurSIALE; onDoubleClick = #controleurSIALEListItem")
 	public void onClick$modifierControleurSIALE() {
-		System.out.println("onClick$modifierControleurSIALE");
-//		//Si on a doublecliqué et pas éditable
-//		if (!isControleurSIALEEditable()) return;
-//		try {
-//			paramCourantSAV = paramCourant.clone();
-//		} catch (CloneNotSupportedException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		actionControleurSIALE=  Action.MODIFICATION;
-//		binder.loadComponent(zoneSaisieControleurSIALE);
+		
+		actionControleurSIALE=  Action.MODIFICATION;
+		binder.loadComponent(zoneSaisieControleurSIALE);
 	}
 
 	@Listen("onClick =  #supprimerControleurSIALE")
 	public void onClick$supprimerControleurSIALE() {
 		System.out.println("onClick$supprimerControleurSIALE");
-//		Messagebox.show("Confirmez-vous la suppression ?",
-//			    "Question", Messagebox.OK | Messagebox.CANCEL,
-//			    Messagebox.QUESTION,
-//			        new EventListener<Event>() {
-//						
-//						@Override
-//						public void onEvent(Event e) throws Exception {
-//			                if(Messagebox.ON_OK.equals(e.getName())){
-//			        			//SGBD
-//			                	try {
-//			        				paramCourant.remove();
-//			        			} catch (Exception excp) {
-//			        				alert("Suppresson impossible car le paramètre est utilisé par des missions");
-//			        				return;
-//			        			}
-//			                	//VIEW
-//			        			listeParam.remove(paramCourant);
-//			        			actionControleurSIALE = Action.AUCUNE;
-//			        			binder.loadAll();
-//			                }else if(Messagebox.ON_CANCEL.equals(e.getName())){
-//			                    //Cancel is clicked
-//			                	return;
-//			                }
-//			            }
-//			
-//			        }
-//			    );
+		
+		//TODO vérifier si pas affecté sur une mission
+		
+		Messagebox.show("Confirmez-vous la suppression ?",
+			    "Question", Messagebox.OK | Messagebox.CANCEL,
+			    Messagebox.QUESTION,
+			        new EventListener<Event>() {
+						
+						@Override
+						public void onEvent(Event e) throws Exception {
+			                if(Messagebox.ON_OK.equals(e.getName())){
+			        			//SGBD
+			                	try {
+			        				controleurSIALECourant.remove();
+			        			} catch (Exception excp) {
+			        				alert("Suppresson impossible.\n Ce contrôleur est rattaché à une mission.");
+			        				return;
+			        			}
+			                	//VIEW
+			        			initialiseAllListes();
+			        			binder.loadAll();
+			                }else if(Messagebox.ON_CANCEL.equals(e.getName())){
+			                    //Cancel is clicked
+			                	return;
+			                }
+			            }
+			
+			        }
+			    );
 
 	}
 	
-	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #rechercherControleurSIALE;" +
-			"onCancel= #includeSaisieControleurSIALE #zoneSaisieControleurSIALE")
+	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #rechercherControleurSIALE")
 	public void onClick$rechercherControleurSIALE() {
 		System.out.println("onClick$rechercherControleurSIALE");
 //		//TODO recherche dans l'AD
@@ -210,60 +202,99 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #annulerControleurSIALE;" +
 			"onCancel= #includeSaisieControleurSIALE #zoneSaisieControleurSIALE")
 	public void onClick$annulerControleurSIALE() {
-		System.out.println("onClick$annulerControleurSIALE");
-//		if (actionControleurSIALE != Action.AJOUT) {
-//			listeParam.remove(paramCourant);
-//			listeParam.add(paramCourantSAV);
-//			setParamCourant(paramCourantSAV);
-//		}
-//		
-//		actionControleurSIALE = Action.AUCUNE;
-//		binder.loadComponent(zoneSaisieControleurSIALE);
+		
+		//si on était sur un controleur, on le mémorise
+		if (getControleurSIALECourant() != null && getControleurSIALECourant().getId() != null ){
+			setControleurSIALECourant(ControleurSIALE.findControleurSIALE(getControleurSIALECourant().getId()));
+		}
+		
+		initialiseAllListes();
+
+		actionControleurSIALE = Action.AUCUNE;
+		binder.loadComponent(gestionDroits);
 	}
 	
 	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #validerControleurSIALE")
 	public void onClick$validerControleurSIALE() {
 		System.out.println("onClick$validerControleurSIALE");
-//		//On vérifie l'arborescence des zones de saisie
-//		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisieControleurSIALE);
-//		
-//		
-//		//On vérifie qu'il n'existe pas déjà
-//		for (Param param : listeParam) {
-//			if (param != getParamCourant() && param.getNom().equals(getParamCourant().getNom())) {
-//				controleSaisie.ajouteErreur(zoneSaisieControleurSIALE.getFellow("paramtb"), 
-//						"Ce nom existe déjà pour ce type de paramêtre");
-//				break;
-//			}
-//		}
-//		
-//		//Si erreurs, on les met et on ne va pas plus loin
-//		controleSaisie.afficheErreursSilYEnA();
-//		
-//		switch (actionControleurSIALE) {
-//		case AJOUT:
-//			
-//			
-//		
-//			setParamCourant(paramCourant.merge());
-//			
-//			listeParam.add(paramCourant);
-////			
-////			binder.loadAll();
-//			break;
-//		case MODIFICATION:
-//			setParamCourant(paramCourant.merge());
-//			break;
-//		case SUPPRESSION:
-//			//Fait directement après validation
-//			break;
-//		default:
-//			break;
-//		}
-//		
-//		//initialiseAllListes();
-//		actionControleurSIALE = Action.AUCUNE;
-//		binder.loadAll();
+		
+		//On vérifie l'arborescence des zones de saisie
+		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisieControleurSIALE);
+		
+		
+		// doit être admin et/ou controleur
+		if (getControleurSIALECourant().getDroits().size() == 0) {           
+			controleSaisie.ajouteErreur(zoneSaisieControleurSIALE.getFellow("controleurCheckbox"),"Il faut cocher Controleur ET/OU Administrateur.");
+		}
+		
+		//Si erreurs, on les met et on ne va pas plus loin
+		controleSaisie.afficheErreursSilYEnA();
+		
+		switch (actionControleurSIALE) {
+		case AJOUT:
+			controleurSIALECourant.merge();
+			
+			break;
+		case MODIFICATION:
+			controleurSIALECourant.merge();
+			break;
+		case SUPPRESSION:
+			//Fait directement après validation
+			break;
+		default:
+			break;
+		}
+		
+		initialiseAllListes();
+		actionControleurSIALE = Action.AUCUNE;
+		binder.loadAll();
+	}
+
+	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #controleurCheckbox")
+	public void onCheck$controleurCheckbox (Event event) {
+		Checkbox cb = (Checkbox)event.getTarget();
+		
+		//Si checké, on rajoute le droit
+		if (cb.isChecked()) {
+			getControleurSIALECourant().getDroits().add(Constantes.droitControleur);
+		//sinon, on l'enleve
+		} else {
+			for (Droit droit : getControleurSIALECourant().getDroits()) {
+				if (droit.getId().equals(Constantes.droitControleur.getId())) {
+					getControleurSIALECourant().getDroits().remove(droit);
+					break;
+				}
+			}
+		}
+		
+		System.out.println(getControleurSIALECourant().getDroits());
+		
+	}
+	
+	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #administrateurCheckbox")
+	public void onCheck$administrateurCheckbox (Event event) {
+	Checkbox cb = (Checkbox)event.getTarget();
+		
+		//Si checké, on rajoute le droit
+		if (cb.isChecked()) {
+			getControleurSIALECourant().getDroits().add(Constantes.droitAdmin);
+		//sinon, on l'enleve
+		} else {
+			for (Droit droit : getControleurSIALECourant().getDroits()) {
+				if (droit.getId().equals(Constantes.droitAdmin.getId())) {
+					getControleurSIALECourant().getDroits().remove(droit);
+					break;
+				}
+			}
+		}
+		
+		System.out.println(getControleurSIALECourant().getDroits());
+	
+	}
+	
+	//Renvoie fax  sur le user courant est le user selectionné
+	public boolean isAdminModifiableDisabled () {
+		return getControleurSIALECourant() == null || CurrentUser.getCurrentUser().getId().equals(getControleurSIALECourant().getId());
 	}
 	
 }

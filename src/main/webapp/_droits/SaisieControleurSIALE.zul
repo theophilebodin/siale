@@ -1,0 +1,44 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+	<window id="zoneSaisieControleurSIALE" mode="modal" position="center"
+		visible="@{gestionDroits.actionControleurSIALE.enCours}" width="400px"
+		title="@{gestionDroits.actionControleurSIALE}">
+
+		<grid>
+			<columns>
+				<column label="" width="120px"/>
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Nom : "></label>
+					<label value="@{gestionDroits.controleurSIALECourant.nomAffichage}"/>
+				</row>
+				<row>
+					<label value="Controleur : " />
+					<checkbox id="controleurCheckbox"  
+					disabled="@{gestionDroits.actionControleurSIALE.suppression}"
+						checked="@{gestionDroits.controleurSIALECourant.controleur, save-when=none}"/>
+				</row>
+				<row>
+					<label value="Administrateur : " />
+					<checkbox id="administrateurCheckbox"  
+					disabled="@{gestionDroits.adminModifiableDisabled}"
+						checked="@{gestionDroits.controleurSIALECourant.admin, save-when=none}"/>
+				</row>
+				<row>
+					<label value="Actif : " />
+					<checkbox id="actifCheckBox" 
+						disabled="@{gestionDroits.actionControleurSIALE.suppression}"
+						checked="@{gestionDroits.controleurSIALECourant.actif, save-when='validerControleurSIALE.onClick'}"/>
+				</row>
+			</rows>
+		</grid>
+
+		<div align="center">
+			<button id="validerControleurSIALE" label="Valider"/>
+			<button id="annulerControleurSIALE" label="Annuler" />
+		</div>
+	</window>
+</zk>

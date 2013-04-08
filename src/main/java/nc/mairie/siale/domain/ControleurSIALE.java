@@ -29,7 +29,7 @@ public class ControleurSIALE {
     
     private boolean actif;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Droit> droits = new HashSet<Droit>();
     
     public String getNomAffichage () {
