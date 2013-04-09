@@ -19,7 +19,8 @@ public class BooleanTypeConverter implements TypeConverter{
 //		return info;
 		if (arg0 instanceof Boolean) {
 			if (comp instanceof Listcell) {
-				((Listcell) comp).setImage(((Boolean)arg0).booleanValue() ? "/_images/OUI_24x24.png" : "/_images/NON_24x24.png");
+				//((Listcell) comp).setImage(((Boolean)arg0).booleanValue() ? "/_images/OUI_24x24.png" : "/_images/NON_24x24.png");
+				((Listcell) comp).setImage(((Boolean)arg0).booleanValue() ? "/_images/OUI_24x24.png" : "/_images/tiret_24x24.png");
 				return null;
 			} else {
 				return ((Boolean)arg0).booleanValue() ? "Oui" : "Non";

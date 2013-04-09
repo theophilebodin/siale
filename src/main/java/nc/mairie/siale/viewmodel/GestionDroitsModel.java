@@ -3,8 +3,10 @@
  */
 package nc.mairie.siale.viewmodel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
 
 import nc.mairie.siale.domain.ControleurSIALE;
@@ -13,6 +15,7 @@ import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
+import nc.mairie.siale.technique.LDAP;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -21,7 +24,9 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zkplus.databind.BindingListModelList;
 import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -60,7 +65,11 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	@Wire("#includeSaisieControleurSIALE #zoneSaisieControleurSIALE")
 	Window zoneSaisieControleurSIALE;
 	
-		
+	@Wire("#includeSaisieControleurSIALE #zoneSaisieControleurSIALE #controleurSIALEListBox")
+	Combobox controleurSIALEListBox;
+	
+	ArrayList<String> attributs;
+	
 	public List<ControleurSIALE> getListeControleurSIALE() {
 		return listeControleurSIALE;
 	}
@@ -100,16 +109,6 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 				return (o1.getNom()+o1.getPrenom()).compareTo(o2.getNom()+o2.getPrenom());
 			}
 		});
-		
-//		listeDroit = Droit.findAllDroits();
-//		Collections.sort(listeDroit, new Comparator<Droit>() {
-//
-//			@Override
-//			public int compare(Droit o1, Droit o2) {
-//				// TODO Auto-generated method stub
-//				return o1.getNom().compareTo(o2.getNom());
-//			}
-//		});
 	}
 	
 	@Override
@@ -119,6 +118,12 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		comp.setAttribute(comp.getId(), this, true);
 		
 		initialiseAllListes();
+		
+		attributs = new ArrayList<String>();
+		attributs.add("sn");//nom
+		attributs.add("givenName");//prenom
+		attributs.add("samaccountname");//username
+			
 		
 		binder = new AnnotateDataBinder(comp);
 		binder.loadAll();
@@ -132,10 +137,9 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		actionControleurSIALE = Action.AJOUT;
 
 		ControleurSIALE c = new ControleurSIALE();
-		//TODO avant recherche
-		c.setNom("nompopol");
-		c.setPrenom("prenompopol");
-		c.setUsername("popol72");
+//		c.setNom("nompopol");
+//		c.setPrenom("prenompopol");
+//		c.setUsername("popol72");
 		c.setActif(true);
 		c.getDroits().add(Constantes.droitControleur);
 		setControleurSIALECourant(c);
@@ -145,15 +149,14 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	@Listen("onClick = #modifierControleurSIALE; onDoubleClick = #controleurSIALEListItem")
 	public void onClick$modifierControleurSIALE() {
 		
+		initialisteControleurSIALEListBox("samaccountname", getControleurSIALECourant().getUsername());
+		
 		actionControleurSIALE=  Action.MODIFICATION;
 		binder.loadComponent(zoneSaisieControleurSIALE);
 	}
 
 	@Listen("onClick =  #supprimerControleurSIALE")
 	public void onClick$supprimerControleurSIALE() {
-		System.out.println("onClick$supprimerControleurSIALE");
-		
-		//TODO vérifier si pas affecté sur une mission
 		
 		Messagebox.show("Confirmez-vous la suppression ?",
 			    "Question", Messagebox.OK | Messagebox.CANCEL,
@@ -184,21 +187,6 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 
 	}
 	
-	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #rechercherControleurSIALE")
-	public void onClick$rechercherControleurSIALE() {
-		System.out.println("onClick$rechercherControleurSIALE");
-//		//TODO recherche dans l'AD
-//		if (actionControleurSIALE != Action.AJOUT) {
-//			listeParam.remove(paramCourant);
-//			listeParam.add(paramCourantSAV);
-//			setParamCourant(paramCourantSAV);
-//		}
-//		
-//		actionControleurSIALE = Action.AUCUNE;
-//		binder.loadComponent(zoneSaisieControleurSIALE);
-	}
-	
-
 	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #annulerControleurSIALE;" +
 			"onCancel= #includeSaisieControleurSIALE #zoneSaisieControleurSIALE")
 	public void onClick$annulerControleurSIALE() {
@@ -295,6 +283,42 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	//Renvoie fax  sur le user courant est le user selectionné
 	public boolean isAdminModifiableDisabled () {
 		return getControleurSIALECourant() == null || CurrentUser.getCurrentUser().getId().equals(getControleurSIALECourant().getId());
+	}
+
+	private void initialisteControleurSIALEListBox(String critere, String value) {
+		
+		List<ControleurSIALE> newModel = new ArrayList<ControleurSIALE>();
+ 		
+		ArrayList<Hashtable<String, Object>> arr = LDAP.chercherUserLDAPAttributs(attributs,critere,value+"*");
+		
+		for (Hashtable<String, Object> hash : arr) {
+			
+			//S'il a un accountname on le rajoute
+			String samaccountname = (String)hash.get("samaccountname"); 
+			if (samaccountname != null && !samaccountname.equals("null") ) {
+				ControleurSIALE c = new ControleurSIALE();
+				c.setNom(hash.get("sn").toString().toUpperCase());
+				c.setPrenom(hash.get("givenName").toString());
+				c.setUsername(hash.get("samaccountname").toString());
+				newModel.add(c);
+			}
+			
+		}
+ 	
+ 		//etablissementListBox.setModel(new ListModelList<Etablissement>(newModel));
+ 		BindingListModelList<ControleurSIALE>  bind= new BindingListModelList<ControleurSIALE>(newModel,true);
+ 		
+ 		controleurSIALEListBox.setModel(bind);
+	}
+	
+	public void onChangingDETOURNE$controleurSIALEListBox(String value) {
+		//TODO virer sysout
+		System.out.println("onChangingDETOURNE$etablissementListBox "+value );
+		
+		//Si plus de 2 caractères saisis, on recherche dans LDAP
+		if (value.length() > 2) {
+			initialisteControleurSIALEListBox("sn", value);
+		}
 	}
 	
 }

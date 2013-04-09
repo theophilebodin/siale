@@ -45,5 +45,18 @@
     <Parameter description="Serveur SMTP" name="HOST_SMTP" override="false" value="smtp.site-mairie.noumea.nc" />
 	<Parameter description="Emetteur mail" name="MAIL_SENDER" override="false" value="SIALE-no-reply@ville-noumea.nc" />
 
+	<Parameter description="Nom de l'application déclarée SIDRAP pour connaitre les droits" name="APPLICATION" override="false" value="Missions SIALE" />
+<!-- 	<Parameter description="URL de l'ADLDS" name="ADLDS_URL" override="false" value="ldap://svpadlds.site-mairie.noumea.nc:37900/" /> -->
+<!-- 	<Parameter description="Utilisateur LDAP" name="ADLDS_USER" override="false" value="cn=admin,dc=site-mairie,dc=noumea,dc=nc" /> -->
+<!-- 	<Parameter description="Mot de passe LDAP" name="ADLDS_PWD" override="false" value="secretldap" /> -->
+<!-- 	<Parameter description="Critère de recherche LDAP" name="CRITERE_RECHERCHE_LDAP" override="false" value="samaccountname" /> -->
+	<Parameter description="Admin LDAP" name="HOST_LDAP_ADMIN" override="false" value="cn=***REMOVED***,ou=WAS,ou=APPLI,ou=Z-users" />
+	<Parameter description="Hôte LDAP" name="HOST_LDAP" override="false" value="ldap://hurle:389/" />
+	<Parameter description="Init CTX LDAP" name="INITCTX_LDAP" override="false" value="com.sun.jndi.ldap.LdapCtxFactory" />
+	<Parameter description="Mot de passe de l'hôte LDAP" name="HOST_LDAP_PASSWORD" override="false" value="***REMOVED***" />
+	<Parameter description="Base LDAP" name="BASE_LDAP" override="false" value="dc=site-mairie,dc=noumea,dc=nc" />
+	<Parameter description="Hôte LDAP 3" name="HOST_LDAP3" override="false" value="ldap://netone:389/" />
+	<Parameter description="Hôte LDAP 2" name="HOST_LDAP2" override="false" value="ldap://gberge:389/" />
+	<Parameter description="Version" name="VERSION" override="false" value="1.0" />
 
 </Context>

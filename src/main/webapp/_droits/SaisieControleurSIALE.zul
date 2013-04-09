@@ -12,9 +12,39 @@
 			</columns>
 			<rows>
 				<row>
-					<label value="Nom : "></label>
+					<label value="Nom : "/>
+					<div>
 					<label value="@{gestionDroits.controleurSIALECourant.nomAffichage}"/>
+					<image src="/_images/loupe_24x24.png"/>
+					</div>
 				</row>
+				
+				<row>
+					<label value="Nom : "/>
+<!-- 									<combobox autocomplete="true" -->
+<!-- 											autodrop="true" id="controleurSIALEListBox" -->
+<!-- 											model="@{gestionDroits.listecontroleurSIALE}" -->
+<!-- 											selectedItem="@{gestionDroits.controleurSIALECourant}" -->
+<!-- 											constraint="no empty" -->
+<!-- 											disabled="@{gestionDroits.actionControleurSIALE.suppression}"> -->
+									<combobox autocomplete="true"
+											autodrop="true" id="controleurSIALEListBox"
+											selectedItem="@{gestionDroits.controleurSIALECourant, save-when='validerControleurSIALE.onClick'}"
+											constraint="no empty"
+											disabled="@{gestionDroits.actionControleurSIALE.suppression}"
+											tooltiptext="Saisir au moins 3 caractères">
+											<attribute name="onChanging">
+								<![CDATA[
+											gestionDroits.onChangingDETOURNE$controleurSIALEListBox(event.getValue());
+								]]>
+								</attribute>
+
+											<comboitem
+												self="@{each=element}" label="@{element.nomAffichage}" />
+										</combobox>
+				
+				</row>
+				
 				<row>
 					<label value="Controleur : " />
 					<checkbox id="controleurCheckbox"  
