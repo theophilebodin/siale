@@ -11,7 +11,10 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
@@ -20,17 +23,22 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 
-public class AccueilModel extends GenericForwardComposer<Component>{
+public class AccueilModel extends SelectorComposer<Component>{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 446527977528558574L;
 	
+	AnnotateDataBinder binder;
+
+	
 	ListModelList<MenuNode> menuModelParametre = new ListModelList<MenuNode>();
+	@Wire
 	Listbox menuListboxParametre;
 	
 	ListModelList<MenuNode> menuModelMission = new ListModelList<MenuNode>();
+	@Wire
 	Listbox menuListboxMission;
 	
 	List<Listbox> listBoxes ;
@@ -40,19 +48,65 @@ public class AccueilModel extends GenericForwardComposer<Component>{
 	
 	
 	MenuNodeItemRenderer renderer = new MenuNodeItemRenderer();
+	@Wire
 	Div contentDiv;
 	
+	@Wire
 	Label titreLabel;
+	@Wire
 	Image titreImage;
 	
-	
+	//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION	
+			@Wire
+			Listbox controleurSIALEListBox;
+			
+			ControleurSIALE currentUser;
+			
+			List<ControleurSIALE> listeControleurSIALE;
+			
+			
+			public List<ControleurSIALE> getListeControleurSIALE() {
+				return listeControleurSIALE;
+			}
+		
+		
+			public void setListeControleurSIALE(List<ControleurSIALE> listeControleurSIALE) {
+				this.listeControleurSIALE = listeControleurSIALE;
+			}
+		
+		
+			public ControleurSIALE getCurrentUser() {
+				return currentUser;
+			}
+		
+		
+			public void setCurrentUser(ControleurSIALE currentUser) {
+				this.currentUser = currentUser;
+				CurrentUser.setCurrentUser(currentUser);
+				
+				if (menuListboxMission.getSelectedIndex()!=-1) {
+					Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
+				} else {
+					Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxMission));
+				}
+				
+				//menuListboxMission.setSelectedIndex(0);
+				//Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
+				
+			}
+//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
+
 	public AccueilModel(){
+
+		//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
+				System.out.println("LUC : A refaire après authentification");
+				if (CurrentUser.getCurrentUser() == null) {
+					ControleurSIALE controleurSIALE = ControleurSIALE.findControleurSIALE(new Long(1));
+					CurrentUser.setCurrentUser(controleurSIALE);
+					System.out.println("Simule connection avec "+controleurSIALE.getNomAffichage());
+				}
+		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
 		
-		System.out.println("LUC : A refaire après authentification");
-		ControleurSIALE controleurSIALE = ControleurSIALE.findControleurSIALE(new Long(1));
-		CurrentUser.setCurrentUser(controleurSIALE);
-		
-		menuModelMission.add(new MenuNode("Droits TEMP","Gestion des droits","/_droits/GestionDroits.zul","/_accueil/droits.png"));
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		
@@ -71,6 +125,8 @@ public class AccueilModel extends GenericForwardComposer<Component>{
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 
+		comp.setAttribute(comp.getId(), this, true);
+		
 		menuListboxMission.setModel(menuModelMission);
 		menuListboxMission.setItemRenderer(renderer);
 		menuListboxMission.addEventListener(Events.ON_SELECT,listener);
@@ -84,6 +140,14 @@ public class AccueilModel extends GenericForwardComposer<Component>{
 		listBoxes.add(menuListboxParametre);
 		listBoxes.add(menuListboxMission);
 		
+		//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION		
+			currentUser = CurrentUser.getCurrentUser();
+			listeControleurSIALE = ControleurSIALE.findAllControleurSIALEs();
+		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
+		
+		binder = new AnnotateDataBinder(comp);
+		binder.loadAll();
+		 
 	}
 
 	class MenuNode {
@@ -164,6 +228,8 @@ public class AccueilModel extends GenericForwardComposer<Component>{
 		Executions.createComponents("/_parametres/GestionParametres.zul",contentDiv,null);
 		titreLabel.setValue("Gestion des paramètres");
 	}
+	
+	@Listen("onAfterRender = #menuListboxMission")
 	public void onAfterRender$menuListboxMission() {
 		menuListboxMission.setSelectedIndex(0);
 		Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));

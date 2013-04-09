@@ -23,6 +23,25 @@
 					</hbox>
 		        	</div>
 		        	</center>
+		        	<east border="none">
+		        	<div>
+		        		<label id="currentUserLabel" value="@{index.currentUser.nomAffichage}" style="color:#0C7A9A;font-size:15px"/>
+<!-- DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION -->		        		
+		        		<listbox id="controleurSIALEListBox" 
+		        		rows="2"
+		        		width="250px"
+		        		model="@{index.listeControleurSIALE}"	
+		        		selectedItem="@{index.currentUser}">
+						 <listitem id="controleurSIALEListItem" self="@{each=element}">
+ 							<listcell label="@{element.nomAffichage}" />
+ 							<listcell label="@{element.controleur}" />
+ 							<listcell label="@{element.admin}" />
+ 						</listitem>
+<!-- 							<comboitem self="@{each=element}" label="@{element.nomAffichage}"/> -->
+					</listbox>
+<!-- FIn A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION -->
+					</div>
+		        	</east>
 		        	
 		        </borderlayout>
 			
