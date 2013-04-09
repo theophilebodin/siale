@@ -87,7 +87,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 				if (menuListboxMission.getSelectedIndex()!=-1) {
 					Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
 				} else {
-					Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxMission));
+					Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxParametre));
 				}
 				
 				//menuListboxMission.setSelectedIndex(0);
