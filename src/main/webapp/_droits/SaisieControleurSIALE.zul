@@ -11,14 +11,7 @@
 				<column label="" />
 			</columns>
 			<rows>
-				<row>
-					<label value="Nom : "/>
-					<div>
-					<label value="@{gestionDroits.controleurSIALECourant.nomAffichage}"/>
-					<image src="/_images/loupe_24x24.png"/>
-					</div>
-				</row>
-				
+			
 				<row>
 					<label value="Nom : "/>
 <!-- 									<combobox autocomplete="true" -->
@@ -29,9 +22,9 @@
 <!-- 											disabled="@{gestionDroits.actionControleurSIALE.suppression}"> -->
 									<combobox autocomplete="true"
 											autodrop="true" id="controleurSIALEListBox"
-											selectedItem="@{gestionDroits.controleurSIALECourant, save-when='validerControleurSIALE.onClick'}"
+											selectedItem="@{gestionDroits.controleurSIALESelected}"
 											constraint="no empty"
-											disabled="@{gestionDroits.actionControleurSIALE.suppression}"
+											disabled="@{gestionDroits.adminModifiableDisabled}"
 											tooltiptext="Saisir au moins 3 caractères">
 											<attribute name="onChanging">
 								<![CDATA[

@@ -25,8 +25,7 @@ privileged aspect ControleurSIALEDataOnDemand_Roo_DataOnDemand {
     public ControleurSIALE ControleurSIALEDataOnDemand.getNewTransientControleurSIALE(int index) {
         ControleurSIALE obj = new ControleurSIALE();
         setActif(obj, index);
-        setNom(obj, index);
-        setPrenom(obj, index);
+        setDisplayname(obj, index);
         setUsername(obj, index);
         return obj;
     }
@@ -36,14 +35,9 @@ privileged aspect ControleurSIALEDataOnDemand_Roo_DataOnDemand {
         obj.setActif(actif);
     }
     
-    public void ControleurSIALEDataOnDemand.setNom(ControleurSIALE obj, int index) {
-        String nom = "nom_" + index;
-        obj.setNom(nom);
-    }
-    
-    public void ControleurSIALEDataOnDemand.setPrenom(ControleurSIALE obj, int index) {
-        String prenom = "prenom_" + index;
-        obj.setPrenom(prenom);
+    public void ControleurSIALEDataOnDemand.setDisplayname(ControleurSIALE obj, int index) {
+        String displayname = "displayname_" + index;
+        obj.setDisplayname(displayname);
     }
     
     public void ControleurSIALEDataOnDemand.setUsername(ControleurSIALE obj, int index) {

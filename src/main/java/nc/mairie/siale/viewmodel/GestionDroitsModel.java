@@ -54,7 +54,9 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	List<ControleurSIALE> listeControleurSIALE;
 
 	ControleurSIALE controleurSIALECourant;
+	ControleurSIALE controleurSIALESelected;
 	
+
 	Action actionControleurSIALE;
 	
 	@Wire
@@ -70,6 +72,15 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	
 	ArrayList<String> attributs;
 	
+	public ControleurSIALE getControleurSIALESelected() {
+		return controleurSIALESelected;
+	}
+
+
+	public void setControleurSIALESelected(ControleurSIALE controleurSIALESelected) {
+		this.controleurSIALESelected = controleurSIALESelected;
+	}
+
 	public List<ControleurSIALE> getListeControleurSIALE() {
 		return listeControleurSIALE;
 	}
@@ -106,7 +117,7 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 
 			@Override
 			public int compare(ControleurSIALE o1, ControleurSIALE o2) {
-				return (o1.getNom()+o1.getPrenom()).compareTo(o2.getNom()+o2.getPrenom());
+				return (o1.getNomAffichage()).compareTo(o2.getNomAffichage());
 			}
 		});
 	}
@@ -120,7 +131,7 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		initialiseAllListes();
 		
 		attributs = new ArrayList<String>();
-		attributs.add("sn");//nom
+		attributs.add("displayname");//nom
 		attributs.add("givenName");//prenom
 		attributs.add("samaccountname");//username
 			
@@ -132,17 +143,16 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 
 	@Listen("onClick = #ajouterControleurSIALE")
 	public void onClick$ajouterControleurSIALE() {
-		System.out.println("onClick$ajouterControleurSIALE");
 		
 		actionControleurSIALE = Action.AJOUT;
 
 		ControleurSIALE c = new ControleurSIALE();
-//		c.setNom("nompopol");
-//		c.setPrenom("prenompopol");
-//		c.setUsername("popol72");
 		c.setActif(true);
 		c.getDroits().add(Constantes.droitControleur);
 		setControleurSIALECourant(c);
+		
+		initialisteControleurSIALEListBox("samaccountname", getControleurSIALECourant().getUsername());
+		
 		binder.loadComponent(zoneSaisieControleurSIALE);
 	}
 	
@@ -151,6 +161,10 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		
 		initialisteControleurSIALEListBox("samaccountname", getControleurSIALECourant().getUsername());
 		
+		if (controleurSIALEListBox.getModel().getSize() > 0) {
+			setControleurSIALESelected((ControleurSIALE)controleurSIALEListBox.getModel().getElementAt(0));
+		}
+ 		
 		actionControleurSIALE=  Action.MODIFICATION;
 		binder.loadComponent(zoneSaisieControleurSIALE);
 	}
@@ -196,24 +210,48 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 			setControleurSIALECourant(ControleurSIALE.findControleurSIALE(getControleurSIALECourant().getId()));
 		}
 		
+		setControleurSIALESelected(null);
+		
 		initialiseAllListes();
 
+		//Pour forcer à supprimer les messages d'erreur
+		zoneSaisieControleurSIALE.invalidate();
+		
 		actionControleurSIALE = Action.AUCUNE;
 		binder.loadComponent(gestionDroits);
 	}
 	
 	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #validerControleurSIALE")
 	public void onClick$validerControleurSIALE() {
-		System.out.println("onClick$validerControleurSIALE");
 		
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisieControleurSIALE);
 		
+		//Le controleur doit être sélectionne
+		if (controleurSIALESelected == null || controleurSIALESelected.getUsername() == null) {
+			controleSaisie.ajouteErreur(controleurSIALEListBox, "Vous devez selectionner un Controleur.");
+		} else {
+			controleurSIALECourant.setDisplayname(controleurSIALESelected.getDisplayname());
+			controleurSIALECourant.setUsername(controleurSIALESelected.getUsername());
+		}
 		
 		// doit être admin et/ou controleur
 		if (getControleurSIALECourant().getDroits().size() == 0) {           
 			controleSaisie.ajouteErreur(zoneSaisieControleurSIALE.getFellow("controleurCheckbox"),"Il faut cocher Controleur ET/OU Administrateur.");
 		}
+		
+		//Le nom doit être unique !!
+		int nb = actionControleurSIALE == Action.AJOUT ? 1 :0;;
+		for (ControleurSIALE controleurSIALE : getListeControleurSIALE()) {
+			if (controleurSIALE.getUsername().equalsIgnoreCase(controleurSIALECourant.getUsername())) {
+				nb++;
+				if (nb>1) {
+					controleSaisie.ajouteErreur(controleurSIALEListBox, "Ce controleur esiste déjà");
+					break;
+				}
+			}
+		}
+		
 		
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();
@@ -254,9 +292,6 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 				}
 			}
 		}
-		
-		System.out.println(getControleurSIALECourant().getDroits());
-		
 	}
 	
 	@Listen("onClick = #includeSaisieControleurSIALE #zoneSaisieControleurSIALE #administrateurCheckbox")
@@ -275,9 +310,6 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 				}
 			}
 		}
-		
-		System.out.println(getControleurSIALECourant().getDroits());
-	
 	}
 	
 	//Renvoie fax  sur le user courant est le user selectionné
@@ -289,7 +321,7 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		
 		List<ControleurSIALE> newModel = new ArrayList<ControleurSIALE>();
  		
-		ArrayList<Hashtable<String, Object>> arr = LDAP.chercherUserLDAPAttributs(attributs,critere,value+"*");
+		ArrayList<Hashtable<String, Object>> arr = LDAP.chercherUserLDAPAttributs(attributs,critere,"*"+value+"*");
 		
 		for (Hashtable<String, Object> hash : arr) {
 			
@@ -297,27 +329,35 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 			String samaccountname = (String)hash.get("samaccountname"); 
 			if (samaccountname != null && !samaccountname.equals("null") ) {
 				ControleurSIALE c = new ControleurSIALE();
-				c.setNom(hash.get("sn").toString().toUpperCase());
-				c.setPrenom(hash.get("givenName").toString());
+				c.setDisplayname(hash.get("displayname").toString());
 				c.setUsername(hash.get("samaccountname").toString());
 				newModel.add(c);
 			}
 			
 		}
  	
+		Collections.sort(newModel, new Comparator<ControleurSIALE>() {
+
+			@Override
+			public int compare(ControleurSIALE o1, ControleurSIALE o2) {
+				return o1.getDisplayname().compareTo(o2.getDisplayname());
+			}
+		});
+		
  		//etablissementListBox.setModel(new ListModelList<Etablissement>(newModel));
  		BindingListModelList<ControleurSIALE>  bind= new BindingListModelList<ControleurSIALE>(newModel,true);
  		
  		controleurSIALEListBox.setModel(bind);
+ 		
 	}
 	
 	public void onChangingDETOURNE$controleurSIALEListBox(String value) {
-		//TODO virer sysout
-		System.out.println("onChangingDETOURNE$etablissementListBox "+value );
 		
 		//Si plus de 2 caractères saisis, on recherche dans LDAP
 		if (value.length() > 2) {
-			initialisteControleurSIALEListBox("sn", value);
+			initialisteControleurSIALEListBox("displayname", value);
+		} else {
+			controleurSIALEListBox.setModel(null);
 		}
 	}
 	

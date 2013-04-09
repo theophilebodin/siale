@@ -52,7 +52,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<ControleurSIALE, String> ApplicationConversionServiceFactoryBean.getControleurSIALEToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<nc.mairie.siale.domain.ControleurSIALE, java.lang.String>() {
             public String convert(ControleurSIALE controleurSIALE) {
-                return new StringBuilder().append(controleurSIALE.getPrenom()).append(' ').append(controleurSIALE.getNom()).append(' ').append(controleurSIALE.getUsername()).toString();
+                return new StringBuilder().append(controleurSIALE.getDisplayname()).append(' ').append(controleurSIALE.getUsername()).toString();
             }
         };
     }

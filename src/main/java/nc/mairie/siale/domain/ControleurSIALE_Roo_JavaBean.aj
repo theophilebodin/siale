@@ -9,20 +9,12 @@ import nc.mairie.siale.domain.Droit;
 
 privileged aspect ControleurSIALE_Roo_JavaBean {
     
-    public String ControleurSIALE.getPrenom() {
-        return this.prenom;
+    public String ControleurSIALE.getDisplayname() {
+        return this.displayname;
     }
     
-    public void ControleurSIALE.setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-    
-    public String ControleurSIALE.getNom() {
-        return this.nom;
-    }
-    
-    public void ControleurSIALE.setNom(String nom) {
-        this.nom = nom;
+    public void ControleurSIALE.setDisplayname(String displayname) {
+        this.displayname = displayname;
     }
     
     public String ControleurSIALE.getUsername() {

@@ -3,11 +3,10 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_nc_mairie_siale_domain_ControleurSIALE" modelAttribute="controleurSIALE" path="/controleursiales" render="${empty dependencies}" z="dugY8zAn3UnOBeGtcDOiM8C/3ZI=">
-        <field:input field="prenom" id="c_nc_mairie_siale_domain_ControleurSIALE_prenom" required="true" z="DiYBdfbmXKNE7n4U2QqRT844XjQ="/>
-        <field:input field="nom" id="c_nc_mairie_siale_domain_ControleurSIALE_nom" required="true" z="KPa5BOn7/JDIO0akLFxwzjJKSp0="/>
         <field:input field="username" id="c_nc_mairie_siale_domain_ControleurSIALE_username" required="true" z="z39t/JIvIFFea3k6sFPszmt1CmQ="/>
         <field:select field="droits" id="c_nc_mairie_siale_domain_ControleurSIALE_droits" itemValue="id" items="${droits}" multiple="true" path="/droits" z="W6ZnEUSCrqHL13zOi2KzuQsCZzo="/>
         <field:checkbox field="actif" id="c_nc_mairie_siale_domain_ControleurSIALE_actif" z="Vz5HXHXQJALJa+MOTJSKIcTAT7o="/>
+        <field:input field="displayname" id="c_nc_mairie_siale_domain_ControleurSIALE_displayname" required="true" z="dsc0MIC7vf/rbskXPw4XL28AsxU="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_nc_mairie_siale_domain_ControleurSIALE" render="${not empty dependencies}" z="GPgFswzOkXM5FNHjdZQ5BkF8uSM="/>
 </div>

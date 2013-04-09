@@ -16,10 +16,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 public class ControleurSIALE {
 
     @NotNull
-    private String prenom;
-
-    @NotNull
-    private String nom;
+    private String displayname;
 
     @NotNull
     private String username;
@@ -29,8 +26,9 @@ public class ControleurSIALE {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Droit> droits = new HashSet<Droit>();
 
+    //Utilisé par la ZUL de gestionMission
     public String getNomAffichage() {
-        return nom + " " + prenom;
+        return displayname;
     }
 
     public boolean isAdmin() {

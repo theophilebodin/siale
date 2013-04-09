@@ -24,6 +24,7 @@ public class Param implements Cloneable{
 
     private Boolean actif;
 
+    //Utilisé par la ZUL de gestionMission
     public String getNomAffichage () {
     	return nom;
     }

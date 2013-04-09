@@ -298,7 +298,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 					if (o2 instanceof Param) {
 						return ((ControleurSIALE)o1).getNomAffichage().compareTo(((Param)o2).getNom());
 					} else {
-						return ((ControleurSIALE)o1).getNomAffichage().compareTo(((ControleurSIALE)o2).getNom());
+						return ((ControleurSIALE)o1).getNomAffichage().compareTo(((ControleurSIALE)o2).getNomAffichage());
 					}
 				}
 			}
