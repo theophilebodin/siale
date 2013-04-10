@@ -6,7 +6,7 @@
 		<window id="zoneSaisieCritere" 
 			mode="modal"
 			position="center"
-			visible="@{baremeNotation.actionNoteCritere.enCours}" width="400px"
+			visible="@{baremeNotation.actionNoteCritere.enCours}" width="300px"
 			title="@{baremeNotation.actionNoteCritere}">
 			<grid>
 				<columns>

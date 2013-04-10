@@ -6,7 +6,7 @@
 <window id="zoneSaisieGroupe" 
 			mode="modal"
 			position="center"
-			visible="@{baremeNotation.actionNoteGroupe.enCours}" width="600px"
+			visible="@{baremeNotation.actionNoteGroupe.enCours}" width="400px"
 			title="@{baremeNotation.actionNoteGroupe}">
 
 

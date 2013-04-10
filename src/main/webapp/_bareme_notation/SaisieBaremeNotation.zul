@@ -6,7 +6,7 @@
 		<window id="zoneSaisieBareme" 
 			mode="modal"
 			position="center"
-			visible="@{baremeNotation.actionBareme.enCours}" width="800px"
+			visible="@{baremeNotation.actionBareme.enCours}" width="500px"
 			title="@{baremeNotation.actionBareme}">
 		
 	<div>			
@@ -31,7 +31,7 @@
 <label value="Tant que vous n'avez pas Validé, vos modifications ne seront pas prises en compte" visible="@{baremeNotation.saisieNonSauvergardee }" style="color:red;"/>
 
 			<listbox id="noteGroupeListBox"
-				rows="10" mold="paging" pageSize="10"
+				rows="8" mold="paging" pageSize="8"
 				model="@{baremeNotation.listeNoteGroupe}"
 				selectedItem="@{baremeNotation.noteGroupeCourant}">
 

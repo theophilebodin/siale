@@ -6,8 +6,6 @@
 	contentStyle="overflow:auto">
 
 	<div id="zoneListe" visible="@{gestionMissions.actionMission.aucune}">
-		<groupbox>
-			<hbox>
 				<listbox id="missionsListBox" rows="10" mold="paging"
 					pageSize="10" model="@{gestionMissions.listeMission}"
 					selectedItem="@{gestionMissions.missionCourant}">
@@ -46,10 +44,6 @@
 					</listitem>
 				</listbox>
 
-
-				
-			</hbox>
-		</groupbox>
 	</div>
 	<div id="zoneSaisie" visible="@{gestionMissions.actionMission.enCours}">
 
