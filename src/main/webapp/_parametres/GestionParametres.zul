@@ -22,7 +22,7 @@
 		 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>
 		<listhead>
 			<listheader label="Nom" sortDirection="ascending" sort="auto(nom)"/>
-			<listheader label="Actif" sort="auto"/>
+			<listheader label="Actif" sort="auto(actif)"/>
 			<listheader width="64px" visible="@{gestionParametres.parametreEditable }">
 				<image id="ajouterParametre"
 					src="/_images/add_24x24.png" tooltiptext="Ajouter" visible="@{gestionParametres.parametreEditable }"/>
