@@ -106,7 +106,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 					System.out.println("Simule connection avec "+controleurSIALE.getNomAffichage());
 				}
 		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
-		
+		menuModelMission.add(new MenuNode("Import VISHA TEMP","Import VISHA","/_VISHA/ImportVISHA.zul","/_accueil/VISHA.png"));
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		
@@ -114,7 +114,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		if (CurrentUser.getCurrentUser().isAdmin()) {
 			menuModelParametre.add(new MenuNode("Droits","Gestion des droits","/_droits/GestionDroits.zul","/_accueil/droits.png"));
 		}
-		menuModelParametre.add(new MenuNode("**Import VISHA","Import VISHA","borderlayout_fn3.zul","/_accueil/VISHA.png"));
+		menuModelParametre.add(new MenuNode("Import VISHA","Import VISHA","/_VISHA/ImportVISHA.zul","/_accueil/VISHA.png"));
 		menuModelParametre.add(new MenuNode("Barême notation","Barême des notations","/_bareme_notation/BaremeNotation.zul","/_accueil/Bareme.png"));
 		menuModelParametre.add(new MenuNode("---Gestionexemple","Gestion des interventions","borderlayout_fn1.zul","/_accueil/intervention.png"));
 		menuModelParametre.add(new MenuNode("---Paramètres MVVMV","Gestion des paramètres","/problemMVVM/GestionParametresMVVM.zul","/_accueil/parametres.png"));
