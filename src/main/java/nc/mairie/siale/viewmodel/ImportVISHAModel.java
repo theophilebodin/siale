@@ -122,12 +122,15 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 	
 	public void erreurImport(String message) {
 		Messagebox.show(message, "Erreur", 0, Messagebox.ERROR);
+		setActionImport(Action.AUCUNE);
 	}
 	
 	@Listen("onUpload=#importVISHA;" +
 			"onUpload=#uploadBtn;")
     public void uploadFile(UploadEvent event) {
 
+		setActionImport(Action.AJOUT);
+		
 	    Media media = event.getMedia();
         if (media == null) {
         	erreurImport("Aucun fichier n'a été sélectionné.");
@@ -211,7 +214,6 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
     	getListeEtabVISHA().addAll(hashEtablissementVISHA.values());
     	
     	workbook.close();
-    	setActionImport(Action.AUCUNE);
     	
         binder.loadAll();
  
