@@ -43,9 +43,17 @@
  	<groupbox >
  		<div align="center" visible="@{importVISHA.actionImport.aucune}">
 <!-- 			<button id="uploadBtn" label="Import VISHA" onClick="Fileupload.get();"/> -->
-			<button id="uploadBtn" label="Import VISHA" upload="true,maxsize=-1,native"
-				disabled="@{importVISHA.actionImport.enCours}"/>
+<!-- 			<button id="uploadBtn" label="Import VISHA" upload="true,maxsize=-1,native" -->
+<!-- 				disabled="@{importVISHA.actionImport.enCours}"/> -->
+			<button id="uploadBtn" label="Import VISHA"/>
 		</div>
+
+<div>
+
+<include id="includeUpload" src="/_VISHA/upload.zul"/>
+
+</div>
+
 
 			<div align="center" visible="@{importVISHA.actionImport.enCours}">
 				<button id="validerImport" label="Valider" width="80px" />
@@ -54,6 +62,8 @@
 		</groupbox>
  
  </div>
+
+
  
 <!-- <window id="progressImportVISHA"  -->
 <!-- 		mode="modal" -->

@@ -1,0 +1,31 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="upload" 
+		mode="modal"
+		title="Telechargement VISHA"
+		position="center"
+		visible="@{importVISHA.actionUpload.enCours}"
+		width="400px">
+
+<!-- <progressmeter id="progressMeter" value="0" width="100%"/> -->
+
+<vbox>
+	<label value="Avant de cliquer sur le bouton Fichier vérifier que le format soit correct."/>
+	<label value=""/>
+	<label value="Colonne 1 : Etablissement"/>
+	<label value="Colonne 2 : Contact"/>
+	<label value="Colonne 3 : Adresse"/>
+	<label value="Colonne 4 : Immatriculation"/>
+	<label value=""/>
+	<label value="Les colonnes suivantes sont ignorées."/>
+</vbox>
+<separator/>
+
+
+<div align="center">
+<button id="uploadBtn" label="Fichier" upload="true"/>
+<button label="Annuler" id="annulerUpload"/>
+</div>
+ 
+</window>
+</zk>

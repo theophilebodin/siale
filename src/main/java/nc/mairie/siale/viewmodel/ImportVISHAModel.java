@@ -23,6 +23,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
@@ -45,6 +46,13 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 
 	@Wire
 	Window importVISHA;
+	
+	@Wire
+	Include includeUpload;
+	
+	@Wire("#includeUpload #upload")
+	Window upload;
+	
 
 	
 	Hashtable<String, EtabVISHA> hashEtablissementVISHA;
@@ -52,7 +60,16 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 	List<EtabVISHA> listeEtabVISHA;
 	
 	Action actionImport= Action.AUCUNE;
+	Action actionUpload= Action.AJOUT;
 	
+	public Action getActionUpload() {
+		return actionUpload;
+	}
+
+	public void setActionUpload(Action actionUpload) {
+		this.actionUpload = actionUpload;
+	}
+
 	public Action getActionImport() {
 		return actionImport;
 	}
@@ -125,11 +142,26 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		setActionImport(Action.AUCUNE);
 	}
 	
-	@Listen("onUpload=#importVISHA;" +
-			"onUpload=#uploadBtn;")
+	@Listen("onClick=#uploadBtn;")
+	public void onClick$uploadBtn() {
+		setActionUpload(Action.AJOUT);
+		binder.loadComponent(upload);
+	}
+
+	@Listen("onClick=#includeUpload #upload #annulerUpload;")
+	public void onClick$annulerUpload() {
+		setActionUpload(Action.AUCUNE);
+		setActionImport(Action.AUCUNE);
+		binder.loadAll();
+	}
+
+//	@Listen("onUpload=#importVISHA;" +
+//			"onUpload=#uploadBtn;")
+	@Listen("onUpload=#includeUpload #upload #uploadBtn;")
     public void uploadFile(UploadEvent event) {
 
-		setActionImport(Action.AJOUT);
+		
+		
 		
 	    Media media = event.getMedia();
         if (media == null) {
@@ -150,14 +182,12 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
     	try {
     		workbook = Workbook.getWorkbook(media.getStreamData());
 		} catch (BiffException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			alert("BiffException");
+			alert(e.getMessage());
 			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			alert("IOException");
+			alert(e.getMessage());
 			return;
 		}
     	
@@ -177,7 +207,6 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
     	
     	
     	for (int i = 1; i < sheet.getRows(); i++) {
-    		
     		
     		String libelle = ((LabelCell)sheet.getCell(0,i)).getString();
     		String contact = ((LabelCell)sheet.getCell(1,i)).getString();
@@ -215,6 +244,11 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
     	
     	workbook.close();
     	
+		setActionImport(Action.AJOUT);
+		setActionUpload(Action.AUCUNE);
+    	
+		Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
+		
         binder.loadAll();
  
 	}
@@ -237,5 +271,11 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		initialiseAllListes();
 		
 		binder.loadAll();
+	}
+	@Listen("onClick = #validerImport")
+	public void onClick$valiserImport() {
+	
+		//TODO a faire
+		
 	}
 }
