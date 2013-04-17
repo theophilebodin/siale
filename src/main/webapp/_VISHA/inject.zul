@@ -1,0 +1,19 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="inject" 
+		mode="modal"
+		title="Injection"
+		position="center"
+		visible="@{importVISHA.actionInject.enCours}"
+		width="200px" >
+
+
+<vbox>
+<label value="Injection en cours..."/>
+<progressmeter id="progressmeter" value="@{importVISHA.progressMeterValue}" width="100%"/>
+</vbox>
+
+<label id="msg" value="@{importVISHA.msgImport}"/>
+ 
+</window>
+</zk>

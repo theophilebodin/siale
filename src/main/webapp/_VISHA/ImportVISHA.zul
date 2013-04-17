@@ -48,21 +48,24 @@
 			<button id="uploadBtn" label="Import VISHA"/>
 		</div>
 
-<div>
-
-<include id="includeUpload" src="/_VISHA/upload.zul"/>
-
-</div>
-
 
 			<div align="center" visible="@{importVISHA.actionImport.enCours}">
-				<button id="validerImport" label="Valider" width="80px" />
+				<button id="validerImport" label="Valider" width="80px" autodisable="self"/>
 				<button id="annulerImport" label="Annuler" width="80px" />
 			</div>
 		</groupbox>
  
  </div>
+<div>
 
+<include id="includeUpload" src="/_VISHA/upload.zul"/>
+
+</div>
+<div>
+
+<include id="includeInject" src="/_VISHA/inject.zul"/>
+
+</div>
 
  
 <!-- <window id="progressImportVISHA"  -->

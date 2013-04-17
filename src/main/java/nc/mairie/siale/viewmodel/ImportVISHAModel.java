@@ -16,15 +16,21 @@ import jxl.read.biff.BiffException;
 import nc.mairie.siale.domain.Etablissement;
 import nc.mairie.siale.technique.Action;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Include;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Progressmeter;
 import org.zkoss.zul.Window;
 
 
@@ -47,21 +53,54 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 	@Wire
 	Window importVISHA;
 	
-	@Wire
-	Include includeUpload;
-	
 	@Wire("#includeUpload #upload")
 	Window upload;
-	
 
+	@Wire("#includeInject #inject")
+	Window inject;
 	
-	Hashtable<String, EtabVISHA> hashEtablissementVISHA;
+	@Wire("#includeInject #inject #progressmeter")
+	Progressmeter progressmeter;
+
+	public Hashtable<String, EtabVISHA> hashEtablissementVISHA;
 
 	List<EtabVISHA> listeEtabVISHA;
 	
 	Action actionImport= Action.AUCUNE;
 	Action actionUpload= Action.AJOUT;
+	Action actionInject= Action.AUCUNE;
 	
+	int progressMeterValue;
+	
+	@Wire
+	Div resultImport;
+	
+	String msgImport;
+	
+	public String getMsgImport() {
+		return msgImport;
+	}
+
+	public void setMsgImport(String msgImport) {
+		this.msgImport = msgImport;
+	}
+
+	public int getProgressMeterValue() {
+		return progressMeterValue;
+	}
+
+	public void setProgressMeterValue(int progressMeterValue) {
+		this.progressMeterValue = progressMeterValue;
+	}
+
+	public Action getActionInject() {
+		return actionInject;
+	}
+
+	public void setActionInject(Action actionInject) {
+		this.actionInject = actionInject;
+	}
+
 	public Action getActionUpload() {
 		return actionUpload;
 	}
@@ -247,7 +286,7 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		setActionImport(Action.AJOUT);
 		setActionUpload(Action.AUCUNE);
     	
-		Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
+		Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "Télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
 		
         binder.loadAll();
  
@@ -272,10 +311,111 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		
 		binder.loadAll();
 	}
-	@Listen("onClick = #validerImport")
-	public void onClick$valiserImport() {
 	
-		//TODO a faire
+	class T extends Thread {
+
+
+		private Progressmeter obj;
+		private final Desktop _desktop;
+
+
+
+		public T(Progressmeter pt) {
+		_desktop = pt.getDesktop();
+		obj = pt;
+		}
+
+		@Transactional
+		public void run()
+		{
+			try {
+				
+				int nbval = hashEtablissementVISHA.size();
+				int cpt=0;
+				
+				int oldvaleur=0;
+				
+				for (EtabVISHA etabVISHA : hashEtablissementVISHA.values()) {
+					
+					etabVISHA.getEtablissement().merge();
+					
+					int valeur = (cpt++)*100/nbval;
+					System.out.println("cpt : "+ cpt);
+					
+					if (valeur != oldvaleur && valeur % 10 == 0 ) {
+					
+						oldvaleur=valeur;
+						
+						System.out.println("valeur : "+valeur);
+						
+						Executions.activate(_desktop);
+						try {
+							
+							obj.setValue(valeur);
+							
+						} finally {
+		                     Executions.deactivate(_desktop);
+		                     //Thread.sleep(50);
+		                }
+					}
+					}
+				
+				
+				
+//				int i=1;
+//	            while (i<101) {
+//	 
+//	                //Step 2. Activate to grant the access of the give desktop
+//	                Executions.activate(_desktop);
+//	                try {
+//	                     //Step 3. Update UI
+//	                	obj.setValue(i++); //whatever you like
+//	                } finally {
+//	                    //Step 4. Deactivate to return the control of UI back
+//	                     Executions.deactivate(_desktop);
+//	                }
+//	            }
+	        } catch (Exception ex) {
+	        	//setMsgImport(ex.getMessage());
+	        	
+	        }
+			
+		}
+
+	} 
+	
+	
+	@Listen("onClick = #validerImport")
+	@Transactional
+	public void onClick$valiserImport() {
+		Clients.showBusy("Injection en cours");
+		Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), null);
+	}
+	
+	
+	
+	@Listen("onLater = #validerImport")
+	@Transactional
+	public void onLater$valiserImport() {
+	
+		int cpt=0;
+		try {
+			for (EtabVISHA etabVISHA : hashEtablissementVISHA.values()) {
+				System.out.println(cpt++);
+				etabVISHA.getEtablissement().merge();
+			}
+		} 
+//		catch (Exception e) {
+//			Messagebox.show("Erreur rencontrée: "+e.getMessage(), "Import annulé", Messagebox.OK, Messagebox.ERROR);
+//		}
+		finally {
+			Clients.clearBusy();
+		}
+
+		Messagebox.show("Les établissements ont été mis à jour.", "Import terminé", Messagebox.OK, Messagebox.INFORMATION);
+		
+		initialiseAllListes();
+		binder.loadAll();
 		
 	}
 }

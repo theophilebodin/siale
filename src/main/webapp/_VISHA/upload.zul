@@ -2,7 +2,7 @@
 <zk>
 <window id="upload" 
 		mode="modal"
-		title="Telechargement VISHA"
+		title="Import VISHA"
 		position="center"
 		visible="@{importVISHA.actionUpload.enCours}"
 		width="400px">
@@ -23,7 +23,7 @@
 
 
 <div align="center">
-<button id="uploadBtn" label="Fichier" upload="true"/>
+<button id="uploadBtn" label="Fichier" upload="true" autodisable="self"/>
 <button label="Annuler" id="annulerUpload"/>
 </div>
  
