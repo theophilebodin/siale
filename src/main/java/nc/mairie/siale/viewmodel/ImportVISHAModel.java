@@ -5,6 +5,7 @@ package nc.mairie.siale.viewmodel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -19,8 +20,10 @@ import nc.mairie.siale.technique.Action;
 import org.springframework.transaction.annotation.Transactional;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.ComponentNotFoundException;
 import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -194,101 +197,105 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		binder.loadAll();
 	}
 
-//	@Listen("onUpload=#importVISHA;" +
-//			"onUpload=#uploadBtn;")
 	@Listen("onUpload=#includeUpload #upload #uploadBtn;")
-    public void uploadFile(UploadEvent event) {
+	public void onUpliad$uploadBtn(UploadEvent event) {
+		Clients.showBusy("Upload en cours...");
+		Events.echoEvent("onLater", upload.getFellow("uploadBtn"), event.getMedia());
+	}
+	
+	@Listen("onLater=#includeUpload #upload #uploadBtn;")
+    public void uploadFile(Event event) {
 
-		
-		
-		
-	    Media media = event.getMedia();
-        if (media == null) {
-        	erreurImport("Aucun fichier n'a été sélectionné.");
-        	return;
-        }
-        
-        
-        String contentType=media.getContentType();
+	    try {
+			Media media = (Media)event.getData();
+			if (media == null) {
+				erreurImport("Aucun fichier n'a été sélectionné.");
+				return;
+			}
+			
+			String contentType=media.getContentType();
 
-        //Si pas excel, alors ereur
-        if (!contentType.equalsIgnoreCase("application/vnd.ms-excel")) {
-        	erreurImport("Le fichier n'est pas un fichier Excel.");
-        	return;
-        }
-        
-    	Workbook workbook=null;
-    	try {
-    		workbook = Workbook.getWorkbook(media.getStreamData());
-		} catch (BiffException e) {
-			e.printStackTrace();
-			alert(e.getMessage());
-			return;
-		} catch (IOException e) {
-			e.printStackTrace();
-			alert(e.getMessage());
-			return;
+			//Si pas excel, alors ereur
+			if (!contentType.equalsIgnoreCase("application/vnd.ms-excel")) {
+				erreurImport("Le fichier n'est pas un fichier Excel.");
+				return;
+			}
+			
+			Workbook workbook=null;
+			try {
+				workbook = Workbook.getWorkbook(media.getStreamData());
+			} catch (BiffException e) {
+				e.printStackTrace();
+				alert(e.getMessage());
+				return;
+			} catch (IOException e) {
+				e.printStackTrace();
+				alert(e.getMessage());
+				return;
+			}
+			
+			
+			Sheet sheet = workbook.getSheet(0);
+
+			//On teste les 4 1eres colonnes
+			if (! ((LabelCell)sheet.getCell(0,0)).getString().equals("Etablissement") ||
+				! ((LabelCell)sheet.getCell(1,0)).getString().equals("Contact")	||
+				! ((LabelCell)sheet.getCell(2,0)).getString().equals("Adresse") ||
+				! ((LabelCell)sheet.getCell(3,0)).getString().equals("Immatriculation")) {
+				workbook.close();
+				erreurImport("Verifier le fichier, les titres des 4 premières colonne doivent être :\n" +
+						"Etablissement, Contact, Adresse, Immatriculation");
+				return;
+			}
+			
+			
+			for (int i = 1; i < sheet.getRows(); i++) {
+				
+				String libelle = ((LabelCell)sheet.getCell(0,i)).getString();
+				String contact = ((LabelCell)sheet.getCell(1,i)).getString();
+				String adresse = ((LabelCell)sheet.getCell(2,i)).getString();
+				String code = ((LabelCell)sheet.getCell(3,i)).getString();
+				
+				//l'a t"on déjà ?
+				EtabVISHA etabVISHA = hashEtablissementVISHA.get(code);
+
+				//Non trouvé, alors on le rajoute
+				if (etabVISHA == null) {
+					Etablissement etablissement = new Etablissement();
+					etablissement.setCode(code);
+					etablissement.setLibelle(libelle);
+					etablissement.setContact(contact);
+					etablissement.setAdresse(adresse);
+					hashEtablissementVISHA.put(code, new EtabVISHA(etablissement, Action.AJOUT));
+				//Sinon, si ce n'est pas un nouveau
+				} else if (! etabVISHA.action.equals("Nouveau")) {
+					Etablissement etablissement =  etabVISHA.etablissement;
+					//Si un des champs a changé
+					if (! (	etablissement.getAdresse().equals(adresse) &&
+							etablissement.getLibelle().equals(libelle)&&
+							etablissement.getContact().equals(contact)) ) {
+						etabVISHA.action = Action.MODIFICATION;
+						etablissement.setLibelle(libelle);
+						etablissement.setContact(contact);
+						etablissement.setAdresse(adresse);
+					}
+				}
+			}
+				
+			setListeEtabVISHA(new ArrayList<ImportVISHAModel.EtabVISHA>());
+			getListeEtabVISHA().addAll(hashEtablissementVISHA.values());
+			
+			workbook.close();
+			
+			setActionImport(Action.AJOUT);
+			setActionUpload(Action.AUCUNE);
+			
+			Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "Télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
+			
+			binder.loadAll();
+		} finally {
+			Clients.clearBusy();
 		}
-    	
-    	
-    	Sheet sheet = workbook.getSheet(0);
-
-    	//On teste les 4 1eres colonnes
-    	if (! ((LabelCell)sheet.getCell(0,0)).getString().equals("Etablissement") ||
-    		! ((LabelCell)sheet.getCell(1,0)).getString().equals("Contact")	||
-    		! ((LabelCell)sheet.getCell(2,0)).getString().equals("Adresse") ||
-    		! ((LabelCell)sheet.getCell(3,0)).getString().equals("Immatriculation")) {
-    		workbook.close();
-    		erreurImport("Verifier le fichier, les titres des 4 premières colonne doivent être :\n" +
-    				"Etablissement, Contact, Adresse, Immatriculation");
-    		return;
-    	}
-    	
-    	
-    	for (int i = 1; i < sheet.getRows(); i++) {
-    		
-    		String libelle = ((LabelCell)sheet.getCell(0,i)).getString();
-    		String contact = ((LabelCell)sheet.getCell(1,i)).getString();
-    		String adresse = ((LabelCell)sheet.getCell(2,i)).getString();
-    		String code = ((LabelCell)sheet.getCell(3,i)).getString();
-    		
-    		//l'a t"on déjà ?
-    		EtabVISHA etabVISHA = hashEtablissementVISHA.get(code);
-
-    		//Non trouvé, alors on le rajoute
-    		if (etabVISHA == null) {
-    			Etablissement etablissement = new Etablissement();
-    			etablissement.setCode(code);
-    			etablissement.setLibelle(libelle);
-    			etablissement.setContact(contact);
-    			etablissement.setAdresse(adresse);
-    			hashEtablissementVISHA.put(code, new EtabVISHA(etablissement, Action.AJOUT));
-    		//Sinon, si ce n'est pas un nouveau
-    		} else if (! etabVISHA.action.equals("Nouveau")) {
-    			Etablissement etablissement =  etabVISHA.etablissement;
-    			//Si un des champs a changé
-    			if (! (	etablissement.getAdresse().equals(adresse) &&
-    					etablissement.getLibelle().equals(libelle)&&
-    					etablissement.getContact().equals(contact)) ) {
-    				etabVISHA.action = Action.MODIFICATION;
-    				etablissement.setLibelle(libelle);
-        			etablissement.setContact(contact);
-        			etablissement.setAdresse(adresse);
-    			}
-    		}
-    	}
-    		
-    	setListeEtabVISHA(new ArrayList<ImportVISHAModel.EtabVISHA>());
-    	getListeEtabVISHA().addAll(hashEtablissementVISHA.values());
-    	
-    	workbook.close();
-    	
-		setActionImport(Action.AJOUT);
-		setActionUpload(Action.AUCUNE);
-    	
-		Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "Télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
-		
-        binder.loadAll();
  
 	}
 	
@@ -312,110 +319,112 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		binder.loadAll();
 	}
 	
-	class T extends Thread {
 
 
-		private Progressmeter obj;
-		private final Desktop _desktop;
+	@Listen("onLater = #includeInject #inject #progressmeter")
+	public void onLater$progressmeter(Event event) {
+		int value = Integer.parseInt((String)event.getData());
+		System.out.println("onLater$progressmeter avec "+value);
+		progressmeter.setValue(value);
+		binder.loadComponent(progressmeter);
+	}
 
-
-
-		public T(Progressmeter pt) {
-		_desktop = pt.getDesktop();
-		obj = pt;
-		}
-
-		@Transactional
-		public void run()
-		{
-			try {
-				
-				int nbval = hashEtablissementVISHA.size();
-				int cpt=0;
-				
-				int oldvaleur=0;
-				
-				for (EtabVISHA etabVISHA : hashEtablissementVISHA.values()) {
-					
-					etabVISHA.getEtablissement().merge();
-					
-					int valeur = (cpt++)*100/nbval;
-					System.out.println("cpt : "+ cpt);
-					
-					if (valeur != oldvaleur && valeur % 10 == 0 ) {
-					
-						oldvaleur=valeur;
-						
-						System.out.println("valeur : "+valeur);
-						
-						Executions.activate(_desktop);
-						try {
-							
-							obj.setValue(valeur);
-							
-						} finally {
-		                     Executions.deactivate(_desktop);
-		                     //Thread.sleep(50);
-		                }
-					}
-					}
-				
-				
-				
-//				int i=1;
-//	            while (i<101) {
-//	 
-//	                //Step 2. Activate to grant the access of the give desktop
-//	                Executions.activate(_desktop);
-//	                try {
-//	                     //Step 3. Update UI
-//	                	obj.setValue(i++); //whatever you like
-//	                } finally {
-//	                    //Step 4. Deactivate to return the control of UI back
-//	                     Executions.deactivate(_desktop);
-//	                }
-//	            }
-	        } catch (Exception ex) {
-	        	//setMsgImport(ex.getMessage());
-	        	
-	        }
-			
-		}
-
-	} 
-	
+	List<EtabVISHA> tempList;
 	
 	@Listen("onClick = #validerImport")
-	@Transactional
 	public void onClick$valiserImport() {
-		Clients.showBusy("Injection en cours");
-		Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), null);
+		
+		//Clients.showBusy("Injection en cours");
+		setActionInject(Action.AJOUT);
+		binder.loadComponent(inject);
+		
+		tempList = new ArrayList<ImportVISHAModel.EtabVISHA>(hashEtablissementVISHA.values());
+		
+		Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), new Integer(0));
 	}
 	
 	
 	
 	@Listen("onLater = #validerImport")
 	@Transactional
-	public void onLater$valiserImport() {
+	public void onLater$valiserImport(Event event) {
 	
-		int cpt=0;
+		
+		int deb = (Integer)event.getData();
+		
+		int mod = hashEtablissementVISHA.size() / 10;
+		
 		try {
-			for (EtabVISHA etabVISHA : hashEtablissementVISHA.values()) {
-				System.out.println(cpt++);
-				etabVISHA.getEtablissement().merge();
+			for (int i = deb; i < tempList.size(); i++) {
+				
+				System.out.println(i);
+				
+				tempList.get(i).getEtablissement().merge();
+				
+				//si on a atteint mod, on echoEvent pour les prochains (sauf si on est à la fin
+				if (i== deb+mod && i!= tempList.size() -1) {
+					progressmeter.setValue(i*100/hashEtablissementVISHA.size());
+					Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), new Integer(deb+mod+1));
+					return;
+				}
+				
+				
+				
 			}
-		} 
-//		catch (Exception e) {
-//			Messagebox.show("Erreur rencontrée: "+e.getMessage(), "Import annulé", Messagebox.OK, Messagebox.ERROR);
-//		}
-		finally {
-			Clients.clearBusy();
+		} catch (Exception e){
+			setActionInject(Action.AUCUNE);
+			binder.loadAll();
+			return;
 		}
 
+		setActionInject(Action.AUCUNE);
+		
 		Messagebox.show("Les établissements ont été mis à jour.", "Import terminé", Messagebox.OK, Messagebox.INFORMATION);
 		
 		initialiseAllListes();
 		binder.loadAll();
+		
+		
+//		int nbval = hashEtablissementVISHA.size();
+//		int cpt=0;
+//		int oldvaleur=0;
+//		try {
+//			for (EtabVISHA etabVISHA : tempCollec) {
+//				
+//				etabVISHA.getEtablissement().merge();
+//				
+//				progressMeterValue = (cpt++)*100/nbval;
+//				System.out.println("cpt : "+ cpt);
+//				
+//				if (progressMeterValue != oldvaleur && progressMeterValue % 10 == 0 ) {
+//					
+//					oldvaleur=progressMeterValue;
+//					
+//					System.out.println("valeur : "+progressMeterValue);
+//					
+//					Events.echoEvent("onLater", progressmeter, String.valueOf(progressMeterValue) );
+//					
+//					//progressmeter.setValue(valeur);
+//					//binder.loadComponent(inject);
+//					
+//				
+//				}
+//				
+//			}
+//		} 
+//		catch (Exception e) {
+//			Messagebox.show("Erreur rencontrée: "+e.getMessage(), "Import annulé", Messagebox.OK, Messagebox.ERROR);
+//		}
+//		finally {
+//			//Clients.clearBusy();
+//			setActionInject(Action.AUCUNE);
+//			binder.loadComponent(inject);
+//		}
+//
+//		Messagebox.show("Les établissements ont été mis à jour.", "Import terminé", Messagebox.OK, Messagebox.INFORMATION);
+//		
+//		initialiseAllListes();
+//		binder.loadAll();
 		
 	}
 }
