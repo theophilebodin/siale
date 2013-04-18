@@ -115,6 +115,16 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	@Wire
 	Listbox missionControleursListBox;
 	
+	
+	Comparator<Etablissement> comparatorEtablissement = new Comparator<Etablissement>() {
+
+		@Override
+		public int compare(Etablissement o1, Etablissement o2) {
+			// TODO Auto-generated method stub
+			return o1.getLibelle().compareTo(o2.getLibelle());
+		}
+	};
+	
 	//@Wire("#zoneSaisieControleur #saisiComboControleurs")
 	//Combobox zoneSaisieControleur$saisiComboControleurs;
 	
@@ -271,6 +281,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	protected void initialiseAllListes() {
 		listeMission=initialiseListeMissions();
 		listeEtablissement=Etablissement.findAllEtablissements();
+		Collections.sort(listeEtablissement, comparatorEtablissement);
 		listeActivite = Param.findParamsActifsByNomDuTypeParam("ACTIVITE").getResultList();
 		Collections.sort(listeActivite, new Comparator<Param>() {
 			@Override
@@ -660,6 +671,9 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
  				newModel.add(etab);
  			}
  		}
+ 		
+ 		//tri pas utile car on part d'une liste triée...
+ 		//Collections.sort(newModel, comparatorEtablissement);
  		
  		//etablissementListBox.setModel(new ListModelList<Etablissement>(newModel));
  		BindingListModelList<Etablissement>  bind= new BindingListModelList<Etablissement>(newModel,true);
