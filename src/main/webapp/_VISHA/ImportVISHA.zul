@@ -61,25 +61,5 @@
 <include id="includeUpload" src="/_VISHA/upload.zul"/>
 
 </div>
-<div>
 
-<include id="includeInject" src="/_VISHA/inject.zul"/>
-
-</div>
-
- 
-<!-- <window id="progressImportVISHA"  -->
-<!-- 		mode="modal" -->
-<!-- 		position="center" -->
-<!-- 		visible="false" -->
-<!-- 		width="150px"> -->
-<!-- <label value="Téléchargement en cours"/> -->
-
-<!-- <progressmeter id="progressMeter" value="0" width="100%"/> -->
-
-<!-- <button id="uploadBtn" label="importVISHA" onClick="Fileupload.get();"/> -->
-
- 
-<!-- </window> -->
- 
 </window>
