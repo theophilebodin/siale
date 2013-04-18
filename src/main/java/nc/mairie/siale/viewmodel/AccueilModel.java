@@ -106,7 +106,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 					System.out.println("Simule connection avec "+controleurSIALE.getNomAffichage());
 				}
 		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
-		menuModelMission.add(new MenuNode("Import VISHA TEMP","Import VISHA","/_VISHA/ImportVISHA.zul","/_accueil/VISHA.png"));
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		
