@@ -18,8 +18,9 @@
 						<listheader label="Nom" sort="auto(nomEtablissement)"/>
 						<listheader label="Type" width="95px" sort="auto(typeEtablissement)"/>
 						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
-						<listheader label="Cloturé" width="50px" sort="auto(cloturee)"
-							align="center" />
+						<listheader label="Saisi" width="50px" sort="auto(possedeNotations)" align="center" />
+						<listheader label="Note" width="50px" sort="auto(possedeSaisies)" align="center" />
+						<listheader label="Cloturé" width="50px" sort="auto(cloturee)" align="center" />
 						<listheader  width="120px">
 										<image id="ajouterMission" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 						</listheader>
@@ -33,6 +34,10 @@
 						<listcell label="@{mission.typeEtablissement}" />
 						<listcell
 							label="@{mission.activitePrincipale.nom}" />
+						<listcell
+							label="@{mission.possedeSaisies, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+						<listcell
+							label="@{mission.possedeNotations, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
 						<listcell
 							label="@{mission.cloturee, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
 							<listcell>
@@ -49,11 +54,12 @@
 
 
 <hbox>
-<!-- 					<panel style="margin-bottom:10px" -->
-<!-- 						title="Etablissement" border="normal" id="panelEtablissement"> -->
 					<panel 
 						title="Etablissement" border="normal" id="panelEtablissement">
 						<panelchildren>
+							
+							<label value="Type etablissement et Etablissement sont non modifiables car la mission a été notée." visible="@{gestionMissions.missionCourant.possedeNotations}"/>
+							<label value="popol" if="@{gestionMissions.missionCourant.possedeNotations==true }"/>
 							<grid>
 							
 							
@@ -75,6 +81,7 @@
 											id="typeEtablissementCourant"
 											model="@{gestionMissions.listeTypeEtablissement}"
 											selectedItem="@{gestionMissions.missionCourant.typeEtablissement}"
+											disabled="@{gestionMissions.missionCourant.possedeNotations}"
 											readonly="true">
 										</combobox>
 										<combobox autocomplete="true"
@@ -82,6 +89,7 @@
 											model="@{gestionMissions.listeEtablissement}"
 											selectedItem="@{gestionMissions.missionCourant.etablissement}"
 											constraint="no empty"
+											disabled="@{gestionMissions.missionCourant.possedeNotations}"
 											visible="@{gestionMissions.missionCourant.etablissementSelected}">
 											<attribute name="onChanging">
 					<![CDATA[
@@ -95,10 +103,12 @@
 										<textbox id="projetTextBox"
 											value="@{gestionMissions.missionCourant.projet}" 
 											constraint="no empty"
+											disabled="@{gestionMissions.missionCourant.possedeNotations}"
 											visible="@{gestionMissions.missionCourant.projetSelected}"/>
 										<textbox id="nonDeclareTextBox"
 											value="@{gestionMissions.missionCourant.etablissementNonDeclare}" 
-											constraint="no empty" 
+											constraint="no empty"
+											disabled="@{gestionMissions.missionCourant.possedeNotations}" 
 											visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
 									</row>
 								</rows>

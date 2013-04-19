@@ -162,6 +162,16 @@ public class Mission {
         }
         return null;
     }
+    
+   //Retourne vrai si des notations concernent la mission
+    public boolean isPossedeNotations () {
+    	return getNotations().size() > 0;
+    }
+    
+   //Retourne vrai si des saisies concernent la mission
+    public boolean isPossedeSaisies () {
+    	return getSuiteDonnee() != null;
+    }
 
     public static TypedQuery<nc.mairie.siale.domain.Mission> findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan(Set<nc.mairie.siale.domain.ControleurSIALE> controleursSIALE, Boolean cloturee, Date datePrevue) {
         if (controleursSIALE == null) throw new IllegalArgumentException("The controleursSIALE argument is required");
