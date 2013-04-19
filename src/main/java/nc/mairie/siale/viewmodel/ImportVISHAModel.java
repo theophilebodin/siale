@@ -67,6 +67,45 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 	@Wire
 	Div resultImport;
 	
+	String msgInject;
+	boolean running;
+	
+	Action actionInject;
+	
+	int progressMeterValue;
+	
+	public int getProgressMeterValue() {
+		return progressMeterValue;
+	}
+
+	public void setProgressMeterValue(int progressMeterValue) {
+		this.progressMeterValue = progressMeterValue;
+	}
+
+	public Action getActionInject() {
+		return actionInject;
+	}
+
+	public void setActionInject(Action actionInject) {
+		this.actionInject = actionInject;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public String getMsgInject() {
+		return msgInject;
+	}
+
+	public void setMsgInject(String msgInject) {
+		this.msgInject = msgInject;
+	}
+	
 	public Action getActionUpload() {
 		return actionUpload;
 	}
@@ -296,47 +335,103 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 	@Listen("onClick = #validerImport")
 	public void onClick$valiserImport() {
 		
-		Clients.showBusy("Injection en cours");
-		Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), new Integer(0));
+		//Clients.showBusy("Injection en cours");
+		setActionInject(Action.AJOUT);
+		running= true;
+        binder.loadAll();
+        MultiStepsLongOperationWorker t = new MultiStepsLongOperationWorker(this);
+        t.start();
+		//Events.echoEvent("onLater", importVISHA.getFellow("validerImport"), new Integer(0));
 	}
-	
-	
-	
-	@Listen("onLater = #validerImport")
-	@Transactional
-	public void onLater$valiserImport(Event event) {
-	
-		int cptAjout=0;
-		int cptModif=0;
-		
-		try {
-			for (EtabVISHA etabVISHA : hashEtablissementVISHA.values()) {
-			
-				switch (etabVISHA.action) {
-				case AJOUT:
-					cptAjout++;
-					etabVISHA.getEtablissement().merge();
-					break;
-				case MODIFICATION:
-					cptModif++;
-					etabVISHA.getEtablissement().merge();
-					break;
-				default:
-					break;
-				}
-	
-			}
-		} finally {
-			Clients.clearBusy();
-		}
 
+	public class MultiStepsLongOperationWorker extends Thread {
+
+	    private ImportVISHAModel _vm;
+	    public MultiStepsLongOperationWorker (ImportVISHAModel vm) {
+	        _vm = vm;
+	    }
+	    
+	    @Transactional
+	    public void run() {
+			int cptAjout=0;
+			int cptModif=0;
+			
+			int nbetab = _vm.hashEtablissementVISHA.size();
+			int cpt=0;
+			
+			try {
+				for (EtabVISHA etabVISHA : _vm.hashEtablissementVISHA.values()) {
+				
+					_vm.progressMeterValue = (++cpt) * 100 / nbetab; 
+					
+					_vm.setMsgInject("Injection de "+cpt+"/"+nbetab);
+					
+					switch (etabVISHA.action) {
+					case AJOUT:
+						cptAjout++;
+						etabVISHA.getEtablissement().merge();
+						etabVISHA.setAction(Action.VALIDATION);
+						break;
+					case MODIFICATION:
+						cptModif++;
+						etabVISHA.getEtablissement().merge();
+						etabVISHA.setAction(Action.VALIDATION);
+						break;
+					default:
+						break;
+					}
 		
-		Messagebox.show("Etablissements ajoutés : "+cptAjout+"\nEtablissements modifiés : "+cptModif, "Import terminé", Messagebox.OK, Messagebox.INFORMATION);
-		
-		setActionUpload(Action.AUCUNE);
-		setActionImport(Action.AUCUNE);
-		initialiseAllListes();
-		binder.loadAll();
-		
+				}
+			} finally {
+				//Clients.clearBusy();
+				_vm.setRunning(false);
+				_vm.setActionInject(Action.AUCUNE);
+				_vm.setMsgInject("ERREUR : Une erreur empêche la mise à jour des données.\n-> Vérifiez les lignes dont la colonne action est AJOUT ou MODIFICATION.\n-> Corrigez la ligne concerbnée dans le fichier excel.\n-> Cliquez sur Annuler et relancer l'import.");
+			}
+
+			_vm.setMsgInject("Etablissements ajoutés : "+cptAjout+
+							"\nEtablissements modifiés : "+cptModif+
+							"\nEtablissements inchangés : "+(nbetab-cptModif-cptAjout));
+			
+			_vm.setRunning(false);
+	    }
+	    
+//	    public void run () {
+//	        int step = 1;
+//	        Random r = new Random();
+//	        while (step <= 9) {
+//	        	System.out.println("Processing step " + step + "...");
+//	            _vm.setMsgInject("Processing step " + step + "...");
+//	            _vm.setProgressMeterValue(step*10);
+//	            try {
+//	                Thread.sleep(r.nextInt(2000) + 1000);
+//	            } catch (Exception e) {
+//	                e.printStackTrace();
+//	            }
+//	            step++;
+//	        }
+//	        _vm.setRunning(false);
+//	    }
 	}
+	
+	@Listen("onTimer = #includeInject #inject #timer")
+	 public void onTimer$timer () {
+		 if (isRunning()) {
+			 //Clients.showBusy(msgInject);
+			 binder.loadComponent(inject);
+		 } else {
+			 //binder.loadComponent(timer);
+			 //Clients.clearBusy();
+			 
+			 if (getMsgInject().startsWith("ERREUR")) {
+				 Messagebox.show(getMsgInject(), "Import ANNULE", Messagebox.OK, Messagebox.ERROR);
+			 } else {
+				 Messagebox.show(getMsgInject(), "Import terminé", Messagebox.OK, Messagebox.INFORMATION);
+				 setActionImport(Action.AUCUNE);
+			 }
+				
+			 binder.loadAll();
+		 }
+	 }
+	
 }

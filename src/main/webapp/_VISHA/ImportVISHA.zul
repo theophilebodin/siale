@@ -62,4 +62,10 @@
 
 </div>
 
+<div>
+
+<include id="includeInject" src="/_VISHA/inject.zul"/>
+
+</div>
+
 </window>
