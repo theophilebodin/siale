@@ -120,7 +120,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 
 		@Override
 		public int compare(Etablissement o1, Etablissement o2) {
-			// TODO Auto-generated method stub
 			return o1.getLibelle().compareTo(o2.getLibelle());
 		}
 	};
