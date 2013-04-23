@@ -29,6 +29,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 	/**
 	 * test de com3
 	 * test de com4
+	 * test de com5
 	 */
 	private static final long serialVersionUID = 446527977528558574L;
 	
