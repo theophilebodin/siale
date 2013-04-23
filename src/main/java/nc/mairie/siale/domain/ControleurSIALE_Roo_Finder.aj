@@ -28,4 +28,12 @@ privileged aspect ControleurSIALE_Roo_Finder {
         return q;
     }
     
+    public static TypedQuery<ControleurSIALE> ControleurSIALE.findControleurSIALEsByUsernameEquals(String username) {
+        if (username == null || username.length() == 0) throw new IllegalArgumentException("The username argument is required");
+        EntityManager em = ControleurSIALE.entityManager();
+        TypedQuery<ControleurSIALE> q = em.createQuery("SELECT o FROM ControleurSIALE AS o WHERE o.username = :username", ControleurSIALE.class);
+        q.setParameter("username", username);
+        return q;
+    }
+    
 }

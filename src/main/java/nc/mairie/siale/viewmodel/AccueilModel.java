@@ -22,6 +22,7 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
+import org.zkoss.zul.Window;
 
 public class AccueilModel extends SelectorComposer<Component>{
 	
@@ -32,6 +33,8 @@ public class AccueilModel extends SelectorComposer<Component>{
 	
 	AnnotateDataBinder binder;
 
+	@Wire
+	Window index;
 	
 	ListModelList<MenuNode> menuModelParametre = new ListModelList<MenuNode>();
 	@Wire
@@ -101,13 +104,29 @@ public class AccueilModel extends SelectorComposer<Component>{
 		//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
 				System.out.println("LUC : A refaire après authentification");
 				if (CurrentUser.getCurrentUser() == null) {
-					ControleurSIALE controleurSIALE = ControleurSIALE.findControleurSIALE(new Long(1));
-					CurrentUser.setCurrentUser(controleurSIALE);
-					System.out.println("Simule connection avec "+controleurSIALE.getNomAffichage());
+					//index.getChildren().clear();
+					//Executions.createComponents("/login.zul", index, null);
+					//return;
+					//ControleurSIALE controleurSIALE = ControleurSIALE.findControleurSIALE(new Long(1));
+					//CurrentUser.setCurrentUser(controleurSIALE);
+					//System.out.println("Simule connection avec "+controleurSIALE.getNomAffichage());
 				}
 		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
-		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
+	}
+	
+	
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		
+		//Si pas de currentuser, on redirige sur l'authentification
+		if (CurrentUser.getCurrentUser() == null) {
+			index.getChildren().clear();
+			Executions.createComponents("/login.zul", index, null);
+			return;
+		}
+		
+		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		menuModelParametre.add(new MenuNode("Paramètres","Gestion des paramètres","/_parametres/GestionParametres.zul","/_accueil/parametres.png"));
 		if (CurrentUser.getCurrentUser().isAdmin()) {
@@ -117,12 +136,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 		menuModelParametre.add(new MenuNode("Barême notation","Barême des notations","/_bareme_notation/BaremeNotation.zul","/_accueil/Bareme.png"));
 		menuModelParametre.add(new MenuNode("---Gestionexemple","Gestion des interventions","borderlayout_fn1.zul","/_accueil/intervention.png"));
 		menuModelParametre.add(new MenuNode("---Paramètres MVVMV","Gestion des paramètres","/problemMVVM/GestionParametresMVVM.zul","/_accueil/parametres.png"));
-		
-	}
-	
-	
-	public void doAfterCompose(Component comp) throws Exception {
-		super.doAfterCompose(comp);
 
 		comp.setAttribute(comp.getId(), this, true);
 		
@@ -194,7 +207,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 		public void render(Listitem item, Object data, int index)
 				throws Exception {
 		MenuNode node = (MenuNode)data;
-		//item.setImage("/_accueil/icon-24x24.png");
 		item.setImage(node.getImage_24x24());
 		item.setLabel(node.getLabel());
 		item.setValue(node);	
@@ -235,5 +247,11 @@ public class AccueilModel extends SelectorComposer<Component>{
 	}
 
 
+	@Listen("onClick = #logout")
+	public void onClick$logout() {
+		//session.removeAttribute("currentUser");
+		CurrentUser.setCurrentUser(null);
+		Executions.sendRedirect("/");
+	}
 
 }

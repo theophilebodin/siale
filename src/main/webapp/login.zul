@@ -1,0 +1,42 @@
+<zk>
+	<window id="login" border="normal" width="400px" mode="modal" apply="nc.mairie.siale.viewmodel.LoginModel">
+		<zscript>
+		<![CDATA[//@IMPORT
+		import nc.mairie.siale.domain.ControleurSIALE;
+		]]><![CDATA[//@DECLARATION
+
+
+		]]><![CDATA[
+		ControleurSIALE user = (ControleurSIALE)session.getAttribute("currentUser");
+		]]></zscript>
+		<div id="loginDiv" visible="${empty user}">
+			<grid>
+				<rows>
+					<row>
+						Name :
+						<textbox id="usertb" width="200px" value="" constraint="no empty"/>
+					</row>
+					<row>
+						Password :
+						<textbox id="pwdtb" width="200px"
+							type="password" constraint="no empty"/>
+					</row>
+				</rows>
+			</grid>			
+			<hbox pack="center" width="100%">
+				<button id="validerLogin" label="Login"/>
+			</hbox>
+			<div>
+				<label id="msg" style="color:red"/>
+			</div>
+		</div>
+		<div id="userDiv" visible="${!empty user}">
+			<hbox pack="center" align="center" width="100%">
+			<div width="100%">
+				Bienvenue :
+				<label id="userName" value="${user.displayname}" />
+			</div>
+			</hbox>
+		</div>
+	</window>
+</zk>

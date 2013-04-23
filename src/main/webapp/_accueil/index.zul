@@ -24,6 +24,7 @@
 		        	<east border="none" style="background: transparent;">
 		        	<div>
 		        		<label id="currentUserLabel" value="@{index.currentUser.nomAffichage}" style="color:#0C7A9A;font-size:15px"/>
+		        		<a id="logout">logout</a>
 <!-- DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION -->
 		        		<listbox id="controleurSIALEListBox" 
 		        		rows="2"

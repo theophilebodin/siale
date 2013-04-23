@@ -49,7 +49,7 @@
 <!-- 	<Parameter description="URL de l'ADLDS" name="ADLDS_URL" override="false" value="ldap://svpadlds.site-mairie.noumea.nc:37900/" /> -->
 <!-- 	<Parameter description="Utilisateur LDAP" name="ADLDS_USER" override="false" value="cn=admin,dc=site-mairie,dc=noumea,dc=nc" /> -->
 <!-- 	<Parameter description="Mot de passe LDAP" name="ADLDS_PWD" override="false" value="secretldap" /> -->
-<!-- 	<Parameter description="Critère de recherche LDAP" name="CRITERE_RECHERCHE_LDAP" override="false" value="samaccountname" /> -->
+	<Parameter description="Critère de recherche LDAP" name="CRITERE_RECHERCHE_LDAP" override="false" value="samaccountname" />
 	<Parameter description="Admin LDAP" name="HOST_LDAP_ADMIN" override="false" value="cn=***REMOVED***,ou=WAS,ou=APPLI,ou=Z-users" />
 	<Parameter description="Hôte LDAP" name="HOST_LDAP" override="false" value="ldap://hurle:389/" />
 	<Parameter description="Init CTX LDAP" name="INITCTX_LDAP" override="false" value="com.sun.jndi.ldap.LdapCtxFactory" />

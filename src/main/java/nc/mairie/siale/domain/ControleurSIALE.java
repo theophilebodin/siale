@@ -12,7 +12,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findControleurSIALEsByActifNotAndDroits" })
+@RooJpaActiveRecord(finders = { "findControleurSIALEsByActifNotAndDroits", "findControleurSIALEsByUsernameEquals" })
 public class ControleurSIALE {
 
     @NotNull
@@ -26,7 +26,6 @@ public class ControleurSIALE {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Droit> droits = new HashSet<Droit>();
 
-    //Utilisé par la ZUL de gestionMission
     public String getNomAffichage() {
         return displayname;
     }
