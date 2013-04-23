@@ -62,20 +62,6 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" >
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-    
-    <!-- Luc Deb Security -->
-	<filter>
-	  <filter-name>springSecurityFilterChain</filter-name>
-	  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	
-	<filter-mapping>
-	  <filter-name>springSecurityFilterChain</filter-name>
-	  <url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<!-- Luc Fin Security -->
-    
-    
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
