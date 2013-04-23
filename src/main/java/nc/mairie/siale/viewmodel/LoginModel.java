@@ -3,6 +3,7 @@ package nc.mairie.siale.viewmodel;
 import java.util.List;
 
 import nc.mairie.siale.domain.ControleurSIALE;
+import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.CurrentUser;
 
 import org.zkoss.zk.ui.Component;
@@ -52,6 +53,8 @@ public class LoginModel extends SelectorComposer<Component>{
 		
 		
 		boolean authOK = nc.mairie.siale.technique.LDAP.controlerHabilitation(user,pwd);
+		ControleurSIALE controleurSIALE;
+		
 		
 		//Vérif du mot de passe avec l'AD
 		if (!authOK) {
@@ -59,15 +62,26 @@ public class LoginModel extends SelectorComposer<Component>{
 			return;
 		}
 		
-		//Recherche du controleur siale
-		List <ControleurSIALE> list = ControleurSIALE.findControleurSIALEsByUsernameEquals(user).getResultList();
-		//username unique dans l'ad, donc on prend le 1er élément (le seul donc...)
-		if (list.size() == 0) {
-			Messagebox.show("Utilisateur non habilité. Demander à l'administrateur SIALE de vous rajouter.","Erreur",Messagebox.OK,Messagebox.ERROR);
-			return;
-		}
+		//Si ADMINWAS
+		if (user.toUpperCase().equals("ADMINWAS")) {
+			controleurSIALE = new ControleurSIALE();
+			controleurSIALE.setId(new Long(99999999));
+			controleurSIALE.getDroits().add(Constantes.droitAdmin);
+			controleurSIALE.getDroits().add(Constantes.droitControleur);
+			controleurSIALE.setUsername(user);
+			controleurSIALE.setDisplayname(user);
+		} else {
 		
-		ControleurSIALE controleurSIALE = list.get(0);
+			//Recherche du controleur siale
+			List <ControleurSIALE> list = ControleurSIALE.findControleurSIALEsByUsernameEquals(user).getResultList();
+			//username unique dans l'ad, donc on prend le 1er élément (le seul donc...)
+			if (list.size() == 0) {
+				Messagebox.show("Utilisateur non habilité. Demander à l'administrateur SIALE de vous rajouter.","Erreur",Messagebox.OK,Messagebox.ERROR);
+				return;
+			}
+			
+			controleurSIALE = list.get(0);
+		}
 		CurrentUser.setCurrentUser(controleurSIALE);
 
 		((Div)login.getFellow("loginDiv")).setVisible(false);

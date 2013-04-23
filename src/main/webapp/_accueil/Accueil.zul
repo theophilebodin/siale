@@ -4,7 +4,7 @@
 <zk>
 <?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
 
-	<window id="index" width="80%" height="100%" apply="nc.mairie.siale.viewmodel.AccueilModel" mode="overlapped" position="center,top" sizable="true">
+	<window id="accueil" width="80%" height="100%" apply="nc.mairie.siale.viewmodel.AccueilModel" mode="overlapped" position="center,top" sizable="true">
 		<borderlayout>
 			<north size="124px" >
  					<borderlayout style="background-image: url(${c:encodeURL('/_accueil/fondbleu_blanc.png') }); background-size: 100%; ">
@@ -23,14 +23,14 @@
 		        	</center>
 		        	<east border="none" style="background: transparent;">
 		        	<div>
-		        		<label id="currentUserLabel" value="@{index.currentUser.nomAffichage}" style="color:#0C7A9A;font-size:15px"/>
-		        		<a id="logout">logout</a>
+		        		<label id="currentUserLabel" value="@{accueil.currentUser.nomAffichage}" style="color:#0C7A9A;font-size:15px"/>
+		        		<a id="logout">deconnexion</a>
 <!-- DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION -->
-		        		<listbox id="controleurSIALEListBox" 
+		        		<listbox id="controleurSIALEListBox" visible="@{accueil.listeControleursSIALEVisible}"
 		        		rows="2"
 		        		width="250px"
-		        		model="@{index.listeControleurSIALE}"	
-		        		selectedItem="@{index.currentUser}">
+		        		model="@{accueil.listeControleurSIALE}"	
+		        		selectedItem="@{accueil.currentUser}">
 						 <listitem id="controleurSIALEListItem" self="@{each=element}">
  							<listcell label="@{element.nomAffichage}" />
  							<listcell label="@{element.controleur}" />

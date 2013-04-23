@@ -18,8 +18,8 @@
 						<listheader label="Nom" sort="auto(nomEtablissement)"/>
 						<listheader label="Type" width="95px" sort="auto(typeEtablissement)"/>
 						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
-						<listheader label="Saisi" width="50px" sort="auto(possedeNotations)" align="center" />
-						<listheader label="Note" width="50px" sort="auto(possedeSaisies)" align="center" />
+						<listheader label="Saisi" width="50px" sort="auto(possedeSaisies)" align="center" />
+						<listheader label="Note" width="50px" sort="auto(possedeNotations)" align="center" />
 						<listheader label="Cloturé" width="50px" sort="auto(cloturee)" align="center" />
 						<listheader  width="120px">
 										<image id="ajouterMission" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>

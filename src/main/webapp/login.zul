@@ -1,5 +1,6 @@
 <zk>
-	<window id="login" border="normal" width="400px" mode="modal" apply="nc.mairie.siale.viewmodel.LoginModel">
+	<window id="login" border="normal" width="400px" mode="modal" apply="nc.mairie.siale.viewmodel.LoginModel"
+	title="Authentification">
 		<zscript>
 		<![CDATA[//@IMPORT
 		import nc.mairie.siale.domain.ControleurSIALE;
@@ -13,11 +14,11 @@
 			<grid>
 				<rows>
 					<row>
-						Name :
+						Utilisateur :
 						<textbox id="usertb" width="200px" value="" constraint="no empty"/>
 					</row>
 					<row>
-						Password :
+						Mot de passe :
 						<textbox id="pwdtb" width="200px"
 							type="password" constraint="no empty"/>
 					</row>
