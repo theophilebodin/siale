@@ -1,43 +1,34 @@
-<zk>
-	<window id="login" border="normal" width="400px" mode="modal" apply="nc.mairie.siale.viewmodel.LoginModel"
-	title="Authentification">
-		<zscript>
-		<![CDATA[//@IMPORT
-		import nc.mairie.siale.domain.ControleurSIALE;
-		]]><![CDATA[//@DECLARATION
+<?page id="testZul" title="CUSTOM ZK + SPRING SECURITY LOGIN"?>
 
 
-		]]><![CDATA[
-		ControleurSIALE user = (ControleurSIALE)session.getAttribute("currentUser");
-		]]></zscript>
-		<div id="loginDiv" visible="${empty user}">
-			<grid>
-				<rows>
-					<row>
-						Utilisateur :
-						<textbox id="usertb" width="200px" value="" constraint="no empty"/>
-					</row>
-					<row>
-						Mot de passe :
-						<textbox id="pwdtb" width="200px"
-							type="password" constraint="no empty"/>
-					</row>
-				</rows>
-			</grid>			
-			<hbox pack="center" width="100%">
-				<button id="validerLogin" label="Login"/>
-			</hbox>
-			<div>
-				<label id="msg" style="color:red"/>
-			</div>
-		</div>
-		<div id="userDiv" visible="${!empty user}">
-			<hbox pack="center" align="center" width="100%">
-			<div width="100%">
-				Bienvenue :
-				<label id="userName" value="${user.displayname}" />
-			</div>
-			</hbox>
-		</div>
-	</window>
-</zk>
+
+<window id="loginwin" title="CUSTOM ZK + SPRING SECURITY LOGIN popol" border="normal" width="500px">
+    <!-- this form-login-page form is also used as the
+         form-error-page to ask for a login again. -->
+    <html style="color:red" if="${not empty param.login_error}">
+      <![CDATA[
+        Your login attempt was not successful, try again.<br/><br/>
+        Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}
+       ]]>
+    </html>
+ 
+    <groupbox>
+    <caption>Login</caption>
+    <h:form id="f" name="f" action="j_spring_security_check" method="POST"
+    xmlns:h="native">
+        <grid>
+            <rows>
+                <row>User: <textbox id="u" name="j_username"/></row>
+                <row>Password: <textbox id="p" type="password" name="j_password"/></row>
+                <row><checkbox id="r" name="j_spring_security_remember_me"/>Don't ask for my password for two weeks</row>
+                <row spans="2">
+                    <hbox>
+                        <h:input type="submit" value="Submit Query"/>
+                        <h:input type="reset" value="Reset"/>
+                    </hbox>
+                </row>
+            </rows>
+        </grid>
+    </h:form>
+    </groupbox>
+</window>

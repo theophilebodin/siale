@@ -6,6 +6,8 @@ import java.util.List;
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.technique.CurrentUser;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -111,9 +113,9 @@ public class AccueilModel extends SelectorComposer<Component>{
 		
 		//Si pas de currentuser, on redirige sur l'authentification
 		if (CurrentUser.getCurrentUser() == null) {
-			accueil.getChildren().clear();
-			Executions.createComponents("/login.zul", accueil, null);
-			return;
+//			accueil.getChildren().clear();
+//			Executions.createComponents("/login.zul", accueil, null);
+//			return;
 		}
 		
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
