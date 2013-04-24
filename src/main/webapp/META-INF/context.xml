@@ -57,6 +57,7 @@
 	<Parameter description="Base LDAP" name="BASE_LDAP" override="false" value="dc=site-mairie,dc=noumea,dc=nc" />
 	<Parameter description="Hôte LDAP 3" name="HOST_LDAP3" override="false" value="ldap://netone:389/" />
 	<Parameter description="Hôte LDAP 2" name="HOST_LDAP2" override="false" value="ldap://gberge:389/" />
+	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
 	<Parameter description="Version" name="VERSION" override="false" value="1.0" />
 
 </Context>

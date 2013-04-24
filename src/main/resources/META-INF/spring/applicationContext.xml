@@ -99,24 +99,29 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
 	<security:http auto-config='true'>
 		<security:intercept-url pattern="/login.zul*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-    	<security:intercept-url pattern="/toto.zul*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
     	<security:intercept-url pattern="/_*/*" access="ROLE_USER"/>
     	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-    	<security:form-login 	login-page="/login.zul" 
+		<security:form-login 	login-page="/login.zul" 
     							authentication-failure-url="/login.zul?login_error=1"
-    							default-target-url="/toto.zul"
     							always-use-default-target="true"/>
 	</security:http>
 	
-	<security:authentication-manager>
-	    <security:authentication-provider>
-	      <security:user-service>
-	        <security:user name="luc" password="luc" authorities="ROLE_USER, ROLE_ADMIN" />
-	        <security:user name="boulu72" password="dauphin" authorities="ROLE_USER" />
-	        <security:user name="***REMOVED***" password="***REMOVED***" authorities="ROLE_USER" />
-	      </security:user-service>
-	    </security:authentication-provider>
+	<security:authentication-manager  erase-credentials="false">
+		<security:authentication-provider ref="adAuthenticationProvider"/>
 	</security:authentication-manager>
+	
+	<bean id="adAuthenticationProvider"
+ 		 class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+<!-- 	    <constructor-arg value="site-mairie.noumea.nc" /> -->
+<!-- 	    <constructor-arg value="ldap://gberge:389/" /> -->
+		<constructor-arg value="${DOMAIN}" />
+		<constructor-arg value="${HOST_LDAP}" />
+	    <property name="userDetailsContextMapper" ref="tdrUserDetailsContextMapper"/>
+	    <property name="useAuthenticationRequestCredentials" value="true"/>
+	</bean>
+	
+	<bean id="tdrUserDetailsContextMapper" class="nc.mairie.siale.technique.CurrentUser"/>
+	
 <!-- Luc Fin Security -->
     
     

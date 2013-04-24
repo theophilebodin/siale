@@ -1,14 +1,16 @@
-<?page id="testZul" title="CUSTOM ZK + SPRING SECURITY LOGIN"?>
+<?page id="testZul" title="Authentification Missions SIALE"?>
 
 
 
-<window id="loginwin" title="CUSTOM ZK + SPRING SECURITY LOGIN popol" border="normal" width="500px">
+<window id="loginwin" title="Gestion des Missions SIALE" border="normal" width="500px" mode="modal">
     <!-- this form-login-page form is also used as the
          form-error-page to ask for a login again. -->
     <html style="color:red" if="${not empty param.login_error}">
       <![CDATA[
-        Your login attempt was not successful, try again.<br/><br/>
-        Reason: ${SPRING_SECURITY_LAST_EXCEPTION.message}
+        L'authentification n'a pas abouti. Essayez à nouveau.<br/><br/>
+        Raison: ${SPRING_SECURITY_LAST_EXCEPTION.message}
+        username${param.username }
+        j_username${param.j_username }
        ]]>
     </html>
  
@@ -17,14 +19,18 @@
     <h:form id="f" name="f" action="j_spring_security_check" method="POST"
     xmlns:h="native">
         <grid>
+	        <columns>
+	        	<column width="150px"/>
+	        	<column/>
+	        </columns>
             <rows>
-                <row>User: <textbox id="u" name="j_username"/></row>
-                <row>Password: <textbox id="p" type="password" name="j_password"/></row>
-                <row><checkbox id="r" name="j_spring_security_remember_me"/>Don't ask for my password for two weeks</row>
+                <row>Nom d'utilisateur: <textbox id="u" name="j_username"/></row>
+                <row>Mot de passe: <textbox id="p" type="password" name="j_password"/></row>
+                <row><checkbox id="r" name="j_spring_security_remember_me"/>Ne pas me demander pendant 2 semaines</row>
                 <row spans="2">
-                    <hbox>
-                        <h:input type="submit" value="Submit Query"/>
-                        <h:input type="reset" value="Reset"/>
+                    <hbox align="center">
+                    	<h:input type="submit" value="Connecter" width="80px"/>
+                        <h:input type="reset"  value="Effacer" width="80px"/>
                     </hbox>
                 </row>
             </rows>

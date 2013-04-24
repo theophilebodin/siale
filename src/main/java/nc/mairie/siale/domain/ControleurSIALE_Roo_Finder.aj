@@ -28,11 +28,19 @@ privileged aspect ControleurSIALE_Roo_Finder {
         return q;
     }
     
-    public static TypedQuery<ControleurSIALE> ControleurSIALE.findControleurSIALEsByUsernameEquals(String username) {
+     public static TypedQuery<ControleurSIALE> ControleurSIALE.findControleurSIALEsByUsernameLikeAndActifNot(String username, boolean actif) {
         if (username == null || username.length() == 0) throw new IllegalArgumentException("The username argument is required");
+        username = username.replace('*', '%');
+        if (username.charAt(0) != '%') {
+            username = "%" + username;
+        }
+        if (username.charAt(username.length() - 1) != '%') {
+            username = username + "%";
+        }
         EntityManager em = ControleurSIALE.entityManager();
-        TypedQuery<ControleurSIALE> q = em.createQuery("SELECT o FROM ControleurSIALE AS o WHERE o.username = :username", ControleurSIALE.class);
+        TypedQuery<ControleurSIALE> q = em.createQuery("SELECT o FROM ControleurSIALE AS o WHERE LOWER(o.username) LIKE LOWER(:username)  AND o.actif IS NOT :actif", ControleurSIALE.class);
         q.setParameter("username", username);
+        q.setParameter("actif", actif);
         return q;
     }
     
