@@ -9,8 +9,6 @@
       <![CDATA[
         L'authentification n'a pas abouti. Essayez à nouveau.<br/><br/>
         Raison: ${SPRING_SECURITY_LAST_EXCEPTION.message}
-        username${param.username }
-        j_username${param.j_username }
        ]]>
     </html>
  
