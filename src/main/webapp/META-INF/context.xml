@@ -44,6 +44,7 @@
     
     <Parameter description="Serveur SMTP" name="HOST_SMTP" override="false" value="smtp.site-mairie.noumea.nc" />
 	<Parameter description="Emetteur mail" name="MAIL_SENDER" override="false" value="SIALE-no-reply@ville-noumea.nc" />
+<Parameter description="Emetteur popol" name="MAIL_POPOL" override="false" value="SIALE-no-reply@ville-noumea.nc" />
 
 
 </Context>
