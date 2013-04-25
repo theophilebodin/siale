@@ -115,7 +115,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 <!-- 	    <constructor-arg value="site-mairie.noumea.nc" /> -->
 <!-- 	    <constructor-arg value="ldap://gberge:389/" /> -->
 		<constructor-arg value="${DOMAIN}" />
-		<constructor-arg value="${HOST_LDAP}" />
+		<constructor-arg value="${HOST_LDAP} ${HOST_LDAP2} ${HOST_LDAP3}" />
 	    <property name="userDetailsContextMapper" ref="tdrUserDetailsContextMapper"/>
 	    <property name="useAuthenticationRequestCredentials" value="true"/>
 	</bean>
