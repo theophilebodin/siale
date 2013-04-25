@@ -33,7 +33,7 @@ public class Outlook {
 	
 	public static void sendCalendar(Mission mission) throws Exception{
 		String subject =  "Rendez-vous pour une mission SIALE";
-		String messageMail = "Double cliquer sur le fichier joint ou glissez le dans le calendrier d'Outlook.\n" +
+		String messageMail = "Double cliquer sur le fichier joint ou glissez-le dans le calendrier d'Outlook.\n" +
 							 "Rendez-vous avec "+mission.getNomEtablissement();
 
 		Hashtable<String, String> destinataires = new Hashtable<String, String>();
@@ -194,7 +194,7 @@ public class Outlook {
 			
 			//A passer en parametres
 					String subject =  "Rendez-vous pour une mission SIALE";
-			String messageMail = "Double cliquer sur le fichier joint ou glissez le dans le calendrier d'Outlook.\n" +
+			String messageMail = "Double cliquer sur le fichier joint ou glissez-le dans le calendrier d'Outlook.\n" +
 								 "Rendez-vous avec "+mission.getNomEtablissement();
 			
 			// Get system properties

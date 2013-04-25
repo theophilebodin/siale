@@ -306,7 +306,7 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 			workbook.close();
 			
 			if (messageErreur.length() !=0) {
-				messageErreur+="\nLes lignes citées seront ignorées ou bien corrigez les et relancez l'import.";
+				messageErreur+="\nLes lignes citées seront ignorées ou bien corrigez-les et relancez l'import.";
 				Messagebox.show(messageErreur, "Erreurs d'import", Messagebox.OK, Messagebox.INFORMATION);
 			} else {
 				Messagebox.show("Fichier téléchargé avec succès. Vérifier les modification et cliquer sur Valider pour prendre en compte les modifications.", "Télechagement terminé", Messagebox.OK, Messagebox.INFORMATION);
