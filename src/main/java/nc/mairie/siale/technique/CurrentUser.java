@@ -24,19 +24,19 @@ public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 	 */
 	private static final long serialVersionUID = -1352657093536096180L;
 
-	private static GrantedAuthority ROLE_USER = new GrantedAuthority() {
+	private static GrantedAuthority ROLE_SIALE = new GrantedAuthority() {
 		private static final long serialVersionUID = 4356967487267942910L;
 		@Override
 		public String getAuthority() {
-			return "ROLE_USER";
+			return "ROLE_SIALE";
 		}
 	};
 	
 	@Override
 	public UserDetails mapUserFromContext(DirContextOperations ctx,
 			String username, Collection<? extends GrantedAuthority> authority) {
-
-		List<GrantedAuthority> mappedAuthorities = new ArrayList<GrantedAuthority>();
+		
+		List<GrantedAuthority> mappedAuthorities = new ArrayList<GrantedAuthority>(authority);
 
 		// for (GrantedAuthority granted : authority) {
 		//
@@ -67,16 +67,26 @@ public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 		if (username.toUpperCase().equals("ADMINWAS")) {
 			
 			//On rajoute le ROLE_USER
-			mappedAuthorities.add(ROLE_USER);
+			mappedAuthorities.add(ROLE_SIALE);
 			
 		} else {
+			
 			// Recherche du controleur siale
 			List<ControleurSIALE> list = ControleurSIALE.findControleurSIALEsByUsernameLikeAndActifNot(username, false).getResultList();
 			// username unique dans l'ad, donc on prend le 1er élément (le seul donc...)
 			if (list.size() != 0) {
 				//On rajoute le ROLE_USER
-				mappedAuthorities.add(ROLE_USER);
+				mappedAuthorities.add(ROLE_SIALE);
+			// Sinon, in n'est pas dans les controleurssiale, on lui enlève le ROLE qui est défini dans l'AD
+			} else {
+				for (GrantedAuthority grantedAuthority : authority) {
+					if (grantedAuthority.getAuthority().equals(ROLE_SIALE.getAuthority())) {
+						mappedAuthorities.remove(grantedAuthority);
+						break;
+					}
+				}
 			}
+			
 		}
 
 		return new User(username, "", true, true, true, true, mappedAuthorities);

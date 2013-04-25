@@ -97,14 +97,36 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 <!-- Luc Deb Security -->
 
 
-	<security:http auto-config='true'>
+	<security:http auto-config='true' access-decision-manager-ref="accessDecisionManager">
 		<security:intercept-url pattern="/login.zul*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-    	<security:intercept-url pattern="/_*/*" access="ROLE_USER"/>
+<!-- 		<security:intercept-url pattern="/_*/*" access="ROLE_SIALE"/> -->
+<security:intercept-url pattern="/_*/*" access="ROLE_SIALE"/>
     	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:form-login 	login-page="/login.zul" 
     							authentication-failure-url="/login.zul?login_error=1"
     							always-use-default-target="true"/>
 	</security:http>
+
+	<!--  Luc deb voter prefix -->
+	<bean id="authenticatedVoter"
+   		class="org.springframework.security.access.vote.AuthenticatedVoter" />
+		<!-- this voter will have the default attributes -->
+	
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+  		<property name="rolePrefix" value="" />
+	</bean>
+	
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+	  <property name="decisionVoters">
+	    <list>
+	      <ref bean="roleVoter" />
+	      <ref bean="authenticatedVoter" />
+	    </list>
+	  </property>
+	</bean>
+	
+	<security:global-method-security access-decision-manager-ref="accessDecisionManager" />
+	<!--  Luc fin voter prefix -->
 	
 	<security:authentication-manager  erase-credentials="false">
 		<security:authentication-provider ref="adAuthenticationProvider"/>
