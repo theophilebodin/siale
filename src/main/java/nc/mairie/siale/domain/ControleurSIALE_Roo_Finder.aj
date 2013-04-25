@@ -28,7 +28,7 @@ privileged aspect ControleurSIALE_Roo_Finder {
         return q;
     }
     
-     public static TypedQuery<ControleurSIALE> ControleurSIALE.findControleurSIALEsByUsernameLikeAndActifNot(String username, boolean actif) {
+    public static TypedQuery<ControleurSIALE> ControleurSIALE.findControleurSIALEsByUsernameLikeAndActifNot(String username, boolean actif) {
         if (username == null || username.length() == 0) throw new IllegalArgumentException("The username argument is required");
         username = username.replace('*', '%');
         if (username.charAt(0) != '%') {
