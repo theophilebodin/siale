@@ -24,7 +24,8 @@
             <rows>
                 <row>Nom d'utilisateur: <textbox id="u" name="j_username"/></row>
                 <row>Mot de passe: <textbox id="p" type="password" name="j_password"/></row>
-                <row><checkbox id="r" name="j_spring_security_remember_me"/>Ne pas me demander pendant 2 semaines</row>
+<!--                 Ne fonctionne pas :( 26/4/13). JE commente -->
+<!--                 <row><checkbox id="r" name="_spring_security_remember_me"/>Ne pas me demander pendant 2 semaines</row> -->
                 <row spans="2">
                     <hbox align="center">
                     	<h:input type="submit" value="Connecter" width="80px"/>
