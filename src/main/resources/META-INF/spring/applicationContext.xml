@@ -101,8 +101,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 		<security:intercept-url pattern="/login.zul*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<security:intercept-url pattern="/_*/*" access="ROLE_SIALE"/>
     	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:form-login 	login-page="/login.zul" 
-    							authentication-failure-url="/login.zul?login_error=1"
+		<security:form-login 	login-page="/" 
     							always-use-default-target="true"/>
 	</security:http>
 
