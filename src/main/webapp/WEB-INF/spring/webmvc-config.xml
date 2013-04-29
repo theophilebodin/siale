@@ -63,14 +63,16 @@
 <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" id="tilesViewResolver">
     <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
   </bean>
-    <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" id="tilesConfigurer">
-    <property name="definitions">
-      <list>
-        <value>/WEB-INF/layouts/layouts.xml</value>
-        <!-- Scan views directory for Tiles configurations -->
-        <value>/WEB-INF/views/**/views.xml</value>
-      </list>
-    </property>
-  </bean>
+<!-- LUC COMPIL PLUS RAPIDE -->
+<!--     <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" id="tilesConfigurer"> -->
+<!--     <property name="definitions"> -->
+<!--       <list> -->
+<!--         <value>/WEB-INF/layouts/layouts.xml</value> -->
+<!--         Scan views directory for Tiles configurations -->
+<!--         <value>/WEB-INF/views/**/views.xml</value> -->
+<!--       </list> -->
+<!--     </property> -->
+<!--   </bean> -->
+<!-- LUC FIN COMPIL PLUS RAPIDE -->
 <bean class="nc.mairie.siale.web.ApplicationConversionServiceFactoryBean" id="applicationConversionService"/>
 </beans>

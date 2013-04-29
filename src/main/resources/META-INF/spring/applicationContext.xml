@@ -98,10 +98,9 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
 
 	<security:http auto-config='true' access-decision-manager-ref="accessDecisionManager">
-		<security:intercept-url pattern="/login.zul*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<security:intercept-url pattern="/_*/*" access="ROLE_SIALE"/>
     	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:form-login 	login-page="/" 
+		<security:form-login 	login-page="/login.zul" 
     							always-use-default-target="true"/>
 	</security:http>
 
