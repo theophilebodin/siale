@@ -270,15 +270,15 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 						public int compare(Object o1, Object o2) {
 							if (o1 instanceof Param) {
 								if (o2 instanceof Param) {
-									return ((Param)o1).getId().compareTo(((Param)o2).getId());
+									return ((Param)o1).getNomAffichage().compareTo(((Param)o2).getNomAffichage());
 								} else {
-									return ((Param)o1).getId().compareTo(((ControleurSIALE)o2).getId());
+									return ((Param)o1).getNomAffichage().compareTo(((ControleurSIALE)o2).getNomAffichage());
 								}
 							} else {
 								if (o2 instanceof Param) {
-									return ((ControleurSIALE)o1).getId().compareTo(((Param)o2).getId());
+									return ((ControleurSIALE)o1).getNomAffichage().compareTo(((Param)o2).getNomAffichage());
 								} else {
-									return ((ControleurSIALE)o1).getId().compareTo(((ControleurSIALE)o2).getId());
+									return ((ControleurSIALE)o1).getNomAffichage().compareTo(((ControleurSIALE)o2).getNomAffichage());
 								}
 							}
 						}
