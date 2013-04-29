@@ -140,6 +140,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	}
 
 	public List<Object> getListeControleurControleurSIALE() {
+		if (actionControleur == Action.SUPPRESSION) {
+			List<Object> list = new ArrayList<Object>();
+			list.add(getControleurCourant());
+			return list;
+		}
+		
 		return listeControleurControleurSIALE;
 	}
 
@@ -186,6 +192,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	}
 
 	public List<Param> getListeActivite() {
+		if (actionActivite == Action.SUPPRESSION) {
+			List<Param> list = new ArrayList<Param>();
+			list.add(getMissionActiviteCourant().getTheActivite());
+			return list;
+		}
+		
 		return listeActivite;
 	}
 
