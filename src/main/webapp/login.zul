@@ -1,8 +1,8 @@
-<?page id="testZul" title="Authentification Missions SIALE"?>
+<?page id="testZul" title="Authentification Interventions SIALE-${project.version}"?>
 
 
 
-<window id="loginwin" title="Gestion des Missions SIALE" border="normal" width="500px" mode="modal">
+<window id="loginwin" title="Gestion des Missions SIALE-${project.version}" border="normal" width="500px" mode="modal">
     <!-- this form-login-page form is also used as the
          form-error-page to ask for a login again. -->
     <html style="color:red" if="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">

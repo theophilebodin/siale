@@ -1,5 +1,6 @@
 <?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?page id="testZul" title="Interventions de la SIALE-${project.version}"?>
 
 <zk>
 <?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
