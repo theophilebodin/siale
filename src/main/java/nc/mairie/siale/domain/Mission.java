@@ -201,4 +201,14 @@ public class Mission {
         q.setParameter("bareme", bareme);
         return q.getResultList().get(0) != 0;
     }
+    
+    public static boolean existMissionsByControleurSIALE(ControleurSIALE controleurSIALE) {
+        if (controleurSIALE == null) throw new IllegalArgumentException("The controleurSIALE argument is required");
+        EntityManager em = Mission.entityManager();
+        TypedQuery<Long> q = em.createQuery("SELECT count(*) FROM Mission AS o WHERE :controleurSIALE MEMBER OF o.controleursSIALE", Long.class);
+        q.setParameter("controleurSIALE", controleurSIALE);
+        return q.getResultList().get(0) != 0;
+    }
+    
+    
 }

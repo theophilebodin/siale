@@ -11,6 +11,7 @@ import java.util.List;
 
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.domain.Droit;
+import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
@@ -172,8 +173,15 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 	@Listen("onClick =  #supprimerControleurSIALE")
 	public void onClick$supprimerControleurSIALE() {
 		
-		Messagebox.show("Confirmez-vous la suppression ?",
-			    "Question", Messagebox.OK | Messagebox.CANCEL,
+		//Si rattaché à une mission pas possible
+		if (Mission.existMissionsByControleurSIALE(getControleurSIALECourant())) {
+			Messagebox.show("Suppresson impossible.\n Ce contrôleur est rattaché à une mission.", "Erreur", Messagebox.OK, Messagebox.EXCLAMATION);
+			return;
+		}
+		
+		Messagebox.show("Confirmez-vous la suppression de "+getControleurSIALECourant().getNomAffichage()+" ?",
+				"Confirmation",
+			    Messagebox.OK | Messagebox.CANCEL,
 			    Messagebox.QUESTION,
 			        new EventListener<Event>() {
 						
@@ -184,7 +192,7 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 			                	try {
 			        				controleurSIALECourant.remove();
 			        			} catch (Exception excp) {
-			        				alert("Suppresson impossible.\n Ce contrôleur est rattaché à une mission.");
+			        				Messagebox.show("Suppresson impossible.\n Ce contrôleur est rattaché à une mission.", "Erreur", Messagebox.OK, Messagebox.EXCLAMATION);
 			        				return;
 			        			}
 			                	//VIEW
@@ -312,9 +320,18 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		}
 	}
 	
-	//Renvoie fax  sur le user courant est le user selectionné
+	//Renvoie faux  sur le user courant a até affecté à des missions
+	public boolean isControleurModifiableDisabled () {
+		if (isAdminModifiableDisabled()) return true;
+		if (getControleurSIALECourant().getId() == null) return false;
+		return Mission.existMissionsByControleurSIALE(getControleurSIALECourant());
+	}
+	
+	
+	//Renvoie faux  sur le user courant est le user selectionné
 	public boolean isAdminModifiableDisabled () {
-		return getControleurSIALECourant() == null || CurrentUser.getCurrentUser().getId().equals(getControleurSIALECourant().getId());
+		return 	getControleurSIALECourant() == null || 
+				CurrentUser.getCurrentUser().getId().equals(getControleurSIALECourant().getId());
 	}
 
 	private void initialisteControleurSIALEListBox(String critere, String value) {

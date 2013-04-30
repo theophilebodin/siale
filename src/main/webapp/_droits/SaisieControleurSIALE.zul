@@ -14,17 +14,11 @@
 			
 				<row>
 					<label value="Nom : "/>
-<!-- 									<combobox autocomplete="true" -->
-<!-- 											autodrop="true" id="controleurSIALEListBox" -->
-<!-- 											model="@{gestionDroits.listecontroleurSIALE}" -->
-<!-- 											selectedItem="@{gestionDroits.controleurSIALECourant}" -->
-<!-- 											constraint="no empty" -->
-<!-- 											disabled="@{gestionDroits.actionControleurSIALE.suppression}"> -->
 									<combobox autocomplete="true"
 											autodrop="true" id="controleurSIALEListBox"
 											selectedItem="@{gestionDroits.controleurSIALESelected}"
 											constraint="no empty"
-											disabled="@{gestionDroits.adminModifiableDisabled}"
+											disabled="@{gestionDroits.controleurModifiableDisabled}"
 											tooltiptext="Saisir au moins 3 caractères">
 											<attribute name="onChanging">
 								<![CDATA[
