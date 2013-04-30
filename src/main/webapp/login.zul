@@ -14,7 +14,14 @@
 
 <zscript>
 <![CDATA[
-         
+    
+//Si on a demander deconnection          
+if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
+	Executions.getCurrent().getSession().removeAttribute("logout");
+	nc.mairie.siale.technique.CurrentUser.setCurrentUser(null);
+//sinon on vérivfie quel est le user en cours
+} else {
+
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	
 	String username;
@@ -24,10 +31,11 @@
 		  username = principal.toString();
 	}
 	
+	//Si pas anonyme alors accueil
 	if (!"anonymousUser".equals(username)) {
 		Executions.forward("/_accueil/Accueil.zul");
 	}
-
+}
 ]]>
 </zscript>
     <html style="color:red" if="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">

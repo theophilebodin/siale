@@ -25,7 +25,7 @@
 		        	<east border="none" style="background: transparent;">
 		        	<div>
 		        		<label id="currentUserLabel" value="@{accueil.currentUser.nomAffichage}" style="color:#0C7A9A;font-size:15px"/>
-		        		<a id="logout2" href="/j_spring_security_logout">deconnexion</a>
+						<a id="logout">deconnexion</a>
 <!-- DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION -->
 		        		<listbox id="controleurSIALEListBox" visible="@{accueil.listeControleursSIALEVisible}"
 		        		rows="2"

@@ -234,5 +234,13 @@ public class AccueilModel extends SelectorComposer<Component>{
 	public boolean isListeControleursSIALEVisible () {
 		return CurrentUser.getCurrentUser().getUsername().toUpperCase().equals("ADMINWAS");
 	}
+
+	@Listen("onClick = #logout")
+	public void onClick$logout() throws Exception {
+		
+		Executions.getCurrent().getSession().setAttribute("logout", "true");
+		Executions.getCurrent().sendRedirect("/");
+		
+	}
 	
 }
