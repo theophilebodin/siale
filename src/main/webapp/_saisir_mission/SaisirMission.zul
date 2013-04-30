@@ -114,14 +114,13 @@
 
 			</hbox>
 			<hbox widths="60%,40%" >
-
-
-				<panel title="Documents" border="normal" height="164px">
+				<panel title="Documents" border="normal" id="panelDocuments">
 					<panelchildren>
-						<listbox rows="3" id="missionDocumentsListBox"
+						<listbox rows="2" id="missionDocumentsListBox"
 							model="@{saisirMission.missionCourant.missionDocuments}"
 							selectedItem="@{saisirMission.missionDocumentCourant}"
-							emptyMessage="Pas d'éléments">
+							emptyMessage="Pas d'éléments"
+							 height="160px">
 							<listhead>
 								<listheader label="Document" />
 								<listheader label="Date" width="75px"/>
@@ -163,10 +162,10 @@
 				</panel>
 
 
-				<panel title="Prélèvements" border="normal" id="panelPrelevements" height="164px">
+				<panel title="Prélèvements" border="normal" id="panelPrelevements">
 					<panelchildren>
 
-						<grid>
+						<grid  height="160px">
 							<columns>
 								<column label="" width="150px" />
 								<column label="" />

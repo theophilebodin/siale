@@ -6,8 +6,9 @@
 	contentStyle="overflow:auto">
 
 	<div id="zoneListe" visible="@{gestionMissions.actionMission.aucune}">
-				<listbox id="missionsListBox" rows="10" mold="paging"
-					pageSize="10" model="@{gestionMissions.listeMission}"
+				<listbox id="missionsListBox" 
+					mold="paging"
+					model="@{gestionMissions.listeMission}"
 					selectedItem="@{gestionMissions.missionCourant}">
 
 					<custom-attributes
