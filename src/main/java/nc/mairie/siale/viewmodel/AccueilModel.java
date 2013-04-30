@@ -230,12 +230,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 	}
 
 
-	@Listen("onClick = #logout")
-	public void onClick$logout() {
-		//session.removeAttribute("currentUser");
-		CurrentUser.setCurrentUser(null);
-		Executions.sendRedirect("/");
-	}
 
 	public boolean isListeControleursSIALEVisible () {
 		return CurrentUser.getCurrentUser().getUsername().toUpperCase().equals("ADMINWAS");

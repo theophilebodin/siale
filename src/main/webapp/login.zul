@@ -5,6 +5,31 @@
 <window id="loginwin" title="Gestion des Missions SIALE-${project.version}" border="normal" width="500px" mode="modal">
     <!-- this form-login-page form is also used as the
          form-error-page to ask for a login again. -->
+
+<zscript><![CDATA[//@IMPORT
+	import org.springframework.security.core.context.SecurityContextHolder;     
+	import org.springframework.security.core.userdetails.UserDetails;;         
+	]]>
+</zscript>
+
+<zscript>
+<![CDATA[
+         
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	
+	String username;
+	if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+	} else {
+		  username = principal.toString();
+	}
+	
+	if (!"anonymousUser".equals(username)) {
+		Executions.forward("/_accueil/Accueil.zul");
+	}
+
+]]>
+</zscript>
     <html style="color:red" if="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
       <![CDATA[
         L'authentification n'a pas abouti. Essayez à nouveau.<br/><br/>
