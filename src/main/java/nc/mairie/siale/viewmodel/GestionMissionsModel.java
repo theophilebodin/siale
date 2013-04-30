@@ -422,6 +422,13 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisie);
 		
+		//test de etab bien selectionne
+		if (getMissionCourant().getTypeEtablissement() == TypeEtablissement.ETABLISSEMENT) {
+			if (getMissionCourant().getEtablissement() == null || getMissionCourant().getEtablissement().getId() == null) {
+				controleSaisie.ajouteErreur(etablissementListBox, "Selectionner un etablissement");
+			}
+		}
+		
 		//test de activité
 		if (getMissionCourant().getMissionActivites().size()==0 || getMissionCourant().getActivitePrincipale() == null) {
 			controleSaisie.ajouteErreur(missionActivitesListBox, "L'activité principale est obligatoire");
@@ -687,9 +694,11 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
  		//Collections.sort(newModel, comparatorEtablissement);
  		
  		//etablissementListBox.setModel(new ListModelList<Etablissement>(newModel));
- 		BindingListModelList<Etablissement>  bind= new BindingListModelList<Etablissement>(newModel,true);
+ 		
+ 		BindingListModelList<Etablissement>  bind= new BindingListModelList<Etablissement>(newModel,false);
  		
  		etablissementListBox.setModel(bind);
+ 		etablissementListBox.setRenderdefer(5000);
 		 		
 	}
 	

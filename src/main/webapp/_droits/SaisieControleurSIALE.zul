@@ -5,6 +5,8 @@
 		visible="@{gestionDroits.actionControleurSIALE.enCours}" width="400px"
 		title="@{gestionDroits.actionControleurSIALE}">
 
+		<button id="loader" visible="false"/>
+
 		<grid>
 			<columns>
 				<column label="" width="120px"/>
@@ -16,7 +18,7 @@
 					<label value="Nom : "/>
 									<combobox autocomplete="true"
 											autodrop="true" id="controleurSIALEListBox"
-											selectedItem="@{gestionDroits.controleurSIALESelected}"
+											selectedItem="@{gestionDroits.controleurSIALESelected, load-when='loader.onClick'}"
 											constraint="no empty"
 											disabled="@{gestionDroits.controleurModifiableDisabled}"
 											tooltiptext="Saisir au moins 3 caractères">

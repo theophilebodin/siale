@@ -21,6 +21,7 @@ import nc.mairie.siale.technique.LDAP;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -155,6 +156,9 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		initialisteControleurSIALEListBox("samaccountname", getControleurSIALECourant().getUsername());
 		
 		binder.loadComponent(zoneSaisieControleurSIALE);
+		
+		Component loader = zoneSaisieControleurSIALE.getFellow("loader");	
+		Events.postEvent(loader, new Event(Events.ON_CLICK, loader ));
 	}
 	
 	@Listen("onClick = #modifierControleurSIALE; onDoubleClick = #controleurSIALEListItem")
@@ -168,6 +172,10 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
  		
 		actionControleurSIALE=  Action.MODIFICATION;
 		binder.loadComponent(zoneSaisieControleurSIALE);
+		
+		Component loader = zoneSaisieControleurSIALE.getFellow("loader");	
+		Events.postEvent(loader, new Event(Events.ON_CLICK, loader ));
+		
 	}
 
 	@Listen("onClick =  #supprimerControleurSIALE")
