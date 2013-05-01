@@ -8,7 +8,8 @@
 
 <zscript><![CDATA[//@IMPORT
 	import org.springframework.security.core.context.SecurityContextHolder;     
-	import org.springframework.security.core.userdetails.UserDetails;;         
+	import org.springframework.security.core.userdetails.UserDetails;
+	import nc.mairie.siale.technique.CurrentUser;
 	]]>
 </zscript>
 
@@ -33,7 +34,10 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
 	
 	//Si pas anonyme alors accueil
 	if (!"anonymousUser".equals(username)) {
-		Executions.forward("/_accueil/Accueil.zul");
+		//Si currentuser pas trouvé, aloes pas habilité
+		if (CurrentUser.getCurrentUser() != null) {
+			Executions.forward("/_accueil/Accueil.zul");
+		}
 	}
 }
 ]]>
