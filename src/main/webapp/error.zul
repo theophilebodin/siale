@@ -73,12 +73,14 @@
 				</vbox>
 				</div>
 				<separator />
-				<a if="${not empty stackTrace }" label="+ Voir la stacktrace" onClick="stackTraceDetail.setVisible(!stackTraceDetail.isVisible())"/>
-					<div id="stackTraceDetail" visible="false" align="left">
+			<groupbox open="false">
+				<caption label="+ Voir la stacktrace"></caption>
+					<div id="stackTraceDetail" align="left">
 					
 					<html content="${stackTrace}"/>
 				
 					</div>
+			</groupbox>
 				</window>
 			</center>
 			
