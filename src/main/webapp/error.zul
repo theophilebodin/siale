@@ -36,7 +36,7 @@
 					
 						Throwable error = (Exception)requestScope.get("javax.servlet.error.exception") ;
 						StringBuffer stackTrace=null;
-						String message= (String)requestScope.get("javax.servlet.error.exception.message");
+						String message= (String)requestScope.get("javax.servlet.error.message");
 						
 						//Si exception alors on alimente la stacktrace
 						if (error != null) {
@@ -64,16 +64,17 @@
 						
 					]]>
 					</zscript>
-					<html>
-						<br/><br/>
-					</html>			
+					<separator/>
+					<separator/>	
 <!-- 					<label value="Cause: ${requestScope['javax.servlet.error.message']}"  style="font-size:30px"/> -->
 					<label value="Cause: ${message}"  style="font-size:30px"/>
 					<a href="/" label="Cliquez ici pour retourner à l'accueil"/>
+					<separator/>
+					<separator/>
 				</vbox>
 				</div>
 				<separator />
-			<groupbox open="false">
+			<groupbox open="false" mold="3d">
 				<caption label="+ Voir la stacktrace"></caption>
 					<div id="stackTraceDetail" align="left">
 					
