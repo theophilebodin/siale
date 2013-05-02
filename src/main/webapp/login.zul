@@ -3,8 +3,6 @@
 
 
 <window id="loginwin" title="Gestion des Missions SIALE-${project.version}" border="normal" width="500px" mode="modal">
-    <!-- this form-login-page form is also used as the
-         form-error-page to ask for a login again. -->
 
 <zscript><![CDATA[//@IMPORT
 	import org.springframework.security.core.context.SecurityContextHolder;     
@@ -15,6 +13,8 @@
 
 <zscript>
 <![CDATA[
+         
+String msgNonHabilite = null;
     
 //Si on a demander deconnection          
 if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
@@ -35,7 +35,9 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
 	//Si pas anonyme alors accueil
 	if (!"anonymousUser".equals(username)) {
 		//Si currentuser pas trouvé, aloes pas habilité
-		if (CurrentUser.getCurrentUser() != null) {
+		if (CurrentUser.getCurrentUser() == null) {
+			msgNonHabilite = "Utilisateur non habilité. Veuillez contacter l'administrateur SIALE.";
+		} else {
 			Executions.forward("/_accueil/Accueil.zul");
 		}
 	}
@@ -48,7 +50,7 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
         Raison: ${SPRING_SECURITY_LAST_EXCEPTION.message}
        ]]>
     </html>
- 
+ 	<label style="color:red" value="${msgNonHabilite}"/>
     <groupbox>
     <caption>Login</caption>
     <h:form id="f" name="f" action="j_spring_security_check" method="POST"

@@ -8,7 +8,7 @@
 	<window id="accueil" width="80%" height="100%" apply="nc.mairie.siale.viewmodel.AccueilModel" mode="overlapped" position="center,top" sizable="true">
 		<borderlayout>
 			<north size="124px" >
- 					<borderlayout style="background-image: url(${c:encodeURL('/_accueil/fondbleu_blanc.png') }); background-size: 100%; ">
+ 					<borderlayout style="background-image: url(${c:encodeURL('/_images/fondbleu_blanc.png') }); background-size: 100%; ">
 					<west size="160px"  border="none" style="background: transparent;" >
 		        	<div align="center">
 		        		<image src="/_images/logo_MAIRIE_150x150.png"/>

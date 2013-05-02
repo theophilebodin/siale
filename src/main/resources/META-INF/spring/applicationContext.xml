@@ -98,6 +98,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
 
 	<security:http auto-config='true' access-decision-manager-ref="accessDecisionManager">
+    	<security:intercept-url pattern="/_images/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<security:intercept-url pattern="/_*/*" access="ROLE_SIALE"/>
     	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:form-login 	login-page="/" 
@@ -114,12 +115,12 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 	</bean>
 	
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-	  <property name="decisionVoters">
-	    <list>
-	      <ref bean="roleVoter" />
-	      <ref bean="authenticatedVoter" />
-	    </list>
-	  </property>
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+				<ref bean="authenticatedVoter" />
+			</list>
+		</property>
 	</bean>
 	
 	<security:global-method-security access-decision-manager-ref="accessDecisionManager" />

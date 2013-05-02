@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zul.Messagebox;
 
 public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 
@@ -132,7 +131,7 @@ public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 				List <ControleurSIALE> list = ControleurSIALE.findControleurSIALEsByUsernameLikeAndActifNot(username, false).getResultList();
 				//username unique dans l'ad, donc on prend le 1er élément (le seul donc...)
 				if (list.size() == 0) {
-					Messagebox.show("Utilisateur non habilité. Demander à l'administrateur SIALE de vous rajouter.","Erreur",Messagebox.OK,Messagebox.ERROR);
+					//Messagebox.show("Utilisateur non habilité. Demander à l'administrateur SIALE de vous rajouter.","Erreur",Messagebox.OK,Messagebox.ERROR);
 					return null;
 				}
 				
