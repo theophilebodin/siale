@@ -161,10 +161,6 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 	protected void initialiseAllListes() {
 		
 		listeBareme = Bareme.findAllBaremes();
-		if (listeBareme.size() == 0) {
-			//On rajoute un nouveau bareme
-			onClick$ajouterBareme();
-		}
 		
 	}
 	
@@ -181,6 +177,10 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		binder = new AnnotateDataBinder(comp);
 		binder.loadAll();
 
+		if (listeBareme.size() == 0) {
+			//On rajoute un nouveau bareme
+			onClick$ajouterBareme();
+		}
 
 		
 	}

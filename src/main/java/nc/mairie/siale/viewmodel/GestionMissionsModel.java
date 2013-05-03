@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import nc.mairie.siale.domain.Bareme;
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.domain.Droit;
 import nc.mairie.siale.domain.Etablissement;
@@ -510,6 +511,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			alert("Vous devez sélectionner une mission avant de cliquer");
 			return;
 		}
+		
+		//Au moins un bareme doit être défini
+		if (Bareme.countBaremes() == 0) {
+			alert("Vous devez d'abord créer un barème dans \"Paramètres / Barême notation\" ");
+			return;
+		}	
 		
 		//Une mission cloturée ne peut être notée
 		if (getMissionCourant().getCloturee()) {
