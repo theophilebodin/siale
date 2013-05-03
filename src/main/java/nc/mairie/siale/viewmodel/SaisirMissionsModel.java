@@ -243,7 +243,7 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		//Pour forcer à supprimer les messages d'erreur
 		zoneSaisieDocument.invalidate();
 		
-		binder.loadComponent(saisirMission);
+		binder.loadComponent(zoneSaisieDocument);
 	}
 
 	

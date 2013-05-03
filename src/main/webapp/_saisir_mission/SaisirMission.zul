@@ -55,7 +55,7 @@
 									<combobox mold="rounded"
 										id="saisiComboSUITE_DONNEE"
 										model="@{saisirMission.listeSuiteDonnee}"
-										selectedItem="@{saisirMission.missionCourant.suiteDonnee, save-when='validerMission.onClick'}"
+										selectedItem="@{saisirMission.missionCourant.suiteDonnee}"
 										readonly="true" constraint="no empty">
 
 										<comboitem
