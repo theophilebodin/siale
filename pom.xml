@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>InterventionSIALE</artifactId>
     <packaging>war</packaging>
-    <version>0.1.0.BUILD-SNAPSHOT</version>
+    <version>1.0</version>
     <name>InterventionSIALE</name>
     <properties>
         <aspectj.version>1.7.0.RC1</aspectj.version>
