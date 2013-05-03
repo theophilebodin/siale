@@ -58,7 +58,7 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
     xmlns:h="native">
         <grid>
 	        <columns>
-	        	<column width="150px"/>
+	        	<column width="155px"/>
 	        	<column/>
 	        </columns>
             <rows>
@@ -67,10 +67,12 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
 <!--                 Ne fonctionne pas :( 26/4/13). JE commente -->
 <!--                 <row><checkbox id="r" name="_spring_security_remember_me"/>Ne pas me demander pendant 2 semaines</row> -->
                 <row spans="2">
-                    <hbox align="center">
-                    	<h:input type="submit" value="Connecter" width="80px"/>
-                        <h:input type="reset"  value="Effacer" width="80px"/>
-                    </hbox>
+                    <div align="center">
+<!--                     	<h:input type="submit" value="Connecter" width="80px"/> -->
+<!--                         <h:input type="reset"  value="Effacer" width="80px"/> -->
+						<button type="submit" label="Connecter" width="80px"/>
+                        <button type="reset"  label="Effacer" width="80px"/>
+                    </div>
                 </row>
             </rows>
         </grid>
