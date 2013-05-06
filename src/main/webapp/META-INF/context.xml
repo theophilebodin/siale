@@ -45,7 +45,7 @@
     <Parameter description="Serveur SMTP" name="HOST_SMTP" override="false" value="smtp.site-mairie.noumea.nc" />
 	<Parameter description="Emetteur mail" name="MAIL_SENDER" override="false" value="SIALE-no-reply@ville-noumea.nc" />
 
-	<Parameter description="Nom de l'application déclarée SIDRAP pour connaitre les droits" name="APPLICATION" override="false" value="Missions SIALE" />
+<!-- 	<Parameter description="Nom de l'application déclarée SIALE pour connaitre les droits" name="APPLICATION" override="false" value="Missions SIALE" /> -->
 <!-- 	<Parameter description="URL de l'ADLDS" name="ADLDS_URL" override="false" value="ldap://svpadlds.site-mairie.noumea.nc:37900/" /> -->
 <!-- 	<Parameter description="Utilisateur LDAP" name="ADLDS_USER" override="false" value="cn=admin,dc=site-mairie,dc=noumea,dc=nc" /> -->
 <!-- 	<Parameter description="Mot de passe LDAP" name="ADLDS_PWD" override="false" value="secretldap" /> -->
@@ -57,6 +57,9 @@
 	<Parameter description="Base LDAP" name="BASE_LDAP" override="false" value="dc=site-mairie,dc=noumea,dc=nc" />
 	<Parameter description="Hôte LDAP 3" name="HOST_LDAP3" override="false" value="ldap://netone:389/" />
 	<Parameter description="Hôte LDAP 2" name="HOST_LDAP2" override="false" value="ldap://gberge:389/" />
+	<Parameter description="URL de la database" name="database_url" override="false" value="jdbc:postgresql://localhost:5432/siale" />
+	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
+	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
 	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
 	<Parameter description="Version" name="VERSION" override="false" value="1.0" />
 
