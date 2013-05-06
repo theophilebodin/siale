@@ -11,7 +11,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findParamsByTypeParam", "findParamsByNomLike", "findParamsActifsByNomDuTypeParam" })
+@RooJpaActiveRecord(sequenceName = "param_sequence", finders = { "findParamsByTypeParam", "findParamsByNomLike", "findParamsActifsByNomDuTypeParam" })
 public class Param implements Cloneable{
 
     @NotNull

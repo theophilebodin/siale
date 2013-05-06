@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import nc.mairie.siale.domain.Bareme;
 
@@ -16,7 +17,8 @@ privileged aspect Bareme_Roo_Jpa_Entity {
     declare @type: Bareme: @Entity;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "baremeGen", sequenceName = "bareme_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "baremeGen")
     @Column(name = "id")
     private Long Bareme.id;
     

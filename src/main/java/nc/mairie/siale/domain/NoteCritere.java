@@ -8,7 +8,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "notecritere_sequence")
 public class NoteCritere implements Cloneable{
 
     @NotNull

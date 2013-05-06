@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import nc.mairie.siale.domain.NoteCritere;
 
@@ -16,7 +17,8 @@ privileged aspect NoteCritere_Roo_Jpa_Entity {
     declare @type: NoteCritere: @Entity;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "noteCritereGen", sequenceName = "notecritere_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "noteCritereGen")
     @Column(name = "id")
     private Long NoteCritere.id;
     

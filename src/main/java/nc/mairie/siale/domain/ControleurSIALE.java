@@ -12,7 +12,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findControleurSIALEsByActifNotAndDroits", "findControleurSIALEsByUsernameLikeAndActifNot" })
+@RooJpaActiveRecord(sequenceName = "controleursiale_sequence", finders = { "findControleurSIALEsByActifNotAndDroits", "findControleurSIALEsByUsernameLikeAndActifNot" })
 public class ControleurSIALE {
 
     @NotNull

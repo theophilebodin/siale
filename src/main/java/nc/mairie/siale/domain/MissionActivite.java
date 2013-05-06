@@ -9,7 +9,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "missionactivite_sequence")
 public class MissionActivite implements Cloneable{
 
     private Boolean principale;

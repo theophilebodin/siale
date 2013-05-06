@@ -16,7 +16,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "notegroupe_sequence")
 public class NoteGroupe implements Cloneable {
 
     @NotNull

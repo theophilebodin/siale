@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import nc.mairie.siale.domain.Notation;
 
@@ -16,7 +17,8 @@ privileged aspect Notation_Roo_Jpa_Entity {
     declare @type: Notation: @Entity;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "notationGen", sequenceName = "notation_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "notationGen")
     @Column(name = "id")
     private Long Notation.id;
     

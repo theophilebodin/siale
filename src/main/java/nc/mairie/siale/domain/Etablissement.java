@@ -10,7 +10,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findEtablissementsByLibelleLike" })
+@RooJpaActiveRecord(sequenceName = "etablissement_sequence", finders = { "findEtablissementsByLibelleLike" })
 public class Etablissement {
 
     @NotNull

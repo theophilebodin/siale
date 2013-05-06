@@ -11,7 +11,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "missiondocument_sequence")
 public class MissionDocument {
 
     @Temporal(TemporalType.TIMESTAMP)

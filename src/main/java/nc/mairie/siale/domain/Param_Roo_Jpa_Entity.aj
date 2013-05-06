@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import nc.mairie.siale.domain.Param;
 
@@ -16,7 +17,8 @@ privileged aspect Param_Roo_Jpa_Entity {
     declare @type: Param: @Entity;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "paramGen", sequenceName = "param_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "paramGen")
     @Column(name = "id")
     private Long Param.id;
     

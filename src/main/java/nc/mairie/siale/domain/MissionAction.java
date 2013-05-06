@@ -13,7 +13,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "missionaction_sequence")
 public class MissionAction {
 
     @Temporal(TemporalType.TIMESTAMP)

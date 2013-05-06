@@ -8,7 +8,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+@RooJpaActiveRecord(sequenceName = "typeparam_sequence")
 public class TypeParam implements Cloneable{
 
     @NotNull

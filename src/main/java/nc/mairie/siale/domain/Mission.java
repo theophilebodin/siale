@@ -26,7 +26,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(finders = { "findMissionsByControleursSIALE", "findMissionsByClotureeNotOrDatePrevueGreaterThan", "findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan" })
+@RooJpaActiveRecord(sequenceName = "mission_sequence", finders = { "findMissionsByControleursSIALE", "findMissionsByClotureeNotOrDatePrevueGreaterThan", "findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan" })
 public class Mission {
 
     TypeEtablissement typeEtablissement;

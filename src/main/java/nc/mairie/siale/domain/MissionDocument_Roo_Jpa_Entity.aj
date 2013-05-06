@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 import nc.mairie.siale.domain.MissionDocument;
 
@@ -16,7 +17,8 @@ privileged aspect MissionDocument_Roo_Jpa_Entity {
     declare @type: MissionDocument: @Entity;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "missionDocumentGen", sequenceName = "missiondocument_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "missionDocumentGen")
     @Column(name = "id")
     private Long MissionDocument.id;
     
