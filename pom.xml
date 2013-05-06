@@ -393,6 +393,7 @@
         </dependency>
     </dependencies>
     <build>
+    	<finalName>${project.artifactId}##${project.version}</finalName>
           <pluginManagement>
         <plugins>
             <!--This plugin's configuration is used to store Eclipse 
@@ -429,6 +430,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.2</version>
+                <!-- Luc Plugin pour remplacer les ${xxx} dans les fichiers -->
+                <configuration>
+		          <webResources>
+		            <resource>
+		              <directory>src/main/webapp</directory>
+		              <targetPath></targetPath>
+		              <filtering>true</filtering>
+		            </resource>
+		          </webResources>
+		        </configuration>
                 <!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
             </plugin>
             <plugin>
@@ -582,23 +593,6 @@
                     </webAppConfig>
                 </configuration>
             </plugin>
-            
-            <!-- Luc Plugin pour remplacer les ${xxx} dans les fichiers -->
-            <plugin>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <version>2.2</version>
-		        <configuration>
-		          <webResources>
-		            <resource>
-		              <directory>src/main/webapp</directory>
-		              <targetPath></targetPath>
-		              <filtering>true</filtering>
-		            </resource>
-		          </webResources>
-		        </configuration>
-			</plugin>
-            
-            
-        </plugins>
+    	</plugins>
     </build>
 </project>
