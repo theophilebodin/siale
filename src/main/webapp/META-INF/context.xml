@@ -60,8 +60,6 @@
 	<Parameter description="URL de la database" name="database_url" override="false" value="jdbc:postgresql://localhost:5432/siale" />
 	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
 	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
-	<!-- value="create" to build a new database on each run; value="update" to modify an existing database; value="create-drop" means the same as "create" but also drops tables when Hibernate closes; value="validate" makes no changes to the database -->
-	<Parameter description="Action de la database" name="database_action" override="false" value="create" />
 	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
 	<Parameter description="Version" name="VERSION" override="false" value="1.0" />
 
