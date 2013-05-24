@@ -1,9 +1,9 @@
 <?link rel="shortcut icon" type="image/x-icon" href="/_images/favicon.ico" ?>
-<?page id="testZul" title="Authentification Interventions SIALE-${project.version}"?>
+<?page id="testZul" title="Missions de la SIALE--${project.version}"?>
 
 
 
-<window id="loginwin" title="Gestion des Missions SIALE-${project.version}" border="normal" width="500px" mode="modal">
+<window id="loginwin" title="Authentification Missions de la SIALE-${project.version}" border="normal" width="500px" mode="modal">
 
 <zscript><![CDATA[//@IMPORT
 	import org.springframework.security.core.context.SecurityContextHolder;     

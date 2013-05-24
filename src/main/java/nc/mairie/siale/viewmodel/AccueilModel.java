@@ -1,10 +1,12 @@
 package nc.mairie.siale.viewmodel;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.technique.CurrentUser;
+import nc.mairie.siale.technique.LDAP;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -84,13 +86,19 @@ public class AccueilModel extends SelectorComposer<Component>{
 		
 		
 			public void setCurrentUser(ControleurSIALE currentUser) {
-				this.currentUser = currentUser;
-				CurrentUser.setCurrentUser(currentUser);
 				
-				if (menuListboxMission.getSelectedIndex()!=-1) {
-					Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
+				if (currentUser.getId()!= null) {
+				
+					this.currentUser = currentUser;
+					CurrentUser.setCurrentUser(currentUser);
+					
+					if (menuListboxMission.getSelectedIndex()!=-1) {
+						Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
+					} else {
+						Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxParametre));
+					}
 				} else {
-					Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxParametre));
+					alert(currentUser.getDisplayname());
 				}
 				
 				//menuListboxMission.setSelectedIndex(0);
@@ -117,7 +125,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		}
 		menuModelParametre.add(new MenuNode("Import VISHA","Import VISHA","/_VISHA/ImportVISHA.zul","/_accueil/VISHA.png"));
 		menuModelParametre.add(new MenuNode("Barême notation","Barême des notations","/_bareme_notation/BaremeNotation.zul","/_accueil/Bareme.png"));
-//		menuModelParametre.add(new MenuNode("---Gestionexemple","Gestion des interventions","borderlayout_fn1.zul","/_accueil/intervention.png"));
+//		menuModelParametre.add(new MenuNode("---Gestionexemple","Gestion des missions","borderlayout_fn1.zul","/_accueil/mission.png"));
 //		menuModelParametre.add(new MenuNode("---Paramètres MVVMV","Gestion des paramètres","/problemMVVM/GestionParametresMVVM.zul","/_accueil/parametres.png"));
 
 		comp.setAttribute(comp.getId(), this, true);
@@ -138,6 +146,14 @@ public class AccueilModel extends SelectorComposer<Component>{
 		//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION		
 			currentUser = CurrentUser.getCurrentUser();
 			listeControleurSIALE = ControleurSIALE.findAllControleurSIALEs();
+			Enumeration<String> e = LDAP.getHashParametres().keys();
+			while (e.hasMoreElements()) {
+				String cle = e.nextElement();
+				ControleurSIALE cs = new ControleurSIALE();
+				cs.setDisplayname(cle + "="+LDAP.getHashParametres().get(cle));
+				listeControleurSIALE.add(cs);
+			}
+			
 		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
 		
 		binder = new AnnotateDataBinder(comp);
