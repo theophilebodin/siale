@@ -502,7 +502,37 @@
             </plugin>
 
 
-
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+<!-- 								<copy todir="src/site/resources/war/${project.version}"  -->
+<!-- 									file="target/${project.artifactId}##${project.version}.war"> -->
+								<copy tofile="src/site/resources/war/${project.version}/${project.artifactId}##${project.version}.${project.packaging}" 
+									file="${project.build.directory}/${project.build.finalName}.${project.packaging}">
+								</copy>
+								<copy tofile="${project.build.directory}/${project.artifactId}##${project.version}.${project.packaging}" 
+									file="${project.build.directory}/${project.build.finalName}.${project.packaging}">
+								</copy>
+								<delete file="${project.build.directory}/${project.build.finalName}.${project.packaging}"></delete>
+								<checksum algorithm="md5">
+									<fileset dir="src/site/resources/war/${project.version}">
+										<include name="*.war" />
+										<include name="*.jar" />
+									</fileset>
+								</checksum>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 
 
