@@ -40,7 +40,7 @@
 				
 				
 				<div>
-					<include id="includeSaisieControleurSIALE" src="/_Droits/SaisieControleurSIALE.zul"></include>
+					<include id="includeSaisieControleurSIALE" src="/_droits/SaisieControleurSIALE.zul"></include>
 				</div>
 					
 				 
