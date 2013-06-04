@@ -53,8 +53,10 @@
 	</div>
 	<div id="zoneSaisie" visible="@{gestionMissions.actionMission.enCours}">
 
+<grid>
+<rows>
+<row>
 
-<hbox>
 					<panel 
 						title="Etablissement" border="normal" id="panelEtablissement">
 						<panelchildren>
@@ -116,13 +118,24 @@
 							</grid>
 						</panelchildren>
 					</panel>
-
-</hbox>
-
-
-<hbox >
+</row>
+</rows>
+</grid>
 
 
+
+
+
+<grid >
+<columns>
+<column>
+</column>
+<column>
+</column>
+</columns>
+
+		<rows>
+			<row>	
 					<panel title="Activités" border="normal" >
 						<panelchildren>
 
@@ -219,12 +232,19 @@
 						
 						</panelchildren>
 					</panel>
+			
+			</row>
+		</rows>
+	</grid>
 
-</hbox>
 
+					
+					
+<grid >
+<rows>
+<row>
 					<panel title="Rendez-vous" border="normal" >
 						<panelchildren>
-<vbox>
 <grid>
 		<columns>
 			<column label="Date prévue" />
@@ -241,9 +261,16 @@
 			</row>
 		</rows>
 	</grid>
-</vbox>
 		</panelchildren>
 		</panel>	
+
+</row>
+</rows>
+</grid>
+
+<grid>
+<rows>
+<row>
 
 <panel title="Clôture">
 <panelchildren>
@@ -255,6 +282,11 @@
 
 </panelchildren>
 </panel>
+
+</row>
+</rows>
+</grid>
+
 
 
 		<groupbox >

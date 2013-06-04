@@ -6,7 +6,16 @@
 		contentStyle="overflow:auto">
 		<div>
 
-			<panel style="margin-bottom:10px" border="normal"
+<grid>
+<columns>
+<column width="60%">
+</column>
+<column width="40%">
+</column>
+</columns>
+<rows>
+<row spans="2">
+			<panel border="normal"
 				id="panelSaisie">
 				<panelchildren>
 
@@ -36,8 +45,10 @@
 					</grid>
 				</panelchildren>
 			</panel>
+</row>
 
-	<hbox widths="60%,40%" >
+<row>
+
 	
 				<panel title="Informations" border="normal" height="165px">
 					<panelchildren>
@@ -112,8 +123,8 @@
 					</panelchildren>
 				</panel>
 
-			</hbox>
-			<hbox widths="60%,40%" >
+</row>
+<row>
 				<panel title="Documents" border="normal" id="panelDocuments">
 					<panelchildren>
 						<listbox rows="2" id="missionDocumentsListBox"
@@ -200,8 +211,9 @@
 					</panelchildren>
 				</panel>
 
-			</hbox>
-
+</row>
+</rows>
+</grid>
 
 
 			<groupbox>

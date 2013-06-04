@@ -10,8 +10,11 @@
 		apply="nc.mairie.siale.viewmodel.SaisirNotationModel"
 		contentStyle="overflow:auto">
 
-
-			<panel style="margin-bottom:10px" border="normal" title="@{saisirNotation.missionCourant.typeEtablissement}"
+<grid>
+<rows>
+<row>
+<!-- 			<panel style="margin-bottom:10px" border="normal" title="@{saisirNotation.missionCourant.typeEtablissement}" -->
+			<panel border="normal" title="@{saisirNotation.missionCourant.typeEtablissement}"
 				id="panelCartouche">
 				<panelchildren>
 
@@ -68,6 +71,9 @@
 				</panelchildren>
 			</panel>
 
+</row>
+</rows>
+</grid>
 
 
 
@@ -81,14 +87,14 @@
 				
 <panel title="@{noteGroupeNotation.noteGroupe.nom }" border="normal">				
 	<panelchildren >			
-				<hbox>
+				<div>
 					<label value="Pondération :"/>
 					<label value="@{noteGroupeNotation.noteGroupe.ponderation}"/>
 					<label value="   Note :" />
 					<label id="noteCalculee"
 						value="@{noteGroupeNotation.calculeNoteGroupe, load-when='noteSpinner.onBlur'  }" />
 					/ 4
-				</hbox>
+				</div>
 
 				<grid model="@{noteGroupeNotation.notations}">
 					<columns>
@@ -104,13 +110,13 @@
 							<label
 								value="@{notation.noteCritere.ponderation }"
 								style="font-weight:bold" />
-							<hbox>
+							<div>
 							<spinner id="noteSpinner" 
 							value="@{notation.note}"
 							width="35px" 
 							constraint="min 0 max 4 : la notre doit être comprise entre 0 (non pris en compte) et 4"/>
 								/ 4
-							</hbox>
+							</div>
 						</row>
 					</rows>
 				</grid>
@@ -120,7 +126,9 @@
 		</rows>
 	</grid>
 
-
+<grid>
+<rows>
+<row>
 		<panel style="margin-bottom:10px" border="normal" title="Notation"
 				id="panelFoot">
 				<panelchildren>
@@ -155,7 +163,9 @@
 					</grid>
 				</panelchildren>
 			</panel>
-
+</row>
+</rows>
+</grid>
 
 
 			<groupbox>
