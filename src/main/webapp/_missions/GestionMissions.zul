@@ -76,6 +76,7 @@
 									<column
 										label="Etablissement non déclaré"
 										visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
+									<column label="Action"/>
 
 								</columns>
 								<rows>
@@ -113,6 +114,15 @@
 											constraint="no empty"
 											disabled="@{gestionMissions.missionCourant.possedeNotations}" 
 											visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
+										<combobox mold="rounded"
+											id="saisiComboActions" 
+											model="@{gestionMissions.listeAction}"
+											selectedItem="@{gestionMissions.missionCourant.missionAction.theAction}"
+											readonly="true" 
+											constraint="no empty">
+											<comboitem self="@{each=action}"
+												label="@{action.nom}" />
+										</combobox>
 									</row>
 								</rows>
 							</grid>

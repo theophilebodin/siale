@@ -70,6 +70,8 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	
 	List<Mission> listeMission;
 	Mission missionCourant;
+	
+	List<Param> listeAction;
 		
 	@Wire
 	Div zoneSaisie;
@@ -124,7 +126,15 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			return o1.getLibelle().compareTo(o2.getLibelle());
 		}
 	};
-	
+
+	public List<Param> getListeAction() {
+		return listeAction;
+	}
+
+	public void setListeAction(List<Param> listeAction) {
+		this.listeAction = listeAction;
+	}
+
 	//@Wire("#zoneSaisieControleur #saisiComboControleurs")
 	//Combobox zoneSaisieControleur$saisiComboControleurs;
 	
@@ -291,16 +301,24 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	}
 
 	protected void initialiseAllListes() {
-		listeMission=initialiseListeMissions();
-		listeEtablissement=Etablissement.findAllEtablissements();
-		Collections.sort(listeEtablissement, comparatorEtablissement);
-		listeActivite = Param.findParamsActifsByNomDuTypeParam("ACTIVITE").getResultList();
-		Collections.sort(listeActivite, new Comparator<Param>() {
+		Comparator<Param> comparator = new Comparator<Param>() {
 			@Override
 			public int compare(Param o1, Param o2) {
 				return o1.getNom().compareTo(o2.getNom());
 			}
-		});
+		};
+		
+		listeMission=initialiseListeMissions();
+		
+		listeEtablissement=Etablissement.findAllEtablissements();
+		Collections.sort(listeEtablissement, comparatorEtablissement);
+		
+		listeActivite = Param.findParamsActifsByNomDuTypeParam("ACTIVITE").getResultList();
+		Collections.sort(listeActivite, comparator);
+		
+		listeAction = Param.findParamsActifsByNomDuTypeParam("ACTION").getResultList();
+		Collections.sort(listeAction,comparator);
+		
 		listeControleurControleurSIALE = new ArrayList<Object>();
 		listeControleurControleurSIALE.addAll(Param.findParamsActifsByNomDuTypeParam("CONTROLEUR").getResultList());
 		//ajout seulment des actifs et contoleurs
@@ -623,6 +641,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 
 	public void onClick$modifierMissionPossible() {
 		
+		//Suite au déplacement de Action dans gestion mission, pour remettre carré les missions sans missionAction
+		if (getMissionCourant().getMissionAction() == null) {
+			MissionAction missionAction = new MissionAction();
+			getMissionCourant().setMissionAction(missionAction);
+		}
+		
 		actionMission=Action.MODIFICATION;
 		envoiOutlookCheckBox.setDisabled(false);
 		binder.loadAll();
@@ -677,6 +701,9 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		c.set(Calendar.HOUR, 2);
 		mission.setDureePrevueRDV(c.getTime());
 		mission.setTypeEtablissement(TypeEtablissement.ETABLISSEMENT);
+		
+		//La missionAction
+		mission.setMissionAction(new MissionAction());
 		
 		//Ajout du user en cours
 		mission.getControleursSIALE().add(CurrentUser.getCurrentUser());

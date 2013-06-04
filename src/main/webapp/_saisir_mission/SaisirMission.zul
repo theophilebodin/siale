@@ -47,17 +47,17 @@
 			</panel>
 </row>
 
-<row>
+<row spans="2">
 
 	
-				<panel title="Informations" border="normal" height="165px">
+				<panel title="Informations" border="normal">
 					<panelchildren>
 
 
 
 						<grid>
 							<columns>
-								<column label="" width="120px" />
+								<column label="" width="180px" />
 								<column label="" />
 							</columns>
 							<rows>
@@ -78,38 +78,12 @@
 									<label value="Observations :" />
 									<textbox
 										value="@{saisirMission.missionCourant.observation}" rows="5" constraint="no empty"
-										cols="55" />
+										cols="155" />
 
 								</row>
-							</rows>
-						</grid>
-					</panelchildren>
-				</panel>
-
-				<panel title="Actions" border="normal" height="165px">
-					<panelchildren>
-
-
-						<grid height="100%">
-							<columns>
-								<column label="" width="55px" />
-								<column label="" />
-							</columns>
-							<rows>
 								<row>
-									<label value="Action :"></label>
-									<combobox mold="rounded"
-										id="saisiComboActions" 
-										model="@{saisirMission.listeAction}"
-										selectedItem="@{saisirMission.missionCourant.missionAction.theAction}"
-										readonly="true" 
-										constraint="no empty">
-										<comboitem self="@{each=action}"
-											label="@{action.nom}" />
-									</combobox>
-								</row>
-								<row>
-									<label value="Date :" />
+									<label value="Date de l'action :" />
+<!-- 									<label value="@{saisirMission.missionCourant.missionAction.theAction.nom}" /> -->
 									<datebox
 										value="@{saisirMission.missionCourant.missionAction.dateAction}"
 										format="short" 
@@ -117,9 +91,6 @@
 								</row>
 							</rows>
 						</grid>
-
-
-
 					</panelchildren>
 				</panel>
 

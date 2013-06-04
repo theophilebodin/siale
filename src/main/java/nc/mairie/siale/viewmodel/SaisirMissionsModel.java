@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import nc.mairie.siale.domain.Mission;
-import nc.mairie.siale.domain.MissionAction;
 import nc.mairie.siale.domain.MissionDocument;
 import nc.mairie.siale.domain.Param;
 import nc.mairie.siale.technique.Action;
@@ -47,8 +46,6 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	
 	List<Param> listeSuiteDonnee;
 	
-	List<Param> listeAction;
-	
 	List<Param> listeDocument;
 	
 	MissionDocument missionDocumentCourant;
@@ -62,8 +59,6 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	
 	@Wire
 	Listbox missionDocumentsListBox;
-	@Wire
-	Listbox missionActionsListBox;
 	
 	public Action getActionDocument() {
 		return actionDocument;
@@ -79,14 +74,6 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 
 	public void setMissionDocumentCourant(MissionDocument missionDocumentCourant) {
 		this.missionDocumentCourant = missionDocumentCourant;
-	}
-
-	public List<Param> getListeAction() {
-		return listeAction;
-	}
-
-	public void setListeAction(List<Param> listeAction) {
-		this.listeAction = listeAction;
 	}
 
 	public List<Param> getListeDocument() {
@@ -124,9 +111,6 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		listeSuiteDonnee= Param.findParamsActifsByNomDuTypeParam("SUITE_DONNEE").getResultList();
 		Collections.sort(listeSuiteDonnee,comparator);
 		
-		listeAction = Param.findParamsActifsByNomDuTypeParam("ACTION").getResultList();
-		Collections.sort(listeAction,comparator);
-		
 		listeDocument = Param.findParamsActifsByNomDuTypeParam("DOCUMENT").getResultList();
 		Collections.sort(listeDocument,comparator);
 		
@@ -142,10 +126,6 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		Long id = (Long)execution.getArg().get("idMission");
 		
 		setMissionCourant(Mission.findMission(id));
-		if (getMissionCourant().getMissionAction() == null) {
-			MissionAction missionAction = new MissionAction();
-			getMissionCourant().setMissionAction(missionAction);
-		}
 		
 		//Initialisetion des listes 
 		initialiseAllListes();
