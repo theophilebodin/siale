@@ -46,8 +46,8 @@
 		        </borderlayout>
 			
 			</north>
-			<west size="160px" splittable="true" flex="true" collapsible="true" title="Menu"> 
-<div>
+			<west size="160px" splittable="true" collapsible="true" title="Menu"> 
+<div  vflex="true">
 
     
 
@@ -86,8 +86,8 @@
 </div>
 				
 			</west>
-			<center flex="true">
-				<div id="contentDiv" >
+			<center>
+				<div id="contentDiv"  vflex="true" >
 					
 				</div>
 			</center>

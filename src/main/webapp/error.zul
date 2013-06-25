@@ -27,8 +27,8 @@
 			</north>
 			
 			
-			<center flex="true">
-			<window border="none" contentStyle="overflow:auto"> 
+			<center>
+			<window border="none" contentStyle="overflow:auto"  vflex="true"> 
 			<div align="center">
 				<vbox align="center">
 					<zscript>
