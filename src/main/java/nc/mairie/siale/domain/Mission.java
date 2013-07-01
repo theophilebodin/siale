@@ -46,7 +46,7 @@ public class Mission {
 
     private int prelevement_non_satisfaisant;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "theMission", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "theMission", orphanRemoval = true, fetch= FetchType.EAGER)
     private Set<MissionActivite> missionActivites = new HashSet<MissionActivite>();
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -84,7 +84,7 @@ public class Mission {
     @DateTimeFormat(style = "-S")
     private Date dureePrevueRDV;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mission")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mission", fetch= FetchType.EAGER)
     private Set<Notation> notations = new HashSet<Notation>();
 
     @ManyToOne
