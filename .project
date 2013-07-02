@@ -37,6 +37,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.zkoss.eclipse.zknature</nature>
 		<nature>org.eclipse.ajdt.ui.ajnature</nature>
 		<nature>com.springsource.sts.roo.core.nature</nature>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
