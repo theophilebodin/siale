@@ -131,6 +131,7 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		initialiseAllListes();
 		
 		binder = new AnnotateDataBinder(comp);
+		binder.setLoadOnSave(false);
 		binder.loadAll();
 
 	}

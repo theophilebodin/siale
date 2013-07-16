@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.2.4</version>
+    <version>1.2.5.SNAPSHOT</version>
     <name>missions-siale</name>
     <properties>
 		<aspectj.version>1.7.3</aspectj.version>
@@ -16,7 +16,7 @@
 <!--         <artifactId>${project.artifactId}</artifactId> -->
 <!-- 		<version>${project.version}</version> -->
     <zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
-    <zk.version>6.0.0</zk.version>
+    <zk.version>6.5.2</zk.version>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>

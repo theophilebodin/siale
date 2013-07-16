@@ -396,6 +396,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		
 				
 		binder = new AnnotateDataBinder(comp);
+		binder.setLoadOnSave(false);
 		binder.loadAll();
 
 	}
