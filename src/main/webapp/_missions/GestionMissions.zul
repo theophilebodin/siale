@@ -105,7 +105,7 @@
 					</attribute>
 
 											<comboitem
-												self="@{each=element}" label="@{element.libelle}" />
+												self="@{each=element}" label="@{element.nomAffichage}" />
 										</combobox>
 										<textbox id="projetTextBox"
 											value="@{gestionMissions.missionCourant.projet}" 

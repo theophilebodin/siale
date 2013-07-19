@@ -1,5 +1,4 @@
 package nc.mairie.siale.domain;
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.OneToMany;
@@ -10,7 +9,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord(sequenceName = "etablissement_sequence", finders = { "findEtablissementsByLibelleLike" })
+@RooJpaActiveRecord(sequenceName = "etablissement_sequence")
 public class Etablissement {
 
     @NotNull
@@ -28,4 +27,8 @@ public class Etablissement {
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "etablissement")
     @OneToMany(mappedBy = "etablissement")
     private Set<Mission> missions = new HashSet<Mission>();
+
+    public String getNomAffichage() {
+        return getLibelle() + "-" + getCode();
+    }
 }

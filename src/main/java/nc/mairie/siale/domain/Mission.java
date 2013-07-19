@@ -144,7 +144,7 @@ public class Mission {
         if (getTypeEtablissement() == null) return null;
         switch(getTypeEtablissement()) {
             case ETABLISSEMENT:
-                return getEtablissement().getLibelle();
+                return getEtablissement().getNomAffichage();
             case NONDECLARE:
                 return getEtablissementNonDeclare();
             case PROJET:

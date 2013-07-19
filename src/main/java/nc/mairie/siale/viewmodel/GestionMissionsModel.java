@@ -123,7 +123,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 
 		@Override
 		public int compare(Etablissement o1, Etablissement o2) {
-			return o1.getLibelle().compareTo(o2.getLibelle());
+			return o1.getNomAffichage().compareTo(o2.getNomAffichage());
 		}
 	};
 
@@ -720,7 +720,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
  		List<Etablissement> newModel = new ArrayList<Etablissement>();
  		
  		for (Etablissement etab : getListeEtablissement()) {
-			if (etab.getLibelle().toUpperCase().contains(value.toUpperCase())) {
+			if (etab.getNomAffichage().toUpperCase().contains(value.toUpperCase())) {
  				newModel.add(etab);
  			}
  		}
