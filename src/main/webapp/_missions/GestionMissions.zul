@@ -97,7 +97,8 @@
 											selectedItem="@{gestionMissions.missionCourant.etablissement}"
 											constraint="no empty"
 											disabled="@{gestionMissions.missionCourant.possedeNotations}"
-											visible="@{gestionMissions.missionCourant.etablissementSelected}">
+											visible="@{gestionMissions.missionCourant.etablissementSelected}"
+											width="220px">
 											<attribute name="onChanging">
 					<![CDATA[
 	gestionMissions.onChangingDETOURNE$etablissementListBox(event.getValue());
