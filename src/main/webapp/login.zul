@@ -1,5 +1,5 @@
 <?link rel="shortcut icon" type="image/x-icon" href="/_images/favicon.ico" ?>
-<?page id="testZul" title="Missions de la SIALE--${project.version}"?>
+<?page id="testZul" title="Missions de la SIALE-${project.version}"?>
 
 
 
