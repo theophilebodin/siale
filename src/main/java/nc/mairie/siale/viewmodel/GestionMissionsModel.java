@@ -690,7 +690,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		actionMission = Action.AJOUT;
 		
 		Mission mission = new Mission();
-		mission.setEtablissement(new Etablissement());
+		mission.setEtablissement(null);
 		
 		//la date pr&évue : demain à 08h:00
 		Calendar c = Calendar.getInstance();
@@ -761,6 +761,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		MissionActivite nouv = new MissionActivite();
 		nouv.setTheMission(getMissionCourant());
 		nouv.setPrincipale(false);
+		nouv.setTheActivite(null);
 		setMissionActiviteCourant(nouv);
 		binder.loadComponent(zoneSaisieActivite);
 	}

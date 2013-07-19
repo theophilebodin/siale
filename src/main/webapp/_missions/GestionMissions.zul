@@ -8,6 +8,7 @@
 	<div id="zoneListe" visible="@{gestionMissions.actionMission.aucune}">
 				<listbox id="missionsListBox" 
 					mold="paging"
+					pageSize="15"
 					model="@{gestionMissions.listeMission}"
 					selectedItem="@{gestionMissions.missionCourant}">
 
@@ -16,6 +17,7 @@
 					<listhead>
 						<listheader label="Date prévue"
 							sortDirection="ascending" sort="auto(datePrevue)" width="80px" />
+						<listheader label="Contrôle" sort="auto(missionAction.theAction.nom)"  width="140px"/>
 						<listheader label="Nom" sort="auto(nomEtablissement)"/>
 						<listheader label="Type" width="95px" sort="auto(typeEtablissement)"/>
 						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
@@ -31,6 +33,7 @@
 						<listcell
 							label="@{mission.datePrevue, converter='org.zkoss.zkplus.databind.DateFormatConverter'}"
 							self="@{format(dd/MM/yyyy)}" />
+						<listcell label="@{mission.missionAction.theAction.nom}" />
 						<listcell label="@{mission.nomEtablissement}" />
 						<listcell label="@{mission.typeEtablissement}" />
 						<listcell
