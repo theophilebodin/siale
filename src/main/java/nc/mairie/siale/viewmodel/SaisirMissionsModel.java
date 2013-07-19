@@ -162,23 +162,29 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(saisirMission);
 		
-		//Si nombre n'est pas saisi, alors les autres ne doivent pas l'être
-		if (getMissionCourant().getPrelevement_nb() == 0) {
-			if (getMissionCourant().getPrelevement_satisfaisant() != 0) {
-				controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_satisfaisant", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
-			}
-			if (getMissionCourant().getPrelevement_mediocre() != 0) {
-				controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_mediocre", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
-			}
-			if (getMissionCourant().getPrelevement_mediocre() != 0) {
-				controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_non_satisfaisant", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
-			}
-		} else if (	getMissionCourant().getPrelevement_satisfaisant()+
-					getMissionCourant().getPrelevement_mediocre()+
-					getMissionCourant().getPrelevement_non_satisfaisant() != getMissionCourant().getPrelevement_nb()) {
-			controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_nb", true), "Satisfaisant + Médiocre + Non Satisfaisant doiut être égal à Nombre");
-		}
+		int sommePrelevements = getMissionCourant().getPrelevement_satisfaisant()+
+				getMissionCourant().getPrelevement_mediocre()+
+				getMissionCourant().getPrelevement_non_satisfaisant();
 		
+		//Si mediocre ou sataisfaisant ou non satisfasant sont saisis, alors on contrôle
+		if (sommePrelevements > 0) {
+		
+			//Si nombre n'est pas saisi, alors les autres ne doivent pas l'être
+			if (getMissionCourant().getPrelevement_nb() == 0) {
+				if (getMissionCourant().getPrelevement_satisfaisant() != 0) {
+					controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_satisfaisant", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
+				}
+				if (getMissionCourant().getPrelevement_mediocre() != 0) {
+					controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_mediocre", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
+				}
+				if (getMissionCourant().getPrelevement_mediocre() != 0) {
+					controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_non_satisfaisant", true), "Ne peut être saisi si le nombre de prélèvements n'est pas saisi");
+				}
+			} else if (	sommePrelevements != getMissionCourant().getPrelevement_nb()) {
+				controleSaisie.ajouteErreur(saisirMission.getFellow("prelevement_nb", true), "Satisfaisant + Médiocre + Non Satisfaisant doiut être égal à Nombre");
+			}
+			
+		}
 		
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();

@@ -16,6 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.RisqueEtablissement;
 import nc.mairie.siale.technique.TypeEtablissement;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.zkoss.zk.ui.Component;
 
 @RooJavaBean
 @RooToString
@@ -210,5 +212,22 @@ public class Mission {
         return q.getResultList().get(0) != 0;
     }
     
+    public void controleCloturable (ControleSaisie controleSaisie, Component comp) {
+    	
+		//controle rg_cloturee (7.1.1.5) s'il y a une date d'action
+		MissionAction mc = getMissionAction(); 
+		if (mc == null || mc.getDateAction() == null) {
+			controleSaisie.ajouteErreur(comp,
+				"La date de l'action n'a pas été saisie, la mission ne peut être cloturée");
+		}
+	
+		//controle Fonctionnalité #3097
+		int sommePrelevements = getPrelevement_satisfaisant()+getPrelevement_mediocre()+getPrelevement_non_satisfaisant();
+		if (sommePrelevements != getPrelevement_nb()) {
+			controleSaisie.ajouteErreur(comp,
+				"Le nombre de prélèvement de la mission ne correspond pas à la somme des prélèvements S, NS et M; la mission ne peut être cloturée");
+		}
+		
+	}
     
 }

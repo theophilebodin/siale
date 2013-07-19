@@ -297,6 +297,10 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 	
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(saisirNotation);
+	
+		if (getMissionCourant().getCloturee()) {
+			getMissionCourant().controleCloturable(controleSaisie, saisirNotation.getFellow("missionClotureeCheckBox"));
+		}
 		
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();

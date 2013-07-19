@@ -458,13 +458,9 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			controleSaisie.ajouteErreur(missionControleursListBox, "Un controleur SIALE est obligatoire");
 		}
 		
-		//controle rg_cloturee (7.1.1.5) s'il y a une date d'action
+		//Si le mission est checkée cloturée
 		if (getMissionCourant().getCloturee()) {
-			MissionAction mc = getMissionCourant().getMissionAction(); 
-			if (mc == null || mc.getDateAction() == null) {
-				controleSaisie.ajouteErreur(gestionMissions.getFellow("missionClotureeCheckBox"),
-						"Il n'y a pas d'action de saisie, la mission ne peut être cloturée");
-			}
+			getMissionCourant().controleCloturable(controleSaisie, gestionMissions.getFellow("missionClotureeCheckBox"));
 		}
 		
 		//Si erreurs, on les met et on ne va pas plus loin
