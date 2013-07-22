@@ -67,7 +67,8 @@
 										id="saisiComboSUITE_DONNEE"
 										model="@{saisirMission.listeSuiteDonnee}"
 										selectedItem="@{saisirMission.missionCourant.suiteDonnee}"
-										readonly="true" constraint="no empty">
+										readonly="true" constraint="no empty"
+										 disabled="@{saisirMission.validerDisabled }">
 
 										<comboitem
 											self="@{each=suitedonnee}" label="@{suitedonnee.nom}" />
@@ -78,7 +79,8 @@
 									<label value="Observations :" />
 									<textbox
 										value="@{saisirMission.missionCourant.observation}" rows="5" constraint="no empty"
-										cols="155" />
+										cols="155"
+										disabled="@{saisirMission.validerDisabled }" />
 
 								</row>
 								<row>
@@ -87,7 +89,8 @@
 									<datebox
 										value="@{saisirMission.missionCourant.missionAction.dateAction}"
 										format="short" 
-										constraint="no empty, no future" />
+										constraint="no empty, no future"
+										disabled="@{saisirMission.validerDisabled }" />
 								</row>
 							</rows>
 						</grid>
@@ -106,7 +109,7 @@
 							<listhead>
 								<listheader label="Document" />
 								<listheader label="Date" width="75px"/>
-								<listheader width="64px">
+								<listheader width="64px" visible="@{saisirMission.saisiePossible }">
 									<image id="ajouterMissionDocument"
 										src="/_images/add_24x24.png" tooltiptext="Ajouter" />
 								</listheader>
@@ -156,25 +159,29 @@
 								<row>
 									<label value="Nombre:" />
 									<intbox id="prelevement_nb" 
-										value="@{saisirMission.missionCourant.prelevement_nb}" constraint="no negative">
+										value="@{saisirMission.missionCourant.prelevement_nb}" constraint="no negative"
+										disabled="@{saisirMission.validerDisabled }">
 									</intbox>
 								</row>
 								<row>
 									<label value="Satisfaisant" />
 									<intbox id="prelevement_satisfaisant"
-										value="@{saisirMission.missionCourant.prelevement_satisfaisant}" constraint="no negative">
+										value="@{saisirMission.missionCourant.prelevement_satisfaisant}" constraint="no negative"
+										disabled="@{saisirMission.validerDisabled }">
 									</intbox>
 								</row>
 								<row>
 									<label value="Mediocre" />
 									<intbox id="prelevement_mediocre"
-										value="@{saisirMission.missionCourant.prelevement_mediocre}" constraint="no negative">
+										value="@{saisirMission.missionCourant.prelevement_mediocre}" constraint="no negative"
+										disabled="@{saisirMission.validerDisabled }">
 									</intbox>
 								</row>
 								<row>
 									<label value="Non satisfaisant" />
 									<intbox id="prelevement_non_satisfaisant"
-										value="@{saisirMission.missionCourant.prelevement_non_satisfaisant}" constraint="no negative">
+										value="@{saisirMission.missionCourant.prelevement_non_satisfaisant}" constraint="no negative"
+										disabled="@{saisirMission.validerDisabled }">
 									</intbox>
 								</row>
 							</rows>
@@ -190,7 +197,8 @@
 			<groupbox>
 				<div align="center">
 					<button id="validerMission" label="Valider"
-						width="80px" />
+						width="80px" 
+						disabled="@{saisirMission.validerDisabled }" />
 					<button id="annulerMission" label="Annuler"
 						width="80px" />
 				</div>

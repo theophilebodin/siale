@@ -415,7 +415,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		binder.loadAll();
 	}
 	
-	public boolean isSauverMissionDisabled() {
+	public boolean isValiderDisabled() {
 		//Si le user en cours ne faitpas parti de la liste des controleurs de la missiion, il ne peut enregistrer
 		boolean peutSauver = false;
 		
@@ -434,7 +434,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	public void onClick$validerMission() {
 	
 		//Test si validation possible 
-		if (isSauverMissionDisabled()) {
+		if (isValiderDisabled()) {
 			alert("Vous n'êtes pas habilité à enregistrer la mission");
 			return;
 		}
@@ -517,10 +517,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	@Listen("onClick = #notationMission")
 	public void onClick$notationMission() {
 		
-		if (isSauverMissionDisabled()) {
-			alert("Seul un contrôleur de la mission est autorisé");
-			return;
-		}
 		
 		if (getMissionCourant() == null) {
 			alert("Vous devez sélectionner une mission avant de cliquer");
@@ -533,11 +529,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			return;
 		}	
 		
-		//Une mission cloturée ne peut être notée
-		if (getMissionCourant().getCloturee()) {
-			alert("Une mission cloturée ne peut être notée");
-			return;
-		}
 		
 		//Une mission non saisie ne peut être notée
 		if (getMissionCourant().getSuiteDonnee()==null) {
@@ -558,21 +549,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	@Listen("onClick = #saisirMission")
 	public void onClick$saisirMission() {
 		
-		if (isSauverMissionDisabled()) {
-			alert("Seul un contrôleur de la mission est autorisé");
-			return;
-		}
 
 		if (getMissionCourant() == null) {
 			alert("Vous devez sélectionner une mission avant de cliquer");
 			return;
 		}
 		
-		//Une mission cloturée ne peut être saisie
-		if (getMissionCourant().getCloturee()) {
-			alert("Une mission cloturée ne peut être saisie");
-			return;
-		}
 		
 		Map<String, Object> args = new HashMap<String, Object>();
 		args.put("idMission", getMissionCourant().getId());
@@ -591,7 +573,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	public void onClick$supprimerMission() {
 		
 		//Test si validation possible 
-		if (isSauverMissionDisabled()) {
+		if (isValiderDisabled()) {
 			alert("Vous n'êtes pas habilité à supprimer la mission");
 			return;
 		}
@@ -645,7 +627,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		}
 		
 		actionMission=Action.MODIFICATION;
-		envoiOutlookCheckBox.setDisabled(false);
 		binder.loadAll();
 	
 	}
@@ -653,22 +634,24 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	@Listen("onClick = #modifierMission; onDoubleClick = #missionsListItem")
 	public void onClick$modifierMission() {
 		
-		//Si elle est cloturée, on demande de confirer la déclôture
-		if (getMissionCourant().getCloturee()) {
+		//Si elle est cloturée, on demande de confirer la déclôture (si on est 
+		if (getMissionCourant().getCloturee() && !isValiderDisabled()) {
 			
 			Messagebox.show("La mission est cloturée.\nVoulez-vous d'abord la décloturer ?",
-				    "Question", Messagebox.OK | Messagebox.CANCEL,
+				    "Question", Messagebox.YES | Messagebox.NO,
 				    Messagebox.QUESTION,
 				        new EventListener<Event>() {
 							
 							@Override
 							public void onEvent(Event e) throws Exception {
-				                if(Messagebox.ON_OK.equals(e.getName())){
+				                if(Messagebox.ON_YES.equals(e.getName())){
 				                	//OK est sélectionné donc on décloture
 				                    getMissionCourant().setCloturee(false);
 				                    onClick$modifierMissionPossible();
-				                }else if(Messagebox.ON_CANCEL.equals(e.getName())){
+				                }else if(Messagebox.ON_NO.equals(e.getName())){
 				                    //Cancel is clicked
+				                	//Fonctionnalité #3096 Permettre la visualisation des saisies et des notations des missions clôturées
+				                    onClick$modifierMissionPossible();
 				                	return;
 				                }
 				            }
@@ -708,7 +691,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		//on sélectionne Etablissement
 		//setTypeEtablissementCourant(TypeEtablissement.ETABLISSEMENT);
 		
-		envoiOutlookCheckBox.setDisabled(false);
 		binder.loadAll();
 	}
 
@@ -764,13 +746,15 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #modifierMissionActivite; onDoubleClick = #missionActivitesListItem")
 	public void onClick$modifierMissionActivite() {
-		try {
-			missionActiviteCourantSAV = this.missionActiviteCourant.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+		if (isSaisiePossible()) {
+			try {
+				missionActiviteCourantSAV = this.missionActiviteCourant.clone();
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			}
+			setActionActivite(Action.MODIFICATION);
+			binder.loadComponent(zoneSaisieActivite);
 		}
-		setActionActivite(Action.MODIFICATION);
-		binder.loadComponent(zoneSaisieActivite);
 	}
 
 	@Listen("onClick = #includeSaisieActivite #zoneSaisieActivite #annulerMissionActivite;" +
@@ -899,17 +883,19 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	
 	@Listen("onClick = #modifierControleur; onDoubleClick = #missionControleursListItem")
 	public void onClick$modifierControleur() {
-		//ok si pas user courant
-		if (getControleurCourant() instanceof ControleurSIALE) {
-			if (((ControleurSIALE)getControleurCourant()).getId().equals(CurrentUser.getCurrentUser().getId())) {
-				Messagebox.show("Impossible de vous modifier de la liste des controleurs");
-				return;
+		if (isSaisiePossible()) {
+			//ok si pas user courant
+			if (getControleurCourant() instanceof ControleurSIALE) {
+				if (((ControleurSIALE)getControleurCourant()).getId().equals(CurrentUser.getCurrentUser().getId())) {
+					Messagebox.show("Impossible de vous modifier de la liste des controleurs");
+					return;
+				}
 			}
+			
+			setControleurCourantSaisi(getControleurCourant());
+			setActionControleur(Action.MODIFICATION);
+			binder.loadComponent(zoneSaisieControleur);
 		}
-		
-		setControleurCourantSaisi(getControleurCourant());
-		setActionControleur(Action.MODIFICATION);
-		binder.loadComponent(zoneSaisieControleur);
 	}
 
 	@Listen("onClick = #includeSaisieControleur #zoneSaisieControleur #annulerControleur;" +
@@ -1020,6 +1006,14 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		}
 		setActionControleur(Action.AUCUNE);
 		binder.loadComponent(zoneSaisie);
+	}
+
+	public boolean isTypeEtablissementDisabled() {
+		return (getMissionCourant() == null ? true : getMissionCourant().isPossedeNotations()) || isValiderDisabled();
+	}
+
+	public boolean isSaisiePossible() {
+		return ! isValiderDisabled();
 	}
 
 	

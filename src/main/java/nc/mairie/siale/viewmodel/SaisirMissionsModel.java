@@ -10,11 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.domain.MissionDocument;
 import nc.mairie.siale.domain.Param;
 import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.ControleSaisie;
+import nc.mairie.siale.technique.CurrentUser;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
@@ -210,8 +212,10 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 
 	@Listen("onClick = #modifierMissionDocument; onDoubleClick =  #missionDocumentsListItem")
 	public void onClick$modifierMissionDocument() {
-		setActionDocument(Action.MODIFICATION);
-		binder.loadComponent(zoneSaisieDocument);
+		if (isSaisiePossible()) {
+			setActionDocument(Action.MODIFICATION);
+			binder.loadComponent(zoneSaisieDocument);
+		}
 	}
 
 	
@@ -276,6 +280,25 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		}
 		setActionDocument(Action.AUCUNE);
 		binder.loadComponent(saisirMission);
+	}
+	
+	public boolean isValiderDisabled() {
+		//Si le user en cours ne faitpas parti de la liste des controleurs de la missiion, il ne peut enregistrer
+		boolean peutSauver = false;
+		
+		if (getMissionCourant().getCloturee()) return true;
+		
+		for (ControleurSIALE controleurSIALE : getMissionCourant().getControleursSIALE()) {
+			if (CurrentUser.getCurrentUser().getId().equals(controleurSIALE.getId())){
+				peutSauver=true;
+				break;
+			}
+		}
+		return ! peutSauver;
+	}
+	
+	public boolean isSaisiePossible() {
+		return ! isValiderDisabled();
 	}
 	
 }

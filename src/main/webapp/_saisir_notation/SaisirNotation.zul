@@ -57,7 +57,8 @@
 										id="baremeListBox"
 										model="@{saisirNotation.listeBareme}"
 										selectedItem="@{saisirNotation.baremeCourant}"
-										readonly="true" constraint="no empty">
+										readonly="true" constraint="no empty" 
+										disabled="@{saisirNotation.validerDisabled }">
 
 										<comboitem
 											self="@{each=bareme}" label="@{bareme.nom}" />
@@ -114,7 +115,8 @@
 							<spinner id="noteSpinner" 
 							value="@{notation.note}"
 							width="35px" 
-							constraint="min 0 max 4 : la notre doit être comprise entre 0 (non pris en compte) et 4"/>
+							constraint="min 0 max 4 : la notre doit être comprise entre 0 (non pris en compte) et 4"
+							disabled="@{saisirNotation.validerDisabled }"/>
 								/ 4
 							</div>
 						</row>
@@ -153,7 +155,8 @@
 							</row>
 							<row>
 								<label value="Cloturer mission :"/>
-								<checkbox id="missionClotureeCheckBox" checked="@{saisirNotation.missionCourant.cloturee}"/>
+								<checkbox id="missionClotureeCheckBox" checked="@{saisirNotation.missionCourant.cloturee, save-when='validerNotation.onClick'}" 
+								disabled="@{saisirNotation.validerDisabled }"/>
 							</row>
 							
 							
@@ -171,6 +174,7 @@
 			<groupbox>
 				<div align="center">
 					<button id="validerNotation" label="Valider"
+					 disabled="@{saisirNotation.validerDisabled }"
 						width="80px" />
 					<button id="annulerNotation" label="Annuler"
 						width="80px" />

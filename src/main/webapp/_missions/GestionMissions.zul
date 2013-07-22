@@ -88,7 +88,7 @@
 											id="typeEtablissementCourant"
 											model="@{gestionMissions.listeTypeEtablissement}"
 											selectedItem="@{gestionMissions.missionCourant.typeEtablissement}"
-											disabled="@{gestionMissions.missionCourant.possedeNotations}"
+											disabled="@{gestionMissions.TypeEtablissementDisabled}"
 											readonly="true">
 										</combobox>
 										<combobox autocomplete="true"
@@ -96,7 +96,7 @@
 											model="@{gestionMissions.listeEtablissement}"
 											selectedItem="@{gestionMissions.missionCourant.etablissement}"
 											constraint="no empty"
-											disabled="@{gestionMissions.missionCourant.possedeNotations}"
+											disabled="@{gestionMissions.TypeEtablissementDisabled}"
 											visible="@{gestionMissions.missionCourant.etablissementSelected}"
 											width="220px">
 											<attribute name="onChanging">
@@ -111,19 +111,20 @@
 										<textbox id="projetTextBox"
 											value="@{gestionMissions.missionCourant.projet}" 
 											constraint="no empty"
-											disabled="@{gestionMissions.missionCourant.possedeNotations}"
+											disabled="@{gestionMissions.TypeEtablissementDisabled}"
 											visible="@{gestionMissions.missionCourant.projetSelected}"/>
 										<textbox id="nonDeclareTextBox"
 											value="@{gestionMissions.missionCourant.etablissementNonDeclare}" 
 											constraint="no empty"
-											disabled="@{gestionMissions.missionCourant.possedeNotations}" 
+											disabled="@{gestionMissions.TypeEtablissementDisabled}" 
 											visible="@{gestionMissions.missionCourant.nonDeclareSelected}"/>
 										<combobox mold="rounded"
 											id="saisiComboActions" 
 											model="@{gestionMissions.listeAction}"
 											selectedItem="@{gestionMissions.missionCourant.missionAction.theAction}"
 											readonly="true" 
-											constraint="no empty">
+											constraint="no empty"
+											disabled="@{gestionMissions.validerDisabled}">
 											<comboitem self="@{each=action}"
 												label="@{action.nom}" />
 										</combobox>
@@ -165,7 +166,7 @@
 								<listhead>
 									<listheader label="Nom" />
 									<listheader label="Principale"	width="70px" />
-									<listheader  width="64px">
+									<listheader  width="64px" visible="@{gestionMissions.saisiePossible }">
 										<image id="ajouterMissionActivite" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 									</listheader>
 								</listhead>
@@ -208,11 +209,11 @@
 								emptyMessage="Pas d'éléments">
 								<listhead>
 									<listheader label="Nom" />
-									<listheader  width="64px">
+									<listheader  width="64px" visible="@{gestionMissions.saisiePossible }">
 										<image id="ajouterControleur" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 									</listheader>
 								</listhead>
-									<listitem id="missionControleursListItem" self="@{each=iControleur}">
+									<listitem id="missionControleursListItem" self="@{each=iControleur}" height="36px">
 								
 									<listcell
 										label="@{iControleur.nomAffichage}" />
@@ -267,11 +268,13 @@
 		</columns>
 		<rows>
 			<row>	
- 			<datebox cols="16" value="@{gestionMissions.missionCourant.datePrevue}" format="dd/MM/yyyy HH:mm" constraint="no empty"/>
+ 			<datebox cols="16" value="@{gestionMissions.missionCourant.datePrevue}" format="dd/MM/yyyy HH:mm" constraint="no empty"
+ 			disabled="@{gestionMissions.validerDisabled}"/>
 <!-- 			<datebox cols="20" value="@{gestionMissions.missionCourant.datePrevue}" format="Long+Medium" constraint="no empty"/> -->
 			
-			<timebox value="@{gestionMissions.missionCourant.dureePrevueRDV}" format="HH:mm" constraint="no empty"/>
-			<checkbox id="envoiOutlookCheckBox"></checkbox>
+			<timebox value="@{gestionMissions.missionCourant.dureePrevueRDV}" format="HH:mm" constraint="no empty"
+			disabled="@{gestionMissions.validerDisabled}"/>
+			<checkbox id="envoiOutlookCheckBox" disabled="@{gestionMissions.validerDisabled }"></checkbox>
 			</row>
 		</rows>
 	</grid>
@@ -290,7 +293,7 @@
 <panelchildren>
 <groupbox >
 <div align="center">
-	Cloturer <checkbox id="missionClotureeCheckBox" checked="@{gestionMissions.missionCourant.cloturee}"/>
+	Cloturer <checkbox id="missionClotureeCheckBox" checked="@{gestionMissions.missionCourant.cloturee, save-when='validerMission.onClick'}" disabled="@{gestionMissions.validerDisabled }"/>
 </div>
 </groupbox>
 
@@ -305,7 +308,7 @@
 
 		<groupbox >
 			<div align="center">
-				<button id="validerMission" label="Valider" width="80px" />
+				<button id="validerMission" label="Valider" width="80px" disabled="@{gestionMissions.validerDisabled}" />
 				<button id="annulerMission" label="Annuler" width="80px" />
 			</div>
 		</groupbox>
