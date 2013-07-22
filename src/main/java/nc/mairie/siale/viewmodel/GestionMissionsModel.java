@@ -972,7 +972,13 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 						return;
 					}
 				}
-				getMissionCourant().getControleursSIALE().remove((ControleurSIALE)getControleurCourant());
+				//On supprime le courant modifié 
+				if (getControleurCourant() instanceof ControleurSIALE) {
+					getMissionCourant().getControleursSIALE().remove((ControleurSIALE)getControleurCourant());
+				} else {
+					getMissionCourant().getControleurs().remove((Param)getControleurCourant());
+				}
+				//on ajoute le controleurSiale
 				getMissionCourant().getControleursSIALE().add(controleurSaisi);
 			} else {
 				Param controleurSaisi = (Param)getControleurCourantSaisi();
@@ -982,7 +988,13 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 						return;
 					}
 				}
-				getMissionCourant().getControleurs().remove((Param)getControleurCourant());
+				//On supprime le courant modifié
+				if (getControleurCourant() instanceof ControleurSIALE) {
+					getMissionCourant().getControleursSIALE().remove((ControleurSIALE)getControleurCourant());
+				} else {
+					getMissionCourant().getControleurs().remove((Param)getControleurCourant());
+				}
+				//on ajoute le controleuSaisi
 				getMissionCourant().getControleurs().add(controleurSaisi);
 			}
 			
