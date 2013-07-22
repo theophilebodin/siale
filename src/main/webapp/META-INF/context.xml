@@ -61,6 +61,5 @@
 	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
 	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
 	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
-	<Parameter description="Version" name="VERSION" override="false" value="${project.version}" />
 
 </Context>
