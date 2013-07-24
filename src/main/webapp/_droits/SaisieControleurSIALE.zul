@@ -57,7 +57,8 @@
 
 		<div align="center">
 			<button id="validerControleurSIALE" label="Valider"/>
-			<button id="annulerControleurSIALE" label="Annuler" />
+			<button id="annulerControleurSIALE" label="Annuler" 
+		focus="@{gestionDroits.actionControleurSIALE.enCours}"/>
 		</div>
 	</window>
 </zk>

@@ -1,0 +1,22 @@
+<zk>
+<zscript>
+<![CDATA[
+	 
+]]></zscript>
+
+<window id="main1" onCancel='alert("onCancel Main1")'>
+	<window id="main2" title="new page title"  onCancel='alert("onCancel Main2")'>
+	New Content Here!
+		<window id="zoneSaisieControleurSIALE" mode="modal" border="normal" title="modal" width="200px" 
+			onCancel='alert("onCancel MODAL")' onFulfill="toto.focus()">
+			<label value="press echap"></label>
+
+				<textbox id="tata"  label="toto"></button>
+				
+		</window>
+
+	
+	</window>
+	
+</window>
+</zk>

@@ -192,7 +192,8 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 		binder.loadComponent(upload);
 	}
 
-	@Listen("onClick=#includeUpload #upload #annulerUpload;")
+	@Listen("onClick=#includeUpload #upload #annulerUpload;"+
+			"onCancel=#includeUpload #upload")
 	public void onClick$annulerUpload() {
 		setActionUpload(Action.AUCUNE);
 		setActionImport(Action.AUCUNE);
