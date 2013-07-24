@@ -170,7 +170,7 @@
 										<image id="ajouterMissionActivite" src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
 									</listheader>
 								</listhead>
-									<listitem id="missionActivitesListItem" self="@{each=missionActivite}">
+									<listitem id="missionActivitesListItem" self="@{each=missionActivite}" height="36px">
 								
 									<listcell
 										label="@{missionActivite.theActivite.nom}" />
