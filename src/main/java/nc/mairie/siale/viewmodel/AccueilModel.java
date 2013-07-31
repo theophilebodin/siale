@@ -143,7 +143,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		listBoxes.add(menuListboxParametre);
 		listBoxes.add(menuListboxMission);
 		
-		//TODO DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION		
+		//DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION		
 			currentUser = CurrentUser.getCurrentUser();
 			listeControleurSIALE = ControleurSIALE.findAllControleurSIALEs();
 			Enumeration<String> e = LDAP.getHashParametres().keys();
@@ -154,7 +154,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 				listeControleurSIALE.add(cs);
 			}
 			
-		//TODO FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
+		//FIN A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION
 		
 		binder = new AnnotateDataBinder(comp);
 		binder.loadAll();

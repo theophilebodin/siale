@@ -347,7 +347,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	}
 	/**
 	 * Initialise la liste des missions en fonction des droits de l'utilisateur.
-	 * @return
+	 * @return une liste de Mission
 	 */
 	protected List<Mission> initialiseListeMissions() {
 		List<Mission> res;

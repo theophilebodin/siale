@@ -32,7 +32,7 @@ public class Param implements Cloneable{
     /**
      * Pas possible à coder avec les finders de base
      * @param nom
-     * @return
+     * @return un TypedQuery de Param
      */
     public static TypedQuery<Param> findParamsActifsByNomDuTypeParam(String nom) {
         if (nom == null) throw new IllegalArgumentException("The nom argument is required");

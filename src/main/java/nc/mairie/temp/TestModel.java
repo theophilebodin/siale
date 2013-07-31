@@ -33,7 +33,7 @@ public class TestModel extends SelectorComposer<Component> {
 		return listWord;
 	}
 	
-	ArrayList <Lang> listLang = new ArrayList<>();
+	ArrayList <Lang> listLang = new ArrayList<Lang>();
 
 	public ArrayList<Lang> getListLang () {
 		return listLang;
