@@ -5,6 +5,7 @@
     <ignoreVersion type="regex">.*(?i)alpha.*</ignoreVersion>
 	<ignoreVersion type="regex">.*b.*</ignoreVersion>
 	<ignoreVersion type="regex">.*B.*</ignoreVersion>
+	<ignoreVersion type="regex">.*FL.*</ignoreVersion>
   </ignoreVersions>
 </ruleset>
 
