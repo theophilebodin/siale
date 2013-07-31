@@ -28,8 +28,8 @@ import nc.mairie.siale.domain.Mission;
 public class Outlook {
 
 	//Récupérés du contexte
-	public static String host;
-	public static String from;
+	private static String host;
+	private static String from;
 	
 	public static void sendCalendar(Mission mission) throws Exception{
 		String subject =  "Rendez-vous pour une mission SIALE";
