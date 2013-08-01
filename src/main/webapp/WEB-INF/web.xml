@@ -40,7 +40,7 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" >
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
+            <param-value>${project.build.sourceEncoding}</param-value>
         </init-param>
     </filter>
     
