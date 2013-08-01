@@ -9,6 +9,7 @@ import org.zkoss.bind.Converter;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.UiException;
 
+@SuppressWarnings("rawtypes")
 public class DateConverterMVVM implements Converter {
 	    /**
 	     * Convert Date to String.

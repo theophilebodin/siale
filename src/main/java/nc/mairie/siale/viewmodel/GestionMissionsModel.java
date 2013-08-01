@@ -119,14 +119,6 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	Listbox missionControleursListBox;
 	
 	
-	Comparator<Etablissement> comparatorEtablissement = new Comparator<Etablissement>() {
-
-		@Override
-		public int compare(Etablissement o1, Etablissement o2) {
-			return o1.getNomAffichage().compareTo(o2.getNomAffichage());
-		}
-	};
-
 	public List<Param> getListeAction() {
 		return listeAction;
 	}
@@ -310,6 +302,14 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		
 		listeMission=initialiseListeMissions();
 		
+		Comparator<Etablissement> comparatorEtablissement = new Comparator<Etablissement>() {
+
+			@Override
+			public int compare(Etablissement o1, Etablissement o2) {
+				return o1.getNomAffichage().compareTo(o2.getNomAffichage());
+			}
+		};
+		
 		listeEtablissement=Etablissement.findAllEtablissements();
 		Collections.sort(listeEtablissement, comparatorEtablissement);
 		
@@ -324,7 +324,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		//ajout seulment des actifs et contoleurs
 		//listeControleurControleurSIALE.addAll(ControleurSIALE.findAllControleurSIALEs());
 		Set<Droit> setDroit= new HashSet<Droit>();
-		setDroit.add(Constantes.droitControleur);
+		setDroit.add(Constantes.DROIT_CONTROLEUR);
 		listeControleurControleurSIALE.addAll(ControleurSIALE.findControleurSIALEsByActifNotAndDroits(false, setDroit).getResultList());
 		Collections.sort(listeControleurControleurSIALE, new Comparator<Object>() {
 			@Override

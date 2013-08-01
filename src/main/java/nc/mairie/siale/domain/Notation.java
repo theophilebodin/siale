@@ -1,5 +1,7 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
 import javax.persistence.TypedQuery;
@@ -11,9 +13,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "notation_sequence")
-public class Notation {
+public class Notation implements Serializable{
 
-    private double note;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1689595868969946396L;
+
+	private double note;
 
     @ManyToOne
     private NoteCritere noteCritere;

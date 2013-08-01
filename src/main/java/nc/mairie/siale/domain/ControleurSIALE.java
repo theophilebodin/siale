@@ -1,5 +1,6 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.FetchType;
@@ -13,9 +14,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "controleursiale_sequence", finders = { "findControleurSIALEsByActifNotAndDroits", "findControleurSIALEsByUsernameLikeAndActifNot" })
-public class ControleurSIALE {
+public class ControleurSIALE implements Serializable {
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5951494916201157715L;
+
+	@NotNull
     private String displayname;
 
     @NotNull
@@ -32,14 +38,14 @@ public class ControleurSIALE {
 
     public boolean isAdmin() {
         for (Droit droit : getDroits()) {
-            if (droit.getId().equals(Constantes.droitAdmin.getId())) return true;
+            if (droit.getId().equals(Constantes.DROIT_ADMIN.getId())) return true;
         }
         return false;
     }
 
     public boolean isControleur() {
         for (Droit droit : getDroits()) {
-            if (droit.getId().equals(Constantes.droitControleur.getId())) return true;
+            if (droit.getId().equals(Constantes.DROIT_CONTROLEUR.getId())) return true;
         }
         return false;
     }

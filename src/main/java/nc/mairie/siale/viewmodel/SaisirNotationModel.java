@@ -4,10 +4,12 @@
 package nc.mairie.siale.viewmodel;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -68,7 +70,11 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 			
 		
 		
-	public static class NoteGroupeNotation {
+	public static class NoteGroupeNotation implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8688470716186658955L;
 		private NoteGroupe noteGroupe;
 		private List<Notation> notations;
 		
@@ -168,7 +174,7 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 	public void initialiseNotations() {
 		
 		//si le bareme change, RAZ des notations
-		if (baremeCourant.getId()!=missionCourant.getBareme().getId()) {
+		if (((long)baremeCourant.getId())!=missionCourant.getBareme().getId()) {
 			missionCourant.getNotations().clear();
 			missionCourant.setBareme(baremeCourant);
 		}
@@ -199,7 +205,9 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		
 		//parcours de la hashtable pour créer notre listeNoteGrouypeNotation
 		listeNoteGroupeNotation = new ArrayList<SaisirNotationModel.NoteGroupeNotation>();
-		for (NoteGroupe noteGroupe : hash.keySet()) {
+		Enumeration<NoteGroupe> enume = hash.keys();
+		while (enume.hasMoreElements()) {
+			NoteGroupe noteGroupe = enume.nextElement();
 			NoteGroupeNotation ngn = new NoteGroupeNotation(noteGroupe, hash.get(noteGroupe));
 			listeNoteGroupeNotation.add(ngn);
 		}

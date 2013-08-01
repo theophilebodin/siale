@@ -1,5 +1,6 @@
 package nc.mairie.siale.viewmodel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -49,7 +50,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 	List<Listbox> listBoxes ;
 	
 	
-	MenuNodeSelectListener listener = new MenuNodeSelectListener();
+	transient MenuNodeSelectListener listener = new MenuNodeSelectListener();
 	
 	
 	MenuNodeItemRenderer renderer = new MenuNodeItemRenderer();
@@ -161,7 +162,11 @@ public class AccueilModel extends SelectorComposer<Component>{
 		 
 	}
 
-	class MenuNode {
+	private static class MenuNode implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8364735892583540164L;
 		String titre;
 		String label;
 		String link;
@@ -178,30 +183,23 @@ public class AccueilModel extends SelectorComposer<Component>{
 		public String getImage_24x24() {
 			return image == null ? null : image.replace(".", "_24x24.");
 		}
-		public void setImage(String image) {
-			this.image = image;
-		}
 		public String getTitre() {
 			return titre;
-		}
-		public void setTitre(String titre) {
-			this.titre = titre;
 		}
 		public String getLabel() {
 			return label;
 		}
-		public void setLabel(String label) {
-			this.label = label;
-		}
 		public String getLink() {
 			return link;
 		}
-		public void setLink(String link) {
-			this.link = link;
-		}
 	}
 	
-	class MenuNodeItemRenderer implements ListitemRenderer<Object>{
+	private static class MenuNodeItemRenderer implements ListitemRenderer<Object>, Serializable{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -5660746701096064628L;
 
 		public void render(Listitem item, Object data, int index)
 				throws Exception {
@@ -212,7 +210,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		}
 	}
 	
-	class MenuNodeSelectListener implements EventListener<Event>{
+	private class MenuNodeSelectListener implements EventListener<Event>{
 		public void onEvent(Event event) throws Exception {
 			Component comp = event.getTarget();
 			

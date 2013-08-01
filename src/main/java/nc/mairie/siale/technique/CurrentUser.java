@@ -121,8 +121,8 @@ public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 			if (username.toUpperCase().equals("ADMINWAS")) {
 				controleurSIALE = new ControleurSIALE();
 				controleurSIALE.setId(new Long(99999999));
-				controleurSIALE.getDroits().add(Constantes.droitAdmin);
-				controleurSIALE.getDroits().add(Constantes.droitControleur);
+				controleurSIALE.getDroits().add(Constantes.DROIT_ADMIN);
+				controleurSIALE.getDroits().add(Constantes.DROIT_CONTROLEUR);
 				controleurSIALE.setUsername(username);
 				controleurSIALE.setDisplayname(username);
 			} else {

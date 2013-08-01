@@ -1,5 +1,7 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
 import javax.persistence.TypedQuery;
@@ -12,9 +14,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "param_sequence", finders = { "findParamsByTypeParam", "findParamsByNomLike", "findParamsActifsByNomDuTypeParam" })
-public class Param implements Cloneable{
+public class Param implements Cloneable, Serializable{
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2494040797235333748L;
+
+	@NotNull
     @Size(min = 2, max = 100)
     private String nom;
 

@@ -5,6 +5,7 @@ import org.zkoss.bind.BindContext;
 import org.zkoss.bind.Converter;
 import org.zkoss.zk.ui.Component;
 
+@SuppressWarnings("rawtypes")
 public class BooleanConverterMVVM implements Converter {
     /**
      * Convert Boolean to String.

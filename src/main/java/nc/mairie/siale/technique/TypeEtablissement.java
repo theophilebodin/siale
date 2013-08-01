@@ -14,7 +14,7 @@ public enum TypeEtablissement {
 			return "Projet";
 		
 		default:
-			return null;
+			return "Pas de type trouvé";
 		}
 	}
 	

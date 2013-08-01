@@ -18,18 +18,19 @@ public class LDAP {
 //POUR WAS 5	public static String INITCTX_LDAP = "com.sun.jndi.ldap.LdapCtxFactory";
 
 static String HOST_LDAP = null;
-static Hashtable<String, String> hashParametres;
+static Hashtable<String, String> HASHPARAMETRE;
 
-public static Hashtable<String, String> getHashParametres() {
-	if (hashParametres == null ) {
-		hashParametres = new Hashtable<String, String>();
+public synchronized static Hashtable<String, String> getHashParametres() {
+	if (HASHPARAMETRE == null ) {
+		HASHPARAMETRE = new Hashtable<String, String>();
 		for (String cle : Executions.getCurrent().getDesktop().getWebApp().getInitParameterNames()) {
-			hashParametres.put(cle, Executions.getCurrent().getDesktop().getWebApp().getInitParameter(cle));
+			HASHPARAMETRE.put(cle, Executions.getCurrent().getDesktop().getWebApp().getInitParameter(cle));
 			
 		}
 	}
 
-	return hashParametres;
+	//Solution pas terrible pour bugreport au lieu de return HASHPARAMETRE
+	return new Hashtable<String, String>(HASHPARAMETRE);
 }
 
 /**

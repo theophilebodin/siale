@@ -6,6 +6,21 @@
     <packaging>war</packaging>
     <version>1.2.6-SNAPSHOT</version>
     <name>missions-siale</name>
+    <organization>
+		<name>Mairie de Nouméa</name>
+		<url>http://www.ville-noumea.nc</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>BOULU72</id>
+			<name>Luc BOURDIL</name>
+			<email>boulu72@ville-noumea.nc</email>
+			<roles>
+				<role>Développeur</role>
+			</roles>
+		</developer>
+	</developers>
+    <url>http://missions-siale</url>
     <properties>
 		<aspectj.version>1.7.3</aspectj.version>
         <java.version>7</java.version>

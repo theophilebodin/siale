@@ -1,4 +1,5 @@
 package nc.mairie.siale.domain;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.OneToMany;
@@ -10,9 +11,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "etablissement_sequence")
-public class Etablissement {
+public class Etablissement implements Serializable {
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5457593271943426896L;
+
+	@NotNull
     private String code;
 
     @NotNull

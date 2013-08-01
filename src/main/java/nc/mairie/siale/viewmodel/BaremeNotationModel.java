@@ -408,6 +408,7 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		switch (actionNoteGroupe) {
 		case AJOUT:
 			getBaremeCourant().getNoteGroupes().add(noteGroupeCourant);
+			break;
 		case MODIFICATION:
 			
 			break;
@@ -501,11 +502,12 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		switch (actionNoteCritere) {
 		case AJOUT:
 			noteGroupeCourant.getNoteCriteres().add(noteCritereCourant);
+			break;
 		case MODIFICATION:
 			break;
 		case SUPPRESSION:
 			noteGroupeCourant.getNoteCriteres().remove(noteCritereCourant);
-			
+			break;
 		default:
 			break;
 		}

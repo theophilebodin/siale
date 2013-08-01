@@ -4,6 +4,7 @@
 package nc.mairie.siale.viewmodel;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -134,7 +135,12 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 
 
 
-	public class EtabVISHA {
+	public static class EtabVISHA implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8942753150405364965L;
+		
 		public Etablissement etablissement;
 		public Action action;
 		public Etablissement getEtablissement() {
@@ -287,7 +293,7 @@ public class ImportVISHAModel extends SelectorComposer<Component> {
 					etablissement.setAdresse(adresse);
 					hashEtablissementVISHA.put(code, new EtabVISHA(etablissement, Action.AJOUT));
 				//Sinon, si ce n'est pas un nouveau
-				} else if (! etabVISHA.action.equals("Nouveau")) {
+				} else if (etabVISHA.action != Action.AJOUT) {
 					Etablissement etablissement =  etabVISHA.etablissement;
 					//Si un des champs a changé
 					if (! (	etablissement.getAdresse().equals(adresse) &&

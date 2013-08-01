@@ -1,5 +1,6 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +30,14 @@ import org.zkoss.zk.ui.Component;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "mission_sequence", finders = { "findMissionsByControleursSIALE", "findMissionsByClotureeNotOrDatePrevueGreaterThan", "findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan" })
-public class Mission {
+public class Mission implements Serializable {
 
-    TypeEtablissement typeEtablissement;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3441373481810628122L;
+
+	TypeEtablissement typeEtablissement;
 
     private String projet;
 
@@ -110,6 +116,7 @@ public class Mission {
             case NONDECLARE:
                 setProjet(null);
                 setEtablissement(null);
+                break;
             case PROJET:
                 setEtablissement(null);
                 setEtablissementNonDeclare(null);

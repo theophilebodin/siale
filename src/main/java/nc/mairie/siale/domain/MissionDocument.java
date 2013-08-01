@@ -1,5 +1,6 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -12,9 +13,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "missiondocument_sequence")
-public class MissionDocument {
+public class MissionDocument implements Serializable{
 
-    @Temporal(TemporalType.TIMESTAMP)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2346195251744519517L;
+
+	@Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date dateDocument;
 

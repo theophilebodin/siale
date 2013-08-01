@@ -1,12 +1,12 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -21,9 +21,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "bareme_sequence")
-public class Bareme {
+public class Bareme implements Serializable {
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 827767898335738016L;
+
+	@NotNull
     private String nom;
 
     @NotNull

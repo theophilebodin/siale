@@ -150,7 +150,7 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 
 		ControleurSIALE c = new ControleurSIALE();
 		c.setActif(true);
-		c.getDroits().add(Constantes.droitControleur);
+		c.getDroits().add(Constantes.DROIT_CONTROLEUR);
 		setControleurSIALECourant(c);
 		
 		initialisteControleurSIALEListBox("samaccountname", getControleurSIALECourant().getUsername());
@@ -298,11 +298,11 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		
 		//Si checké, on rajoute le droit
 		if (cb.isChecked()) {
-			getControleurSIALECourant().getDroits().add(Constantes.droitControleur);
+			getControleurSIALECourant().getDroits().add(Constantes.DROIT_CONTROLEUR);
 		//sinon, on l'enleve
 		} else {
 			for (Droit droit : getControleurSIALECourant().getDroits()) {
-				if (droit.getId().equals(Constantes.droitControleur.getId())) {
+				if (droit.getId().equals(Constantes.DROIT_CONTROLEUR.getId())) {
 					getControleurSIALECourant().getDroits().remove(droit);
 					break;
 				}
@@ -316,11 +316,11 @@ public class GestionDroitsModel extends SelectorComposer<Component> {
 		
 		//Si checké, on rajoute le droit
 		if (cb.isChecked()) {
-			getControleurSIALECourant().getDroits().add(Constantes.droitAdmin);
+			getControleurSIALECourant().getDroits().add(Constantes.DROIT_ADMIN);
 		//sinon, on l'enleve
 		} else {
 			for (Droit droit : getControleurSIALECourant().getDroits()) {
-				if (droit.getId().equals(Constantes.droitAdmin.getId())) {
+				if (droit.getId().equals(Constantes.DROIT_ADMIN.getId())) {
 					getControleurSIALECourant().getDroits().remove(droit);
 					break;
 				}

@@ -1,5 +1,6 @@
 package nc.mairie.siale.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -17,9 +18,14 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 @RooJpaActiveRecord(sequenceName = "notegroupe_sequence")
-public class NoteGroupe implements Cloneable {
+public class NoteGroupe implements Cloneable, Serializable {
 
-    @NotNull
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8942375038117004895L;
+
+	@NotNull
     private String nom;
 
     private double ponderation;

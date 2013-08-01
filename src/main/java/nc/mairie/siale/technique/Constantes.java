@@ -4,9 +4,15 @@ import nc.mairie.siale.domain.Droit;
 
 public class Constantes {
 
-	transient static public Droit droitControleur=Droit.findDroit(new Long(1));
+	//Ceci génère une anomalie pour findBugs de maven site :(
+	//final static public Droit DROIT_CONTROLEUR=Droit.findDroit(Long.valueOf(1));
+	//J'ai donc du créer cette méthode findDroitACauseDeMavenSiteFindBugs à la con pour que findbugs "trouve" FindDroit.... :(
+	//public static final Droit DROIT_CONTROLEUR=Droit.findDroit(Long.valueOf(1));
+	//public static final Droit DROIT_ADMIN=Droit.findDroit(Long.valueOf(2));
 	
-	transient static public Droit droitAdmin=Droit.findDroit(new Long(2));
+	final static public Droit DROIT_CONTROLEUR=Droit.findDroitACauseDeMavenSiteFindBugs(Long.valueOf(1));
+	
+	final static public Droit DROIT_ADMIN=Droit.findDroitACauseDeMavenSiteFindBugs(Long.valueOf(2));
 
 
 }

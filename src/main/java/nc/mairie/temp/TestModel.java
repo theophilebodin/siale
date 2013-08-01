@@ -27,20 +27,20 @@ public class TestModel extends SelectorComposer<Component> {
 
 	AnnotateDataBinder binder;
 	
-	ArrayList<Word> listWord;
+	transient private ArrayList<Word> listWord;
 	
 	public ArrayList<Word> getListWord() {
 		return listWord;
 	}
 	
-	ArrayList <Lang> listLang = new ArrayList<Lang>();
+	transient private ArrayList <Lang> listLang;
 
 	public ArrayList<Lang> getListLang () {
 		return listLang;
 	}
 
 	
-	public class Lang {
+	public static class Lang {
 		String name;
 		String language;
 		
@@ -65,9 +65,9 @@ public class TestModel extends SelectorComposer<Component> {
 	}
 	
 	
-	Word currentWord;
+	transient private Word currentWord;
 	
-	public class Word {
+	public static class Word {
   		String word;
   		Lang lang;
   		
@@ -127,6 +127,8 @@ public class TestModel extends SelectorComposer<Component> {
 		Lang l1 = new Lang("eng","ENGLISH");
 		Lang l2 = new Lang("fr","FRANCAIS");
 		
+		listLang=new ArrayList<Lang>();
+		
 		listLang.add(l1);
 		listLang.add(l2);
 		
@@ -142,7 +144,7 @@ public class TestModel extends SelectorComposer<Component> {
 		binder = new AnnotateDataBinder(comp);
 		System.out.println(binder.isLoadOnSave());
 		//OBLIGE DE METTRE à FALSE pour ne pas avoir le bug de save-whn... pas terrible
-		binder.setLoadOnSave(false);
+		//binder.setLoadOnSave(false);
 		binder.loadAll();
 
 	}
