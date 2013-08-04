@@ -197,10 +197,13 @@
 			<groupbox>
 				<div align="center">
 					<button id="validerMission" label="Valider"
-						width="80px" 
+						width="100px" 
+						disabled="@{saisirMission.validerDisabled }" />
+					<button id="validerNoterMission" label="Valider / Noter"
+						width="100px" 
 						disabled="@{saisirMission.validerDisabled }" />
 					<button id="annulerMission" label="Annuler"
-						width="80px" />
+						width="100px" />
 				</div>
 			</groupbox>
 		</div>

@@ -138,7 +138,7 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 
 	}
 
-	public void rappelGestionMission() {
+	public void appelGestionMission() {
 		Component parent = saisirMission.getParent();
 		parent.getChildren().clear();
 		
@@ -149,18 +149,27 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		Executions.createComponents("/_missions/GestionMissions.zul", parent , args);
 	}
 	
+	public void appelSaisirNotation() {
+		Component parent = saisirMission.getParent();
+		parent.getChildren().clear();
+		
+		Map<String, Object> args = new HashMap<String, Object>();
+		args.put("idMission", getMissionCourant().getId());
+		
+		//Window window= (Window) Executions.createComponents("/_missions/GestionMissions.zul", parent , args);
+		Executions.createComponents("/_saisir_notation/SaisirNotation.zul", parent , args);
+	}
+	
 	
 	@Listen("onClick = #annulerMission;" +
 			"onCancel= #saisirMission")
 	public void onClick$annulerMission() {
 	
-		rappelGestionMission();
+		appelGestionMission();
 	
 	}
 	
-	@Listen("onClick = #validerMission")
-	public void onClick$validerMission() {
-	
+	public void controleEtEnregistre() {
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(saisirMission);
 		
@@ -195,10 +204,28 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		
 		
 		setMissionCourant(missionCourant.merge());
+	}
+	
+	@Listen("onClick = #validerMission")
+	public void onClick$validerMission() {
+	
+		//S'il y a des erreurs, ça n'ira pas plus loin
+		controleEtEnregistre();
 		
-		rappelGestionMission();
+		appelGestionMission();
 			
 	}
+	
+	@Listen("onClick = #validerNoterMission")
+	public void onClick$validerNoterMission() {
+	
+		//S'il y a des erreurs, ça n'ira pas plus loin
+		controleEtEnregistre();
+		
+		appelSaisirNotation();
+			
+	}
+	
 
 	@Listen("onClick = #ajouterMissionDocument")
 	public void ajouterMissionDocument() {
