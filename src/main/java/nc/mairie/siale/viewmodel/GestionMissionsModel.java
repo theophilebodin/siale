@@ -430,9 +430,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		return ! peutSauver;
 	}
 
-	@Listen("onClick = #validerMission")
-	public void onClick$validerMission() {
-	
+	public void controleEtEnregistre () {
 		//Test si validation possible 
 		if (isValiderDisabled()) {
 			alert("Vous n'êtes pas habilité à enregistrer la mission");
@@ -506,12 +504,26 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 				  alert ("Problème lors de l'envoi dans Outlook :"+e.getMessage());
 			}
 		}
-		
-		
+	}
+	
+	@Listen("onClick = #validerMission")
+	public void onClick$validerMission() {
+	
+		//S'il y a des erreurs, ça n'ira pas plus loin
+		controleEtEnregistre();
 		
 		initialiseAllListes();
 		actionMission = Action.AUCUNE;
 		binder.loadAll();
+	}
+	
+	@Listen("onClick = #validerSaisirMission")
+	public void onClick$validerSaisirMission() {
+	
+		//S'il y a des erreurs, ça n'ira pas plus loin
+		controleEtEnregistre();
+		
+		onClick$saisirMission();
 	}
 
 	@Listen("onClick = #notationMission")

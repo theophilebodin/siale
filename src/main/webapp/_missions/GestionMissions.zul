@@ -293,7 +293,7 @@
 <panelchildren>
 <groupbox >
 <div align="center">
-	Cloturer <checkbox id="missionClotureeCheckBox" checked="@{gestionMissions.missionCourant.cloturee, save-when='validerMission.onClick'}" disabled="@{gestionMissions.validerDisabled }"/>
+	Cloturer <checkbox id="missionClotureeCheckBox" checked="@{gestionMissions.missionCourant.cloturee, save-when='validerMission.onClick,validerSaisirMission.onClick'}" disabled="@{gestionMissions.validerDisabled }"/>
 </div>
 </groupbox>
 
@@ -309,6 +309,7 @@
 		<groupbox >
 			<div align="center">
 				<button id="validerMission" label="Valider" width="80px" disabled="@{gestionMissions.validerDisabled}" />
+				<button id="validerSaisirMission" label="Saisir" width="80px" disabled="@{gestionMissions.validerDisabled}" />
 				<button id="annulerMission" label="Annuler" width="80px" />
 			</div>
 		</groupbox>

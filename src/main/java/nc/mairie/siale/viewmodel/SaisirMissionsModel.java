@@ -216,6 +216,19 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 			
 	}
 	
+	@Listen("onClick = #validerCloturerMission")
+	public void onClick$validerCloturerMission() {
+	
+		//S'il y a des erreurs, ça n'ira pas plus loin
+		controleEtEnregistre();
+		
+		getMissionCourant().setCloturee(true);
+		
+		appelGestionMission();
+			
+	}
+
+	
 	@Listen("onClick = #validerNoterMission")
 	public void onClick$validerNoterMission() {
 	
