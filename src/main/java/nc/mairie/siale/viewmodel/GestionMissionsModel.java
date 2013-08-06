@@ -546,7 +546,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		Executions.createComponents("/_saisir_notation/SaisirNotation.zul", parent , args);
 	}
 
-	@Listen("onClick = #saisirMission")
+	@Listen("onClick = #saisirMission; onDoubleClick = #missionsListItem")
 	public void onClick$saisirMission() {
 		
 
@@ -631,7 +631,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	
 	}
 	
-	@Listen("onClick = #modifierMission; onDoubleClick = #missionsListItem")
+	@Listen("onClick = #modifierMission")
 	public void onClick$modifierMission() {
 		
 		//Si elle est cloturée, on demande de confirer la déclôture (si on est 
