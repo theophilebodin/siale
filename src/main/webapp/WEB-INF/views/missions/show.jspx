@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_Mission" object="${mission}" path="/missions" z="huuyk+LISAQmD9SOxe1uRxYR/Ns=">
+        <field:display field="projet" id="s_nc_mairie_siale_domain_Mission_projet" object="${mission}" z="lrG8ZPWrpTq0oCTKLruUdjktAYM="/>
+        <field:display field="etablissementNonDeclare" id="s_nc_mairie_siale_domain_Mission_etablissementNonDeclare" object="${mission}" z="wPI5zW80X4QuJU1YP/vrgbxYnks="/>
+        <field:display field="etablissement" id="s_nc_mairie_siale_domain_Mission_etablissement" object="${mission}" z="1fwPTwQzW9Qu3IWUacdSCwnJb0w="/>
+        <field:display field="prelevement_nb" id="s_nc_mairie_siale_domain_Mission_prelevement_nb" object="${mission}" z="6t/YkGJYpXcGwHYmE76jqntTgeU="/>
+        <field:display field="prelevement_satisfaisant" id="s_nc_mairie_siale_domain_Mission_prelevement_satisfaisant" object="${mission}" z="MCMpcG0yq/kb+p4+HU94Juk9lAc="/>
+        <field:display field="prelevement_mediocre" id="s_nc_mairie_siale_domain_Mission_prelevement_mediocre" object="${mission}" z="yYFDqndDYwykA11zpejSbyAgM14="/>
+        <field:display field="prelevement_non_satisfaisant" id="s_nc_mairie_siale_domain_Mission_prelevement_non_satisfaisant" object="${mission}" z="6BgyPqy3TWVF5Y8/Pm2hE9BHpqY="/>
+        <field:display field="controleurs" id="s_nc_mairie_siale_domain_Mission_controleurs" object="${mission}" z="ypQ/AHP7t80Fbb2+KUdSRTzw4SY="/>
+        <field:display field="suiteDonnee" id="s_nc_mairie_siale_domain_Mission_suiteDonnee" object="${mission}" z="wLx1EL+9ddp6/ox/ePQEkdZUOrs="/>
+        <field:display field="missionAction" id="s_nc_mairie_siale_domain_Mission_missionAction" object="${mission}" z="nHpbKqvz+eFRDXJSXLK4dO5tZYk="/>
+        <field:display date="true" dateTimePattern="${mission_dateintervention_date_format}" field="dateIntervention" id="s_nc_mairie_siale_domain_Mission_dateIntervention" object="${mission}" z="nrv2h4OpTlAbQlPi7Xd7rCtKOiM="/>
+        <field:display date="true" dateTimePattern="${mission_dateprevue_date_format}" field="datePrevue" id="s_nc_mairie_siale_domain_Mission_datePrevue" object="${mission}" z="+2E2vvlH7AbHiG/5ELX73v1SFMM="/>
+        <field:display field="observation" id="s_nc_mairie_siale_domain_Mission_observation" object="${mission}" z="gCT4ZAnR+AkOQJM6BVHhXVbhD2c="/>
+        <field:display field="cloturee" id="s_nc_mairie_siale_domain_Mission_cloturee" object="${mission}" z="OuDia98E4cK9dOrBCVmIpLQNWGw="/>
+        <field:display field="controleursSIALE" id="s_nc_mairie_siale_domain_Mission_controleursSIALE" object="${mission}" z="JzNvn1OodsYIEZXJzUWs8bJhyaI="/>
+        <field:display field="typeEtablissement" id="s_nc_mairie_siale_domain_Mission_typeEtablissement" object="${mission}" z="vD0lQoMwOv15NBHmv9uf33VDTdI="/>
+        <field:display date="true" dateTimePattern="${mission_dureeprevuerdv_date_format}" field="dureePrevueRDV" id="s_nc_mairie_siale_domain_Mission_dureePrevueRDV" object="${mission}" z="SFpvN7jGdbOXQ6EoqSNJPL8Ua88="/>
+        <field:display field="bareme" id="s_nc_mairie_siale_domain_Mission_bareme" object="${mission}" z="IH/QWaL17to5wM9rXEKrdJADLB8="/>
+        <field:display date="true" dateTimePattern="${mission_datenotation_date_format}" field="dateNotation" id="s_nc_mairie_siale_domain_Mission_dateNotation" object="${mission}" z="VVADwCN48ErZyJCDJsDrEjwt6Pk="/>
+        <field:display field="risqueEtablissement" id="s_nc_mairie_siale_domain_Mission_risqueEtablissement" object="${mission}" z="I7Y4GlKDoVUGmI74tKG5iTe5jbU="/>
+        <field:display field="noteEtablissement" id="s_nc_mairie_siale_domain_Mission_noteEtablissement" object="${mission}" z="fPSjVDBSzo309NGMZiLfcrlMKN0="/>
+    </page:show>
+</div>

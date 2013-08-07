@@ -1,0 +1,98 @@
+<?page title="Erreur ${requestScope['javax.servlet.error.status_code']}" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+
+	<window id="error" width="80%" height="100%"  mode="overlapped" position="center,top" sizable="true" >
+		<borderlayout>
+			<north id="north" size="124px" >
+ 					<borderlayout style="background-image: url(${c:encodeURL('/_images/fondbleu_blanc.png') }); background-size: 100%; ">
+					<west size="160px"  border="none" style="background: transparent;" >
+		        	<div align="center">
+		        		<image src="/_images/logo_MAIRIE_150x150.png"/>
+		        	</div>
+		        	</west>
+		        	<center border="none" style="background: transparent;">
+		        	<div hflex="true" >
+		        	<hbox align="center" height="124px">
+<!-- 						<image id="titreImage"/> -->
+
+						<label id="titreLabel" value="${page.title }" style="color:#0C7A9A;font-size:30px" />
+					</hbox>
+		        	</div>
+		        	</center>
+		        	
+		        </borderlayout>
+			
+			</north>
+			
+			
+			<center>
+			<window border="none" contentStyle="overflow:auto"  vflex="true"> 
+			<div align="center">
+				<vbox align="center">
+					<zscript>
+					<![CDATA[
+					
+						Throwable error = (Exception)requestScope.get("javax.servlet.error.exception") ;
+						StringBuffer stackTrace=null;
+						String message= (String)requestScope.get("javax.servlet.error.message");
+						
+						//Si exception alors on alimente la stacktrace
+						if (error != null) {
+							stackTrace = new StringBuffer();
+							org.zkoss.lang.Exceptions.formatStackTrace(stackTrace,error,"\t");
+							stackTrace = new StringBuffer(stackTrace.toString().replaceAll("\n","<br>"));
+						}
+
+						
+						if (requestScope.get("javax.servlet.error.status_code") != null) {
+							switch (((Integer)requestScope.get("javax.servlet.error.status_code")).intValue()) {
+							
+								case 403:
+									message = "Vous n'êtes pas habilité. Veuillez contacter l'administrateur SIALE.";
+									break;
+	
+								case 404:
+									message = "Ressource introuvable.";
+									break;
+	
+							}
+						
+						}
+						
+						
+					]]>
+					</zscript>
+					<separator/>
+					<separator/>	
+<!-- 					<label value="Cause: ${requestScope['javax.servlet.error.message']}"  style="font-size:30px"/> -->
+					<label value="Cause: ${message}"  style="font-size:30px"/>
+					<a href="/" label="Cliquez ici pour retourner à l'accueil"/>
+					<separator/>
+					<separator/>
+				</vbox>
+				</div>
+				<separator />
+			<groupbox open="false" mold="3d">
+				<caption label="+ Voir la stacktrace"></caption>
+					<div id="stackTraceDetail" align="left">
+					
+					<html content="${stackTrace}"/>
+				
+					</div>
+			</groupbox>
+				</window>
+			</center>
+			
+			
+			<south size="20px">
+				<hbox pack="center" width="100%">
+					<html><![CDATA[
+						<span style="color:#0C7A9A">© Mairie de Noumea 2013</span>
+					]]></html>
+				</hbox>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_nc_mairie_siale_domain_MissionDocument" modelAttribute="missionDocument" path="/missiondocuments" versionField="Version" z="dsCGFW154yE2Lm6atxyiy5sBIQw=">
+        <field:datetime dateTimePattern="${missionDocument_datedocument_date_format}" field="dateDocument" id="c_nc_mairie_siale_domain_MissionDocument_dateDocument" z="np2MOl1KYt3Os9JTZwgY/a3oObE="/>
+        <field:select field="theDocument" id="c_nc_mairie_siale_domain_MissionDocument_theDocument" itemValue="id" items="${params}" path="/params" z="9Lqidu/yTJ577012DheBksiI+NY="/>
+        <field:select field="theMission" id="c_nc_mairie_siale_domain_MissionDocument_theMission" itemValue="id" items="${missions}" path="/missions" z="jaQmXa+1InAEPj7KUg4FdDHIdbs="/>
+    </form:update>
+</div>

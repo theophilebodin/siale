@@ -1,0 +1,49 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+
+
+<window id="gestionParametres" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.GestionParametresModel"
+	contentStyle="overflow:auto">
+
+<div>
+<label value="Paramètre :"/> 
+
+<combobox mold="rounded" id="typeParamlb" model="@{gestionParametres.listeTypeParam}" selectedItem="@{gestionParametres.typeParamCourant}" constraint="no empty" readonly="true">
+<comboitem self="@{each=typeParamCombo}" label="@{typeParamCombo.nom}">
+</comboitem>
+</combobox>
+</div>
+
+
+<listbox id="paramListBox" rows="10" mold="paging" pageSize="10"
+		model="@{gestionParametres.listeParam}"
+		selectedItem="@{gestionParametres.paramCourant}" >
+		 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>
+		<listhead>
+			<listheader label="Nom" sortDirection="ascending" sort="auto(nom)"/>
+			<listheader label="Actif" sort="auto(actif)"/>
+			<listheader width="64px" visible="@{gestionParametres.parametreEditable }">
+				<image id="ajouterParametre"
+					src="/_images/add_24x24.png" tooltiptext="Ajouter" visible="@{gestionParametres.parametreEditable }"/>
+			</listheader>
+		</listhead>
+		<listitem id="parametreListItem" self="@{each=param}">
+			<listcell label="@{param.nom}" />
+			<listcell label="@{param.actif, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+			<listcell visible="@{gestionParametres.parametreEditable }">
+				<image id="modifierParametre"
+					src="/_images/update_24x24.png" tooltiptext="Modifier" />
+				<image id="supprimerParametre"
+					src="/_images/delete_24x24.png" tooltiptext="Supprimer" visible="@{gestionParametres.parametreEditable }"/>
+			</listcell>
+		</listitem>
+	</listbox>
+
+
+<div>
+<include id="includeSaisieParametre" src="/_parametres/SaisieParametre.zul"></include>
+</div>
+	
+ 
+</window>

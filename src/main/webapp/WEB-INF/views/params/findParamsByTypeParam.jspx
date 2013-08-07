@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:find finderName="ByTypeParam" id="ff_nc_mairie_siale_domain_Param" path="/params" z="dsh26POOiyo7vJVpKO+MHX+zEI4=">
+        <field:select disableFormBinding="true" field="typeParam" id="f_nc_mairie_siale_domain_Param_typeParam" itemValue="id" items="${typeparams}" path="/typeparams" required="true" z="gzfkh7jjxSn2ey9+TSXsEZ7xwyc="/>
+    </form:find>
+</div>

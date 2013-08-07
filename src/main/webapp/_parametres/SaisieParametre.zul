@@ -1,0 +1,35 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+	<window id="zoneSaisieParametre" mode="modal" position="center"
+		visible="@{gestionParametres.actionParametre.enCours}" width="400px"
+		title="@{gestionParametres.actionParametre}">
+
+		<grid>
+			<columns>
+				<column label="" />
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Nom : "></label>
+					<textbox id="paramtb" 
+						constraint="no empty" 
+						disabled="@{gestionParametres.actionParametre.suppression}"
+						value="@{gestionParametres.paramCourant.nom, save-when='validerParametre.onClick'}" cols="50"/>
+				</row>
+				<row>
+					<label value="Actif : " />
+					<checkbox id="paramActicCheckBox" 
+						disabled="@{gestionParametres.actionParametre.suppression}"
+						checked="@{gestionParametres.paramCourant.actif, save-when='validerParametre.onClick'}"/>
+				</row>
+			</rows>
+		</grid>
+
+		<div align="center">
+			<button id="validerParametre" label="Valider" visible="@{gestionParametres.parametreEditable }"/>
+			<button id="annulerParametre" label="Annuler" />
+		</div>
+	</window>
+</zk>

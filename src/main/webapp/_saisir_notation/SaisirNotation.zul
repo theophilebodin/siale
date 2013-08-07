@@ -1,0 +1,187 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+
+ 
+
+
+
+	<window id="saisirNotation" height="100%" border="normal"
+		apply="nc.mairie.siale.viewmodel.SaisirNotationModel"
+		contentStyle="overflow:auto">
+
+<grid>
+<rows>
+<row>
+<!-- 			<panel style="margin-bottom:10px" border="normal" title="@{saisirNotation.missionCourant.typeEtablissement}" -->
+			<panel border="normal" title="@{saisirNotation.missionCourant.typeEtablissement}"
+				id="panelCartouche">
+				<panelchildren>
+
+					<grid>
+						<columns>
+							<column label="" width="120px" />
+							<column label="" />
+							<column label="" width="120px" />
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Nom :" />
+								<label
+									value="@{saisirNotation.missionCourant.nomEtablissement}"
+									style="font-weight:bold" />
+								<label value="Activite Principale :" />
+								<label
+									value="@{saisirNotation.missionCourant.activitePrincipale.nom}"
+									style="font-weight:bold" />
+							</row>
+							
+							
+							
+							
+							<row>
+								<label value="Type :" />
+								<label
+									value="@{saisirNotation.missionCourant.typeEtablissement}" 
+									style="font-weight:bold"/>
+								<label value="Date :" />
+								<label value="@{saisirNotation.missionCourant.dateNotation}" 
+								style="font-weight:bold"/>
+								
+							</row>
+							<row>
+								<label value="Bareme :" />
+									<combobox
+										 mold="rounded"
+										id="baremeListBox"
+										model="@{saisirNotation.listeBareme}"
+										selectedItem="@{saisirNotation.baremeCourant}"
+										readonly="true" constraint="no empty" 
+										disabled="@{saisirNotation.validerDisabled }">
+
+										<comboitem
+											self="@{each=bareme}" label="@{bareme.nom}" />
+
+									</combobox>
+								<label value="@{saisirNotation.baremeCourant.nom}"/>
+								<label value=""/>
+							</row>
+						</rows>
+					</grid>
+				</panelchildren>
+			</panel>
+
+</row>
+</rows>
+</grid>
+
+
+
+	<grid model="@{saisirNotation.listeNoteGroupeNotation}">
+		<columns>
+			<column label=""  />
+		</columns>
+		<rows>
+			<row self="@{each='noteGroupeNotation'}"
+				value="@{noteGroupeNotation }">
+				
+<panel title="@{noteGroupeNotation.noteGroupe.nom }" border="normal">				
+	<panelchildren >			
+				<div>
+					<label value="Pondération :"/>
+					<label value="@{noteGroupeNotation.noteGroupe.ponderation}"/>
+					<label value="   Note :" />
+					<label id="noteCalculee"
+						value="@{noteGroupeNotation.calculeNoteGroupe, load-when='noteSpinner.onBlur'  }" />
+					/ 4
+				</div>
+
+				<grid model="@{noteGroupeNotation.notations}">
+					<columns>
+						<column label="Critere" />
+						<column label="Ponderation" />
+						<column label="Note" />
+					</columns>
+					<rows>
+						<row self="@{each='notation'}"
+							value="@{notation }">
+							<label value="@{notation.noteCritere.nom}"
+								style="font-weight:bold" />
+							<label
+								value="@{notation.noteCritere.ponderation }"
+								style="font-weight:bold" />
+							<div>
+							<spinner id="noteSpinner" 
+							value="@{notation.note}"
+							width="35px" 
+							constraint="min 0 max 4 : la notre doit être comprise entre 0 (non pris en compte) et 4"
+							disabled="@{saisirNotation.validerDisabled }"/>
+								/ 4
+							</div>
+						</row>
+					</rows>
+				</grid>
+</panelchildren>
+</panel>
+			</row>
+		</rows>
+	</grid>
+
+<grid>
+<rows>
+<row>
+		<panel style="margin-bottom:10px" border="normal" title="Notation"
+				id="panelFoot">
+				<panelchildren>
+
+					<grid>
+						<columns>
+							<column label="" width="200px" />
+							<column label="" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Note de l'etablissement : " />
+								<label
+									value="@{saisirNotation.calculNoteGlobale, load-when='noteSpinner.onBlur'}"
+									style="font-weight:bold" />
+							</row>
+							<row>
+								<label value="Niveau de l'établissement :" />
+								<label
+									value="@{saisirNotation.calculNiveauEtablissement, load-when='noteSpinner.onBlur'}"
+									style="font-weight:bold" />
+							</row>
+							<row>
+								<label value="Cloturer mission :"/>
+								<checkbox id="missionClotureeCheckBox" checked="@{saisirNotation.missionCourant.cloturee, save-when='validerNotation.onClick'}" 
+								disabled="@{saisirNotation.validerDisabled }"/>
+							</row>
+							
+							
+							
+	
+						</rows>
+					</grid>
+				</panelchildren>
+			</panel>
+</row>
+</rows>
+</grid>
+
+
+			<groupbox>
+				<div align="center">
+					<button id="validerNotation" label="Valider"
+					 disabled="@{saisirNotation.validerDisabled }"
+						width="80px" />
+					<button id="annulerNotation" label="Annuler"
+						width="80px" />
+				</div>
+			</groupbox>
+
+
+
+	</window>
+</zk>

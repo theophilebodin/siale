@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_ControleurSIALE" object="${controleursiale}" path="/controleursiales" z="ENkKmlxL+gfOsM80tSdxUVHFGRY=">
+        <field:display field="username" id="s_nc_mairie_siale_domain_ControleurSIALE_username" object="${controleursiale}" z="54pJ3nmXlm2UFS1ByPm+7MtPK0s="/>
+        <field:display field="droits" id="s_nc_mairie_siale_domain_ControleurSIALE_droits" object="${controleursiale}" z="896COBxTDZAEKLylzDdz98JGtCk="/>
+        <field:display field="actif" id="s_nc_mairie_siale_domain_ControleurSIALE_actif" object="${controleursiale}" z="c7JaQ6dnBlig4dEQ6/HatdRDHW4="/>
+        <field:display field="displayname" id="s_nc_mairie_siale_domain_ControleurSIALE_displayname" object="${controleursiale}" z="KpVMM7bzEZG/HViumZnfoREKcv8="/>
+    </page:show>
+</div>

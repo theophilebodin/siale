@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_nc_mairie_siale_domain_ControleurSIALE" items="${controleursiales}" z="JeOvCx05ZTUUu4iP/buXEDAjQ8Q=">
+        <table:table data="${controleursiales}" id="l_nc_mairie_siale_domain_ControleurSIALE" path="/controleursiales" z="Id2Deu2zIRNY9j8uP0/FsTjaBDo=">
+            <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_username" property="username" z="L9QonawLrp3xPcvVXMGDDx0jxIo="/>
+            <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_droits" property="droits" z="NzpPHVDAfE3Fp9/tSOHAgAPNKSU="/>
+            <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_actif" property="actif" z="Ii6PUBUH1T844gt53SH8FxiGPIU="/>
+            <table:column id="c_nc_mairie_siale_domain_ControleurSIALE_displayname" property="displayname" z="oDD4K+tkcdYqUoPcgqc1hze5y8g="/>
+        </table:table>
+    </page:list>
+</div>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_typeparam" z="Tjjr5pVhAQOZwft9qMUgZ/eTFkg=">
+            <menu:item id="i_typeparam_new" messageCode="global_menu_new" url="/typeparams?form" z="rUY58OyuckTO9voPTvJ51hJ6agM="/>
+            <menu:item id="i_typeparam_list" messageCode="global_menu_list" url="/typeparams?page=1&amp;size=${empty param.size ? 10 : param.size}" z="nDouVs6GpsgC8aiNzNMdFXu0OSs="/>
+        </menu:category>
+        <menu:category id="c_param" z="zWq6W+gDrJI4jNllHKl2MLmN7aw=">
+            <menu:item id="i_param_new" messageCode="global_menu_new" url="/params?form" z="/Mix+W4C35ReTse5ZxV/tu8FyTY="/>
+            <menu:item id="i_param_list" messageCode="global_menu_list" url="/params?page=1&amp;size=${empty param.size ? 10 : param.size}" z="M+/Q7/PgXKFv2WapvCDRuqe5e6s="/>
+            <menu:item id="fi_param_nomlike" messageCode="global_menu_find" url="/params?find=ByNomLike&amp;form" z="8/fkjPXxzFXE7lTywheOQdReWrQ="/>
+            <menu:item id="fi_param_typeparam" messageCode="global_menu_find" url="/params?find=ByTypeParam&amp;form" z="g5ZRV2FQ1dgu2md21xsKBSlpjMI="/>
+        </menu:category>
+        <menu:category id="c_missionactivite" z="sRPDRGSMGr3G3krThxYqqNBKdAs=">
+            <menu:item id="i_missionactivite_new" messageCode="global_menu_new" url="/missionactivites?form" z="3PblLqCkAOyLVMKAWDacSKvENR0="/>
+            <menu:item id="i_missionactivite_list" messageCode="global_menu_list" url="/missionactivites?page=1&amp;size=${empty param.size ? 10 : param.size}" z="eQqvQK47fII4G2q2DSb6Zfee51E="/>
+        </menu:category>
+        <menu:category id="c_mission" z="Dy9F2TgiiAPv8sk5XJZ7LKwbrAg=">
+            <menu:item id="i_mission_new" messageCode="global_menu_new" url="/missions?form" z="YO05Y1XWmER3CBCs2wHrjqH/0rg="/>
+            <menu:item id="i_mission_list" messageCode="global_menu_list" url="/missions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="w7i8JhEAUORq1M1a/LBOC4IE+Ec="/>
+        </menu:category>
+        <menu:category id="c_missionaction" z="mY+8AtnGV2ZTlVlqLVjPjoQr/yQ=">
+            <menu:item id="i_missionaction_new" messageCode="global_menu_new" url="/missionactions?form" z="wxKxTwzotKwqXVb665R75DHcS2M="/>
+            <menu:item id="i_missionaction_list" messageCode="global_menu_list" url="/missionactions?page=1&amp;size=${empty param.size ? 10 : param.size}" z="izf0HxROVn2zwBNg2YIIovWOZ3Q="/>
+        </menu:category>
+        <menu:category id="c_etablissement" z="0tygQ68f9gYYZz/xMaLeFpT9ya0=">
+            <menu:item id="i_etablissement_new" messageCode="global_menu_new" url="/etablissements?form" z="M+Z+NAAu47ADiV93JWUSVs7Gvpo="/>
+            <menu:item id="i_etablissement_list" messageCode="global_menu_list" url="/etablissements?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hjXtg+qRzgYFpRsLbVAsumaGnII="/>
+        </menu:category>
+        <menu:category id="c_controleursiale" z="oIY184WP9lzqC4UnslS6OMtqa68=">
+            <menu:item id="i_controleursiale_new" messageCode="global_menu_new" url="/controleursiales?form" z="/y8jATmFiIXbuPP82oh4YntFHYQ="/>
+            <menu:item id="i_controleursiale_list" messageCode="global_menu_list" url="/controleursiales?page=1&amp;size=${empty param.size ? 10 : param.size}" z="NEOTfU5uTNjY7FpnQjyBTUS6zSU="/>
+        </menu:category>
+        <menu:category id="c_droit" z="5MisqXv4aq7PKQ/61HjwysxT35w=">
+            <menu:item id="i_droit_new" messageCode="global_menu_new" url="/droits?form" z="o+fgWhedOu/0bkjv/W65+IGNkCA="/>
+            <menu:item id="i_droit_list" messageCode="global_menu_list" url="/droits?page=1&amp;size=${empty param.size ? 10 : param.size}" z="hLsaqpygpVaK7xAaN3S+chg+lLs="/>
+        </menu:category>
+        <menu:category id="c_missiondocument" z="nEk4niWjGTjX7xPAYjzBGf35izs=">
+            <menu:item id="i_missiondocument_new" messageCode="global_menu_new" url="/missiondocuments?form" z="BPqfzqo/VH4YxujQl4LWBJMqBU8="/>
+            <menu:item id="i_missiondocument_list" messageCode="global_menu_list" url="/missiondocuments?page=1&amp;size=${empty param.size ? 10 : param.size}" z="5+NGGiFOrMEIsIo4oCcEPKk1Mc8="/>
+        </menu:category>
+        <menu:category id="c_notegroupe" z="C1EZkTOk7QZpVA0dug5oB7Gs53o=">
+            <menu:item id="i_notegroupe_new" messageCode="global_menu_new" url="/notegroupes?form" z="Yt22fnHmiop9JxlibFRwuCIFgVs="/>
+            <menu:item id="i_notegroupe_list" messageCode="global_menu_list" url="/notegroupes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="tYEnJOISoXRsijyv69rJSIhGPhk="/>
+        </menu:category>
+        <menu:category id="c_notecritere" z="MK/TWoxR8EzArxi+MtPEle5NMQk=">
+            <menu:item id="i_notecritere_new" messageCode="global_menu_new" url="/notecriteres?form" z="fQlJHhA/gYN2s74XhDqLxM8L7RA="/>
+            <menu:item id="i_notecritere_list" messageCode="global_menu_list" url="/notecriteres?page=1&amp;size=${empty param.size ? 10 : param.size}" z="/2WzyuRK1kayJVnK64fTMFunYY0="/>
+        </menu:category>
+        <menu:category id="c_bareme" z="ZkcLWtU5fXY39WnP36y939xSE8I=">
+            <menu:item id="i_bareme_new" messageCode="global_menu_new" url="/baremes?form" z="nRJGr7Z/Xmdi9ut6W36cmSTcM8g="/>
+            <menu:item id="i_bareme_list" messageCode="global_menu_list" url="/baremes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ZKtwPphrw5ML9TPTgUJgjqWcQvI="/>
+        </menu:category>
+        <menu:category id="c_notation" z="GyvOmgaUAtft5Q1E+JucZm/+3EQ=">
+            <menu:item id="i_notation_new" messageCode="global_menu_new" url="/notations?form" z="R3i6Q3teHkl1MBdqgFwiU+4T91o="/>
+            <menu:item id="i_notation_list" messageCode="global_menu_list" url="/notations?page=1&amp;size=${empty param.size ? 10 : param.size}" z="jdSbalRN286zWGhCSNcMeDZunQk="/>
+        </menu:category>
+    </menu:menu>
+</div>

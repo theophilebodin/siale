@@ -1,0 +1,81 @@
+<?link rel="shortcut icon" type="image/x-icon" href="/_images/favicon.ico" ?>
+<?page id="testZul" title="Missions de la SIALE-${project.version}"?>
+
+
+
+<window id="loginwin" title="Authentification Missions de la SIALE-${project.version}" border="normal" width="500px" mode="modal">
+
+<zscript><![CDATA[//@IMPORT
+	import org.springframework.security.core.context.SecurityContextHolder;     
+	import org.springframework.security.core.userdetails.UserDetails;
+	import nc.mairie.siale.technique.CurrentUser;
+	]]>
+</zscript>
+
+<zscript>
+<![CDATA[
+         
+String msgNonHabilite = null;
+    
+//Si on a demander deconnection          
+if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
+	Executions.getCurrent().getSession().removeAttribute("logout");
+	nc.mairie.siale.technique.CurrentUser.setCurrentUser(null);
+//sinon on vérivfie quel est le user en cours
+} else {
+
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	
+	String username;
+	if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+	} else {
+		  username = principal.toString();
+	}
+	
+	//Si pas anonyme alors accueil
+	if (!"anonymousUser".equals(username)) {
+		//Si currentuser pas trouvé, aloes pas habilité
+		if (CurrentUser.getCurrentUser() == null) {
+			msgNonHabilite = "Utilisateur non habilité. Veuillez contacter l'administrateur SIALE.";
+		} else {
+			Executions.forward("/_accueil/Accueil.zul");
+		}
+	}
+}
+]]>
+</zscript>
+    <html style="color:red" if="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+      <![CDATA[
+        L'authentification n'a pas abouti. Essayez à nouveau.<br/><br/>
+        Raison: ${SPRING_SECURITY_LAST_EXCEPTION.message}
+       ]]>
+    </html>
+ 	<label style="color:red" value="${msgNonHabilite}"/>
+    <groupbox>
+<!--     <caption>Login</caption> -->
+    <h:form id="f" name="f" action="j_spring_security_check" method="POST"
+    xmlns:h="native">
+        <grid>
+	        <columns>
+	        	<column width="155px"/>
+	        	<column/>
+	        </columns>
+            <rows>
+                <row>Nom d'utilisateur: <textbox id="u" name="j_username"/></row>
+                <row>Mot de passe: <textbox id="p" type="password" name="j_password"/></row>
+<!--                 Ne fonctionne pas :( 26/4/13). JE commente -->
+<!--                 <row><checkbox id="r" name="_spring_security_remember_me"/>Ne pas me demander pendant 2 semaines</row> -->
+                <row spans="2">
+                    <div align="center">
+<!--                     	<h:input type="submit" value="Connecter" width="80px"/> -->
+<!--                         <h:input type="reset"  value="Effacer" width="80px"/> -->
+						<button type="submit" label="Connecter" width="80px"/>
+                        <button type="reset"  label="Effacer" width="80px"/>
+                    </div>
+                </row>
+            </rows>
+        </grid>
+    </h:form>
+    </groupbox>
+</window>
