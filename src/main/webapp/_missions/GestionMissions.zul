@@ -15,13 +15,12 @@
 					<custom-attributes
 						org.zkoss.zul.listbox.autoSort="true" />
 					<listhead>
-						<listheader label="Date prévue"
-							sortDirection="ascending" sort="auto(datePrevue)" width="80px" />
-						<listheader label="Contrôle" sort="auto(missionAction.theAction.nom)"  width="140px"/>
+						<listheader label="Date action"
+							sortDirection="ascending" sort="auto(missionAction.dateAction, datePrevue, nomEtablissement)" width="80px" />
+						<listheader label="Date prévue" sort="auto(datePrevue)" width="80px" />
 						<listheader label="Nom" sort="auto(nomEtablissement)"/>
-						<listheader label="Type" width="95px" sort="auto(typeEtablissement)"/>
 						<listheader label="Activité principale" sort="auto(activitePrincipale.nom)"/>
-						<listheader label="Saisi" width="50px" sort="auto(possedeSaisies)" align="center" />
+						<listheader label="Action" sort="auto(missionAction.theAction.nom)"  width="140px"/>
 						<listheader label="Note" width="50px" sort="auto(possedeNotations)" align="center" />
 						<listheader label="Cloturé" width="50px" sort="auto(cloturee)" align="center" />
 						<listheader  width="120px">
@@ -31,15 +30,14 @@
 					</listhead>
 					<listitem id="missionsListItem" self="@{each=mission}">
 						<listcell
+							label="@{mission.missionAction.dateAction, converter='org.zkoss.zkplus.databind.DateFormatConverter'}"
+							self="@{format(dd/MM/yyyy)}" />
+						<listcell
 							label="@{mission.datePrevue, converter='org.zkoss.zkplus.databind.DateFormatConverter'}"
 							self="@{format(dd/MM/yyyy)}" />
-						<listcell label="@{mission.missionAction.theAction.nom}" />
 						<listcell label="@{mission.nomEtablissement}" />
-						<listcell label="@{mission.typeEtablissement}" />
-						<listcell
-							label="@{mission.activitePrincipale.nom}" />
-						<listcell
-							label="@{mission.possedeSaisies, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+						<listcell label="@{mission.activitePrincipale.nom}" />
+						<listcell label="@{mission.missionAction.theAction.nom}" />
 						<listcell
 							label="@{mission.possedeNotations, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
 						<listcell
