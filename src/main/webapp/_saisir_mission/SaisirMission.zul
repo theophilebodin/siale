@@ -79,7 +79,7 @@
 									<label value="Observations :" />
 									<textbox
 										value="@{saisirMission.missionCourant.observation}" rows="5" constraint="no empty"
-										cols="155"
+										width="100%"
 										disabled="@{saisirMission.validerDisabled }" />
 
 								</row>

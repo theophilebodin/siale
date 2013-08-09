@@ -154,6 +154,13 @@
 									style="font-weight:bold" />
 							</row>
 							<row>
+							<label value="Observations :" />
+									<textbox
+										value="@{saisirNotation.missionCourant.observation}" rows="5" constraint="no empty"
+										width="100%"
+										disabled="@{saisirNotation.validerDisabled }" />
+							</row>
+							<row>
 								<label value="Cloturer mission :"/>
 								<checkbox id="missionClotureeCheckBox" checked="@{saisirNotation.missionCourant.cloturee, save-when='validerNotation.onClick'}" 
 								disabled="@{saisirNotation.validerDisabled }"/>
