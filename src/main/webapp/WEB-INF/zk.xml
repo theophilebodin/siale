@@ -28,7 +28,8 @@
     <value>rounded</value>
 	</library-property>
 	
-	
-	
-	
+	<desktop-config>
+    	<theme-uri>/styles/siale.css</theme-uri>
+	</desktop-config>
+		
 </zk>
