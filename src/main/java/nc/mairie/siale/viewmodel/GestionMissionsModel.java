@@ -29,6 +29,7 @@ import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
+import nc.mairie.siale.technique.MemoriseTriListbox;
 import nc.mairie.siale.technique.Outlook;
 import nc.mairie.siale.technique.TypeEtablissement;
 
@@ -37,6 +38,7 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.SortEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -376,6 +378,27 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		return res;
 	}
 	
+	/**
+	 * Tri la liste des missions par rapport au dernier tri mémorisé dans la session
+	 */
+	public void trierListeMissions () {
+//		//Un tri mémorisé ?
+//		String tri = (String) Executions.getCurrent().getDesktop().getAttribute("gestionMission|missionsListBox");
+//		if (tri == null ) {
+//			((Listheader)missionsListBox.getFellow("missionsListBoxHead").getChildren().get(0)).setSortDirection("ascending");
+//		//Sinon, on aentier|sort direction
+//		} else {
+//			StringTokenizer st = new StringTokenizer(tri, "|");
+//			int index = Integer.parseInt((String)st.nextElement());
+//			String sortDirection = (String)st.nextElement();
+//			
+//			((Listheader)missionsListBox.getFellow("missionsListBoxHead").getChildren().get(index)).setSortDirection(sortDirection);
+//			
+//		}
+		MemoriseTriListbox.recupereTri(gestionMissions);
+		
+	}
+	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -393,8 +416,9 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		
 		//Initialisetion des listes 
 		initialiseAllListes();
+
+		trierListeMissions();
 		
-				
 		binder = new AnnotateDataBinder(comp);
 		binder.setLoadOnSave(false);
 		binder.loadAll();
@@ -1028,5 +1052,19 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		return ! isValiderDisabled();
 	}
 
-	
+
+	@Listen("onSort = #missionsListBox > listhead > listheader")
+	public void onSort$missionsListBox(SortEvent event) throws Exception {
+//		Listheader target = (Listheader)event.getTarget();
+//		int index = target.getParent().getChildren().indexOf(target);
+//		String sortDirection= target.getSortDirection();
+//		if ("natural".equals(sortDirection) || "descending".equals(sortDirection) ) {
+//			sortDirection = "ascending";
+//		} else {
+//			sortDirection="descending";
+//		}
+//		Executions.getCurrent().getDesktop().setAttribute("gestionMission|missionsListBox",String.valueOf(index)+"|"+sortDirection);
+		
+		MemoriseTriListbox.memoriseTri(gestionMissions, event);
+	}	
 }
