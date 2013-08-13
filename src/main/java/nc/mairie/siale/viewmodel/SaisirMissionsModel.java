@@ -169,7 +169,7 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	
 	}
 	
-	public void controleEtEnregistre() {
+	public void controleSaisies() {
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(saisirMission);
 		
@@ -200,17 +200,15 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 		//Si erreurs, on les met et on ne va pas plus loin
 		controleSaisie.afficheErreursSilYEnA();
 		
-		//missionCourant.setMissionAction(null);
-		
-		
-		setMissionCourant(missionCourant.merge());
 	}
 	
 	@Listen("onClick = #validerMission")
 	public void onClick$validerMission() {
 	
 		//S'il y a des erreurs, ça n'ira pas plus loin
-		controleEtEnregistre();
+		controleSaisies();
+		
+		setMissionCourant(missionCourant.merge());
 		
 		appelGestionMission();
 			
@@ -220,9 +218,11 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	public void onClick$validerCloturerMission() {
 	
 		//S'il y a des erreurs, ça n'ira pas plus loin
-		controleEtEnregistre();
+		controleSaisies();
 		
 		getMissionCourant().setCloturee(true);
+		
+		setMissionCourant(missionCourant.merge());
 		
 		appelGestionMission();
 			
@@ -233,7 +233,9 @@ public class SaisirMissionsModel extends SelectorComposer<Component> {
 	public void onClick$validerNoterMission() {
 	
 		//S'il y a des erreurs, ça n'ira pas plus loin
-		controleEtEnregistre();
+		controleSaisies();
+		
+		setMissionCourant(missionCourant.merge());
 		
 		appelSaisirNotation();
 			
