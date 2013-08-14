@@ -439,27 +439,25 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 		binder.loadAll();
 	}
 	
-	public boolean isValiderDisabled() {
-		//Si le user en cours ne faitpas parti de la liste des controleurs de la missiion, il ne peut enregistrer
-		boolean peutSauver = false;
-		
-		if (getMissionCourant() == null) return peutSauver;
-		
+	public boolean isCurrentUserControleurSIALE () {
 		for (ControleurSIALE controleurSIALE : getMissionCourant().getControleursSIALE()) {
 			if (CurrentUser.getCurrentUser().getId().equals(controleurSIALE.getId())){
-				peutSauver=true;
-				break;
+				return true;
 			}
 		}
-		return ! peutSauver;
+		return false;
+	}
+	
+	public boolean isValiderDisabled() {
+		
+		if (getMissionCourant() == null) return false;
+		
+		if (actionMission == Action.AJOUT) return false;
+		
+		return missionCourant.getCloturee() || ! isCurrentUserControleurSIALE();
 	}
 
 	public void controleEtEnregistre () {
-		//Test si validation possible 
-		if (isValiderDisabled()) {
-			alert("Vous n'êtes pas habilité à enregistrer la mission");
-			return;
-		}
 		
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie(zoneSaisie);
@@ -671,7 +669,7 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	public void onClick$modifierMission() {
 		
 		//Si elle est cloturée, on demande de confirer la déclôture (si on est 
-		if (getMissionCourant().getCloturee() && !isValiderDisabled()) {
+		if (getMissionCourant().getCloturee() && isCurrentUserControleurSIALE()) {
 			
 			Messagebox.show("La mission est cloturée.\nVoulez-vous d'abord la décloturer ?",
 				    "Question", Messagebox.YES | Messagebox.NO,
