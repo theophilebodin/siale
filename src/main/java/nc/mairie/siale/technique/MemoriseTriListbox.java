@@ -17,7 +17,7 @@ public class MemoriseTriListbox {
 	
 	Hashtable<String, Hashtable<String, ComponentSorted>> hashComposer = new Hashtable<String, Hashtable<String, ComponentSorted>>();
 	
-	public Hashtable<String, Hashtable<String, ComponentSorted>> getHashComposer() {
+	private Hashtable<String, Hashtable<String, ComponentSorted>> getHashComposer() {
 		return hashComposer;
 	}
 
