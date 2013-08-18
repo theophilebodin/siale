@@ -61,9 +61,5 @@
 	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
 	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
 	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
-	<Parameter description="Environnement (DVLP, QUAL, PROD)" name="ENVIRONNEMENT" override="false" value="DVLP" />
-	<Parameter description="Couleur de la Banniere DVLP" name="BANNER_COLOR_DVLP" override="false" value="#16EF0E" />
-	<Parameter description="Couleur de la Banniere QUAL" name="BANNER_COLOR_QUAL" override="false" value="#EF110A" />
-	<Parameter description="Couleur de la Banniere PROD" name="BANNER_COLOR_PROD" override="false" value="#00A3EF" />
 
 </Context>
