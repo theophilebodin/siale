@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_nc_mairie_siale_domain_Mission" items="${missions}" z="9VM2h+J7YjzRZFWu0Jz3fJ4ZclA=">
+        <table:table data="${missions}" id="l_nc_mairie_siale_domain_Mission" path="/missions" z="Yb80k4M9QxX9SqeJXpQkeRHg7tY=">
+            <table:column id="c_nc_mairie_siale_domain_Mission_projet" property="projet" z="31VkpD8weKfP5Iue5oHfEXjGBfQ="/>
+            <table:column id="c_nc_mairie_siale_domain_Mission_etablissementNonDeclare" property="etablissementNonDeclare" z="+euPaRaplIgHm4MXDzTwDf0RWA4="/>
+            <table:column id="c_nc_mairie_siale_domain_Mission_etablissement" property="etablissement" z="RDxsYlPmPy5rRAOnlc3NCvSjN88="/>
+            <table:column id="c_nc_mairie_siale_domain_Mission_prelevement_nb" property="prelevement_nb" z="411GGTCINWsdmPRfC5XFXQ1RdNA="/>
+            <table:column id="c_nc_mairie_siale_domain_Mission_prelevement_satisfaisant" property="prelevement_satisfaisant" z="fdkRnn1U4XeqepM8Uod/9oaUKuY="/>
+            <table:column id="c_nc_mairie_siale_domain_Mission_typeEtablissement" property="typeEtablissement" z="rgWkMi8LsTAHpRdMNegVWyD34eY="/>
+        </table:table>
+    </page:list>
+</div>

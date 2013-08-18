@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_nc_mairie_siale_domain_Bareme" items="${baremes}" z="NJo922gT5eGHpa7Ey9UTnDlVGX0=">
+        <table:table data="${baremes}" id="l_nc_mairie_siale_domain_Bareme" path="/baremes" z="+/hGsQp/2r9iTfoh20T255GOoU8=">
+            <table:column id="c_nc_mairie_siale_domain_Bareme_nom" property="nom" z="d5Iad4TJcsrQCT0y85VJKV2rqjc="/>
+            <table:column date="true" dateTimePattern="${bareme_datecreation_date_format}" id="c_nc_mairie_siale_domain_Bareme_dateCreation" property="dateCreation" z="snYAokRwejZocDzqfdmCJ2PyHLM="/>
+        </table:table>
+    </page:list>
+</div>

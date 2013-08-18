@@ -1,0 +1,71 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+
+
+<window id="importVISHA" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.ImportVISHAModel"
+	contentStyle="overflow:auto">
+
+<zscript>
+<![CDATA[
+	desktop.setAttribute("org.zkoss.zul.Fileupload.target", importVISHA);
+	//Fileupload.get();
+]]></zscript>
+
+ 
+ <div id="resultImport">
+ 
+ 	
+ 	<listbox id="etabVISHAListBox" rows="10" mold="paging"
+					pageSize="10" model="@{importVISHA.listeEtabVISHA}">
+
+					<custom-attributes
+						org.zkoss.zul.listbox.autoSort="true" />
+					<listhead>
+						<listheader label="Nom" sort="auto(etablissement.libelle)"/>
+						<listheader label="Contact" sort="auto(etablissement.contact)"/>
+						<listheader label="Adresse" sort="auto(etablissement.adresse)"/>
+						<listheader label="Immat" sort="auto(etablissement.code)" width="65px"/>
+						<listheader label="Action" sort="auto(action)" width="105px"/>
+					</listhead>
+					<listitem id="etabVISHAListItem" self="@{each=etabVISHA}">
+						<listcell label="@{etabVISHA.etablissement.libelle}"/>
+						<listcell label="@{etabVISHA.etablissement.contact}" />
+						<listcell label="@{etabVISHA.etablissement.adresse}" />
+						<listcell label="@{etabVISHA.etablissement.code}" />
+						<listcell label="@{etabVISHA.action}"/>
+					</listitem>
+				</listbox>
+ 	
+ 	
+ 
+ 
+ 	<groupbox >
+ 		<div align="center" visible="@{importVISHA.actionImport.aucune}">
+<!-- 			<button id="uploadBtn" label="Import VISHA" onClick="Fileupload.get();"/> -->
+<!-- 			<button id="uploadBtn" label="Import VISHA" upload="true,maxsize=-1,native" -->
+<!-- 				disabled="@{importVISHA.actionImport.enCours}"/> -->
+			<button id="uploadBtn" label="Import VISHA"/>
+		</div>
+
+
+			<div align="center" visible="@{importVISHA.actionImport.enCours}">
+				<button id="validerImport" label="Valider" width="80px" autodisable="self"/>
+				<button id="annulerImport" label="Annuler" width="80px" />
+			</div>
+		</groupbox>
+ 
+ </div>
+<div>
+
+<include id="includeUpload" src="/_VISHA/upload.zul"/>
+
+</div>
+
+<div>
+
+<include id="includeInject" src="/_VISHA/inject.zul"/>
+
+</div>
+
+</window>

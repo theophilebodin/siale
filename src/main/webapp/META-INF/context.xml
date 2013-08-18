@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- The contents of this file will be loaded for each web application -->
+<Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+	<!-- <Resource name="jdbc/as400" auth="Container" type="javax.sql.DataSource"
+		factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+		testWhileIdle="true" testOnBorrow="true" testOnReturn="false"
+		validationQuery="select 1 from sysibm.sysdummy1" validationInterval="30000"
+		timeBetweenEvictionRunsMillis="30000" maxActive="300" maxIdle="30"
+		maxWait="30000" initialSize="10" removeAbandonedTimeout="500"
+		removeAbandoned="true" logAbandoned="true" minEvictableIdleTimeMillis="30000"
+		jmxEnabled="true" username="***REMOVED***" password="***REMOVED***"
+		driverClassName="com.ibm.as400.access.AS400JDBCDriver" url="jdbc:as400://noumea" /> -->
+	
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+    
+    <Parameter description="Serveur SMTP" name="HOST_SMTP" override="false" value="smtp.site-mairie.noumea.nc" />
+	<Parameter description="Emetteur mail" name="MAIL_SENDER" override="false" value="SIALE-no-reply@ville-noumea.nc" />
+
+<!-- 	<Parameter description="Nom de l'application déclarée SIALE pour connaitre les droits" name="APPLICATION" override="false" value="Missions SIALE" /> -->
+<!-- 	<Parameter description="URL de l'ADLDS" name="ADLDS_URL" override="false" value="ldap://svpadlds.site-mairie.noumea.nc:37900/" /> -->
+<!-- 	<Parameter description="Utilisateur LDAP" name="ADLDS_USER" override="false" value="cn=admin,dc=site-mairie,dc=noumea,dc=nc" /> -->
+<!-- 	<Parameter description="Mot de passe LDAP" name="ADLDS_PWD" override="false" value="secretldap" /> -->
+	<Parameter description="Critère de recherche LDAP" name="CRITERE_RECHERCHE_LDAP" override="false" value="samaccountname" />
+	<Parameter description="Admin LDAP" name="HOST_LDAP_ADMIN" override="false" value="cn=***REMOVED***,ou=WAS,ou=APPLI,ou=Z-users" />
+	<Parameter description="Hôte LDAP" name="HOST_LDAP" override="false" value="ldap://hurle:389/" />
+	<Parameter description="Init CTX LDAP" name="INITCTX_LDAP" override="false" value="com.sun.jndi.ldap.LdapCtxFactory" />
+	<Parameter description="Mot de passe de l'hôte LDAP" name="HOST_LDAP_PASSWORD" override="false" value="***REMOVED***" />
+	<Parameter description="Base LDAP" name="BASE_LDAP" override="false" value="dc=site-mairie,dc=noumea,dc=nc" />
+	<Parameter description="Hôte LDAP 3" name="HOST_LDAP3" override="false" value="ldap://netone:389/" />
+	<Parameter description="Hôte LDAP 2" name="HOST_LDAP2" override="false" value="ldap://gberge:389/" />
+	<Parameter description="URL de la database" name="database_url" override="false" value="jdbc:postgresql://localhost:5432/sialedev" />
+	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
+	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
+	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
+
+</Context>

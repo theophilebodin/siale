@@ -1,0 +1,30 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+ <window title="new page title" border="normal" id="inp"
+    ctrlKeys="^a^s^d#f8">
+     <attribute name="onOK"><![CDATA[
+                        Messagebox.show("ENTER key is pressed", "OK",
+                                Messagebox.OK, Messagebox.EXCLAMATION);
+                        self.focus();
+                    ]]></attribute>
+                    <attribute name="onCancel"><![CDATA[
+                        Messagebox.show("ESC key is pressed toto", "CANCEL",
+                                Messagebox.OK, Messagebox.EXCLAMATION);
+                        self.focus();
+                    ]]></attribute>
+                    <attribute name="onCtrlKey"><![CDATA[
+                        int keyCode = ((KeyEvent) event).getKeyCode();
+                        System.out.println(keyCode);
+                        String s = "";
+                        switch(keyCode){
+                            case 65: s = "Ctrl+A";break;
+                            case 119: s = "F8";break;
+                            case 83:s="Ctrl+S";break;
+                            case 68:s="Ctrl+D";break;
+                        }
+                        Messagebox.show(s+" is pressed", "CtrlKey",
+                                Messagebox.OK, Messagebox.EXCLAMATION);
+                        inp.focus();
+                    ]]></attribute>
+  </window>
+</zk>

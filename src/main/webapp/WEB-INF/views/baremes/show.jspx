@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_Bareme" object="${bareme}" path="/baremes" z="1u0NNgGQY/ZmtoPXwh2oYMAev3g=">
+        <field:display field="nom" id="s_nc_mairie_siale_domain_Bareme_nom" object="${bareme}" z="4rJ6Xp1d5b6LuB0QIE9FCdznkPM="/>
+        <field:display date="true" dateTimePattern="${bareme_datecreation_date_format}" field="dateCreation" id="s_nc_mairie_siale_domain_Bareme_dateCreation" object="${bareme}" z="9pkgF0PWKORyu09XxNM95hkwEc0="/>
+    </page:show>
+</div>

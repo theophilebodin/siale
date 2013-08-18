@@ -1,0 +1,87 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<listbox rows="4" model="@bind(vm.missionCourant.missionActivites)"
+		selectedItem="@bind(vm.missionActiviteCourant)"
+		emptyMessage="Pas d'éléments">
+
+
+		<listhead>
+			<listheader label="Nom" />
+			<listheader label="Principale" width="70px" />
+			<listheader width="64px">
+				<image src="/_images/add_24x24.png" tooltiptext="Ajouter"
+					onClick="@command('addMissionActivite')" />
+			</listheader>
+
+		</listhead>
+		<template name="model" var="missionActivite">
+			<listitem>
+				<listcell
+					label="@bind(missionActivite.theActivite.nom)" />
+				<listcell
+					label="@bind(missionActivite.principale ? 'Oui' : 'Non')" />
+				<listcell>
+					<image src="/_images/delete_24x24.png" tooltiptext="Supprimer"
+						onClick="@command('removeMissionActivite', missionActivite=missionActivite)" />
+					<image src="/_images/update_24x24.png" tooltiptext="Modifier"
+						onClick="@command('updateMissionActivite', missionActivite=missionActivite)" />
+				</listcell>
+			</listitem>
+		</template>
+	</listbox>
+	<div>
+
+
+
+
+		<window mode="modal" position="center"
+			visible="@load(vm.actionActivite.enCours)" width="400px"
+			title="@load(vm.actionActivite)">
+
+			<grid
+				form="@id('courant') 
+		@load(vm.missionActiviteCourant)
+		@save(vm.missionActiviteCourant, before='saveMissionActivite')">
+
+				<columns>
+					<column label="" />
+					<column label="" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Activite"></label>
+						<combobox mold="rounded"
+							model="@bind(vm.listeActivite)"
+							selectedItem="@bind(courant.theActivite)" readonly="true"
+							disabled="@bind(vm.actionActivite.suppression)">
+							<template name="model" var="activite">
+								<comboitem label="@bind(activite.nom)" />
+							</template>
+
+						</combobox>
+
+					</row>
+					<row>
+						<label value="Principale" />
+						<checkbox checked="@bind(courant.principale)"
+							value="Principale"
+							disabled="@bind(vm.actionActivite.suppression)" />
+					</row>
+
+				</rows>
+			</grid>
+
+			<div align="center">
+
+				<button label="Valider"
+					onClick="@command('saveMissionActivite')" />
+				<button label="Annuler"
+					onClick="@command('cancelMissionActivite')" />
+			</div>
+		</window>
+
+
+	</div>
+
+</zk>

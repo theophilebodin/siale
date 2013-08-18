@@ -1,0 +1,43 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+	<window id="zoneSaisieDocument" mode="modal" position="center"
+		visible="@{saisirMission.actionDocument.enCours}" width="400px"
+		title="@{saisirMission.actionDocument}">
+		
+		<grid>
+			<columns>
+				<column label="" />
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<label value="Document"></label>
+					<combobox mold="rounded" 
+						id="saisiComboDocuments"
+						model="@{saisirMission.listeDocument}"
+						selectedItem="@{saisirMission.missionDocumentCourant.theDocument, save-when='validerMissionDocument.onClick'}"
+						readonly="true" 
+						disabled="@{saisirMission.actionDocument.suppression}"
+						constraint="no empty">
+						<comboitem self="@{each=document}"
+							label="@{document.nom}" />
+								</combobox>
+				</row>
+				<row>
+					<label value="Date" />
+					<datebox value="@{saisirMission.missionDocumentCourant.dateDocument, save-when='validerMissionDocument.onClick'}" 
+							format="short"
+							disabled="@{saisirMission.actionDocument.suppression}"/>
+				</row>
+			</rows>
+		</grid>
+			
+			
+			
+					<div align="center">
+						<button id="validerMissionDocument" label="Valider" />
+						<button id="annulerMissionDocument" label="Annuler" />
+					</div>
+	</window>
+</zk>

@@ -1,0 +1,51 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+
+
+		<window id="zoneSaisieCritere" 
+			mode="modal"
+			position="center"
+			visible="@{baremeNotation.actionNoteCritere.enCours}" width="300px"
+			title="@{baremeNotation.actionNoteCritere}">
+			<grid>
+				<columns>
+					<column label="" width="100px"/>
+					<column label="" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Nom :" />
+						<textbox
+							id="noteCritereNom"
+							value="@{baremeNotation.noteCritereCourant.nom, save-when='validerNoteCritere.onClick'}" 
+							disabled="@{baremeNotation.actionNoteCritere.suppression}"
+							constraint="no empty"/>
+					</row>
+					<row>
+						<label value="Pondération :" />
+						<doublespinner step="0.1" 
+							format="0.##" locale="en"
+							value="@{baremeNotation.noteCritereCourant.ponderation, save-when='validerNoteCritere.onClick' }" 
+							disabled="@{baremeNotation.actionNoteCritere.suppression}"
+							constraint="no negative, no empty, min 0.01 max 1.0:doit être compris entre 0,01 et 1,0"/>
+<!-- 						<doublebox -->
+<!-- 							value="@{baremeNotation.noteCritereCourant.ponderation, save-when='validerNoteCritere.onClick' }"  -->
+<!-- 							constraint="no negative, no empty"/> -->
+					</row>
+				</rows>
+			</grid>
+
+			<groupbox>
+				<div align="center">
+					<label value="Non modifiable" if="@{! baremeNotation.baremeEditable }"/>
+					<button id="validerNoteCritere" label="Ok" visible="@{baremeNotation.baremeEditable }"
+						width="80px" />
+					<button id="annulerNoteCritere" label="Annuler"
+						width="80px" />
+				</div>
+			</groupbox>
+
+
+	</window>
+</zk>

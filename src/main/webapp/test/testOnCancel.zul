@@ -1,0 +1,22 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="main" title="new page title" border="normal" onCancel='alert("onCancel Main")'>
+
+<zscript>
+<![CDATA[
+     	boolean visible=false;
+]]>
+</zscript>
+
+	<button label="Visible"/>
+
+	<borderlayout>
+		<center>
+			<div>
+				<include src="/test/testOnCancelMODAL.zul"/>
+			</div>
+		</center>
+	</borderlayout>
+
+</window>
+</zk>

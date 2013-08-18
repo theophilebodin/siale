@@ -1,0 +1,15 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="main" title="new page title" border="normal" onCancel='alert("onCancel Main")'>
+New Content Here!
+
+	<window id="zoneSaisieControleurSIALE" mode="modal" border="normal" title="modal" width="200px" 
+		onCancel='alert("onCancel MODAL")'>
+		Press echap
+	
+ 		<textbox disabled="true"></textbox> 
+		
+	</window>
+
+</window>
+</zk>

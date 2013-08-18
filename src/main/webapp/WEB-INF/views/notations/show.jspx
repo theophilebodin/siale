@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_nc_mairie_siale_domain_Notation" object="${notation}" path="/notations" z="bhaKCq6h2byWyUJibjDikfbN2pI=">
+        <field:display field="note" id="s_nc_mairie_siale_domain_Notation_note" object="${notation}" z="rOOgN5dorpJmxq/O7+QArdz5oSQ="/>
+        <field:display field="noteCritere" id="s_nc_mairie_siale_domain_Notation_noteCritere" object="${notation}" z="ByNfuULMzYBQWnVtUQmjyY3STAg="/>
+        <field:display field="mission" id="s_nc_mairie_siale_domain_Notation_mission" object="${notation}" z="oOb7Qf2RHy3hzjEPDZDK1+VT3po="/>
+    </page:show>
+</div>

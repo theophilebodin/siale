@@ -1,0 +1,58 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+<zk>
+
+	<window id="test" apply="nc.mairie.temp.TestModel">
+
+
+		<div id="windowListWord">
+			<listbox id="listBoxWord" model="@{test.listWord}"
+				selectedItem="@{test.currentWord}" width="500px">
+				<listhead>
+					<listheader label="word" />
+					<listheader label="lang" />
+					<listheader label="fullName" />
+				</listhead>
+				<listitem self="@{each=word}">
+					<listcell label="@{word.word}" />
+					<listcell label="@{word.lang.language}" />
+					<listcell label="@{word.fullName}" />
+				</listitem>
+			</listbox>
+		</div>
+
+	<div id="detailWord"  visible="@{test.visible}">
+		<grid width="400px">
+			<rows>
+				<row>
+					First Name:
+					<textbox id="firstName"
+						value="@{test.currentWord.word, save-when='btnOk.onClick'}" />
+				</row>
+
+				<row>
+					Lang:
+						<combobox mold="rounded" 
+						model="@{test.listLang}"
+						selectedItem="@{test.currentWord.lang, save-when='btnOk.onClick'}">
+						<comboitem self="@{each=lang}"
+							label="@{lang.language}" />
+						</combobox>
+
+
+				</row>
+				<row>
+
+					Full Name:
+					<label id="fullName"
+						value="@{test.currentWord.fullName}" />
+				</row>
+				<row>
+				<button id="btnOk" label="Ok" />
+				</row>
+			</rows>
+		</grid>
+	</div>
+
+	</window>
+</zk>

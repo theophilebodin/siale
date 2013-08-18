@@ -1,0 +1,47 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+
+
+<window id="gestionDroits" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.GestionDroitsModel"
+	contentStyle="overflow:auto">
+
+
+
+
+	<listbox id="controleurSIALEListBox" rows="10" mold="paging" pageSize="10"
+		model="@{gestionDroits.listeControleurSIALE}"
+		selectedItem="@{gestionDroits.controleurSIALECourant}" >
+						 <custom-attributes org.zkoss.zul.listbox.autoSort="true"/>
+						<listhead>
+							<listheader label="Nom" sortDirection="ascending" sort="auto(nomAffichage)" />
+							<listheader label="Controleur" sort="auto(controleur)" align="center"/>
+							<listheader label="Admin" sort="auto(admin)" align="center"/>
+							<listheader label="Actif" sort="auto(actif)" align="center"/>
+							<listheader width="64px">
+								<image id="ajouterControleurSIALE"
+									src="/_images/add_24x24.png" tooltiptext="Ajouter"/>
+							</listheader>
+						</listhead>
+						<listitem id="controleurSIALEListItem" self="@{each=controleurSIALE}">
+ 							<listcell label="@{controleurSIALE.nomAffichage}" />
+							<listcell label="@{controleurSIALE.controleur, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+							<listcell label="@{controleurSIALE.admin, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+
+							<listcell label="@{controleurSIALE.actif, converter='nc.mairie.siale.technique.BooleanTypeConverter'}" />
+							<listcell>
+								<image id="modifierControleurSIALE"
+									src="/_images/update_24x24.png" tooltiptext="Modifier" />
+								<image id="supprimerControleurSIALE"
+									src="/_images/delete_24x24.png" tooltiptext="Supprimer"/>
+							</listcell>
+						</listitem>
+					</listbox>
+				
+				
+				<div>
+					<include id="includeSaisieControleurSIALE" src="/_droits/SaisieControleurSIALE.zul"></include>
+				</div>
+					
+				 
+				</window>

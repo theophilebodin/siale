@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_nc_mairie_siale_domain_MissionDocument" items="${missiondocuments}" z="fjs5Zjgv5rF9QGB/oLELSmqCgEI=">
+        <table:table data="${missiondocuments}" id="l_nc_mairie_siale_domain_MissionDocument" path="/missiondocuments" z="es/IsOmXu+mrPuDlGEbZVajqaik=">
+            <table:column date="true" dateTimePattern="${missionDocument_datedocument_date_format}" id="c_nc_mairie_siale_domain_MissionDocument_dateDocument" property="dateDocument" z="zfWdS09KBNkazg8dyGR25ZYgdsg="/>
+            <table:column id="c_nc_mairie_siale_domain_MissionDocument_theDocument" property="theDocument" z="FzlL+4nVhzOscyFc3OLf1139p4w="/>
+            <table:column id="c_nc_mairie_siale_domain_MissionDocument_theMission" property="theMission" z="Lbnl5pIFnEJVbhJkjwsnnDr0U5A="/>
+        </table:table>
+    </page:list>
+</div>

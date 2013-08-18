@@ -1,0 +1,163 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+
+<window id="main" height="100%" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('nc.mairie.siale.viewmodel.problemMVVM.GestionMissionsModelMVVM')" >
+
+<div id="zoneListe" visible="@bind(! vm.actionMission.enCours)">
+		<groupbox>
+			<hbox>
+				<listbox id="missionsListBox" rows="5" mold="paging"
+					pageSize="10" model="@bind(vm.listeMission)"
+					selectedItem="@bind(vm.missionCourant)">
+					<custom-attributes
+						org.zkoss.zul.listbox.autoSort="true" />
+					<listhead>
+						<listheader label="Date prévue"
+							sortDirection="ascending" sort="auto(datePrevue)" width="80px" />
+						<listheader label="Nom" />
+						<listheader label="Type" width="95px" />
+						<listheader label="Activité principale" />
+						<listheader label="Cloturé" width="50px"
+							align="center" />
+
+					</listhead>
+					<template name="model" var="mission">
+						<listitem forward="onDoubleClick=modifierButton.onClick">
+							<listcell label="@load(mission.datePrevue) @converter('formatedDate', format='dd/MM/yyyy')" />
+							<listcell label="@load(mission.nomEtablissement)" />
+							<listcell label="@load(mission.typeEtablissementToString)" />
+							<listcell
+								label="@load(mission.activitePrincipale.nom)" />
+							<listcell
+								label="@load(mission.cloturee ? 'Oui' : 'Non')" />
+						</listitem>
+					</template>
+				</listbox>
+
+
+				<vbox>
+					<groupbox>
+						<button id="ajouterButton" label="Ajouter"
+							width="80px" onClick="@command('ajouterMission')"/>
+						<button id="modifierButton" label="modifier"
+							width="80px" onClick="@command('modifierMission')"/>
+						<button id="supprimerButton" label="Supprimer"
+							width="80px" onClick="@command('supprimerMission')"/>
+					</groupbox>
+					<groupbox>
+						<button id="saisirButton" label="Saisir"
+							width="80px" />
+						<button id="NotationButton" label="Notation"
+							width="80px" />
+					</groupbox>
+				</vbox>
+			</hbox>
+		</groupbox>
+	</div>
+	<div id="zoneSaisie" visible="@bind(vm.actionMission.enCours)">
+
+		<grid>
+			<columns>
+				<column label="" />
+			</columns>
+			<rows>
+				<row>
+					<panel style="margin-bottom:10px"
+						title="Etablissement" border="normal" id="panelEtablissement">
+						<panelchildren>
+							<grid>
+								<columns>
+									<column label="TypeEtablissement"
+										width="200px" />
+									<column label="Etablissement"
+										visible="@bind(vm.missionCourant.etablissementSelected)" />
+									<column label="Nom du projet"
+										visible="@bind(vm.missionCourant.projetSelected)" />
+									<column
+										label="Etablissement non déclaré"
+										visible="@bind(vm.missionCourant.nonDeclareSelected)" />
+
+								</columns>
+								<rows>
+									<row>
+										<combobox mold="rounded"
+											id="typeEtablissementCourant"
+											model="@bind(vm.listeTypeEtablissement)"
+											selectedItem="@bind(vm.missionCourant.typeEtablissement)"
+											readonly="true">
+										</combobox>
+						
+										<combobox
+											autocomplete="true"
+											autodrop="true"
+											model="@load(vm.listeEtablissementListBox)"
+											selectedItem="@bind(vm.missionCourant.etablissement)"
+											value="@bind(vm.etablissementSaisi)">
+											<attribute name="onChanging">
+					<![CDATA[
+					         
+//Pour forcer le onchanging car @Command ne marche pas sur onChanging (si pas EE)!!!!!!!!!
+self.setValue(event.getValue());
+Events.sendEvent((Component)self, new Event(Events.ON_CHANGE));
+
+
+
+					         
+]]>
+					</attribute>
+
+								<template name="model">
+											<comboitem label="@bind(each.libelle)" />
+									</template>
+										</combobox>
+							
+										<textbox id="projetTextBox"
+											value="@bind(vm.missionCourant.projet)" />
+										<textbox id="nonDeclareTextBox"
+											value="@bind(vm.missionCourant.etablissementNonDeclare)" />
+									</row>
+								</rows>
+							</grid>
+						</panelchildren>
+					</panel>
+				</row>
+			</rows>
+		</grid>
+
+
+		<grid>
+			<columns>
+				<column label="" />
+				<column label="" />
+			</columns>
+			<rows>
+				<row valign="top">
+					<panel title="Activités" border="normal">
+						<panelchildren>
+
+<include src="/ProblemMVVM/missionActivite.zul"/>
+
+
+						</panelchildren>
+					</panel>
+					<panel title="Contrôleurs" border="normal"
+						draggable="true">
+						<panelchildren>Panel Content</panelchildren>
+					</panel>
+				</row>
+			</rows>
+		</grid>
+
+
+
+
+
+
+
+		<groupbox>
+		<div align="center">
+			<button id="validerMission" label="Valider" width="80px" onClick="@command('validerMission')"/>
+			<button id="annulerMission" label="Annuler" width="80px" onClick="@command('annulerMission')"/>
+		</div>
+		</groupbox>
+	</div>
+</window>
