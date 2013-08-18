@@ -2,8 +2,14 @@
 <?page id="testZul" title="Missions de la SIALE-${project.version}"?>
 
 
+<zk>
 
-<window id="loginwin" title="Authentification Missions de la SIALE-${project.version}" border="normal" width="500px" mode="modal">
+<zscript>
+<![CDATA[
+String gradient=nc.mairie.siale.technique.GradientBaniere.getStyleCSS();
+]]></zscript>
+
+<window id="loginwin" title="Authentification Missions de la SIALE-${project.version}" border="normal" width="500px" mode="modal" style="${gradient}">
 
 <zscript><![CDATA[//@IMPORT
 	import org.springframework.security.core.context.SecurityContextHolder;     
@@ -79,3 +85,5 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
     </h:form>
     </groupbox>
 </window>
+
+</zk>
