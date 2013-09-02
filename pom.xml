@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.2.7</version>
+    <version>1.2.8-SNAPSHOT</version>
     <name>missions-siale</name>
     <organization>
 		<name>Mairie de Nouméa</name>
@@ -30,8 +30,9 @@
         <spring.version>3.2.3.RELEASE</spring.version>
 <!--         <artifactId>${project.artifactId}</artifactId> -->
 <!-- 		<version>${project.version}</version> -->
-    <zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
-    <zk.version>6.5.2</zk.version>
+    	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
+    	<zk.version>6.5.2</zk.version>
+    	<svnurl>https://svn.ville-noumea.nc/sed/siale</svnurl>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -770,9 +771,9 @@
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.7</version>
 				<configuration>
-					<webAccessUrl>https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</webAccessUrl>
-					<anonymousConnection>scm:svn:https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</anonymousConnection>
-					<developerConnection>scm:svn:https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</developerConnection>
+					<webAccessUrl>${svnurl}/trunk</webAccessUrl>
+					<anonymousConnection>scm:svn:${svnurl}/trunk</anonymousConnection>
+					<developerConnection>scm:svn:${svnurl}/trunk</developerConnection>
 				</configuration>
 				<reportSets>
 					<reportSet>
@@ -818,9 +819,9 @@
 	</reporting>
 	
 		<scm>
-		<connection>scm:svn:https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</connection>
-		<developerConnection>scm:svn:https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</developerConnection>
-		<url>https://dvlp.site-mairie.noumea.nc:8080/svn/siale/trunk</url>
+		<connection>scm:svn:${svnurl}/trunk</connection>
+		<developerConnection>scm:svn:${svnurl}/trunk</developerConnection>
+		<url>${svnurl}</url>
 	</scm>
 
 	<distributionManagement>
