@@ -84,7 +84,7 @@
 				<div align="center">
 					<button id="validerNoteGroupe" label="Ok" visible="@{baremeNotation.baremeEditable }"
 						width="80px" />
-					<button id="annulerNoteGroupe" label="Annuler" disabled="@{(!baremeNotation.baremeEditable) }"
+					<button id="annulerNoteGroupe" label="Annuler"
 						width="80px" />
 				</div>
 			</groupbox>
