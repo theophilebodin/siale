@@ -1,3 +1,4 @@
+<%@page contentType="text/plain;charset=UTF-8"%>
 <%@page import="java.net.InetAddress"%>
 ${project.artifactId}.version=${project.version}
 ${project.artifactId}.localhost.hostaddress=<%=InetAddress.getLocalHost().getHostAddress() %>
