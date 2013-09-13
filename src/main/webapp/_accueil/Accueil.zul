@@ -6,6 +6,11 @@
 <zk>
 <?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
 
+<zscript>
+<![CDATA[
+String gradient=nc.mairie.siale.technique.GradientBanniere.getStyleCSS();
+]]></zscript>
+
 	<window id="accueil" width="80%" height="100%" apply="nc.mairie.siale.viewmodel.AccueilModel" mode="overlapped" position="center,top" sizable="true">
 	<attribute name="onCancel">
 	<![CDATA[
@@ -16,7 +21,8 @@
  	]]></attribute>
 		<borderlayout>
 			<north size="124px" >
- 					<borderlayout style="background-image: url(${c:encodeURL('/_images/fondbleu_blanc.png') }); background-size: 100%; ">
+<!--  					<borderlayout style="background-image: url(${c:encodeURL('/_images/fondbleu_blanc.png') }); background-size: 100%; "> -->
+					<borderlayout id="banniere" style="${gradient}">
 					<west size="160px"  border="none" style="background: transparent;" >
 		        	<div align="center">
 		        		<image src="/_images/logo_MAIRIE_150x150.png"/>

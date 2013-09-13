@@ -678,6 +678,7 @@
 			            <nonFilteredFileExtension>ico</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+			            <nonFilteredFileExtension>jar</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
                 </configuration>
             </plugin>

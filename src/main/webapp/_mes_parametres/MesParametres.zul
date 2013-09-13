@@ -1,0 +1,38 @@
+<?page title="new page title2" contentType="text/html;charset=UTF-8"?>
+<?meta http-equiv="X-UA-Compatible" content="chrome=1"?>
+
+<window id="mesParametres" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.MesParametresModel"
+	contentStyle="overflow:auto">
+
+	<grid>
+		<columns>
+			<column label="Paramètre"/>
+			<column label="Valeur"/>
+			<column label="Valeur par Défaut"/>
+		</columns>
+		<rows>
+			<row>
+				<label value="Nombre de mois des missions cloturées visibles (>1)"/>
+				<spinner value="@{mesParametres.parametreControleurSialeCourant.moisVisuMission, save-when='validerParametre.onClick', load-when='defautParametre.onClick'}" constraint="no empty, min 1"/>
+				<label value="@{mesParametres.DEFAULT_PARAM_MOIS_VISU}"/>
+			</row>
+			<row>
+				<label value="Couleur de la banniere"/>
+				<colorbox hash="true" pickerPosition="right" value="@{mesParametres.parametreControleurSialeCourant.banniereCouleur, save-when='validerParametre.onClick', load-when='defautParametre.onClick'}" onChange="couleur.value=self.value"/>
+				<label value="@{mesParametres.DEFAULT_PARAM_BANNIERE_COULEUR}"/>
+				<textbox id ="couleur" value="@{mesParametres.parametreControleurSialeCourant.banniereCouleur, save-when='validerParametre.onClick'}" visible="false"/>
+			</row>
+		</rows>
+	</grid>
+	<label value=""/>
+
+	<div align="center">
+		<groupbox>
+				<button id="validerParametre" label="Valider" width="80px"/>
+				<button id="annulerParametre" label="Annuler" width="80px"/>
+				<button id="defautParametre" label="Défaut" width="80px"/>
+		</groupbox>			
+	</div>
+
+</window>

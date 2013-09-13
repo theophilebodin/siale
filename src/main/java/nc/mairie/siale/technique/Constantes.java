@@ -14,5 +14,8 @@ public class Constantes {
 	
 	final static public Droit DROIT_ADMIN=Droit.findDroitACauseDeMavenSiteFindBugs(Long.valueOf(2));
 
-
+	final static public int PARAM_MOIS_VISU=6;
+	
+	final static public String PARAM_BANNIERE_COULEUR = "#4CCAEB";
+	
 }

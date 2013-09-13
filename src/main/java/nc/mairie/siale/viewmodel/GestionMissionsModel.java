@@ -25,6 +25,7 @@ import nc.mairie.siale.domain.MissionAction;
 import nc.mairie.siale.domain.MissionActivite;
 import nc.mairie.siale.domain.Notation;
 import nc.mairie.siale.domain.Param;
+import nc.mairie.siale.domain.ParametreControleurSiale;
 import nc.mairie.siale.technique.Action;
 import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
@@ -354,9 +355,18 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 	protected List<Mission> initialiseListeMissions() {
 		List<Mission> res;
 		
+		
+		//Recup du nombre mois à afficher
+		ParametreControleurSiale parametreControleurSiale;
+		try {
+			parametreControleurSiale = ParametreControleurSiale.findParametreControleurSialesByControleurSIALE(CurrentUser.getCurrentUser()).getSingleResult();
+		} catch (Exception e) {
+			parametreControleurSiale = ParametreControleurSiale.getNewDefaultParametreControleurSiale();
+		}
+		
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());
-		c.add(Calendar.MONTH, -6);
+		c.add(Calendar.MONTH, - parametreControleurSiale.getMoisVisuMission());
 		
 		if (CurrentUser.getCurrentUser().isAdmin()) {
 			res = Mission.findMissionsByClotureeNotOrDatePrevueGreaterThan(true, c.getTime()).getResultList();
@@ -369,12 +379,12 @@ public class GestionMissionsModel extends SelectorComposer<Component> {
 			res = Mission.findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan(setControleurs, true, c.getTime()).getResultList();
 			
 		}
-		//test pour lazy de merde
-		for (Mission mission : res) {
-			mission.getControleurs();
-			mission.getControleursSIALE();
-			
-		}
+//		//test pour lazy de merde
+//		for (Mission mission : res) {
+//			mission.getControleurs();
+//			mission.getControleursSIALE();
+//			
+//		}
 		return res;
 	}
 	

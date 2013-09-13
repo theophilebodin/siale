@@ -126,6 +126,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		}
 		menuModelParametre.add(new MenuNode("Import VISHA","Import VISHA","/_VISHA/ImportVISHA.zul","/_accueil/VISHA.png"));
 		menuModelParametre.add(new MenuNode("Barême notation","Barême des notations","/_bareme_notation/BaremeNotation.zul","/_accueil/Bareme.png"));
+		menuModelParametre.add(new MenuNode("Mes paramètres","Mes paramètres","/_mes_parametres/MesParametres.zul","/_accueil/parametres.png"));
 //		menuModelParametre.add(new MenuNode("---Gestionexemple","Gestion des missions","borderlayout_fn1.zul","/_accueil/mission.png"));
 //		menuModelParametre.add(new MenuNode("---Paramètres MVVMV","Gestion des paramètres","/problemMVVM/GestionParametresMVVM.zul","/_accueil/parametres.png"));
 
