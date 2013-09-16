@@ -50,7 +50,7 @@ public class RapportBOModel extends SelectorComposer<Component> {
 			return null;
 		}
 		
-		return Executions.encodeURL(urlOpenDocument+"?sPath=["+dossierBO+"]&sDocName="+rapport);
+		return Executions.encodeURL(urlOpenDocument+"?sPath="+dossierBO+"&sDocName="+rapport);
 	}
 	
 	@Override
