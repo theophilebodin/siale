@@ -3,7 +3,10 @@ package nc.mairie.siale.viewmodel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.technique.CurrentUser;
@@ -42,6 +45,10 @@ public class AccueilModel extends SelectorComposer<Component>{
 	ListModelList<MenuNode> menuModelParametre = new ListModelList<MenuNode>();
 	@Wire
 	Listbox menuListboxParametre;
+	
+	ListModelList<MenuNode> menuModelRapportBO = new ListModelList<MenuNode>();
+	@Wire
+	Listbox menuListboxRapportBO;
 	
 	ListModelList<MenuNode> menuModelMission = new ListModelList<MenuNode>();
 	@Wire
@@ -95,7 +102,9 @@ public class AccueilModel extends SelectorComposer<Component>{
 					
 					if (menuListboxMission.getSelectedIndex()!=-1) {
 						Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
-					} else {
+					} else if (menuListboxRapportBO.getSelectedIndex()!=-1) {
+						Events.sendEvent(menuListboxRapportBO, new Event(Events.ON_SELECT,menuListboxRapportBO));
+					} else if (menuListboxParametre.getSelectedIndex()!=-1) {
 						Events.sendEvent(menuListboxParametre, new Event(Events.ON_SELECT,menuListboxParametre));
 					}
 				} else {
@@ -114,11 +123,29 @@ public class AccueilModel extends SelectorComposer<Component>{
 		
 	}
 	
-	
+		
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
+		
+		//Recup des infos BO
+		String rapportsBO = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_RAPPORT");
+		if (rapportsBO == null){
+			alert("Problème de paramétrage dans le context.xml : " +rapportsBO);
+		} else {
+			
+			StringTokenizer st = new StringTokenizer(rapportsBO, "|");
+			while (st.hasMoreElements()) {
+				String rapport = st.nextToken();
+				Map<String,Object> args=new HashMap<String, Object>();
+				args.put("RAPPORT", rapport);
+				menuModelRapportBO.add(new MenuNode(rapport,"Rapport BO - "+rapport,"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
+			}
+			
+
+		}
+			
 		
 		menuModelParametre.add(new MenuNode("Paramètres","Gestion des paramètres","/_parametres/GestionParametres.zul","/_accueil/parametres.png"));
 		if (CurrentUser.getCurrentUser().isAdmin()) {
@@ -136,6 +163,10 @@ public class AccueilModel extends SelectorComposer<Component>{
 		menuListboxMission.setItemRenderer(renderer);
 		menuListboxMission.addEventListener(Events.ON_SELECT,listener);
 		
+		menuListboxRapportBO.setModel(menuModelRapportBO);
+		menuListboxRapportBO.setItemRenderer(renderer);
+		menuListboxRapportBO.addEventListener(Events.ON_SELECT,listener);
+		
 		menuListboxParametre.setModel(menuModelParametre);
 		menuListboxParametre.setItemRenderer(renderer);
 		menuListboxParametre.addEventListener(Events.ON_SELECT,listener);
@@ -143,6 +174,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		//on met toutes les listbox dans une Liste
 		listBoxes = new ArrayList<Listbox>();
 		listBoxes.add(menuListboxParametre);
+		listBoxes.add(menuListboxRapportBO);
 		listBoxes.add(menuListboxMission);
 		
 		//DEB A VIRER: SIMULATION CHANGEMENT AUTHENTIFICATION		
@@ -172,11 +204,17 @@ public class AccueilModel extends SelectorComposer<Component>{
 		String label;
 		String link;
 		String image;
+		Map<String,Object> args; 
+		
 		public MenuNode(String label, String titre, String link, String image){
+			this(label, titre, link, image, null);
+		}
+		public MenuNode(String label, String titre, String link, String image, Map<String,Object> args){
 			this.label = label;
 			this.titre = titre;
 			this.link = link;
 			this.image = image;
+			this.args = args;
 		}
 		public String getImage() {
 			return image;
@@ -192,6 +230,9 @@ public class AccueilModel extends SelectorComposer<Component>{
 		}
 		public String getLink() {
 			return link;
+		}
+		public Map<String,Object> getArgs() {
+			return args;
 		}
 	}
 	
@@ -228,7 +269,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 				MenuNode node = (MenuNode)item.getValue();
 				titreLabel.setValue(node.getTitre()); 
 				titreImage.setSrc(node.getImage());
-				Executions.createComponents(node.getLink(),contentDiv,null);
+				Executions.createComponents(node.getLink(),contentDiv,node.getArgs());
 			}
 		}		
 	}

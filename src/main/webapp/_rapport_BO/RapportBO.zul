@@ -1,0 +1,6 @@
+<window id="rapportBO" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.RapportBOModel"
+	contentStyle="overflow:auto">
+
+	<iframe src="@{rapportBO.URLRapportBO}" height="100%" width="100%"/>
+</window>

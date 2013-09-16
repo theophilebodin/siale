@@ -61,5 +61,10 @@
 	<Parameter description="Username de la database" name="database_username" override="false" value="siale" />
 	<Parameter description="Password de la database" name="database_password" override="false" value="siale" />
 	<Parameter description="Domaine" name="DOMAIN" override="false" value="site-mairie.noumea.nc" />
-
+	<!-- DEB 1.2.8 -->
+	<Parameter description="URL BO Open Document" name="BO_OPENDOCUMENT" override="false" value="http://svpsacube:8080/OpenDocument/opendoc/openDocument.jsp" />
+	<Parameter description="Dossier BO de Mission SIALE" name="BO_FOLDER" override="false" value="Missions SIALE" />
+	<Parameter description="Rapports BO" name="BO_RAPPORT" override="false" value="SIALE|SIALE BILAN|SIALE NOTATION" />
+	<!-- FIN 1.2.8 -->
+	
 </Context>

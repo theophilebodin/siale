@@ -82,11 +82,15 @@ String gradient=nc.mairie.siale.technique.GradientBanniere.getStyleCSS();
 <tabbox mold="accordion" >
 	<tabs>
 		<tab label="Missions" />
+		<tab label="Rapports BO" />
 		<tab label="Parametres" />
 	</tabs>
 	<tabpanels>
 		<tabpanel>
 		<listbox id="menuListboxMission" style="border:none"/>
+		</tabpanel>
+		<tabpanel>
+		<listbox id="menuListboxRapportBO" style="border:none"/>
 		</tabpanel>
 		<tabpanel>
 		<listbox id="menuListboxParametre" style="border:none"/>
