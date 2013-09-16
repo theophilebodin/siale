@@ -4,6 +4,8 @@
 package nc.mairie.siale.viewmodel;
 
 
+import nc.mairie.siale.technique.RapportBO;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 
@@ -29,7 +31,7 @@ public class RapportBOModel extends SelectorComposer<Component> {
 	 * 
 	 * @return Url du rapport BO pour la Iframe
 	 */
-	public String getURLRapportBO() {
+	public String getURLRapportBO() throws Exception {
 		
 		//Recup du rapport
 		String rapport = (String) Executions.getCurrent().getArg().get("RAPPORT");
@@ -38,19 +40,8 @@ public class RapportBOModel extends SelectorComposer<Component> {
 			return null;
 		}
 		
-		String urlOpenDocument = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_OPENDOCUMENT");
-		if (urlOpenDocument == null) {
-			alert("Le paramètre BO_OPENDOCUMENT n'est pas défini dans le context.xml. Contacter l'administrateur.");
-			return null;
-		}
+		return RapportBO.getURLRapportBO(rapport);
 		
-		String dossierBO = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER");
-		if (dossierBO == null) {
-			alert("Le paramètre BO_FOLDER n'est pas défini dans le context.xml. Contacter l'administrateur.");
-			return null;
-		}
-		
-		return Executions.encodeURL(urlOpenDocument+"?sPath="+dossierBO+"&sDocName="+rapport);
 	}
 	
 	@Override

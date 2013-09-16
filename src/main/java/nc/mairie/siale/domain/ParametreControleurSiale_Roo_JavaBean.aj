@@ -24,6 +24,22 @@ privileged aspect ParametreControleurSiale_Roo_JavaBean {
         this.banniereCouleur = banniereCouleur;
     }
     
+    public String ParametreControleurSiale.getDossierBOPrefere() {
+        return this.dossierBOPrefere;
+    }
+    
+    public void ParametreControleurSiale.setDossierBOPrefere(String dossierBOPrefere) {
+        this.dossierBOPrefere = dossierBOPrefere;
+    }
+    
+    public String ParametreControleurSiale.getRapportBOPrefere() {
+        return this.rapportBOPrefere;
+    }
+    
+    public void ParametreControleurSiale.setRapportBOPrefere(String rapportBOPrefere) {
+        this.rapportBOPrefere = rapportBOPrefere;
+    }
+    
     public ControleurSIALE ParametreControleurSiale.getControleurSIALE() {
         return this.controleurSIALE;
     }

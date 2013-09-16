@@ -1,0 +1,23 @@
+<window id="rapportBOPerso" height="100%" border="normal" 
+	apply="nc.mairie.siale.viewmodel.RapportBOPersoModel"
+	contentStyle="overflow:auto">
+
+<div>
+<grid>
+		<rows>
+			<row>
+				<label value="Dossier :"/>
+				<textbox value="@{rapportBOPerso.folderBOCourant}"  cols="50"
+					constraint="no empty,/(\[[^\[]*\]){1}(( |\t)*,( |\t)*(\[[^\[]*\]))*/: format du dossier [dossier] ou [dossier],[sous doss1],[sous dossier2]"/>
+				<label value="Nom du rapport"/>
+				<textbox value="@{rapportBOPerso.rapportBOCourant}" constraint="no empty"/>
+				<button id="openBO" label="Voir Rapport"/>	
+			</row>
+		</rows>
+	</grid>
+	
+	
+</div>
+	<iframe id="iframeBO" height="100%" width="100%"/>
+
+</window>

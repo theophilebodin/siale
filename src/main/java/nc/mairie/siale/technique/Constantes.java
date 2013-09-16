@@ -1,5 +1,7 @@
 package nc.mairie.siale.technique;
 
+import org.zkoss.zk.ui.Executions;
+
 import nc.mairie.siale.domain.Droit;
 
 public class Constantes {
@@ -17,5 +19,9 @@ public class Constantes {
 	final static public int PARAM_MOIS_VISU=6;
 	
 	final static public String PARAM_BANNIERE_COULEUR = "#4CCAEB";
+
+	final static public String PARAM_DOSSIER_BO_PREFERE = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER");
+	
+	final static public String PARAM_PAPPORT_BO_PREFERE = "SIALE";
 	
 }

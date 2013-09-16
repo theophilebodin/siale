@@ -19,6 +19,13 @@ String gradient=nc.mairie.siale.technique.GradientBanniere.getStyleCSS();
 	// Si l'accueil intercepte le onClose, il l'envoie à la 1iere fenêtre de content DIV
 	Events.sendEvent(contentDiv.getChildren().get(0), new Event(Events.ON_CANCEL,contentDiv.getChildren().get(0)));
  	]]></attribute>
+	<attribute name="onOK">
+	<![CDATA[
+	// Bug de ZK que j'ai mis dans le tracker ici : http://tracker.zkoss.org/browse/ZK-1855
+	// Fonctionnalité Mairie !: Bug #3281 On close ne marche pas tout le temps. Voir si soluce
+	// Si l'accueil intercepte le onClose, il l'envoie à la 1iere fenêtre de content DIV
+	Events.sendEvent(contentDiv.getChildren().get(0), new Event(Events.ON_OK,contentDiv.getChildren().get(0)));
+ 	]]></attribute>
 		<borderlayout>
 			<north size="124px" >
 <!--  					<borderlayout style="background-image: url(${c:encodeURL('/_images/fondbleu_blanc.png') }); background-size: 100%; "> -->
