@@ -106,6 +106,13 @@
 	      <scope>system</scope>
 	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/cesession.jar</systemPath>
 	    </dependency>
+	    <dependency>
+	      <groupId>com.bo</groupId>
+	      <artifactId>logging</artifactId>
+	      <version>11.6</version>
+	      <scope>system</scope>
+	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/logging.jar</systemPath>
+	    </dependency>
 	    <!--  Fin dépendances BO SDK -->
 		<!-- Deb Dependance colorbox -->
 		<dependency>

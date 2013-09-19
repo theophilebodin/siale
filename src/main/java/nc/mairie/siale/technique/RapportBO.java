@@ -51,16 +51,22 @@ public class RapportBO {
 		String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
 		String sec = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SEC");
 		
-		IEnterpriseSession enterpriseSession = sm.logon(user, password, serveur, sec);
-		
-		// Store the logon token for later use.
-		ILogonTokenMgr iLogonTokenMgr= enterpriseSession.getLogonTokenMgr();
-		tokenBO = iLogonTokenMgr.getDefaultToken();
-		//tokenBO = iLogonTokenMgr.createLogonToken("", 1, 1); 
-		
-		session.setAttribute("enterpriseSession", enterpriseSession);
-		//enterpriseSession.logoff();
-				
+		IEnterpriseSession enterpriseSession = null;
+		ILogonTokenMgr logonTokenMgr=null;
+		try {
+			enterpriseSession = sm.logon(user, password, serveur, sec);
+			logonTokenMgr = enterpriseSession.getLogonTokenMgr();
+
+			tokenBO = logonTokenMgr.createWCAToken("", 1, 1);
+			session.setAttribute("enterpriseSession", enterpriseSession);
+		} catch (SDKException ex) {
+			Messagebox.show(ex.getMessage(),"Erreur Business Object",Messagebox.OK,Messagebox.ERROR);
+			try {
+				enterpriseSession.logoff();
+			} catch (Exception e) {
+				// tant pis...
+			}
+		} 
 		
         return tokenBO;
 		
