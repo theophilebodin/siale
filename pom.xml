@@ -33,6 +33,7 @@
     	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
     	<zk.version>6.5.2</zk.version>
     	<svnurl>https://svn.ville-noumea.nc/sed/siale</svnurl>
+    	<monbasedir>${basedir}</monbasedir>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -82,6 +83,41 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
+    
+    	<!--  Deb dépendances BO SDK -->
+	    <dependency>
+	      <groupId>com.bo</groupId>
+	      <artifactId>cecore</artifactId>
+	      <version>11.6</version>
+	      <scope>system</scope>
+	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/cecore.jar</systemPath>
+	    </dependency>
+	    <dependency>
+	      <groupId>com.bo</groupId>
+	      <artifactId>celib</artifactId>
+	      <version>11.6</version>
+	      <scope>system</scope>
+	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/celib.jar</systemPath>
+	    </dependency>
+	    <dependency>
+	      <groupId>com.bo</groupId>
+	      <artifactId>cesession</artifactId>
+	      <version>11.6</version>
+	      <scope>system</scope>
+	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/cesession.jar</systemPath>
+	    </dependency>
+	    <!--  Fin dépendances BO SDK -->
+		<!-- Deb Dependance colorbox -->
+		<dependency>
+	      <groupId>color.box</groupId>
+	      <artifactId>colorbox</artifactId>
+	      <version>1.0</version>
+	      <scope>system</scope>
+	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/colorbox.jar</systemPath>
+	    </dependency>
+	    <!-- Fin Dependance colorbox -->
+		
+    
         <!-- General dependencies for standard applications -->
         <dependency>
             <groupId>junit</groupId>
@@ -478,9 +514,9 @@
 		              <directory>src/main/webapp</directory>
 		              <filtering>true</filtering>
 		            </resource>
-		            <resource>
+		             <resource>
 		              <directory>src/main/resources</directory>
-		              <filtering>true</filtering>
+		              <filtering>false</filtering>
 		            </resource>
 		          </webResources>
 		        </configuration>
@@ -643,7 +679,7 @@
 					<execution>
 						<phase>package</phase>
 						<configuration>
-							<tasks>
+							<target>
 <!-- 								<copy todir="src/site/resources/war/${project.version}"  -->
 <!-- 									file="target/${project.artifactId}##${project.version}.war"> -->
 								<copy file="${project.build.directory}/${project.build.finalName}.${project.packaging}" tofile="src/site/resources/war/${project.version}/${project.artifactId}##${project.version}.${project.packaging}">
@@ -657,7 +693,7 @@
 										<include name="*.jar"/>
 									</fileset>
 								</checksum>
-							</tasks>
+							</target>
 						</configuration>
 						<goals>
 							<goal>run</goal>
@@ -678,7 +714,6 @@
 			            <nonFilteredFileExtension>ico</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
-			            <nonFilteredFileExtension>jar</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
                 </configuration>
             </plugin>

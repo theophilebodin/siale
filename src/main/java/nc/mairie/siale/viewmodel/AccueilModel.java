@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.LDAP;
+import nc.mairie.siale.technique.RapportBO;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -254,6 +255,10 @@ public class AccueilModel extends SelectorComposer<Component>{
 	
 	private class MenuNodeSelectListener implements EventListener<Event>{
 		public void onEvent(Event event) throws Exception {
+			
+			//on vire l'éventielle connexion à BO
+			RapportBO.releaseTokenBO();
+			
 			Component comp = event.getTarget();
 			
 			//on déselectionne toutes les autres listbox du menu
@@ -293,6 +298,9 @@ public class AccueilModel extends SelectorComposer<Component>{
 
 	@Listen("onClick = #logout")
 	public void onClick$logout() throws Exception {
+		
+		//logoff de l'éventuel BO
+		RapportBO.releaseTokenBO();
 		
 		Executions.getCurrent().getSession().setAttribute("logout", "true");
 		Executions.getCurrent().sendRedirect("/");
