@@ -48,7 +48,10 @@ public class RapportBO {
 		ISessionMgr sm = CrystalEnterprise.getSessionMgr();
 		String user = CurrentUser.getCurrentUser().getUsername();
 		String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-		IEnterpriseSession enterpriseSession = sm.logon(user, password, "svpsacube", "secLDAP");
+		String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
+		String sec = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SEC");
+		
+		IEnterpriseSession enterpriseSession = sm.logon(user, password, serveur, sec);
 		
 		// Store the logon token for later use.
 		ILogonTokenMgr iLogonTokenMgr= enterpriseSession.getLogonTokenMgr();
@@ -64,16 +67,43 @@ public class RapportBO {
 	}	
 	
 	
+	
+	private static String construitURL_OPEN_DOCUMENT () {
+		String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
+		if (serveur == null) {
+			throw new WrongValueException("Le paramètre BO_SERVEUR n'est pas défini dans le context.xml. Contacter l'administrateur.");
+		}
+		
+		String port = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_PORT");
+		if (port == null) {
+			throw new WrongValueException("Le paramètre BO_PORT n'est pas défini dans le context.xml. Contacter l'administrateur.");
+		}
+		
+		String protocol = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_PROTOCOL");
+		if (protocol == null) {
+			throw new WrongValueException("Le paramètre BO_PROTOCOL n'est pas défini dans le context.xml. Contacter l'administrateur.");
+		}
+		
+		String urlOpenDocument= Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_OPENDOCUMENT");
+		if (urlOpenDocument == null) {
+			throw new WrongValueException("Le paramètre BO_OPENDOCUMENT n'est pas défini dans le context.xml. Contacter l'administrateur.");
+		}
+		
+		String url = protocol+"://"+serveur+(port == null ? "" : ":"+port)+urlOpenDocument;
+		
+		return url;
+	}
+	
+	public static String URL_OPEN_DOCUMENT = construitURL_OPEN_DOCUMENT();
+	
 	/**
 	 * 
 	 * @return Url du rapport BO pour la Iframe
 	 */
 	public static String getURLRapportBO(String dossierBO, String rapport) throws WrongValueException {
 		
-		String urlOpenDocument = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_OPENDOCUMENT");
-		if (urlOpenDocument == null) {
-			throw new WrongValueException("Le paramètre BO_OPENDOCUMENT n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
+		
+		String url = URL_OPEN_DOCUMENT;
 		
 		//Recup du dossier
 		if (dossierBO == null) {
@@ -97,7 +127,7 @@ public class RapportBO {
 			return null;
 		}
 		
-		return Executions.encodeURL(urlOpenDocument+"?sPath="+dossierBO+"&sDocName="+rapport+(tokenBO == null ? "" : "&token="+tokenBO));
+		return Executions.encodeURL(url+"?sPath="+dossierBO+"&sDocName="+rapport+(tokenBO == null ? "" : "&token="+tokenBO));
 	}
 	
 	/**
