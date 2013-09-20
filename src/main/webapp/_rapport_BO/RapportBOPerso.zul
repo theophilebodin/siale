@@ -1,23 +1,32 @@
-<window id="rapportBOPerso" height="100%" border="normal" 
+<window id="rapportBOPerso" height="100%" border="normal"
 	apply="nc.mairie.siale.viewmodel.RapportBOPersoModel"
 	contentStyle="overflow:auto">
 
-<div>
-<grid>
-		<rows>
-			<row>
-				<label value="Dossier :"/>
-				<textbox value="@{rapportBOPerso.folderBOCourant}"  cols="50"
-					constraint="no empty,/(\[[^\[]*\]){1}(( |\t)*,( |\t)*(\[[^\[]*\]))*/: format du dossier [dossier] ou [dossier],[sous doss1],[sous dossier2]"/>
-				<label value="Nom du rapport"/>
-				<textbox value="@{rapportBOPerso.rapportBOCourant}" constraint="no empty"/>
-				<button id="openBO" label="Voir Rapport"/>	
-			</row>
-		</rows>
-	</grid>
-	
-	
-</div>
-	<iframe id="iframeBO" height="100%" width="100%"/>
+<groupbox>
+	<caption label="recherche"/>
+	<listbox rows="5" id="folderListbox"
+		model="@{rapportBOPerso.listFolderBO}"
+		selectedItem="@{rapportBOPerso.folderCourant}">
+		<listhead>
+			<listheader label="Dossier"/>
+		</listhead>
+		<listitem id="folderListItem" self="@{each=folder}">
+			<listcell label="@{folder.name}" />
+		</listitem>
+	</listbox>
+
+	<listbox rows="5" id="documentListbox"
+		model="@{rapportBOPerso.listDocumentBO}"
+		selectedItem="@{rapportBOPerso.documentCourant}">
+		<listhead>
+			<listheader label="Document"/>
+		</listhead>
+		<listitem id="documentListItem" self="@{each=document}">
+			<listcell label="@{document.name}" />
+		</listitem>
+	</listbox>
+</groupbox>
+
+	<iframe id="iframeBO" height="100%" width="100%" />
 
 </window>

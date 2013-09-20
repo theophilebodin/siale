@@ -4,10 +4,13 @@
 package nc.mairie.siale.viewmodel;
 
 
+import java.util.ArrayList;
+
 import nc.mairie.siale.domain.ParametreControleurSiale;
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.RapportBO;
+import nc.mairie.siale.technique.RapportBO.ObjectBO;
 
 import org.zkoss.zk.ui.Component;
 
@@ -39,15 +42,51 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	@Wire
 	Iframe iframeBO;
 	
-	private String folderBOCourant;
 	private String rapportBOCourant;
 	
-	public String getFolderBOCourant() {
-		return folderBOCourant;
+	ArrayList<ObjectBO> listFolderBO = null;
+	ArrayList<ObjectBO> listDocumentBO = null;
+	
+	ObjectBO folderCourant;
+	
+	ObjectBO documentCourant;
+	
+	
+	public ObjectBO getDocumentCourant() {
+		return documentCourant;
 	}
 
-	public void setFolderBOCourant(String folderBOCourant) {
-		this.folderBOCourant = folderBOCourant;
+	public void setDocumentCourant(ObjectBO documentCourant) {
+		this.documentCourant = documentCourant;
+	}
+
+	public ArrayList<ObjectBO> getListDocumentBO() {
+		return listDocumentBO;
+	}
+
+	public void setListDocumentBO(ArrayList<ObjectBO> listDocumentBO) {
+		this.listDocumentBO = listDocumentBO;
+	}
+
+	
+	public ObjectBO getFolderCourant() {
+		return folderCourant;
+	}
+
+	public void setFolderCourant(ObjectBO folderCourant) {
+		this.folderCourant = folderCourant;
+	}
+
+	
+	public ArrayList<ObjectBO> getListFolderBO() {
+		if (listFolderBO == null) {
+			listFolderBO = initialiseListeDossierBO(null);
+		}
+		return listFolderBO;
+	}
+
+	public void setListFolderBO(ArrayList<ObjectBO> listFolderBO) {
+		this.listFolderBO = listFolderBO;
 	}
 
 	public String getRapportBOCourant() {
@@ -58,22 +97,27 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 		this.rapportBOCourant = rapportBOCourant;
 	}
 
+	public ArrayList<ObjectBO> initialiseListeDossierBO(String idDossier) {
+		ArrayList<ObjectBO> res = idDossier == null ? RapportBO.listeFolderBO() : RapportBO.listeFolderBO(idDossier);
+		ObjectBO folder = idDossier == null ? RapportBO.recupereObjectBODossier() : RapportBO.recupereObjectBODossier(idDossier);
+		if (folder!=null) {
+			folder.setName("..");
+			res.add(0, folder);
+		}
+		setListDocumentBO(initialiseListeDocumentBO(idDossier));
+		
+		return res;
+	}
+	
+	public ArrayList<ObjectBO> initialiseListeDocumentBO(String idDossier) {
+		ArrayList<ObjectBO> res = idDossier == null ? RapportBO.listeDocumentsWebI() : RapportBO.listeDocumentsWebIduDossier(idDossier);
+		return res;
+	}
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 	
-		//Recup du nombre mois à afficher
-		ParametreControleurSiale parametreControleurSiale;
-		try {
-			parametreControleurSiale = ParametreControleurSiale.findParametreControleurSialesByControleurSIALE(CurrentUser.getCurrentUser()).getSingleResult();
-		} catch (Exception e) {
-			parametreControleurSiale = ParametreControleurSiale.getNewDefaultParametreControleurSiale();
-		}
-		
-		setFolderBOCourant(parametreControleurSiale.getDossierBOPrefere());
-		setRapportBOCourant(parametreControleurSiale.getRapportBOPrefere());
-
 		comp.setAttribute(comp.getId(), this, true);
 		
 		binder = new AnnotateDataBinder(comp);
@@ -81,16 +125,35 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 
 	}
 	
-	@Listen("onClick = #openBO; onOK = #rapportBOPerso;")
-	public void onClick$openBO() {
+	@Listen("onClick = #testeBO;")
+	public void onClick$testeBO() {
 
-		//On vérifie l'arborescence des zones de saisie
-		ControleSaisie controleSaisie = new ControleSaisie(rapportBOPerso);
+		RapportBO.testeBO();
 		
-		//Si erreurs, on les met et on ne va pas plus loin
-		controleSaisie.afficheErreursSilYEnA();
+	}
+	
+	@Listen("onDoubleClick = #folderListItem;")
+	public void onDoubleClick$folderListItem() {
 		
-		iframeBO.setSrc(RapportBO.getURLRapportBO(getFolderBOCourant(), getRapportBOCourant()));
+		//on vire l'éventuelle connexion à BO
+		RapportBO.releaseTokenBO();
+		
+		String idDossier = getFolderCourant().getName().equals("..") ? getFolderCourant().getParentId() :getFolderCourant().getId();
+		
+		setListFolderBO(initialiseListeDossierBO(idDossier));
+		
+		binder.loadAll();
+		
+	}
+	
+	@Listen("onDoubleClick = #documentListItem;")
+	public void onDoubleClick$documentListItem() {
+		
+		//on vire l'éventielle connexion à BO
+		RapportBO.releaseTokenBO();
+		
+		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getId()));
+		
 		binder.loadAll();
 		
 	}

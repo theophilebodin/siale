@@ -8,6 +8,7 @@ import nc.mairie.siale.technique.RapportBO;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.WrongValueException;
 
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
@@ -34,13 +35,13 @@ public class RapportBOModel extends SelectorComposer<Component> {
 	public String getURLRapportBO() throws Exception {
 		
 		//Recup du rapport
-		String rapport = (String) Executions.getCurrent().getArg().get("RAPPORT");
-		if (rapport == null) {
-			alert("Le paramètre rapport est introuvable dans les arguments ZUL");
-			return null;
+		//String rapport = (String) Executions.getCurrent().getArg().get("RAPPORT");
+		String iDocID = (String) Executions.getCurrent().getArg().get("iDocID");
+		if (iDocID == null) {
+			throw new WrongValueException("Le paramètre iDocID est introuvable dans les arguments ZUL");
 		}
 		
-		return RapportBO.getURLRapportBO(rapport);
+		return RapportBO.getURLRapportBO(iDocID);
 		
 	}
 	

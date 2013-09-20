@@ -6,12 +6,12 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import nc.mairie.siale.domain.ControleurSIALE;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.LDAP;
 import nc.mairie.siale.technique.RapportBO;
+import nc.mairie.siale.technique.RapportBO.ObjectBO;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -131,19 +131,13 @@ public class AccueilModel extends SelectorComposer<Component>{
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		//Recup des infos BO
-		String rapportsBO = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_RAPPORT");
-		if (rapportsBO == null){
-			alert("Problème de paramétrage dans le context.xml : " +rapportsBO);
-		} else {
-			
-			StringTokenizer st = new StringTokenizer(rapportsBO, "|");
-			while (st.hasMoreElements()) {
-				String rapport = st.nextToken();
-				Map<String,Object> args=new HashMap<String, Object>();
-				args.put("RAPPORT", rapport);
-				menuModelRapportBO.add(new MenuNode(rapport,"Rapport BO - "+rapport,"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
-			}
+		ArrayList<ObjectBO> arrDocWebi = RapportBO.listeDocumentsWebI();
+		for (ObjectBO docWebi : arrDocWebi) {
+			Map<String,Object> args=new HashMap<String, Object>();
+			args.put("iDocID", docWebi.getId());
+			menuModelRapportBO.add(new MenuNode(docWebi.getName(),"Rapport BO - "+docWebi.getName(),"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
 		}
+		
 		//Rajout rapport perso
 		menuModelRapportBO.add(new MenuNode("Rapport personnel","Rapport BO personnel","/_rapport_BO/RapportBOPerso.zul","/_accueil/BO.png", null));
 			
