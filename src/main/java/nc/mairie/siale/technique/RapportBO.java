@@ -347,8 +347,8 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 				// tant pis...
 			}
 		} finally {
-			////LLLLLUC
-			enterpriseSession.logoff();
+			////Ne pas faire logoff sinon le rapport ne s"'affiche pas
+			//enterpriseSession.logoff();
 		}
 		
         return tokenBO;

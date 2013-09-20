@@ -158,4 +158,19 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 		
 	}
 	
+	@Listen("onChartLoaded = #iframeBO;")
+	public void onChartLoaded() {
+		System.out.println("YESSSSS");
+		try {
+			Thread.sleep(6000);
+			System.out.println("YESSSSS fin du slip");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RapportBO.releaseTokenBO();
+	}
+
+	
+	
 }

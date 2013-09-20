@@ -27,6 +27,15 @@
 	</listbox>
 </groupbox>
 
-	<iframe id="iframeBO" height="100%" width="100%" />
+<script type="text/javascript">
+	<![CDATA[
+		function chartLoaded(obj) {
+			zAu.send(new zk.Event(zk.Widget.$(obj), "onChartLoaded"));
+		}
+	]]>
+</script>
 
+	<iframe id="iframeBO" height="100%" width="100%" xmlns:ca="http://www.zkoss.org/2005/zk/client/attribute"
+  	  ca:onload="chartLoaded(this)">
+  	  </iframe>
 </window>

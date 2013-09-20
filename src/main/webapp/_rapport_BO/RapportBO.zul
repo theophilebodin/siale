@@ -2,5 +2,17 @@
 	apply="nc.mairie.siale.viewmodel.RapportBOModel"
 	contentStyle="overflow:auto">
 
-	<iframe src="@{rapportBO.URLRapportBO}" height="100%" width="100%"/>
+<script type="text/javascript">
+	<![CDATA[
+		function chartLoaded(obj) {
+			zAu.send(new zk.Event(zk.Widget.$(obj), "onChartLoaded"));
+		}
+	]]>
+</script>
+
+	<iframe src="@{rapportBO.URLRapportBO}" height="100%" width="100%" id="fuck"
+
+		xmlns:ca="http://www.zkoss.org/2005/zk/client/attribute"
+  	  ca:onload="chartLoaded(this)">
+  	  </iframe>
 </window>
