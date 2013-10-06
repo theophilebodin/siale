@@ -6,9 +6,7 @@ package nc.mairie.siale.viewmodel;
 
 import java.util.ArrayList;
 
-import nc.mairie.siale.domain.ParametreControleurSiale;
-import nc.mairie.siale.technique.ControleSaisie;
-import nc.mairie.siale.technique.CurrentUser;
+
 import nc.mairie.siale.technique.RapportBO;
 import nc.mairie.siale.technique.RapportBO.ObjectBO;
 
@@ -19,6 +17,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Timer;
 import org.zkoss.zul.Window;
 
 /**
@@ -41,6 +40,9 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	
 	@Wire
 	Iframe iframeBO;
+	
+	@Wire
+	Timer timer;
 	
 	private String rapportBOCourant;
 	
@@ -149,28 +151,17 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	@Listen("onDoubleClick = #documentListItem;")
 	public void onDoubleClick$documentListItem() {
 		
-		//on vire l'éventielle connexion à BO
-		RapportBO.releaseTokenBO();
-		
 		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getId()));
+		timer.start();
 		
 		binder.loadAll();
 		
 	}
 	
-	@Listen("onChartLoaded = #iframeBO;")
-	public void onChartLoaded() {
-		System.out.println("YESSSSS");
-		try {
-			Thread.sleep(6000);
-			System.out.println("YESSSSS fin du slip");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	@Listen("onTimer =  #timer")
+	public void onTimer() {
 		RapportBO.releaseTokenBO();
 	}
-
 	
 	
 }

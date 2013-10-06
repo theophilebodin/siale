@@ -13,7 +13,6 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Iframe;
 
 /**
  * @author boulu72
@@ -58,25 +57,10 @@ public class RapportBOModel extends SelectorComposer<Component> {
 
 	}
 
-	@Listen("onChartLoaded = #toto;")
-	public void onChartLoaded(Iframe iframe) {
-		alert("YESSSSS iframe");
-	}
-	
-	@Listen("onChartLoaded = #fuck;")
-	public void onChartLoaded() {
-		System.out.println("YESSSSS");
-		try {
-			Thread.sleep(6000);
-			System.out.println("YESSSSS fin du slip");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	@Listen("onTimer =  #timer")
+	public void onTimer() {
 		RapportBO.releaseTokenBO();
 	}
-
-	
 	
 
 }

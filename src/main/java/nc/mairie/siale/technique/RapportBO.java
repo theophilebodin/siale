@@ -305,6 +305,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		if (enterpriseSession != null) {
 			
 			try {
+				System.out.println("relache tu token");
 				enterpriseSession.logoff();
 			} catch (Exception e) {
 				//rien à faire
@@ -321,6 +322,9 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	 * @throws SDKException 
 	 */
 	private static String getTokenBO() throws SDKException {
+		
+		//on vire l'éventielle connexion à BO
+		releaseTokenBO();
 
 		Session session = Executions.getCurrent().getSession();
 		String tokenBO = null;
@@ -384,61 +388,6 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	}
 	
 	public static String URL_OPEN_DOCUMENT = construitURL_OPEN_DOCUMENT();
-	
-	/**
-	 * 
-	 * @return Url du rapport BO pour la Iframe
-	 */
-//	public static String getURLRapportBO(String dossierBO, String rapport) throws WrongValueException {
-//		
-//		
-//		String url = URL_OPEN_DOCUMENT;
-//		
-//		//Recup du dossier
-//		if (dossierBO == null) {
-//			throw new WrongValueException ("Le paramètre BO_FOLDER n'est pas défini dans le context.xml. Contacter l'administrateur.");
-//		}
-//		//format du dossier [dossier] ou [dossier],[sous doss1],[sous dossier2]
-//		if (!dossierBO.matches(regexDossierBO)) {
-//			throw new WrongValueException ("Le paramètre BO_FOLDER doit être de la forme [dossier] ou [dossier],[sous doss1],[sous dossier2].");
-//		}
-//		
-//		//Recup du rapport
-//		if (rapport == null) {
-//			throw new WrongValueException ("Le paramètre rapport ne doit pas être null");
-//		}
-//		
-//		String tokenBO;
-//		try {
-//			tokenBO = getTokenBO();
-//		} catch (SDKException e) {
-//			Messagebox.show(e.getMessage(),"Erreur Business Object",Messagebox.OK,Messagebox.ERROR);
-//			return null;
-//		}
-//		
-//		return Executions.encodeURL(url+"?sPath="+dossierBO+"&sDocName="+rapport+(tokenBO == null ? "" : "&token="+tokenBO));
-//	}
-	
-//	/**
-//	 * 
-//	 * @return Url du rapport BO pour la Iframe en récupérant le dossier dans le contexte
-//	 */
-//public static String getURLRapportBO(String rapport) throws WrongValueException {
-//		
-//		//Recup du dossier
-//		String dossierBO = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER");
-//		if (dossierBO == null) {
-//			throw new WrongValueException ("Le paramètre BO_FOLDER n'est pas défini dans le context.xml. Contacter l'administrateur.");
-//		}
-//
-//		//format du dossier [dossier] ou [dossier],[sous doss1],[sous dossier2]
-//		if (!dossierBO.matches(regexDossierBO)) {
-//			throw new WrongValueException ("Le paramètre BO_FOLDER est mal défini dans le context.xml. Il doit être de la forme [dossier] ou [dossier],[sous doss1],[sous dossier2]. Contacter l'administrateur.");
-//		}
-//	
-//		
-//		return getURLRapportBO(dossierBO, rapport);
-//}
 	
 	
 	/**
