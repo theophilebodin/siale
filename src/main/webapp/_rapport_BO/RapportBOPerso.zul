@@ -2,29 +2,50 @@
 	apply="nc.mairie.siale.viewmodel.RapportBOPersoModel"
 	contentStyle="overflow:auto">
 
-<groupbox>
-	<caption label="recherche"/>
-	<listbox rows="5" id="folderListbox"
-		model="@{rapportBOPerso.listFolderBO}"
-		selectedItem="@{rapportBOPerso.folderCourant}">
-		<listhead>
-			<listheader label="Dossier"/>
-		</listhead>
-		<listitem id="folderListItem" self="@{each=folder}">
-			<listcell label="@{folder.name}" />
-		</listitem>
-	</listbox>
+<groupbox id="groupeRecherche">
+	<caption label="> Nouvelle recherche"/>
+<grid>
+		<columns>
+			<column label="@{rapportBOPerso.nomFolderCourant}" width="40%"/>
+			<column label="Documents" width="60%"/>
+		</columns>
+		<rows>
+			<row>
+				<listbox rows="5" id="folderListbox" height="150px"
+					model="@{rapportBOPerso.listFolderBO}"
+					selectedItem="@{rapportBOPerso.folderCourant}">
+					<listhead>
+						<listheader width="40px" height="20px"/>
+						<listheader/>
+					</listhead>
+					<listitem id="folderListItem" self="@{each=folder}">
+						<listcell>
+							<image src="@{folder.image}" width="24px" height="24px"/>
+						</listcell>
+						<listcell label="@{folder.displayName}" />
+					</listitem>
+				</listbox>
+			
+				<listbox rows="5" id="documentListbox" height="150px"
+					model="@{rapportBOPerso.listDocumentBO}"
+					selectedItem="@{rapportBOPerso.documentCourant}">
+					<listhead>
+						<listheader width="40px" height="20px"/>
+						<listheader/>
+					</listhead>
+					<listitem id="documentListItem" self="@{each=document}">
+						<listcell>
+							<image src="@{document.image}" width="24px" height="24px"/>
+						</listcell>
+						<listcell label="@{document.displayName}" />
+					</listitem>
+				</listbox>
+			</row>
+		</rows>
+	</grid>
 
-	<listbox rows="5" id="documentListbox"
-		model="@{rapportBOPerso.listDocumentBO}"
-		selectedItem="@{rapportBOPerso.documentCourant}">
-		<listhead>
-			<listheader label="Document"/>
-		</listhead>
-		<listitem id="documentListItem" self="@{each=document}">
-			<listcell label="@{document.name}" />
-		</listitem>
-	</listbox>
+
+	
 </groupbox>
 
 	<iframe id="iframeBO" height="100%" width="100%"/>

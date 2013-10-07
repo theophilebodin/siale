@@ -139,7 +139,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 		}
 		
 		//Rajout rapport perso
-		menuModelRapportBO.add(new MenuNode("Rapport personnel","Rapport BO personnel","/_rapport_BO/RapportBOPerso.zul","/_accueil/BO.png", null));
+		menuModelRapportBO.add(new MenuNode("Autre...","Rapport BO","/_rapport_BO/RapportBOPerso.zul","/_accueil/BO.png", null));
 			
 		
 		menuModelParametre.add(new MenuNode("Paramètres","Gestion des paramètres","/_parametres/GestionParametres.zul","/_accueil/parametres.png"));

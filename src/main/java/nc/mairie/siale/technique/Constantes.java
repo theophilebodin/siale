@@ -20,8 +20,4 @@ public class Constantes {
 	
 	final static public String PARAM_BANNIERE_COULEUR = "#4CCAEB";
 
-	final static public String PARAM_DOSSIER_BO_PREFERE = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER");
-	
-	final static public String PARAM_PAPPORT_BO_PREFERE = "SIALE";
-	
 }

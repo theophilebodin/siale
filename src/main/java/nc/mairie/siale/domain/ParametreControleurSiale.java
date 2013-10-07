@@ -22,15 +22,6 @@ public class ParametreControleurSiale {
     
     /**
      */
-    private String dossierBOPrefere;
-    
-    /**
-     */
-    private String rapportBOPrefere;
-    
-    
-    /**
-     */
     @OneToOne
     private ControleurSIALE controleurSIALE;
 
@@ -38,8 +29,6 @@ public class ParametreControleurSiale {
         ParametreControleurSiale param = new ParametreControleurSiale();
         param.setMoisVisuMission(Constantes.PARAM_MOIS_VISU);
         param.setBanniereCouleur(Constantes.PARAM_BANNIERE_COULEUR);
-        param.setDossierBOPrefere(Constantes.PARAM_DOSSIER_BO_PREFERE);
-        param.setRapportBOPrefere(Constantes.PARAM_PAPPORT_BO_PREFERE);
         return param;
     }
 

@@ -69,10 +69,6 @@
 	<Parameter description="BO release timer" name="BO_RELEASE_TIMER" override="false" value="6000" />
 	<Parameter description="URL BO Open Document" name="BO_OPENDOCUMENT" override="false" value="/OpenDocument/opendoc/openDocument.jsp" />
 <!-- 	<Parameter description="Dossier BO de Mission SIALE" name="BO_FOLDER_ID" override="false" value="266159" /> -->
-	
- 	<Parameter description="Dossier BO de Mission SIALE" name="BO_FOLDER" override="false" value="[Missions SIALE],[QUAL]" /> 
-
-		
 	<!-- EN PROD -->
 	<Parameter description="Dossier BO de Mission SIALE" name="BO_FOLDER_ID" override="false" value="240965" /> 
 	<!-- FIN 1.2.8 -->

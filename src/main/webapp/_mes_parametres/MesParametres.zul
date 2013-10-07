@@ -23,16 +23,6 @@
 				<label value="@{mesParametres.DEFAULT_PARAM_BANNIERE_COULEUR}"/>
 				<textbox id ="couleur" value="@{mesParametres.parametreControleurSialeCourant.banniereCouleur, save-when='validerParametre.onClick'}" visible="false"/>
 			</row>
-			<row>
-				<label value="Dossier BO perso (ou pas)"/>
-				<textbox value="@{mesParametres.parametreControleurSialeCourant.dossierBOPrefere, save-when='validerParametre.onClick', load-when='defautParametre.onClick'}" constraint="/(\[[^\[]*\]){1}(( |\t)*,( |\t)*(\[[^\[]*\]))*/: format du dossier [dossier] ou [dossier],[sous doss1],[sous dossier2]"/>
-				<label value="@{mesParametres.DEFAULT_PARAM_DOSSIER_BO_PREFERE}"/>
-			</row>
-			<row>
-				<label value="Rapport BO perso"/>
-				<textbox value="@{mesParametres.parametreControleurSialeCourant.rapportBOPrefere, save-when='validerParametre.onClick', load-when='defautParametre.onClick'}"/>
-				<label value="@{mesParametres.DEFAULT_PARAM_PAPPORT_BO_PREFERE}"/>
-			</row>
 		</rows>
 	</grid>
 	<label value=""/>

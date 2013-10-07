@@ -129,12 +129,4 @@ public class MesParametresModel extends SelectorComposer<Component> {
 		return Constantes.PARAM_BANNIERE_COULEUR;
 	}
 	
-	public String getDEFAULT_PARAM_DOSSIER_BO_PREFERE () {
-		return Constantes.PARAM_DOSSIER_BO_PREFERE;
-	}
-	
-	public String getDEFAULT_PARAM_PAPPORT_BO_PREFERE () {
-		return Constantes.PARAM_PAPPORT_BO_PREFERE;
-	}
-	
 }

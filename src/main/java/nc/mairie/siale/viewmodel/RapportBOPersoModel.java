@@ -16,8 +16,10 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Window;
+
 
 /**
  * @author boulu72
@@ -39,6 +41,9 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	
 	@Wire
 	Iframe iframeBO;
+	
+	@Wire
+	Groupbox groupeRecherche;
 	
 	private String rapportBOCourant;
 	
@@ -99,7 +104,7 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 		ArrayList<ObjectBO> res = idDossier == null ? RapportBO.listeFolderBO() : RapportBO.listeFolderBO(idDossier);
 		ObjectBO folder = idDossier == null ? RapportBO.recupereObjectBODossier() : RapportBO.recupereObjectBODossier(idDossier);
 		if (folder!=null) {
-			folder.setName("..");
+			folder.setDisplayName("..");
 			res.add(0, folder);
 		}
 		setListDocumentBO(initialiseListeDocumentBO(idDossier));
@@ -129,22 +134,37 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 		RapportBO.testeBO();
 		
 	}
+
+	public String getNomFolderCourant() {
+		if (getFolderCourant() == null) {
+			setFolderCourant(getListFolderBO().get(0));
+		}
+		//return "Dossier : "+( getFolderCourant().getParentId().equals("0") ? "/" : getListFolderBO().get(0).getName());
+		
+		if (getListFolderBO().get(0).getDisplayName().equals("..")) {
+			return "Dossier : "+ getFolderCourant().getName();
+		} else return "Dossier : /";
+		
+		//return "Dossier : "+ getFolderCourant().getName();
+	}
 	
-	@Listen("onDoubleClick = #folderListItem;")
+	@Listen("onClick = #folderListItem;")
 	public void onDoubleClick$folderListItem() {
 		
-		String idDossier = getFolderCourant().getName().equals("..") ? getFolderCourant().getParentId() :getFolderCourant().getId();
+		String idDossier = getFolderCourant().getDisplayName().equals("..") ? getFolderCourant().getParentId() :getFolderCourant().getId();
 		
 		setListFolderBO(initialiseListeDossierBO(idDossier));
+		setFolderCourant(getListFolderBO().get(0));
 		
 		binder.loadAll();
 		
 	}
 	
-	@Listen("onDoubleClick = #documentListItem;")
+	@Listen("onClick = #documentListItem;")
 	public void onDoubleClick$documentListItem() {
 		
 		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getId()));
+		groupeRecherche.setOpen(false);
 		
 		binder.loadAll();
 		
