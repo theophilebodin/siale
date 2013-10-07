@@ -114,7 +114,7 @@ public class RapportBO {
 		}
 		
 		public String getImage() {
-			return "/_images/BO_"+getKind()+"_24x24.gif"; 
+			return "/_images/BO/"+getKind()+".gif"; 
 		}
 		
 		
