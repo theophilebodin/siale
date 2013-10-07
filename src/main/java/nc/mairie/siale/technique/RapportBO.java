@@ -1,7 +1,6 @@
 package nc.mairie.siale.technique;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Executions;
@@ -336,8 +335,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 
 			//On planifie de libérer le token après BO_RELEASE_TIMER secondes
 			TimerTaskBO timerTaskBO = new TimerTaskBO(enterpriseSession);
-			Timer t = new Timer();
-			t.schedule(timerTaskBO, Integer.valueOf(BO_RELEASE_TIMER));
+			timerTaskBO.schedule(Integer.valueOf(BO_RELEASE_TIMER));
 			
 		}
 		
