@@ -17,7 +17,6 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Iframe;
-import org.zkoss.zul.Timer;
 import org.zkoss.zul.Window;
 
 /**
@@ -40,9 +39,6 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	
 	@Wire
 	Iframe iframeBO;
-	
-	@Wire
-	Timer timer;
 	
 	private String rapportBOCourant;
 	
@@ -149,7 +145,6 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	public void onDoubleClick$documentListItem() {
 		
 		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getId()));
-		timer.start();
 		
 		binder.loadAll();
 		
