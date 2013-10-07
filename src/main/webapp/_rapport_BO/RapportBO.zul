@@ -3,6 +3,5 @@
 	contentStyle="overflow:auto">
 
 	<iframe src="@{rapportBO.URLRapportBO}" height="100%" width="100%"/>  	  
-  	<timer id="timer" delay="4000" repeats="false"/>
         
 </window>

@@ -11,7 +11,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.WrongValueException;
 
 import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 
 /**
@@ -56,11 +55,5 @@ public class RapportBOModel extends SelectorComposer<Component> {
 		binder.loadAll();
 
 	}
-
-	@Listen("onTimer =  #timer")
-	public void onTimer() {
-		RapportBO.releaseTokenBO();
-	}
-	
 
 }

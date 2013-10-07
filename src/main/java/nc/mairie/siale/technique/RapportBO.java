@@ -1,6 +1,7 @@
 package nc.mairie.siale.technique;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Executions;
@@ -23,6 +24,30 @@ public class RapportBO {
 
 	
 	final public static String regexDossierBO =  "(\\[[^\\[]*\\]){1}(\\p{Blank}*,\\p{Blank}*(\\[[^\\[]*\\]))*";
+	
+	final public static String BO_SERVEUR = litParametre("BO_SERVEUR");
+	final public static String BO_SEC = litParametre("BO_SEC");
+	final public static String BO_FOLDER_ID = litParametre("BO_FOLDER_ID");
+	final public static String BO_PORT = litParametre("BO_PORT");
+	final public static String BO_PROTOCOL = litParametre("BO_PROTOCOL");
+	final public static String BO_OPENDOCUMENT = litParametre("BO_OPENDOCUMENT");
+	final public static String BO_RELEASE_TIMER = litParametre("BO_RELEASE_TIMER");
+	
+	final public static String URL_OPEN_DOCUMENT = BO_PROTOCOL+"://"+BO_SERVEUR+(BO_PORT == null ? "" : ":"+BO_PORT)+BO_OPENDOCUMENT;
+
+	
+	/**
+	 * 
+	 * @param param
+	 * @return la valeur du paramètre dans le context.xml
+	 */
+	public static String litParametre(String param) {
+		String result = Executions.getCurrent().getDesktop().getWebApp().getInitParameter(param);
+		if (result == null) {
+			throw new WrongValueException("Le paramètre "+param+" n'est pas défini dans le context.xml. Contacter l'administrateur.");
+		}
+		return result;
+	}
 
 	
 	public static IEnterpriseSession getEnterpriseSession() {
@@ -37,11 +62,9 @@ public class RapportBO {
 			}
 			String user = CurrentUser.getCurrentUser().getUsername();
 			String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-			String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
-			String sec = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SEC");
 			
 			try {
-				enterpriseSession = sm.logon(user, password, serveur, sec);
+				enterpriseSession = sm.logon(user, password, BO_SERVEUR, BO_SEC);
 			} catch (Exception ex) {
 				throw new WrongValueException(ex.getMessage());
 			} 
@@ -117,12 +140,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	
 	public static ArrayList<ObjectBO> listeDocumentsWebI () {
 		
-		String idDossier = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER_ID");
-		if (idDossier == null) {
-			throw new WrongValueException("Le paramètre BO_SERVEUR_ID n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		return listeDocumentsWebIduDossier(idDossier);
+		return listeDocumentsWebIduDossier(BO_FOLDER_ID);
 		
 	}
 	
@@ -161,12 +179,8 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	
 	public static ObjectBO recupereObjectBODossier() {
 		
-		String idDossier = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER_ID");
-		if (idDossier == null) {
-			throw new WrongValueException("Le paramètre BO_SERVEUR_ID n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
 		
-		return recupereObjectBODossier(idDossier);
+		return recupereObjectBODossier(BO_FOLDER_ID);
 		
 	}
 	
@@ -209,12 +223,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	
 	public static ArrayList<ObjectBO> listeFolderBO () {
 		
-		String idDossier = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_FOLDER_ID");
-		if (idDossier == null) {
-			throw new WrongValueException("Le paramètre BO_SERVEUR_ID n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		return listeFolderBO(idDossier);
+		return listeFolderBO(BO_FOLDER_ID);
 		
 	}
 	
@@ -302,10 +311,10 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	 */
 	public static void releaseTokenBO() {
 		IEnterpriseSession enterpriseSession =	(IEnterpriseSession) Executions.getCurrent().getSession().getAttribute("enterpriseSession");
+		
 		if (enterpriseSession != null) {
 			
 			try {
-				System.out.println("relache tu token");
 				enterpriseSession.logoff();
 			} catch (Exception e) {
 				//rien à faire
@@ -332,13 +341,11 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		ISessionMgr sm = CrystalEnterprise.getSessionMgr();
 		String user = CurrentUser.getCurrentUser().getUsername();
 		String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-		String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
-		String sec = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SEC");
 		
 		IEnterpriseSession enterpriseSession = null;
 		ILogonTokenMgr logonTokenMgr=null;
 		try {
-			enterpriseSession = sm.logon(user, password, serveur, sec);
+			enterpriseSession = sm.logon(user, password, BO_SERVEUR, BO_SEC);
 			logonTokenMgr = enterpriseSession.getLogonTokenMgr();
 
 			tokenBO = logonTokenMgr.createWCAToken("", 1, 1);
@@ -353,41 +360,27 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		} finally {
 			////Ne pas faire logoff sinon le rapport ne s"'affiche pas
 			//enterpriseSession.logoff();
+
+			//On planifie de libérer le token après BO_RELEASE_TIMER secondes
+//			TimerTask timerTask = new TimerTask(){
+//				@Override
+//				public void run() {
+//					System.out.println("relache avec le timer");
+//					releaseTokenBO(enterpriseSession);
+//				}
+//			};
+//			
+//			Timer t = new Timer();
+//			t.schedule(timerTask, Integer.valueOf(BO_RELEASE_TIMER));
+			TimerTaskBO timerTaskBO = new TimerTaskBO(enterpriseSession);
+			Timer t = new Timer();
+			t.schedule(timerTaskBO, Integer.valueOf(BO_RELEASE_TIMER));
+			
 		}
 		
         return tokenBO;
 		
 	}	
-	
-	
-	
-	private static String construitURL_OPEN_DOCUMENT () {
-		String serveur = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_SERVEUR");
-		if (serveur == null) {
-			throw new WrongValueException("Le paramètre BO_SERVEUR n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		String port = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_PORT");
-		if (port == null) {
-			throw new WrongValueException("Le paramètre BO_PORT n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		String protocol = Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_PROTOCOL");
-		if (protocol == null) {
-			throw new WrongValueException("Le paramètre BO_PROTOCOL n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		String urlOpenDocument= Executions.getCurrent().getDesktop().getWebApp().getInitParameter("BO_OPENDOCUMENT");
-		if (urlOpenDocument == null) {
-			throw new WrongValueException("Le paramètre BO_OPENDOCUMENT n'est pas défini dans le context.xml. Contacter l'administrateur.");
-		}
-		
-		String url = protocol+"://"+serveur+(port == null ? "" : ":"+port)+urlOpenDocument;
-		
-		return url;
-	}
-	
-	public static String URL_OPEN_DOCUMENT = construitURL_OPEN_DOCUMENT();
 	
 	
 	/**
@@ -396,8 +389,6 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	 */
 	public static String getURLRapportBO(String iDocID) {
 		
-		String url = URL_OPEN_DOCUMENT;
-		
 		String tokenBO;
 		try {
 			tokenBO = getTokenBO();
@@ -405,7 +396,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			throw new WrongValueException(e.getMessage());
 		}
 		
-		return Executions.encodeURL(url+"?iDocID="+iDocID+(tokenBO == null ? "" : "&token="+tokenBO));
+		return Executions.encodeURL(URL_OPEN_DOCUMENT+"?iDocID="+iDocID+(tokenBO == null ? "" : "&token="+tokenBO));
 		
 		
 	}

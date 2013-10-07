@@ -158,10 +158,5 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 		
 	}
 	
-	@Listen("onTimer =  #timer")
-	public void onTimer() {
-		RapportBO.releaseTokenBO();
-	}
-	
 	
 }

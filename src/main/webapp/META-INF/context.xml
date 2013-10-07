@@ -66,6 +66,7 @@
 	<Parameter description="BO Sec" name="BO_SEC" override="false" value="secLDAP" />
 	<Parameter description="BO port" name="BO_PORT" override="false" value="8080" />
 	<Parameter description="BO protocol" name="BO_PROTOCOL" override="false" value="http" />
+	<Parameter description="BO release timer" name="BO_RELEASE_TIMER" override="false" value="6000" />
 	<Parameter description="URL BO Open Document" name="BO_OPENDOCUMENT" override="false" value="/OpenDocument/opendoc/openDocument.jsp" />
 <!-- 	<Parameter description="Dossier BO de Mission SIALE" name="BO_FOLDER_ID" override="false" value="266159" /> -->
 	

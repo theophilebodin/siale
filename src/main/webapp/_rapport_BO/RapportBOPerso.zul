@@ -28,5 +28,5 @@
 </groupbox>
 
 	<iframe id="iframeBO" height="100%" width="100%"/>
-  	<timer id="timer" delay="4000" repeats="false"/>
+
 </window>
