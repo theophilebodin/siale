@@ -250,9 +250,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 	private class MenuNodeSelectListener implements EventListener<Event>{
 		public void onEvent(Event event) throws Exception {
 			
-			//on vire l'éventielle connexion à BO
-			RapportBO.releaseTokenBO();
-			
 			Component comp = event.getTarget();
 			
 			//on déselectionne toutes les autres listbox du menu
@@ -292,9 +289,6 @@ public class AccueilModel extends SelectorComposer<Component>{
 
 	@Listen("onClick = #logout")
 	public void onClick$logout() throws Exception {
-		
-		//logoff de l'éventuel BO
-		RapportBO.releaseTokenBO();
 		
 		Executions.getCurrent().getSession().setAttribute("logout", "true");
 		Executions.getCurrent().sendRedirect("/");

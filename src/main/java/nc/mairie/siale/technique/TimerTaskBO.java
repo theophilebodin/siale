@@ -17,8 +17,13 @@ class TimerTaskBO extends TimerTask {
 	
 	@Override
 	public void run() {
-		System.out.println("logoff depuis timerTask");
-		enterpriseSession.logoff();
+		try {
+			enterpriseSession.logoff();
+		} catch (Exception e) {
+			//Bon... bhen tant pis...
+		} finally {
+			enterpriseSession = null;
+		}
 	}
 	
 }

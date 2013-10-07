@@ -5,7 +5,6 @@ import java.util.Timer;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Messagebox;
 
@@ -51,24 +50,22 @@ public class RapportBO {
 
 	
 	public static IEnterpriseSession getEnterpriseSession() {
-		IEnterpriseSession enterpriseSession =	(IEnterpriseSession) Executions.getCurrent().getSession().getAttribute("enterpriseSession");
-		if (enterpriseSession == null) {
-		
-			ISessionMgr sm;
-			try {
-				sm = CrystalEnterprise.getSessionMgr();
-			} catch (SDKException e) {
-				throw new WrongValueException(e.getMessage());
-			}
-			String user = CurrentUser.getCurrentUser().getUsername();
-			String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-			
-			try {
-				enterpriseSession = sm.logon(user, password, BO_SERVEUR, BO_SEC);
-			} catch (Exception ex) {
-				throw new WrongValueException(ex.getMessage());
-			} 
+	
+		IEnterpriseSession enterpriseSession;
+		ISessionMgr sm;
+		try {
+			sm = CrystalEnterprise.getSessionMgr();
+		} catch (SDKException e) {
+			throw new WrongValueException(e.getMessage());
 		}
+		String user = CurrentUser.getCurrentUser().getUsername();
+		String password = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+		
+		try {
+			enterpriseSession = sm.logon(user, password, BO_SERVEUR, BO_SEC);
+		} catch (Exception ex) {
+			throw new WrongValueException(ex.getMessage());
+		} 
 		return enterpriseSession;
 	}
 	
@@ -307,35 +304,12 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	}
 	
 	/**
-	 * Release le tokenBO après avoir récupéré l'enterprise session (créé par getTokenBO) dans la session;
-	 */
-	public static void releaseTokenBO() {
-		IEnterpriseSession enterpriseSession =	(IEnterpriseSession) Executions.getCurrent().getSession().getAttribute("enterpriseSession");
-		
-		if (enterpriseSession != null) {
-			
-			try {
-				enterpriseSession.logoff();
-			} catch (Exception e) {
-				//rien à faire
-			} finally {
-				Executions.getCurrent().getSession().removeAttribute("enterpriseSession");
-			}
-		
-		}
-	}
-	
-	/**
 	 * Se connecte à BO et récupère le tokenBO
 	 * @return le tokenBO
 	 * @throws SDKException 
 	 */
 	private static String getTokenBO() throws SDKException {
 		
-		//on vire l'éventielle connexion à BO
-		releaseTokenBO();
-
-		Session session = Executions.getCurrent().getSession();
 		String tokenBO = null;
 	
 		ISessionMgr sm = CrystalEnterprise.getSessionMgr();
@@ -349,7 +323,6 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			logonTokenMgr = enterpriseSession.getLogonTokenMgr();
 
 			tokenBO = logonTokenMgr.createWCAToken("", 1, 1);
-			session.setAttribute("enterpriseSession", enterpriseSession);
 		} catch (SDKException ex) {
 			Messagebox.show(ex.getMessage(),"Erreur Business Object",Messagebox.OK,Messagebox.ERROR);
 			try {
@@ -362,16 +335,6 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			//enterpriseSession.logoff();
 
 			//On planifie de libérer le token après BO_RELEASE_TIMER secondes
-//			TimerTask timerTask = new TimerTask(){
-//				@Override
-//				public void run() {
-//					System.out.println("relache avec le timer");
-//					releaseTokenBO(enterpriseSession);
-//				}
-//			};
-//			
-//			Timer t = new Timer();
-//			t.schedule(timerTask, Integer.valueOf(BO_RELEASE_TIMER));
 			TimerTaskBO timerTaskBO = new TimerTaskBO(enterpriseSession);
 			Timer t = new Timer();
 			t.schedule(timerTaskBO, Integer.valueOf(BO_RELEASE_TIMER));

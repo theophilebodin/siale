@@ -137,9 +137,6 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	@Listen("onDoubleClick = #folderListItem;")
 	public void onDoubleClick$folderListItem() {
 		
-		//on vire l'éventuelle connexion à BO
-		RapportBO.releaseTokenBO();
-		
 		String idDossier = getFolderCourant().getName().equals("..") ? getFolderCourant().getParentId() :getFolderCourant().getId();
 		
 		setListFolderBO(initialiseListeDossierBO(idDossier));
