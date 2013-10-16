@@ -131,11 +131,16 @@ public class AccueilModel extends SelectorComposer<Component>{
 		menuModelMission.add(new MenuNode("Gestion","Gestion des missions","/_missions/GestionMissions.zul","/_accueil/mission.png"));
 		
 		//Recup des infos BO
-		ArrayList<ObjectBO> arrDocWebi = RapportBO.listeDocumentsWebI();
-		for (ObjectBO docWebi : arrDocWebi) {
-			Map<String,Object> args=new HashMap<String, Object>();
-			args.put("iDocID", docWebi.getId());
-			menuModelRapportBO.add(new MenuNode(docWebi.getName(),"Rapport BO - "+docWebi.getName(),"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
+		try {
+			ArrayList<ObjectBO> arrDocWebi = RapportBO.listeDocumentsWebI();
+			
+			for (ObjectBO docWebi : arrDocWebi) {
+				Map<String,Object> args=new HashMap<String, Object>();
+				args.put("iDocID", docWebi.getId());
+				menuModelRapportBO.add(new MenuNode(docWebi.getName(),"Rapport BO - "+docWebi.getName(),"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
+			}
+		} catch (Exception e) {
+			alert(e.getMessage());
 		}
 		
 		//Rajout rapport perso
