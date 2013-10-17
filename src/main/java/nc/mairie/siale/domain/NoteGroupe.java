@@ -58,7 +58,9 @@ public class NoteGroupe implements Cloneable, Serializable {
         NoteGroupe res = (NoteGroupe) super.clone();
         res.noteCriteres = new HashSet<NoteCritere>();
         for (NoteCritere noteCritere : this.getNoteCriteres()) {
-            res.getNoteCriteres().add(noteCritere.clone());
+        	NoteCritere nc = noteCritere.clone();
+        	nc.setNoteGroupe(res);
+            res.getNoteCriteres().add(nc);
         }
         return res;
     }
