@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.8</version>
     <name>missions-siale</name>
     <organization>
 		<name>Mairie de Nouméa</name>
