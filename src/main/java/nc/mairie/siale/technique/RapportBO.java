@@ -318,7 +318,6 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			}
 			
 		} catch (SDKException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			enterpriseSession.logoff();
