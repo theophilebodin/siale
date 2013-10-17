@@ -6,6 +6,9 @@
         <field:input field="nom" id="c_nc_mairie_siale_domain_Bareme_nom" required="true" z="03bgxi3UmsCt/UhLhkF1lD5ao0k="/>
         <field:datetime dateTimePattern="${bareme_datecreation_date_format}" field="dateCreation" id="c_nc_mairie_siale_domain_Bareme_dateCreation" required="true" z="oyHVq2+Sc2Gcck2c1WdfrYEN/0k="/>
         <field:simple field="noteGroupes" id="c_nc_mairie_siale_domain_Bareme_noteGroupes" messageCode="entity_reference_not_managed" messageCodeAttribute="Note Groupe" z="0a49WAMWuRlPr5Ch4wMjATd22Rc="/>
+        <field:input field="seuilFaible" id="c_nc_mairie_siale_domain_Bareme_seuilFaible" validationMessageCode="field_invalid_number" z="ia6RdQYEEM9igD76vqzQdC27Y3w="/>
+        <field:input field="seuilModere" id="c_nc_mairie_siale_domain_Bareme_seuilModere" validationMessageCode="field_invalid_number" z="X5+Q/tXEjiVN0sEQApne/5wp+OY="/>
+        <field:input field="seuilEleve" id="c_nc_mairie_siale_domain_Bareme_seuilEleve" validationMessageCode="field_invalid_number" z="R9+sCbdUEYgnNu2uuLtXR2h190E="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_nc_mairie_siale_domain_Bareme" render="${not empty dependencies}" z="dEdVSEPPEUAwvvbOTgoYLbCYRCY="/>
 </div>

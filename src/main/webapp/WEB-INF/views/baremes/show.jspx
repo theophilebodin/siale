@@ -5,5 +5,8 @@
     <page:show id="ps_nc_mairie_siale_domain_Bareme" object="${bareme}" path="/baremes" z="1u0NNgGQY/ZmtoPXwh2oYMAev3g=">
         <field:display field="nom" id="s_nc_mairie_siale_domain_Bareme_nom" object="${bareme}" z="4rJ6Xp1d5b6LuB0QIE9FCdznkPM="/>
         <field:display date="true" dateTimePattern="${bareme_datecreation_date_format}" field="dateCreation" id="s_nc_mairie_siale_domain_Bareme_dateCreation" object="${bareme}" z="9pkgF0PWKORyu09XxNM95hkwEc0="/>
+        <field:display field="seuilFaible" id="s_nc_mairie_siale_domain_Bareme_seuilFaible" object="${bareme}" z="IjO+/Sd7WWhYXACIIhOr/ZI6oB4="/>
+        <field:display field="seuilModere" id="s_nc_mairie_siale_domain_Bareme_seuilModere" object="${bareme}" z="7HfACpW1j1L3AnVHJNUyKBdR1Zg="/>
+        <field:display field="seuilEleve" id="s_nc_mairie_siale_domain_Bareme_seuilEleve" object="${bareme}" z="8bj0711vPgM5hV79QWGnzvAIAT8="/>
     </page:show>
 </div>

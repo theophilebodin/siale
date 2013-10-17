@@ -6,6 +6,9 @@
         <table:table data="${baremes}" id="l_nc_mairie_siale_domain_Bareme" path="/baremes" z="+/hGsQp/2r9iTfoh20T255GOoU8=">
             <table:column id="c_nc_mairie_siale_domain_Bareme_nom" property="nom" z="d5Iad4TJcsrQCT0y85VJKV2rqjc="/>
             <table:column date="true" dateTimePattern="${bareme_datecreation_date_format}" id="c_nc_mairie_siale_domain_Bareme_dateCreation" property="dateCreation" z="snYAokRwejZocDzqfdmCJ2PyHLM="/>
+            <table:column id="c_nc_mairie_siale_domain_Bareme_seuilFaible" property="seuilFaible" z="Z7XiLgYlM2Dys8XEygSdh23+bZQ="/>
+            <table:column id="c_nc_mairie_siale_domain_Bareme_seuilModere" property="seuilModere" z="ZBFH8by1Xynv5yWRGn8+H5WrLp0="/>
+            <table:column id="c_nc_mairie_siale_domain_Bareme_seuilEleve" property="seuilEleve" z="YYldvvzrVDHo0MFASYz3uc3jwP8="/>
         </table:table>
     </page:list>
 </div>
