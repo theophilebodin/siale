@@ -28,7 +28,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Bareme, String> ApplicationConversionServiceFactoryBean.getBaremeToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<nc.mairie.siale.domain.Bareme, java.lang.String>() {
             public String convert(Bareme bareme) {
-                return new StringBuilder().append(bareme.getNom()).append(' ').append(bareme.getDateCreation()).toString();
+                return new StringBuilder().append(bareme.getNom()).append(' ').append(bareme.getDateCreation()).append(' ').append(bareme.getSeuilFaible()).append(' ').append(bareme.getSeuilModere()).toString();
             }
         };
     }

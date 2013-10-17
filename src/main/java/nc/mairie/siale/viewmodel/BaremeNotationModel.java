@@ -283,6 +283,16 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 		//On vérifie l'arborescence des zones de saisie
 		ControleSaisie controleSaisie = new ControleSaisie();
 		
+		//conrtrôle des seuils saisis
+		if (getBaremeCourant().getSeuilFaible() >= getBaremeCourant().getSeuilModere()) {
+			controleSaisie.ajouteErreur(zoneSaisieBareme.getFellow("seuilFaible"), 
+					"Le seuil faible doit être inférieur au seuil modéré");
+		}
+		if (getBaremeCourant().getSeuilModere() >= getBaremeCourant().getSeuilEleve()) {
+			controleSaisie.ajouteErreur(zoneSaisieBareme.getFellow("seuilModere"), 
+					"Le seuil modere doit être inférieur au seuil élevé");
+		}
+		
 		//La somme des pondérations doit être égale à 1 sinon erreur
 		double total=getBaremeCourant().getSommePonderationArrondie();
 		if (total != 1) {
@@ -530,6 +540,15 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 	 */
 	public boolean getBaremeEditable() {
 		return baremeEditable;
+	}
+	
+	public boolean getSaisieDisabled() {
+		return ! getBaremeEditable();
+	}
+	
+	public boolean isCritereSaisieDisabled() {
+		return actionBareme == Action.CONSULTATION || actionNoteCritere == Action.SUPPRESSION;
+		
 	}
 	
 }

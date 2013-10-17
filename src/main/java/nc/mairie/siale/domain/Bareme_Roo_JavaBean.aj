@@ -34,4 +34,28 @@ privileged aspect Bareme_Roo_JavaBean {
         this.noteGroupes = noteGroupes;
     }
     
+    public Double Bareme.getSeuilFaible() {
+        return this.seuilFaible;
+    }
+    
+    public void Bareme.setSeuilFaible(Double seuilFaible) {
+        this.seuilFaible = seuilFaible;
+    }
+    
+    public Double Bareme.getSeuilModere() {
+        return this.seuilModere;
+    }
+    
+    public void Bareme.setSeuilModere(Double seuilModere) {
+        this.seuilModere = seuilModere;
+    }
+    
+    public Double Bareme.getSeuilEleve() {
+        return this.seuilEleve;
+    }
+    
+    public void Bareme.setSeuilEleve(Double seuilEleve) {
+        this.seuilEleve = seuilEleve;
+    }
+    
 }

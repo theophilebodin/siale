@@ -1,7 +1,5 @@
 package nc.mairie.siale.technique;
 
-import org.zkoss.zk.ui.Executions;
-
 import nc.mairie.siale.domain.Droit;
 
 public class Constantes {
@@ -19,5 +17,12 @@ public class Constantes {
 	final static public int PARAM_MOIS_VISU=6;
 	
 	final static public String PARAM_BANNIERE_COULEUR = "#4CCAEB";
+	
+	final static public double BAREME_SEUIL_FAIBLE = 1.51;
+	
+	final static public double BAREME_SEUIL_MODERE = 2.51;
+	
+	final static public double BAREME_SEUIL_ELEVE = 3.51;
+	
 
 }

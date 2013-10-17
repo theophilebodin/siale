@@ -22,6 +22,7 @@
 						<label value="Nom :" />
 						<textbox
 							id="noteGroupeNom"
+							disabled="@{baremeNotation.saisieDisabled}"
 							value="@{baremeNotation.noteGroupeCourant.nom, save-when='validerNoteGroupe.onClick'}" 
 							constraint="no empty"/>
 					</row>
@@ -29,6 +30,7 @@
 						<label value="Pondération :" />
 						<doublespinner step="0.1" 
 							format="0.##" locale="en"
+							disabled="@{baremeNotation.saisieDisabled}"
 							value="@{baremeNotation.noteGroupeCourant.ponderation, save-when='validerNoteGroupe.onClick' }" 
 							constraint="no negative, no empty, min 0.01 max 1.0:doit être compris entre 0,01 et 1,0"/>						
 <!-- 						<doublebox -->

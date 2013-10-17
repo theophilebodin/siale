@@ -19,6 +19,12 @@
 								sortDirection="descending" sort="auto(dateCreation)" />
 							<listheader label="Nom"
 								sortDirection="ascending" sort="auto(nom)" />
+							<listheader label="Seuil Faible"
+								sortDirection="ascending" sort="auto(seuilFaible)" />
+							<listheader label="Seuil Modéré"
+								sortDirection="ascending" sort="auto(seuilModere)" />
+							<listheader label="Seuil Elevé"
+								sortDirection="ascending" sort="auto(seuilEleve)" />
 							<listheader width="64px">
 								<image id="ajouterBareme"
 									src="/_images/add_24x24.png" tooltiptext="Ajouter" />
@@ -27,6 +33,9 @@
 						<listitem id="baremeListItem" self="@{each=bareme}">
 							<listcell label="@{bareme.dateCreation}" />
 							<listcell label="@{bareme.nom}" />
+							<listcell label="@{bareme.seuilFaible}" />
+							<listcell label="@{bareme.seuilModere}" />
+							<listcell label="@{bareme.seuilEleve}" />
 							<listcell>
 								<image id="modifierBareme"
 									src="/_images/update_24x24.png" tooltiptext="Modifier" />

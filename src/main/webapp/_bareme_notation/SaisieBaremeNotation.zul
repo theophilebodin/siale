@@ -18,12 +18,37 @@
 		<rows>
 			<row>	
 				<label value="Nom :"/>
-				<textbox value="@{baremeNotation.baremeCourant.nom }"/>
+				<textbox value="@{baremeNotation.baremeCourant.nom }" disabled="@{baremeNotation.saisieDisabled}"/>
 			</row>
 			<row>	
-				<label value="Date de création :'"/>
+				<label value="Date de création :"/>
 				<label value="@{baremeNotation.baremeCourant.dateCreation }"/>
 			</row>
+			<row>	
+				<label value="Seuil Faible :"/>
+				<doublespinner id="seuilFaible" 
+					format="0.##" locale="en" step = "0.01" 
+					value="@{baremeNotation.baremeCourant.seuilFaible}"
+					disabled="@{baremeNotation.saisieDisabled}"
+					constraint="no empty, min 0, max 4"/>
+			</row>
+			<row>	
+				<label value="Seuil Modere :"/>
+				<doublespinner  id="seuilModere" 
+					format="0.##" locale="en" step = "0.01" 
+					value="@{baremeNotation.baremeCourant.seuilModere}" 
+					disabled="@{baremeNotation.saisieDisabled}"
+					constraint="no empty, min 0, max 4"/>
+			</row>
+			<row>	
+				<label value="Seuil Elevé :"/>
+				<doublespinner  id="seuilEleve" 
+					format="0.##" locale="en" step = "0.01" 
+					value="@{baremeNotation.baremeCourant.seuilEleve}" 
+					disabled="@{baremeNotation.saisieDisabled}"
+					constraint="no empty, min 0, max 4"/>
+			</row>
+			
 		</rows>
 	</grid>
 			
@@ -31,7 +56,7 @@
 <label value="Tant que vous n'avez pas Validé, vos modifications ne seront pas prises en compte" visible="@{baremeNotation.saisieNonSauvergardee }" style="color:red;"/>
 
 			<listbox id="noteGroupeListBox"
-				rows="8" mold="paging" pageSize="8"
+				rows="6" mold="paging" pageSize="6"
 				model="@{baremeNotation.listeNoteGroupe}"
 				selectedItem="@{baremeNotation.noteGroupeCourant}">
 

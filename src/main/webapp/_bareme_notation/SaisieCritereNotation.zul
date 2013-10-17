@@ -19,7 +19,7 @@
 						<textbox
 							id="noteCritereNom"
 							value="@{baremeNotation.noteCritereCourant.nom, save-when='validerNoteCritere.onClick'}" 
-							disabled="@{baremeNotation.actionNoteCritere.suppression}"
+							disabled="@{baremeNotation.critereSaisieDisabled}"
 							constraint="no empty"/>
 					</row>
 					<row>
@@ -27,7 +27,7 @@
 						<doublespinner step="0.1" 
 							format="0.##" locale="en"
 							value="@{baremeNotation.noteCritereCourant.ponderation, save-when='validerNoteCritere.onClick' }" 
-							disabled="@{baremeNotation.actionNoteCritere.suppression}"
+							disabled="@{baremeNotation.critereSaisieDisabled}"
 							constraint="no negative, no empty, min 0.01 max 1.0:doit être compris entre 0,01 et 1,0"/>
 <!-- 						<doublebox -->
 <!-- 							value="@{baremeNotation.noteCritereCourant.ponderation, save-when='validerNoteCritere.onClick' }"  -->
