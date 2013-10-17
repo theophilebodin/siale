@@ -179,24 +179,93 @@ public class BaremeNotationModel extends SelectorComposer<Component> implements 
 
 		if (listeBareme.size() == 0) {
 			//On rajoute un nouveau bareme
-			onClick$ajouterBareme();
+			prepareAjouterBareme(false);
 		}
 
 		
 	}
 	
-	@Listen("onClick = #ajouterBareme")
-	public void onClick$ajouterBareme () {
-		
+	public void prepareAjouterBareme(boolean clone) throws Exception{
 		actionBareme=Action.AJOUT;
 		
 		Bareme bareme = new Bareme();
-		bareme.setNom("Nouveau Bareme");
+		
+		if (clone) {
+			Bareme lastBareme = null;
+        	//recherche du plus récent bareme
+        	for (Bareme b : listeBareme) {
+				if (lastBareme == null || b.getDateCreation().compareTo(lastBareme.getDateCreation()) > 0) {
+					lastBareme = b;
+				}
+			}
+        	
+        	bareme.setNom("Bareme cloné de "+lastBareme.getNom());
+        	bareme.setSeuilFaible(lastBareme.getSeuilFaible().doubleValue());
+        	bareme.setSeuilModere(lastBareme.getSeuilModere().doubleValue());
+        	bareme.setSeuilEleve(lastBareme.getSeuilEleve().doubleValue());
+        	
+        	//parcours des notesgroupes
+        	for (NoteGroupe noteGroupe : lastBareme.getNoteGroupes()) {
+        		NoteGroupe newNoteGroupe = new NoteGroupe();
+        		newNoteGroupe.setBareme(bareme);
+				newNoteGroupe.setNom(noteGroupe.getNom());
+				newNoteGroupe.setPonderation(noteGroupe.getPonderation());
+				
+				//parcours des criteres
+				for (NoteCritere noteCritere : noteGroupe.getNoteCriteres()) {
+					NoteCritere newNoteCritere = new NoteCritere();
+					newNoteCritere.setNoteGroupe(newNoteGroupe);
+					newNoteCritere.setNom(noteCritere.getNom());
+					newNoteCritere.setPonderation(noteCritere.getPonderation());
+					newNoteGroupe.getNoteCriteres().add(newNoteCritere);
+				}
+				
+				bareme.getNoteGroupes().add(newNoteGroupe);
+				
+			}
+		} else {
+			bareme.setNom("Nouveau Bareme");
+		}
 		bareme.setDateCreation(new Date());
 		setSaisieNonSauvergardee(true);
 		setBaremeCourant(bareme);
 		listeBareme.add(bareme);
 		binder.loadAll();
+	}
+	
+	
+	@Listen("onClick = #ajouterBareme")
+	public void onClick$ajouterBareme () throws Exception {
+		
+		//Si liste des barèmes non vide, on propose de 
+		if (listeBareme.size() != 0) {
+			Messagebox.show("Voulez-vous cloner le précédent barème ?",
+				    "Question", Messagebox.YES | Messagebox.NO,
+				    Messagebox.QUESTION,
+				        new EventListener<Event>() {
+							
+							@Override
+							public void onEvent(Event e) throws Exception {
+				                if(Messagebox.ON_YES.equals(e.getName())){
+				                	//OK est sélectionné donc on clone le dernier bareme
+				                	prepareAjouterBareme(true);		
+				                	return;
+				                   
+				                }else if(Messagebox.ON_NO.equals(e.getName())){
+				                    //Non is clicked
+				                	//On prépare un barème vide
+				                	prepareAjouterBareme(false);
+				                	return;
+				                }
+				            }
+
+					
+				        }
+				    );
+		} else {
+			prepareAjouterBareme(false);
+		}
+		
 	}
 	
 	@Listen("onClick = #modifierBareme; onDoubleClick = #baremeListItem")
