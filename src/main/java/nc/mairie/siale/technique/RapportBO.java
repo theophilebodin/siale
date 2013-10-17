@@ -207,7 +207,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	
 	public static ArrayList<ObjectBO> listeFolderBO (String idDossier) {
 		
-		ArrayList<ObjectBO> res = new ArrayList<>();
+		ArrayList<ObjectBO> res = new ArrayList<ObjectBO>();
 		
 		IEnterpriseSession enterpriseSession =	getEnterpriseSession();
 		
