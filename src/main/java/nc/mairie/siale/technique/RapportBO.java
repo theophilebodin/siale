@@ -124,7 +124,7 @@ public class RapportBO {
 	
 public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier) {
 		
-		ArrayList<ObjectBO> res = new ArrayList<>();
+		ArrayList<ObjectBO> res = new ArrayList<ObjectBO>();
 		
 		IEnterpriseSession enterpriseSession =	getEnterpriseSession();
 		
@@ -350,7 +350,9 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		} catch (SDKException ex) {
 			Messagebox.show(ex.getMessage(),"Erreur Business Object",Messagebox.OK,Messagebox.ERROR);
 			try {
-				enterpriseSession.logoff();
+				if (enterpriseSession != null) {
+					enterpriseSession.logoff();
+				}
 			} catch (Exception e) {
 				// tant pis...
 			}

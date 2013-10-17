@@ -41,10 +41,6 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 	 */
 	private static final long serialVersionUID = 6002244966600701488L;
 	
-	Listbox paramlb;
-	Textbox paramtb;
-	Checkbox paramActicCheckBox;
-	
 	AnnotateDataBinder binder;
 	
 	List<TypeParam> listeTypeParam;
