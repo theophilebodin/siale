@@ -871,7 +871,7 @@
 		<site>
 			<id>missions-SIALE.website</id>
 			<name>Missions SIALE Website</name>
-			<url>file:\\cristal\dsi$\DSI\PROJETS\1 - EN COURS\2 - Métiers\Mission SIALE\Documentation_Agile\</url>
+			<url>file:\\cristal\DSI$\DSI\PROJETS\doxia\${project.name}</url>
 		</site>
 	</distributionManagement>
     
