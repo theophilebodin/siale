@@ -39,6 +39,9 @@ if (Executions.getCurrent().getSession().getAttribute("logout") != null ) {
 		if (CurrentUser.getCurrentUser() == null) {
 			msgNonHabilite = "Utilisateur non habilité. Veuillez contacter l'administrateur SIALE.";
 		} else {
+			//DEB LUC: très important pour que ça fonctionne avec ZK 7.0.0
+			Executions.getCurrent().setAttribute(org.zkoss.zk.ui.impl.Attributes.PAGE_CREATED, false);
+			//FIN LUC: très important pour que ça fonctionne avec ZK 7.0.0
 			Executions.forward("/_accueil/Accueil.zul");
 		}
 	}
