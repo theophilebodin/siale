@@ -341,7 +341,7 @@ public class SaisirNotationModel extends SelectorComposer<Component> {
 		
 	
 	public RisqueEtablissement calculNiveauEtablissement() {
-		if (getMissionCourant().getSuiteDonnee().getNom().equals("FERMETURE")) {
+		if (getMissionCourant().getSuiteDonnee().getNom().toUpperCase().startsWith("FERM")) {
 			niveauEtablissementCalcule = RisqueEtablissement.MAJEUR;
 		}
 		else if (noteGlobaleCalculee < getBaremeCourant().getSeuilFaible()) niveauEtablissementCalcule = RisqueEtablissement.FAIBLE;
