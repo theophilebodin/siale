@@ -114,7 +114,7 @@
 							<div>
 							<spinner id="noteSpinner" 
 							value="@{notation.note}"
-							width="35px" 
+							width="45px" 
 							constraint="min 0 max 4 : la notre doit être comprise entre 0 (non pris en compte) et 4"
 							disabled="@{saisirNotation.validerDisabled }"/>
 								/ 4
