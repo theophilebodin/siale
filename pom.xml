@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <name>missions-siale</name>
     <organization>
 		<name>Mairie de Nouméa</name>
@@ -527,8 +527,12 @@
 		              <filtering>false</filtering>
 		            </resource>
 		          </webResources>
+		          <nonFilteredFileExtensions>
+			            <nonFilteredFileExtension>ico</nonFilteredFileExtension>
+			            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+			            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+				  </nonFilteredFileExtensions>
 		        </configuration>
-                <!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
             </plugin>
             
             
@@ -716,14 +720,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <nonFilteredFileExtensions>
-			            <nonFilteredFileExtension>ico</nonFilteredFileExtension>
-			            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-			            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
