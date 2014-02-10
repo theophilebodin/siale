@@ -1,0 +1,26 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<separator/>
+<separator/>
+<hbox>
+<a href="http://tracker.zkoss.org/browse/ZK-2162">tracker ZK que j'ai créé</a>
+</hbox>
+<separator/>
+<separator/>
+
+<button id="test1" label="With autodisabled" upload="true" autodisable="self">
+	<attribute name="onUpload">
+		<![CDATA[
+		    Messagebox.show("onupload With autodisabled");
+		]]>
+	</attribute>
+</button>
+<button id="test2" label="WITHOUT autodisabled" upload="true">
+	<attribute name="onUpload">
+		<![CDATA[
+			Messagebox.show("onupload WITHOUT autodisabled");
+		]]>
+	</attribute>
+</button>
+</zk>

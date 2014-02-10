@@ -23,7 +23,7 @@
 
 
 <div align="center">
-<button id="uploadBtn" label="Fichier" upload="true" autodisable="self"/>
+<button id="uploadBtn" label="Fichier" upload="true"/>
 <button label="Annuler" id="annulerUpload"/>
 </div>
  
