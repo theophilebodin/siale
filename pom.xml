@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.3.2</version>
+    <version>1.3.3-SNAPSHOT</version>
     <name>missions-siale</name>
     <organization>
 		<name>Mairie de Nouméa</name>
@@ -22,19 +22,17 @@
 	</developers>
     <url>http://missions-siale</url>
     <properties>
-		<aspectj.version>1.7.4</aspectj.version>
+		<aspectj.version>1.8.1</aspectj.version>
         <java.version>7</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <roo.version>1.2.4.RELEASE</roo.version>
-        <slf4j.version>1.7.5</slf4j.version>
-        <spring.version>4.0.0.RELEASE</spring.version>
-<!--         <artifactId>${project.artifactId}</artifactId> -->
-<!-- 		<version>${project.version}</version> -->
+        <roo.version>1.2.5.RELEASE</roo.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <spring.version>4.0.6.RELEASE</spring.version>
     	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
-    	<zk.version>7.0.0</zk.version>
+    	<zk.version>7.0.2</zk.version>
     	<svnurl>https://svn.ville-noumea.nc/sed/siale</svnurl>
     	<monbasedir>${basedir}</monbasedir>
-    	<spring-security.version>3.2.0.RELEASE</spring-security.version>
+    	<spring-security.version>3.2.4.RELEASE</spring-security.version>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -172,12 +170,12 @@
         <dependency>
             <groupId>net.sf.flexjson</groupId>
             <artifactId>flexjson</artifactId>
-            <version>3.1</version>
+            <version>3.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.2</version>
+            <version>3.3.2</version>
         </dependency>
         <!-- ROO dependencies -->
         <dependency>
@@ -222,12 +220,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.0.Final</version>
+            <version>4.3.5.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.0.Final</version>
+            <version>4.3.5.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
@@ -252,7 +250,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.0.2.Final</version>
+            <version>5.1.1.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
@@ -317,7 +315,7 @@
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-js-resources</artifactId>
-            <version>2.3.2.RELEASE</version>
+            <version>2.4.0.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>commons-digester</groupId>
@@ -333,7 +331,7 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3</version>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
@@ -370,7 +368,7 @@
     <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
     <dependency>
             <groupId>org.zkoss.zk</groupId>
@@ -514,7 +512,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
                 <!-- Luc Plugin pour remplacer les ${xxx} dans les fichiers -->
                 <configuration>
 		          <webResources>
@@ -692,15 +690,15 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-<!-- 								<copy todir="src/site/resources/war/${project.version}"  -->
+<!-- 								<copy todir="src/site/resources/${project.packaging}/${project.version}"  -->
 <!-- 									file="target/${project.artifactId}##${project.version}.war"> -->
-								<copy file="${project.build.directory}/${project.build.finalName}.${project.packaging}" tofile="src/site/resources/war/${project.version}/${project.artifactId}##${project.version}.${project.packaging}">
+								<copy file="${project.build.directory}/${project.build.finalName}.${project.packaging}" tofile="src/site/resources/${project.packaging}/${project.version}/${project.artifactId}##${project.version}.${project.packaging}">
 								</copy>
 								<copy file="${project.build.directory}/${project.build.finalName}.${project.packaging}" tofile="${project.build.directory}/${project.artifactId}##${project.version}.${project.packaging}">
 								</copy>
 								<delete file="${project.build.directory}/${project.build.finalName}.${project.packaging}"/>
 								<checksum algorithm="md5">
-									<fileset dir="src/site/resources/war/${project.version}">
+									<fileset dir="src/site/resources/${project.packaging}/${project.version}">
 										<include name="*.war"/>
 										<include name="*.jar"/>
 									</fileset>
