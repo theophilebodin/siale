@@ -59,6 +59,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class GestionMissionsModel extends SelectorComposer<Component> {
 
 	/**

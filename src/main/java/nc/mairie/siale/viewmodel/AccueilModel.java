@@ -31,6 +31,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 import org.zkoss.zul.Window;
 
+@SuppressWarnings("deprecation")
 public class AccueilModel extends SelectorComposer<Component>{
 	
 	/**

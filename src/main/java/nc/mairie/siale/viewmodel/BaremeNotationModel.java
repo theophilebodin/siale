@@ -31,6 +31,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class BaremeNotationModel extends SelectorComposer<Component> implements Serializable{
 
 	private static final long serialVersionUID = -9112439256492985008L;

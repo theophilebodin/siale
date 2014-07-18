@@ -13,7 +13,6 @@ import jxl.LabelCell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-
 import nc.mairie.siale.domain.Etablissement;
 import nc.mairie.siale.technique.Action;
 
@@ -38,6 +37,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class ImportVISHAModel extends SelectorComposer<Component> {
 
 

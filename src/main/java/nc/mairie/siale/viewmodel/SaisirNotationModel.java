@@ -21,7 +21,6 @@ import nc.mairie.siale.domain.Mission;
 import nc.mairie.siale.domain.Notation;
 import nc.mairie.siale.domain.NoteCritere;
 import nc.mairie.siale.domain.NoteGroupe;
-
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.Nombre;
@@ -42,6 +41,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class SaisirNotationModel extends SelectorComposer<Component> {
 
 	/**

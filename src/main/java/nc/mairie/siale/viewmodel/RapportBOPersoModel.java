@@ -7,11 +7,11 @@ package nc.mairie.siale.viewmodel;
 import java.util.ArrayList;
 
 
+
 import nc.mairie.siale.technique.RapportBO;
 import nc.mairie.siale.technique.RapportBO.ObjectBO;
 
 import org.zkoss.zk.ui.Component;
-
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -25,6 +25,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class RapportBOPersoModel extends SelectorComposer<Component> {
 
 

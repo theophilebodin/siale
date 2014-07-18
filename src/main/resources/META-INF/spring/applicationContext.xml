@@ -90,12 +90,18 @@
         <property name="rolePrefix" value=""/>
     </bean>
     <bean class="org.springframework.security.access.vote.AffirmativeBased" id="accessDecisionManager">
-        <property name="decisionVoters">
-            <list>
+    	<constructor-arg>
+    	    <list>
                 <ref bean="roleVoter"/>
                 <ref bean="authenticatedVoter"/>
             </list>
-        </property>
+    	</constructor-arg>
+<!--         <property name="decisionVoters"> -->
+<!--             <list> -->
+<!--                 <ref bean="roleVoter"/> -->
+<!--                 <ref bean="authenticatedVoter"/> -->
+<!--             </list> -->
+<!--         </property> -->
     </bean>
     <security:global-method-security access-decision-manager-ref="accessDecisionManager"/>
     <!--  Luc fin voter prefix -->

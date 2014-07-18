@@ -4,14 +4,12 @@
 package nc.mairie.siale.viewmodel;
 
 import nc.mairie.siale.domain.ParametreControleurSiale;
-
 import nc.mairie.siale.technique.Constantes;
 import nc.mairie.siale.technique.ControleSaisie;
 import nc.mairie.siale.technique.CurrentUser;
 import nc.mairie.siale.technique.GradientBanniere;
 
 import org.zkoss.zk.ui.Component;
-
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -24,6 +22,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class MesParametresModel extends SelectorComposer<Component> {
 
 

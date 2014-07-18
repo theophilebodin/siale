@@ -35,6 +35,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class SaisirMissionsModel extends SelectorComposer<Component> {
 
 	private static final long serialVersionUID = -9220239729082886020L;

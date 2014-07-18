@@ -4,6 +4,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zkplus.databind.TypeConverter;
 import org.zkoss.zul.Listcell;
 
+@SuppressWarnings("deprecation")
 public class BooleanTypeConverter implements TypeConverter{
 
 	@Override

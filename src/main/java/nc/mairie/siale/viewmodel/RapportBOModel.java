@@ -9,7 +9,6 @@ import nc.mairie.siale.technique.RapportBO;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.WrongValueException;
-
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 
@@ -17,6 +16,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class RapportBOModel extends SelectorComposer<Component> {
 
 

@@ -18,6 +18,7 @@ import org.zkoss.zul.Window;
  * @author boulu72
  *
  */
+@SuppressWarnings("deprecation")
 public class TestModel extends SelectorComposer<Component> {
 
 	/**
