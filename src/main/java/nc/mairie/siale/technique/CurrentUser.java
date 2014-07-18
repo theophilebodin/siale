@@ -105,7 +105,8 @@ public class CurrentUser implements UserDetailsContextMapper,	Serializable {
 			String username;
 			if (principal instanceof UserDetails) {
 			  username = ((UserDetails)principal).getUsername();
-//			  System.out.print(username+"/"+((UserDetails)principal).getPassword()+"/");
+			  //username password
+//			  System.out.print(username+"/"+SecurityContextHolder.getContext().getAuthentication().getCredentials().toString()+"/");
 //			  for (GrantedAuthority grantedAuthority : ((UserDetails)principal).getAuthorities()) {
 //				System.out.print(grantedAuthority.getAuthority()+"-");
 //			  }

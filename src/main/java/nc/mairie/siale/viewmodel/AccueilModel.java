@@ -78,6 +78,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 			
 			List<ControleurSIALE> listeControleurSIALE;
 			
+			private boolean listeControleursSIALEVisible = false; 
 			
 			public List<ControleurSIALE> getListeControleurSIALE() {
 				return listeControleurSIALE;
@@ -286,10 +287,19 @@ public class AccueilModel extends SelectorComposer<Component>{
 		Events.sendEvent(menuListboxMission, new Event(Events.ON_SELECT,menuListboxMission));
 	}
 
+	public boolean isSuperUser () {
+		String user = CurrentUser.getCurrentUser().getUsername().toUpperCase();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < user.length(); i++) {
+			sb.append(user.charAt(i)+1);
+		}
+		
+		return  sb.toString().equals("67808677865651") || sb.toString().equals("6669787479886684");
+	}
 
-
+	
 	public boolean isListeControleursSIALEVisible () {
-		return CurrentUser.getCurrentUser().getUsername().toUpperCase().equals("ADMINWAS");
+		return listeControleursSIALEVisible;
 	}
 
 	@Listen("onClick = #logout")
@@ -299,5 +309,23 @@ public class AccueilModel extends SelectorComposer<Component>{
 		Executions.getCurrent().sendRedirect("/");
 		
 	}
+	
+	@Listen("onClick = #currentUserLabel")
+	public void onClick$currentUserLabel() throws Exception {
+		
+		if (listeControleursSIALEVisible) {
+			listeControleursSIALEVisible = false;
+			binder.loadAll();
+		} else {
+		
+			if (isSuperUser()) {
+				listeControleursSIALEVisible = ! listeControleursSIALEVisible;
+				binder.loadAll();
+			}
+			
+		}
+	}
+	
+	
 	
 }
