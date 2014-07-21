@@ -51,6 +51,10 @@ public LDAP() {
 /**
  * Methode controlerHabilitation qui retourne
  * true ou false
+ * @param cles List des attributs que l'on veut récumérer ex: name, dn, ....
+ * @param critere critere de recherche dans l'AD (ex: samaccountname)
+ * @param userName userName
+ * @return Arraylist en clé le nom de l'attribut, en valeur l'objet correspondant 
  */
 public static  ArrayList<Hashtable<String, Object>> chercherUserLDAPAttributs(List<String> cles, String critere, String userName)  {
 	return chercherUserLDAPAttributs(getHashParametres(), cles, critere, userName);
@@ -58,8 +62,11 @@ public static  ArrayList<Hashtable<String, Object>> chercherUserLDAPAttributs(Li
 
 
 /**
- * Methode controlerHabilitation qui retourne
- * true ou false
+ * @param parametres parametres
+@param cles List des attributs que l'on veut récumérer ex: name, dn, ....
+ * @param critere critere de recherche dans l'AD (ex: samaccountname)
+ * @param userName userName
+ * @return Arraylist en clé le nom de l'attribut, en valeur l'objet correspondant
  */
 public static ArrayList<Hashtable<String, Object>> chercherUserLDAPAttributs(Hashtable<String, String> parametres, List<String> cles, String critere, String userName)  {
 	
@@ -180,6 +187,9 @@ public static ArrayList<Hashtable<String, Object>> chercherUserLDAPAttributs(Has
 /**
  * Methode controlerHabilitation qui retourne
  * true ou false
+ * @param userName userName
+ * @param userPassword userPassword
+ * @return boolean 
  */
 public static  boolean controlerHabilitation(String userName, String userPassword)  {
 	return controlerHabilitation(getHashParametres(), userName, userPassword);
@@ -187,6 +197,10 @@ public static  boolean controlerHabilitation(String userName, String userPasswor
 /**
  * Methode controlerHabilitation qui retourne
  * true ou false
+ * @param parametres parametres de contexte
+ * @param userName userName
+ * @param userPassword userPassword
+ * @return boolean 
  */
 public static  boolean controlerHabilitation(Hashtable<String, String> parametres, String userName, String userPassword)  {
 

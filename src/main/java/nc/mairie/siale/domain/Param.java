@@ -38,7 +38,7 @@ public class Param implements Cloneable, Serializable{
 
     /**
      * Pas possible à coder avec les finders de base
-     * @param nom
+     * @param nom nom
      * @return un TypedQuery de Param
      */
     public static TypedQuery<Param> findParamsActifsByNomDuTypeParam(String nom) {

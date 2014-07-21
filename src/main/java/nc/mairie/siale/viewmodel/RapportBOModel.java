@@ -31,6 +31,7 @@ public class RapportBOModel extends SelectorComposer<Component> {
 	/**
 	 * 
 	 * @return Url du rapport BO pour la Iframe
+	 * @throws Exception Exception
 	 */
 	public String getURLRapportBO() throws Exception {
 		

@@ -52,9 +52,9 @@ public class MemoriseTriListbox {
 	 * Appelé avec en paramètre le component Window associé ainsi que le Sort Event
 	 * Le tri encours est mémorisé dans la session.
 	 * 
-	 * @param window
-	 * @param event
-	 * @throws Exception
+	 * @param window window
+	 * @param event event
+	 * @throws Exception Exception
 	 */
 	
 	public static void memoriseTri(Window window, SortEvent event) throws Exception {
@@ -94,7 +94,7 @@ public class MemoriseTriListbox {
 	/**
 	 * Récupère dans la session tous les tris mémorisés pour le Component window passé en paramètre et applique les tris
 	 * 
-	 * @param window
+	 * @param window window
 	 */
 	public static void recupereTri(Window window) {
 		

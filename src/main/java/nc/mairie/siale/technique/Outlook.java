@@ -47,13 +47,14 @@ public class Outlook {
 	
 	/**
 	 * 
-	 * @param subject
-	 * @param messageMail
+	 * @param subject subject
+	 * @param messageMail messageMail
 	 * @param destinataires hashtable avec en clé le nom d'usage et en valeur l'@ mail
-	 * @param datePrevue
-	 * @param duree
-	 * @param lieu
-	 * @param filename
+	 * @param datePrevue datePrevue
+	 * @param duree duree
+	 * @param lieu lieu
+	 * @param filename filename
+	 * @throws Exception Exception
 	 */
 	public static void sendCalendar(String subject, 
 									String messageMail, 

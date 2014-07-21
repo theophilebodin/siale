@@ -35,7 +35,7 @@ public class RapportBO {
 
 	/**
 	 * 
-	 * @param param
+	 * @param param param
 	 * @return la valeur du paramètre dans le context.xml
 	 */
 	public static String litParametre(String param) {
@@ -329,7 +329,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	/**
 	 * Se connecte à BO et récupère le tokenBO
 	 * @return le tokenBO
-	 * @throws SDKException 
+	 * @throws SDKException SDKException
 	 */
 	private static String getTokenBO() throws SDKException {
 		
@@ -372,6 +372,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 	
 	/**
 	 * 
+	 * @param iDocID iDocID
 	 * @return Url du rapport BO pour la Iframe en récupérant le dossier dans le contexte
 	 */
 	public static String getURLRapportBO(String iDocID) {

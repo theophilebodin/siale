@@ -7,6 +7,7 @@ public class GradientBanniere {
 	
 	/**
 	 * 
+	 * @param color color en hexadecimal
 	 * @return un style CSS gradient
 	 */
 	public static String getStyleCSS (String color) {
