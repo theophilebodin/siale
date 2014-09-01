@@ -48,6 +48,8 @@
 	
 </groupbox>
 
+<groupbox height="100%">
 	<iframe id="iframeBO" height="100%" width="100%"/>
+</groupbox>
 
 </window>
