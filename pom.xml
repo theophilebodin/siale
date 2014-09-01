@@ -22,7 +22,7 @@
 	</developers>
     <url>http://missions-siale</url>
     <properties>
-		<aspectj.version>1.8.1</aspectj.version>
+		<aspectj.version>1.8.2</aspectj.version>
         <java.version>7</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <roo.version>1.2.5.RELEASE</roo.version>
@@ -32,7 +32,7 @@
     	<zk.version>7.0.2</zk.version>
     	<svnurl>https://svn.ville-noumea.nc/sed/siale</svnurl>
     	<monbasedir>${basedir}</monbasedir>
-    	<spring-security.version>3.2.4.RELEASE</spring-security.version>
+    	<spring-security.version>3.2.5.RELEASE</spring-security.version>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -220,12 +220,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.5.Final</version>
+            <version>4.3.6.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.5.Final</version>
+            <version>4.3.6.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
@@ -250,7 +250,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.1.1.Final</version>
+            <version>5.1.2.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
@@ -352,7 +352,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.3</version>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -529,6 +529,7 @@
 			            <nonFilteredFileExtension>ico</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
 			            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+			            <nonFilteredFileExtension>jar</nonFilteredFileExtension>
 				  </nonFilteredFileExtensions>
 		        </configuration>
             </plugin>
