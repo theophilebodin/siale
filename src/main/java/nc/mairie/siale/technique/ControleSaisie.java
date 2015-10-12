@@ -11,30 +11,6 @@ import org.zkoss.zul.impl.InputElement;
 
 public class ControleSaisie {
 
-//	public static boolean controlerSaisie(Component c) {
-//	boolean controleOK = true;
-//	for (Component component : c.getChildren()) {
-//		if (component.isVisible()) {
-//			if(component instanceof InputElement) {
-//                if (!((InputElement) component).isValid()) {
-//                	controleOK = false;
-//                    // Force show errorMessage
-//                	try {
-//                		((InputElement) component).getConstraint().validate(component, ((InputElement) component).getRawValue());
-//                	} catch (Exception e) {
-//                		((InputElement) component).setErrorMessage(e.getMessage());
-//                	}
-//                	
-//                  }
-//			} else {
-//				controleOK = controlerSaisie(component) && controleOK;
-//			}
-//		}
-//	}
-//	return controleOK;
-//}
-	
-	
 	List<WrongValueException> listeErreurs ;
 	
 	public ControleSaisie() {
