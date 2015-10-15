@@ -111,6 +111,7 @@
 		dtsrc = new ArrayList<String>();
 		dtsrcParam = new Hashtable<String, ArrayList<String>>();
 
+try {
 		InitialContext ic = new InitialContext();
 		NamingEnumeration<Binding> ne = ic.listBindings("java:comp/env/jdbc");
 		while (ne.hasMoreElements() ) {
@@ -151,6 +152,10 @@
 				dtsrc.add(e.getMessage());
 			}
 		}
+} catch (Exception e) {
+	dtsrcParam.put(e.getMessage(), new ArrayList<String>());
+	dtsrc.add(e.getMessage());
+}
 		
 		Collections.sort(dtsrc);
 		request.getSession().setAttribute("dtsrc", dtsrc);
