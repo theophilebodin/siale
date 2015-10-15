@@ -24,7 +24,7 @@
     <properties>
     	<!--  Passer à 1.8.7 génère un compiler error. Je mets en 1.8.6 -->
 		<aspectj.version>1.8.6</aspectj.version>
-        <java.version>7</java.version>
+        <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Ne passe pas à la version 1.2.5 car régression dans les finder (https://jira.spring.io/browse/ROO-3500) -->
         <roo.version>1.2.4.RELEASE</roo.version>
