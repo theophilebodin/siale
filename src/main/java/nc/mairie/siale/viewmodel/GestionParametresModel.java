@@ -113,12 +113,13 @@ public class GestionParametresModel extends SelectorComposer<Component> {
 	public void setTypeParamCourant(TypeParam typeParamCourant) {
 		this.typeParamCourant = typeParamCourant;
 		//on remet le paging au début
-		((Listbox)gestionParametres.getFellow("paramListBox")).setActivePage(0);
+		Listbox listboxParam = ((Listbox)gestionParametres.getFellow("paramListBox"));
+		listboxParam.setActivePage(0);
 		
 //		List<Param> list = Param.findParamsByTypeParam(getTypeParamCourant()).getResultList();
 //		setListeParam(list);
 		setParamCourant(null);
-		binder.loadAll();
+		binder.loadComponent(listboxParam);
 
 	}
 
