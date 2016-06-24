@@ -32,6 +32,7 @@
          <!-- Passer à 4.2.1 ou 4.2.5 génère des problèmes de compilation. Je laisse en 4.0.6 -->
         <spring.version>4.0.6.RELEASE</spring.version>
     	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
+    	<zk.roo.runtime.version>1.0.0.M4</zk.roo.runtime.version>
     	<zk.version>8.0.1.1</zk.version>
 		<giturl>github.com/DSI-Ville-Noumea/${project.name}</giturl>
     	<monbasedir>${basedir}</monbasedir>
@@ -42,6 +43,14 @@
 		<maven>3.0.5</maven>
 	</prerequisites>
     <repositories>
+    	<!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
+    	<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+		<!-- FIN pour le zk-roo-runtime sur notre github #31538-->
+    	
+    
 <!--         <repository> -->
 <!--             <id>spring-maven-release</id> -->
 <!--             <name>Spring Maven Release Repository</name> -->
@@ -86,6 +95,15 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
+    
+    	<!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
+    	<dependency>
+			<groupId>com.github.DSI-Ville-Noumea</groupId>
+ 			<artifactId>zk-roo</artifactId>
+			<version>${zk.roo.runtime.version}</version>
+ 		</dependency>
+ 		<!-- FIN pour le zk-roo-runtime sur notre github #31538-->
+    
     
     	<!--  Deb dépendances BO SDK -->
 	    <dependency>
@@ -401,11 +419,13 @@
             <artifactId>zkbind</artifactId>
             <version>${zk.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.zkoss.zk.roo</groupId>
-            <artifactId>zk-roo-runtime</artifactId>
-            <version>${zk.roo.version}</version>
-        </dependency>
+        <!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
+<!--         <dependency> -->
+<!--             <groupId>org.zkoss.zk.roo</groupId> -->
+<!--             <artifactId>zk-roo-runtime</artifactId> -->
+<!--             <version>${zk.roo.runtime.version}</version> -->
+<!--         </dependency> -->
+<!-- FIN  pour le zk-roo-runtime sur notre github #31538 -->
         <dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
