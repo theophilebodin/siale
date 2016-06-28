@@ -38,6 +38,10 @@
     	<monbasedir>${basedir}</monbasedir>
     	<!-- Passer en 4.0.2 empeche la page de s'afficher O_o je reste en 3.2.5 -->
     	<spring-security.version>3.2.5.RELEASE</spring-security.version>
+		<!-- VersionEye -->
+		<versioneye-maven-plugin.version>3.7.0</versioneye-maven-plugin.version>
+		<versioneye-maven-plugin.apiKey>${env.VERSIONEYE_APIKEY}</versioneye-maven-plugin.apiKey>
+		<versioneye-maven-plugin.projectId>${env.VERSIONEYE_PROJECTID}</versioneye-maven-plugin.projectId>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -479,6 +483,18 @@
 <!--     	<finalName>${project.artifactId}##${project.version}</finalName> -->
           <pluginManagement>
         <plugins>
+			<!-- VersionEye -->
+			<plugin>
+			 <groupId>com.versioneye</groupId>
+			   <artifactId>versioneye-maven-plugin</artifactId>
+			   <version>${versioneye-maven-plugin.version}</version>
+			   <configuration>
+				  <apiKey>${versioneye-maven-plugin.apiKey}</apiKey>
+				<projectId>${versioneye-maven-plugin.projectId}</projectId>
+			 </configuration>
+		  </plugin>
+		
+		
             <!--This plugin's configuration is used to store Eclipse 
                 m2e settings only. It has no influence on the Maven build itself. -->
 				
