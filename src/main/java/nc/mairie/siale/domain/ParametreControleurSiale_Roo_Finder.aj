@@ -10,10 +10,33 @@ import nc.mairie.siale.domain.ParametreControleurSiale;
 
 privileged aspect ParametreControleurSiale_Roo_Finder {
     
+    public static Long ParametreControleurSiale.countFindParametreControleurSialesByControleurSIALE(ControleurSIALE controleurSIALE) {
+        if (controleurSIALE == null) throw new IllegalArgumentException("The controleurSIALE argument is required");
+        EntityManager em = ParametreControleurSiale.entityManager();
+        TypedQuery q = em.createQuery("SELECT COUNT(o) FROM ParametreControleurSiale AS o WHERE o.controleurSIALE = :controleurSIALE", Long.class);
+        q.setParameter("controleurSIALE", controleurSIALE);
+        return ((Long) q.getSingleResult());
+    }
+    
     public static TypedQuery<ParametreControleurSiale> ParametreControleurSiale.findParametreControleurSialesByControleurSIALE(ControleurSIALE controleurSIALE) {
         if (controleurSIALE == null) throw new IllegalArgumentException("The controleurSIALE argument is required");
         EntityManager em = ParametreControleurSiale.entityManager();
         TypedQuery<ParametreControleurSiale> q = em.createQuery("SELECT o FROM ParametreControleurSiale AS o WHERE o.controleurSIALE = :controleurSIALE", ParametreControleurSiale.class);
+        q.setParameter("controleurSIALE", controleurSIALE);
+        return q;
+    }
+    
+    public static TypedQuery<ParametreControleurSiale> ParametreControleurSiale.findParametreControleurSialesByControleurSIALE(ControleurSIALE controleurSIALE, String sortFieldName, String sortOrder) {
+        if (controleurSIALE == null) throw new IllegalArgumentException("The controleurSIALE argument is required");
+        EntityManager em = ParametreControleurSiale.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM ParametreControleurSiale AS o WHERE o.controleurSIALE = :controleurSIALE");
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" ").append(sortOrder);
+            }
+        }
+        TypedQuery<ParametreControleurSiale> q = em.createQuery(queryBuilder.toString(), ParametreControleurSiale.class);
         q.setParameter("controleurSIALE", controleurSIALE);
         return q;
     }

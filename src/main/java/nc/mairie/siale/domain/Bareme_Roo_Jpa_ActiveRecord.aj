@@ -14,6 +14,8 @@ privileged aspect Bareme_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager Bareme.entityManager;
     
+    public static final List<String> Bareme.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "nom", "dateCreation", "noteGroupes", "seuilFaible", "seuilModere", "seuilEleve");
+    
     public static final EntityManager Bareme.entityManager() {
         EntityManager em = new Bareme().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect Bareme_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Bareme o", Bareme.class).getResultList();
     }
     
+    public static List<Bareme> Bareme.findAllBaremes(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM Bareme o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, Bareme.class).getResultList();
+    }
+    
     public static Bareme Bareme.findBareme(Long id) {
         if (id == null) return null;
         return entityManager().find(Bareme.class, id);
@@ -35,6 +48,17 @@ privileged aspect Bareme_Roo_Jpa_ActiveRecord {
     
     public static List<Bareme> Bareme.findBaremeEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Bareme o", Bareme.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<Bareme> Bareme.findBaremeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM Bareme o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, Bareme.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

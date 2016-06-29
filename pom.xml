@@ -22,15 +22,13 @@
 	</developers>
     <url>http://missions-siale</url>
     <properties>
-    	<!--  Passer à 1.8.7 génère un compiler error. Je mets en 1.8.6 -->
 		<aspectj.version>1.8.9</aspectj.version>
         <java.version>8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Ne passe pas à la version 1.2.5 car régression dans les finder (https://jira.spring.io/browse/ROO-3500) -->
-        <roo.version>1.2.4.RELEASE</roo.version>
+        <roo.version>1.3.2.RELEASE</roo.version>
+        <!--  bug avec 5.2.0.final (depuis 5.0.0)  http://stackoverflow.com/questions/37676463/attempt-to-resolve-foreign-key-metadata-from-jdbc-metadata-failed-to-find-column-->
+        <org.hibernate.version>4.3.11.FINAL</org.hibernate.version>
         <slf4j.version>1.7.21</slf4j.version>
-         <!-- Passer à 4.2.1 ou 4.2.5 génère des problèmes de compilation. Je laisse en 4.0.6 -->
-        <spring.version>4.0.6.RELEASE</spring.version>
+        <spring.version>4.3.0.RELEASE</spring.version>
     	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
     	<zk.roo.runtime.version>1.0.0.M4</zk.roo.runtime.version>
     	<zk.version>8.0.1.1</zk.version>
@@ -246,14 +244,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <!-- Passer en 5.0.2, ou 5.1.0 l'appli retourne un 404. Je laisse en 4.3.6 -->
-            <version>4.3.6.Final</version>
+            <version>${org.hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <!-- Passer en 5.0.2, ou 5.1.0 l'appli retourne un 404. Je laisse en 4.3.6 -->
-            <version>4.3.6.Final</version>
+            <version>${org.hibernate.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>cglib</groupId>
@@ -273,12 +269,12 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>20040616</version>
+            <version>3.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.2.Final</version>
+            <version>5.2.4.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.xml.bind</groupId>
@@ -298,7 +294,7 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <version>3.2.2</version>
+            <version>3.2.4</version>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
@@ -359,7 +355,7 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
+            <version>1.3.2</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
@@ -380,7 +376,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.9.3</version>
+            <version>2.9.4</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -439,7 +435,7 @@
         <dependency>
 	<groupId>commons-io</groupId>
 	<artifactId>commons-io</artifactId>
-	<version>2.4</version>
+	<version>2.5</version>
 </dependency>
 <dependency>
 	<groupId>net.sourceforge.jexcelapi</groupId>
@@ -531,7 +527,7 @@
 					<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
         <configuration>
 		  <rulesUri>file:rules.xml</rulesUri>
         </configuration>
@@ -541,13 +537,13 @@
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-clean-plugin</artifactId>
-			<version>2.5</version>
+			<version>3.0.0</version>
 		</plugin>
 		
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-install-plugin</artifactId>
-			<version>2.4</version>
+			<version>2.5.2</version>
 		</plugin>
 		
 		
@@ -555,7 +551,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
                 <!-- Luc Plugin pour remplacer les ${xxx} dans les fichiers -->
                 <configuration>
 		          <webResources>
@@ -581,7 +577,7 @@
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.5.1</version>
 				<configuration>
 					<reportPlugins>
 						<plugin>
@@ -654,7 +650,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
@@ -662,7 +658,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -680,7 +676,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>1.8</version>
                 <!-- NB: do not use 1.3 or 1.3.x due to MASPECTJ-90 issue  -->
                 <dependencies>
                     <!-- NB: You must use Maven 2.0.9 or above or these are ignored (see MNG-2972) -->
@@ -712,6 +708,7 @@
                             <artifactId>spring-aspects</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
+                    <complianceLevel>${java.version}</complianceLevel>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <!--
@@ -729,7 +726,7 @@
 
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
+				<version>1.8</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -762,12 +759,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.15</version>
+                <version>2.19.1</version>
                 <configuration>
                     <printSummary>false</printSummary>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
@@ -779,7 +776,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -789,13 +786,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.8.2</version>
             </plugin>
             <!-- IDE -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
+                <version>2.10</version>
                 <!-- Note 2.8 does not work with AspectJ aspect path -->
                 <configuration>
                     <downloadSources>true</downloadSources>
@@ -822,7 +819,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-idea-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.2.1</version>
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <dependenciesAsLibraries>true</dependenciesAsLibraries>
@@ -836,7 +833,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.11.v20130520</version>
+                <version> 8.1.16.v20140903</version>
                 <configuration>
                     <webAppConfig>
                         <contextPath>/${project.name}</contextPath>
@@ -852,7 +849,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.7</version>
+				<version>2.9</version>
 				<configuration>
 					<webAccessUrl>https://${giturl}</webAccessUrl>
 					<anonymousConnection>scm:git:git:https://${giturl}.git</anonymousConnection>

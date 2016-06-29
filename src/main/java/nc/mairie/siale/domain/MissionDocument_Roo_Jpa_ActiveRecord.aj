@@ -14,6 +14,8 @@ privileged aspect MissionDocument_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager MissionDocument.entityManager;
     
+    public static final List<String> MissionDocument.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "dateDocument", "theDocument", "theMission");
+    
     public static final EntityManager MissionDocument.entityManager() {
         EntityManager em = new MissionDocument().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect MissionDocument_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM MissionDocument o", MissionDocument.class).getResultList();
     }
     
+    public static List<MissionDocument> MissionDocument.findAllMissionDocuments(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM MissionDocument o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, MissionDocument.class).getResultList();
+    }
+    
     public static MissionDocument MissionDocument.findMissionDocument(Long id) {
         if (id == null) return null;
         return entityManager().find(MissionDocument.class, id);
@@ -35,6 +48,17 @@ privileged aspect MissionDocument_Roo_Jpa_ActiveRecord {
     
     public static List<MissionDocument> MissionDocument.findMissionDocumentEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM MissionDocument o", MissionDocument.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<MissionDocument> MissionDocument.findMissionDocumentEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM MissionDocument o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, MissionDocument.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

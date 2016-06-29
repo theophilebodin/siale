@@ -14,6 +14,8 @@ privileged aspect Param_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager Param.entityManager;
     
+    public static final List<String> Param.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "nom", "typeParam", "actif");
+    
     public static final EntityManager Param.entityManager() {
         EntityManager em = new Param().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect Param_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM Param o", Param.class).getResultList();
     }
     
+    public static List<Param> Param.findAllParams(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM Param o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, Param.class).getResultList();
+    }
+    
     public static Param Param.findParam(Long id) {
         if (id == null) return null;
         return entityManager().find(Param.class, id);
@@ -35,6 +48,17 @@ privileged aspect Param_Roo_Jpa_ActiveRecord {
     
     public static List<Param> Param.findParamEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Param o", Param.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<Param> Param.findParamEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM Param o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, Param.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

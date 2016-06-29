@@ -14,6 +14,8 @@ privileged aspect ControleurSIALE_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager ControleurSIALE.entityManager;
     
+    public static final List<String> ControleurSIALE.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "displayname", "username", "actif", "droits");
+    
     public static final EntityManager ControleurSIALE.entityManager() {
         EntityManager em = new ControleurSIALE().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect ControleurSIALE_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM ControleurSIALE o", ControleurSIALE.class).getResultList();
     }
     
+    public static List<ControleurSIALE> ControleurSIALE.findAllControleurSIALEs(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM ControleurSIALE o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, ControleurSIALE.class).getResultList();
+    }
+    
     public static ControleurSIALE ControleurSIALE.findControleurSIALE(Long id) {
         if (id == null) return null;
         return entityManager().find(ControleurSIALE.class, id);
@@ -35,6 +48,17 @@ privileged aspect ControleurSIALE_Roo_Jpa_ActiveRecord {
     
     public static List<ControleurSIALE> ControleurSIALE.findControleurSIALEEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM ControleurSIALE o", ControleurSIALE.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<ControleurSIALE> ControleurSIALE.findControleurSIALEEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM ControleurSIALE o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, ControleurSIALE.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

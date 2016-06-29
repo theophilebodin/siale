@@ -14,6 +14,8 @@ privileged aspect NoteCritere_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager NoteCritere.entityManager;
     
+    public static final List<String> NoteCritere.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "nom", "ponderation", "noteGroupe");
+    
     public static final EntityManager NoteCritere.entityManager() {
         EntityManager em = new NoteCritere().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect NoteCritere_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM NoteCritere o", NoteCritere.class).getResultList();
     }
     
+    public static List<NoteCritere> NoteCritere.findAllNoteCriteres(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM NoteCritere o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, NoteCritere.class).getResultList();
+    }
+    
     public static NoteCritere NoteCritere.findNoteCritere(Long id) {
         if (id == null) return null;
         return entityManager().find(NoteCritere.class, id);
@@ -35,6 +48,17 @@ privileged aspect NoteCritere_Roo_Jpa_ActiveRecord {
     
     public static List<NoteCritere> NoteCritere.findNoteCritereEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM NoteCritere o", NoteCritere.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<NoteCritere> NoteCritere.findNoteCritereEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM NoteCritere o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, NoteCritere.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

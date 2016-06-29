@@ -14,6 +14,8 @@ privileged aspect ParametreControleurSiale_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager ParametreControleurSiale.entityManager;
     
+    public static final List<String> ParametreControleurSiale.fieldNames4OrderClauseFilter = java.util.Arrays.asList("moisVisuMission", "banniereCouleur", "controleurSIALE");
+    
     public static final EntityManager ParametreControleurSiale.entityManager() {
         EntityManager em = new ParametreControleurSiale().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect ParametreControleurSiale_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM ParametreControleurSiale o", ParametreControleurSiale.class).getResultList();
     }
     
+    public static List<ParametreControleurSiale> ParametreControleurSiale.findAllParametreControleurSiales(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM ParametreControleurSiale o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, ParametreControleurSiale.class).getResultList();
+    }
+    
     public static ParametreControleurSiale ParametreControleurSiale.findParametreControleurSiale(Long id) {
         if (id == null) return null;
         return entityManager().find(ParametreControleurSiale.class, id);
@@ -35,6 +48,17 @@ privileged aspect ParametreControleurSiale_Roo_Jpa_ActiveRecord {
     
     public static List<ParametreControleurSiale> ParametreControleurSiale.findParametreControleurSialeEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM ParametreControleurSiale o", ParametreControleurSiale.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<ParametreControleurSiale> ParametreControleurSiale.findParametreControleurSialeEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM ParametreControleurSiale o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, ParametreControleurSiale.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

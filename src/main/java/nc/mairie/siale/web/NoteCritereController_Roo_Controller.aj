@@ -38,7 +38,7 @@ privileged aspect NoteCritereController_Roo_Controller {
         populateEditForm(uiModel, new NoteCritere());
         List<String[]> dependencies = new ArrayList<String[]>();
         if (NoteGroupe.countNoteGroupes() == 0) {
-            dependencies.add(new String[] { "notegroupe", "notegroupes" });
+            dependencies.add(new String[] { "noteGroupe", "notegroupes" });
         }
         uiModel.addAttribute("dependencies", dependencies);
         return "notecriteres/create";
@@ -52,15 +52,15 @@ privileged aspect NoteCritereController_Roo_Controller {
     }
     
     @RequestMapping(produces = "text/html")
-    public String NoteCritereController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String NoteCritereController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("notecriteres", NoteCritere.findNoteCritereEntries(firstResult, sizeNo));
+            uiModel.addAttribute("notecriteres", NoteCritere.findNoteCritereEntries(firstResult, sizeNo, sortFieldName, sortOrder));
             float nrOfPages = (float) NoteCritere.countNoteCriteres() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("notecriteres", NoteCritere.findAllNoteCriteres());
+            uiModel.addAttribute("notecriteres", NoteCritere.findAllNoteCriteres(sortFieldName, sortOrder));
         }
         return "notecriteres/list";
     }
