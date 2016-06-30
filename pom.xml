@@ -37,7 +37,7 @@
     	<!-- Passer en 4.0.2 empeche la page de s'afficher O_o je reste en 3.2.5 -->
     	<spring-security.version>3.2.5.RELEASE</spring-security.version>
 		<!-- VersionEye -->
-		<versioneye-maven-plugin.version>3.7.0</versioneye-maven-plugin.version>
+		<versioneye-maven-plugin.version>3.9.2</versioneye-maven-plugin.version>
 		<versioneye-maven-plugin.apiKey>${env.VERSIONEYE_APIKEY}</versioneye-maven-plugin.apiKey>
 		<versioneye-maven-plugin.projectId>${env.VERSIONEYE_PROJECTID}</versioneye-maven-plugin.projectId>
     </properties>
@@ -188,7 +188,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
