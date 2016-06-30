@@ -644,14 +644,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-				<!-- IMPOSSIBLE de passer ni à la 3.0, ni à la 3.1 : PB de compil aspectJ
-						https://jira.springsource.org/browse/ROO-3396-->
-                <version>2.5.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
+                <executions>
+	                <execution>
+	                    <id>default-testCompile</id>
+	                    <phase>none</phase>
+	                </execution>
+	                <execution>
+	                    <id>default-compile</id>
+	                    <phase>none</phase>
+	                    <goals>
+	                        <goal>compile</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
             </plugin>
 
 
