@@ -12,11 +12,75 @@ import nc.mairie.siale.domain.Mission;
 
 privileged aspect Mission_Roo_Finder {
     
+    public static Long Mission.countFindMissionsByClotureeNotOrDatePrevueGreaterThan(Boolean cloturee, Date datePrevue) {
+        if (cloturee == null) throw new IllegalArgumentException("The cloturee argument is required");
+        if (datePrevue == null) throw new IllegalArgumentException("The datePrevue argument is required");
+        EntityManager em = Mission.entityManager();
+        TypedQuery q = em.createQuery("SELECT COUNT(o) FROM Mission AS o WHERE o.cloturee IS NOT :cloturee  OR o.datePrevue > :datePrevue", Long.class);
+        q.setParameter("cloturee", cloturee);
+        q.setParameter("datePrevue", datePrevue);
+        return ((Long) q.getSingleResult());
+    }
+    
+    public static Long Mission.countFindMissionsByControleursSIALE(Set<ControleurSIALE> controleursSIALE) {
+        if (controleursSIALE == null) throw new IllegalArgumentException("The controleursSIALE argument is required");
+        EntityManager em = Mission.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(o) FROM Mission AS o WHERE");
+        for (int i = 0; i < controleursSIALE.size(); i++) {
+            if (i > 0) queryBuilder.append(" AND");
+            queryBuilder.append(" :controleursSIALE_item").append(i).append(" MEMBER OF o.controleursSIALE");
+        }
+        TypedQuery q = em.createQuery(queryBuilder.toString(), Long.class);
+        int controleursSIALEIndex = 0;
+        for (ControleurSIALE _controleursiale: controleursSIALE) {
+            q.setParameter("controleursSIALE_item" + controleursSIALEIndex++, _controleursiale);
+        }
+        return ((Long) q.getSingleResult());
+    }
+    
+    public static Long Mission.countFindMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan(Set<ControleurSIALE> controleursSIALE, Boolean cloturee, Date datePrevue) {
+        if (controleursSIALE == null) throw new IllegalArgumentException("The controleursSIALE argument is required");
+        if (cloturee == null) throw new IllegalArgumentException("The cloturee argument is required");
+        if (datePrevue == null) throw new IllegalArgumentException("The datePrevue argument is required");
+        EntityManager em = Mission.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT COUNT(o) FROM Mission AS o WHERE o.cloturee IS NOT :cloturee  OR o.datePrevue > :datePrevue");
+        queryBuilder.append(" AND");
+        for (int i = 0; i < controleursSIALE.size(); i++) {
+            if (i > 0) queryBuilder.append(" AND");
+            queryBuilder.append(" :controleursSIALE_item").append(i).append(" MEMBER OF o.controleursSIALE");
+        }
+        TypedQuery q = em.createQuery(queryBuilder.toString(), Long.class);
+        int controleursSIALEIndex = 0;
+        for (ControleurSIALE _controleursiale: controleursSIALE) {
+            q.setParameter("controleursSIALE_item" + controleursSIALEIndex++, _controleursiale);
+        }
+        q.setParameter("cloturee", cloturee);
+        q.setParameter("datePrevue", datePrevue);
+        return ((Long) q.getSingleResult());
+    }
+    
     public static TypedQuery<Mission> Mission.findMissionsByClotureeNotOrDatePrevueGreaterThan(Boolean cloturee, Date datePrevue) {
         if (cloturee == null) throw new IllegalArgumentException("The cloturee argument is required");
         if (datePrevue == null) throw new IllegalArgumentException("The datePrevue argument is required");
         EntityManager em = Mission.entityManager();
         TypedQuery<Mission> q = em.createQuery("SELECT o FROM Mission AS o WHERE o.cloturee IS NOT :cloturee  OR o.datePrevue > :datePrevue", Mission.class);
+        q.setParameter("cloturee", cloturee);
+        q.setParameter("datePrevue", datePrevue);
+        return q;
+    }
+    
+    public static TypedQuery<Mission> Mission.findMissionsByClotureeNotOrDatePrevueGreaterThan(Boolean cloturee, Date datePrevue, String sortFieldName, String sortOrder) {
+        if (cloturee == null) throw new IllegalArgumentException("The cloturee argument is required");
+        if (datePrevue == null) throw new IllegalArgumentException("The datePrevue argument is required");
+        EntityManager em = Mission.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM Mission AS o WHERE o.cloturee IS NOT :cloturee  OR o.datePrevue > :datePrevue");
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" ").append(sortOrder);
+            }
+        }
+        TypedQuery<Mission> q = em.createQuery(queryBuilder.toString(), Mission.class);
         q.setParameter("cloturee", cloturee);
         q.setParameter("datePrevue", datePrevue);
         return q;
@@ -35,6 +99,55 @@ privileged aspect Mission_Roo_Finder {
         for (ControleurSIALE _controleursiale: controleursSIALE) {
             q.setParameter("controleursSIALE_item" + controleursSIALEIndex++, _controleursiale);
         }
+        return q;
+    }
+    
+    public static TypedQuery<Mission> Mission.findMissionsByControleursSIALE(Set<ControleurSIALE> controleursSIALE, String sortFieldName, String sortOrder) {
+        if (controleursSIALE == null) throw new IllegalArgumentException("The controleursSIALE argument is required");
+        EntityManager em = Mission.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM Mission AS o WHERE");
+        for (int i = 0; i < controleursSIALE.size(); i++) {
+            if (i > 0) queryBuilder.append(" AND");
+            queryBuilder.append(" :controleursSIALE_item").append(i).append(" MEMBER OF o.controleursSIALE");
+        }
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" " + sortOrder);
+            }
+        }
+        TypedQuery<Mission> q = em.createQuery(queryBuilder.toString(), Mission.class);
+        int controleursSIALEIndex = 0;
+        for (ControleurSIALE _controleursiale: controleursSIALE) {
+            q.setParameter("controleursSIALE_item" + controleursSIALEIndex++, _controleursiale);
+        }
+        return q;
+    }
+    
+    public static TypedQuery<Mission> Mission.findMissionsByControleursSIALEAndClotureeNotOrDatePrevueGreaterThan(Set<ControleurSIALE> controleursSIALE, Boolean cloturee, Date datePrevue, String sortFieldName, String sortOrder) {
+        if (controleursSIALE == null) throw new IllegalArgumentException("The controleursSIALE argument is required");
+        if (cloturee == null) throw new IllegalArgumentException("The cloturee argument is required");
+        if (datePrevue == null) throw new IllegalArgumentException("The datePrevue argument is required");
+        EntityManager em = Mission.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM Mission AS o WHERE o.cloturee IS NOT :cloturee  OR o.datePrevue > :datePrevue");
+        queryBuilder.append(" AND");
+        for (int i = 0; i < controleursSIALE.size(); i++) {
+            if (i > 0) queryBuilder.append(" AND");
+            queryBuilder.append(" :controleursSIALE_item").append(i).append(" MEMBER OF o.controleursSIALE");
+        }
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" " + sortOrder);
+            }
+        }
+        TypedQuery<Mission> q = em.createQuery(queryBuilder.toString(), Mission.class);
+        int controleursSIALEIndex = 0;
+        for (ControleurSIALE _controleursiale: controleursSIALE) {
+            q.setParameter("controleursSIALE_item" + controleursSIALEIndex++, _controleursiale);
+        }
+        q.setParameter("cloturee", cloturee);
+        q.setParameter("datePrevue", datePrevue);
         return q;
     }
     

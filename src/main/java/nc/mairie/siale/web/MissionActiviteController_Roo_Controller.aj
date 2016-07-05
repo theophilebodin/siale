@@ -39,10 +39,10 @@ privileged aspect MissionActiviteController_Roo_Controller {
         populateEditForm(uiModel, new MissionActivite());
         List<String[]> dependencies = new ArrayList<String[]>();
         if (Param.countParams() == 0) {
-            dependencies.add(new String[] { "param", "params" });
+            dependencies.add(new String[] { "theActivite", "params" });
         }
         if (Mission.countMissions() == 0) {
-            dependencies.add(new String[] { "mission", "missions" });
+            dependencies.add(new String[] { "theMission", "missions" });
         }
         uiModel.addAttribute("dependencies", dependencies);
         return "missionactivites/create";
@@ -56,15 +56,15 @@ privileged aspect MissionActiviteController_Roo_Controller {
     }
     
     @RequestMapping(produces = "text/html")
-    public String MissionActiviteController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String MissionActiviteController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("missionactivites", MissionActivite.findMissionActiviteEntries(firstResult, sizeNo));
+            uiModel.addAttribute("missionactivites", MissionActivite.findMissionActiviteEntries(firstResult, sizeNo, sortFieldName, sortOrder));
             float nrOfPages = (float) MissionActivite.countMissionActivites() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("missionactivites", MissionActivite.findAllMissionActivites());
+            uiModel.addAttribute("missionactivites", MissionActivite.findAllMissionActivites(sortFieldName, sortOrder));
         }
         return "missionactivites/list";
     }

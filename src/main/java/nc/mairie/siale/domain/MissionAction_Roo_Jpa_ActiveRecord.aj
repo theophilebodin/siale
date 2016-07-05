@@ -14,6 +14,8 @@ privileged aspect MissionAction_Roo_Jpa_ActiveRecord {
     @PersistenceContext
     transient EntityManager MissionAction.entityManager;
     
+    public static final List<String> MissionAction.fieldNames4OrderClauseFilter = java.util.Arrays.asList("serialVersionUID", "dateAction", "theAction");
+    
     public static final EntityManager MissionAction.entityManager() {
         EntityManager em = new MissionAction().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -28,6 +30,17 @@ privileged aspect MissionAction_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM MissionAction o", MissionAction.class).getResultList();
     }
     
+    public static List<MissionAction> MissionAction.findAllMissionActions(String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM MissionAction o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, MissionAction.class).getResultList();
+    }
+    
     public static MissionAction MissionAction.findMissionAction(Long id) {
         if (id == null) return null;
         return entityManager().find(MissionAction.class, id);
@@ -35,6 +48,17 @@ privileged aspect MissionAction_Roo_Jpa_ActiveRecord {
     
     public static List<MissionAction> MissionAction.findMissionActionEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM MissionAction o", MissionAction.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<MissionAction> MissionAction.findMissionActionEntries(int firstResult, int maxResults, String sortFieldName, String sortOrder) {
+        String jpaQuery = "SELECT o FROM MissionAction o";
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            jpaQuery = jpaQuery + " ORDER BY " + sortFieldName;
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                jpaQuery = jpaQuery + " " + sortOrder;
+            }
+        }
+        return entityManager().createQuery(jpaQuery, MissionAction.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
     
     @Transactional

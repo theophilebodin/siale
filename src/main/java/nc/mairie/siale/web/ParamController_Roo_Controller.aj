@@ -38,7 +38,7 @@ privileged aspect ParamController_Roo_Controller {
         populateEditForm(uiModel, new Param());
         List<String[]> dependencies = new ArrayList<String[]>();
         if (TypeParam.countTypeParams() == 0) {
-            dependencies.add(new String[] { "typeparam", "typeparams" });
+            dependencies.add(new String[] { "typeParam", "typeparams" });
         }
         uiModel.addAttribute("dependencies", dependencies);
         return "params/create";
@@ -52,15 +52,15 @@ privileged aspect ParamController_Roo_Controller {
     }
     
     @RequestMapping(produces = "text/html")
-    public String ParamController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+    public String ParamController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @RequestParam(value = "sortFieldName", required = false) String sortFieldName, @RequestParam(value = "sortOrder", required = false) String sortOrder, Model uiModel) {
         if (page != null || size != null) {
             int sizeNo = size == null ? 10 : size.intValue();
             final int firstResult = page == null ? 0 : (page.intValue() - 1) * sizeNo;
-            uiModel.addAttribute("params", Param.findParamEntries(firstResult, sizeNo));
+            uiModel.addAttribute("params", Param.findParamEntries(firstResult, sizeNo, sortFieldName, sortOrder));
             float nrOfPages = (float) Param.countParams() / sizeNo;
             uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
         } else {
-            uiModel.addAttribute("params", Param.findAllParams());
+            uiModel.addAttribute("params", Param.findAllParams(sortFieldName, sortOrder));
         }
         return "params/list";
     }

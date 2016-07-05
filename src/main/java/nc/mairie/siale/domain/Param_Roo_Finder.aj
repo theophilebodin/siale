@@ -10,6 +10,29 @@ import nc.mairie.siale.domain.TypeParam;
 
 privileged aspect Param_Roo_Finder {
     
+    public static Long Param.countFindParamsByNomLike(String nom) {
+        if (nom == null || nom.length() == 0) throw new IllegalArgumentException("The nom argument is required");
+        nom = nom.replace('*', '%');
+        if (nom.charAt(0) != '%') {
+            nom = "%" + nom;
+        }
+        if (nom.charAt(nom.length() - 1) != '%') {
+            nom = nom + "%";
+        }
+        EntityManager em = Param.entityManager();
+        TypedQuery q = em.createQuery("SELECT COUNT(o) FROM Param AS o WHERE LOWER(o.nom) LIKE LOWER(:nom)", Long.class);
+        q.setParameter("nom", nom);
+        return ((Long) q.getSingleResult());
+    }
+    
+    public static Long Param.countFindParamsByTypeParam(TypeParam typeParam) {
+        if (typeParam == null) throw new IllegalArgumentException("The typeParam argument is required");
+        EntityManager em = Param.entityManager();
+        TypedQuery q = em.createQuery("SELECT COUNT(o) FROM Param AS o WHERE o.typeParam = :typeParam", Long.class);
+        q.setParameter("typeParam", typeParam);
+        return ((Long) q.getSingleResult());
+    }
+    
     public static TypedQuery<Param> Param.findParamsByNomLike(String nom) {
         if (nom == null || nom.length() == 0) throw new IllegalArgumentException("The nom argument is required");
         nom = nom.replace('*', '%');
@@ -25,10 +48,47 @@ privileged aspect Param_Roo_Finder {
         return q;
     }
     
+    public static TypedQuery<Param> Param.findParamsByNomLike(String nom, String sortFieldName, String sortOrder) {
+        if (nom == null || nom.length() == 0) throw new IllegalArgumentException("The nom argument is required");
+        nom = nom.replace('*', '%');
+        if (nom.charAt(0) != '%') {
+            nom = "%" + nom;
+        }
+        if (nom.charAt(nom.length() - 1) != '%') {
+            nom = nom + "%";
+        }
+        EntityManager em = Param.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM Param AS o WHERE LOWER(o.nom) LIKE LOWER(:nom)");
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" ").append(sortOrder);
+            }
+        }
+        TypedQuery<Param> q = em.createQuery(queryBuilder.toString(), Param.class);
+        q.setParameter("nom", nom);
+        return q;
+    }
+    
     public static TypedQuery<Param> Param.findParamsByTypeParam(TypeParam typeParam) {
         if (typeParam == null) throw new IllegalArgumentException("The typeParam argument is required");
         EntityManager em = Param.entityManager();
         TypedQuery<Param> q = em.createQuery("SELECT o FROM Param AS o WHERE o.typeParam = :typeParam", Param.class);
+        q.setParameter("typeParam", typeParam);
+        return q;
+    }
+    
+    public static TypedQuery<Param> Param.findParamsByTypeParam(TypeParam typeParam, String sortFieldName, String sortOrder) {
+        if (typeParam == null) throw new IllegalArgumentException("The typeParam argument is required");
+        EntityManager em = Param.entityManager();
+        StringBuilder queryBuilder = new StringBuilder("SELECT o FROM Param AS o WHERE o.typeParam = :typeParam");
+        if (fieldNames4OrderClauseFilter.contains(sortFieldName)) {
+            queryBuilder.append(" ORDER BY ").append(sortFieldName);
+            if ("ASC".equalsIgnoreCase(sortOrder) || "DESC".equalsIgnoreCase(sortOrder)) {
+                queryBuilder.append(" ").append(sortOrder);
+            }
+        }
+        TypedQuery<Param> q = em.createQuery(queryBuilder.toString(), Param.class);
         q.setParameter("typeParam", typeParam);
         return q;
     }
