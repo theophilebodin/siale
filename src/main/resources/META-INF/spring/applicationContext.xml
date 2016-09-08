@@ -78,6 +78,7 @@
     </bean>
     <!-- Luc Deb Security -->
     <security:http access-decision-manager-ref="accessDecisionManager" auto-config="true" use-expressions="false">
+    	<security:headers><security:frame-options policy="SAMEORIGIN"/></security:headers>
         <security:intercept-url access="IS_AUTHENTICATED_ANONYMOUSLY" pattern="/_images/*"/>
         <security:intercept-url access="ROLE_SIALE" pattern="/_*/*"/>
         <security:intercept-url access="IS_AUTHENTICATED_ANONYMOUSLY" pattern="/**"/>
