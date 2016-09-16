@@ -4,7 +4,7 @@
     <groupId>nc.mairie.siale</groupId>
     <artifactId>missions-siale</artifactId>
     <packaging>war</packaging>
-    <version>1.3.8</version>
+    <version>1.3.9-SNAPSHOT</version>
     <name>siale</name>
     <organization>
 		<name>Mairie de Nouméa</name>
@@ -472,7 +472,7 @@
 		<dependency>
 		    <groupId>org.postgresql</groupId>
 		    <artifactId>postgresql</artifactId>
-		    <version>9.4.1209</version>
+		    <version>9.4.1210</version>
 		    <scope>provided</scope>
 		</dependency>
     </dependencies>
