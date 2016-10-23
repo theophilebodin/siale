@@ -27,7 +27,7 @@
         <roo.version>1.3.2.RELEASE</roo.version>
         <!--  Reste en 4.3.11 car bug avec 5.2.0.final (depuis 5.0.0)  http://stackoverflow.com/questions/37676463/attempt-to-resolve-foreign-key-metadata-from-jdbc-metadata-failed-to-find-column-->
         <org.hibernate.core.version>5.2.3.Final</org.hibernate.core.version>
-        <org.hibernate.entitymanager.version>5.2.2.Final</org.hibernate.entitymanager.version>
+        <org.hibernate.entitymanager.version>5.2.3.Final</org.hibernate.entitymanager.version>
         <slf4j.version>1.7.21</slf4j.version>
         <spring.version>4.3.3.RELEASE</spring.version>
     	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
