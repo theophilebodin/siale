@@ -1,3 +1,4 @@
 /target
 .idea
 /.settings
+/src/site/resources/war/*SNAPSHOT
