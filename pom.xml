@@ -37,7 +37,7 @@
     	<joda-time.version>2.9.7</joda-time.version>
 		<giturl>github.com/DSI-Ville-Noumea/${project.name}</giturl>
     	<monbasedir>${basedir}</monbasedir>
-    	<spring-security.version>4.1.3.RELEASE</spring-security.version>
+    	<spring-security.version>4.2.1.RELEASE</spring-security.version>
     	<postgresql.version>9.4.1212</postgresql.version>
     	<maven-site-plugin.version>3.6</maven-site-plugin.version>
     	<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
