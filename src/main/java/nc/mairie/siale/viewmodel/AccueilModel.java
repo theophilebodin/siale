@@ -138,7 +138,7 @@ public class AccueilModel extends SelectorComposer<Component>{
 			
 			for (ObjectBO docWebi : arrDocWebi) {
 				Map<String,Object> args=new HashMap<String, Object>();
-				args.put("iDocID", docWebi.getId());
+				args.put("iDocID", docWebi.getCUID());
 				menuModelRapportBO.add(new MenuNode(docWebi.getName(),"Rapport BO - "+docWebi.getName(),"/_rapport_BO/RapportBO.zul","/_accueil/BO.png", args));
 			}
 		} catch (Exception e) {

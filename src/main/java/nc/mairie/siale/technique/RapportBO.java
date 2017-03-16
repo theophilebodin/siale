@@ -69,15 +69,15 @@ public class RapportBO {
 	
 	public static class ObjectBO {
 
-		String id;
+		String cuid;
 		String name;
 		String displayName;
 		String parentId;
 		String kind;
 		
-		public ObjectBO(String id, String name, String displayName, String kind, String parentId) {
+		public ObjectBO(String cuid, String name, String displayName, String kind, String parentId) {
 			super();
-			this.id = id;
+			this.cuid = cuid;
 			this.name = name;
 			this.displayName = displayName;
 			this.kind = kind;
@@ -85,11 +85,11 @@ public class RapportBO {
 			
 		}
 		
-		public String getId() {
-			return id;
+		public String getCUID() {
+			return cuid;
 		}
-		public void setId(String id) {
-			this.id = id;
+		public void setCUID(String cuid) {
+			this.cuid = cuid;
 		}
 		public String getName() {
 			return name;
@@ -103,7 +103,7 @@ public class RapportBO {
 		public void setDisplayName(String displayName) {
 			this.displayName = displayName;
 		}
-		public String getParentId() {
+		public String getParentCUID() {
 			return parentId;
 		}
 		public String getKind() {
@@ -134,12 +134,9 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			
 		
 			//liste des documents
-			String sQuery = "SELECT SI_ID, SI_NAME, SI_KIND, SI_PARENTID "
-					+ "FROM CI_INFOOBJECTS WHERE ( SI_PARENTID = "
-					+ idDossier + ") " 
-//					+ "AND SI_KIND =\'"
-//					+ CeKind.WEBI
-//					+ "\' " 
+			String sQuery = "SELECT SI_CUID, SI_NAME, SI_KIND, SI_PARENT_CUID "
+					+ "FROM CI_INFOOBJECTS WHERE ( SI_PARENT_CUID = \'"
+					+ idDossier + "\') " 
 					+" AND SI_KIND != \'"+ CeKind.FOLDER+"\'"
 					+" ORDER BY SI_NAME ASC";
 			IInfoObjects webiDocuments = (IInfoObjects) iInf.query(sQuery);
@@ -147,7 +144,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			
 			for	(int j=0; j<wSize; j++) {
 				IInfoObject iObj = (IInfoObject)webiDocuments.get(j);
-				res.add( new ObjectBO(String.valueOf(iObj.getID()), iObj.getTitle(),iObj.getTitle(), iObj.getKind(), String.valueOf(iObj.getParentID())));
+				res.add( new ObjectBO(String.valueOf(iObj.getCUID()), iObj.getTitle(),iObj.getTitle(), iObj.getKind(), String.valueOf(iObj.getParentCUID())));
 			}
 		} catch (SDKException e) {
 			throw new WrongValueException(e.getMessage());
@@ -174,9 +171,9 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		try {
 			iInf  = (IInfoStore) enterpriseSession.getService("InfoStore");
 	
-			String sQuery = "SELECT SI_ID, SI_NAME, SI_KIND, SI_PARENTID FROM "
-					+ "CI_INFOOBJECTS WHERE ( SI_ID = "
-					+ idDossier + ") AND SI_KIND=\'"
+			String sQuery = "SELECT SI_CUID, SI_NAME, SI_KIND, SI_PARENT_CUID FROM "
+					+ "CI_INFOOBJECTS WHERE ( SI_CUID = \'"
+					+ idDossier + "\') AND SI_KIND=\'"
 					+ CeKind.FOLDER
 					+ "\' ORDER BY SI_NAME ASC ";	
 					
@@ -184,7 +181,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			IInfoObjects subFolders = (IInfoObjects) iInf.query(sQuery);
 			if (subFolders.size() > 0) {
 				IFolder	iFld = (IFolder)subFolders.get(0);
-				res= new ObjectBO(String.valueOf(iFld.getID()), iFld.getTitle(),iFld.getTitle(), iFld.getKind(), String.valueOf(iFld.getParentID()));
+				res= new ObjectBO(String.valueOf(iFld.getCUID()), iFld.getTitle(),iFld.getTitle(), iFld.getKind(), String.valueOf(iFld.getParentCUID()));
 			}
 			
 
@@ -215,10 +212,9 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 		try {
 			iInf  = (IInfoStore) enterpriseSession.getService("InfoStore");
 	
-			String sQuery = "SELECT SI_ID, SI_NAME, SI_KIND, SI_PARENTID FROM "
-					//+ "CI_INFOOBJECTS WHERE ( SI_ID = "
-					+ "CI_INFOOBJECTS WHERE ( SI_PARENTID = "
-					+ idDossier + ") AND SI_KIND=\'"
+			String sQuery = "SELECT SI_CUID, SI_NAME, SI_KIND, SI_PARENT_CUID FROM "
+					+ "CI_INFOOBJECTS WHERE ( SI_PARENT_CUID = \'"
+					+ idDossier + "\') AND SI_KIND=\'"
 					+ CeKind.FOLDER
 					+ "\' ORDER BY SI_NAME ASC ";	
 					
@@ -228,7 +224,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			
 			for	(int i=0; i<iSize; i++) {
 				IFolder	iFld = (IFolder)subFolders.get(i);
-				res.add(new ObjectBO(String.valueOf(iFld.getID()), iFld.getTitle(),iFld.getTitle(), iFld.getKind(), String.valueOf(iFld.getParentID())));
+				res.add(new ObjectBO(String.valueOf(iFld.getCUID()), iFld.getTitle(),iFld.getTitle(), iFld.getKind(), String.valueOf(iFld.getParentCUID())));
 			}
 
 		} catch (SDKException e) {
@@ -261,9 +257,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			String sQuery = null;
 			
 			//test retrouve root
-			sQuery = "SELECT SI_ID, SI_NAME, SI_PARENTID FROM "
-					//+ "CI_INFOOBJECTS WHERE ( SI_ID = "
-					//+ "CI_INFOOBJECTS WHERE ( SI_PARENTID = "
+			sQuery = "SELECT SI_CUID, SI_NAME, SI_PARENT_CUID FROM "
 					+ "CI_INFOOBJECTS WHERE ( SI_NAME = 'Dossier racine' "
 					+") AND SI_KIND=\'"
 					+ CeKind.FOLDER
@@ -276,16 +270,15 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			for	(int i=0; i<iSize0; i++) {
 				IFolder	iFld = (IFolder)subFolders0.get(i);
 				
-				System.out.println("sId="+iFld.getID()+" si_name="+iFld.getTitle());
+				System.out.println("sId="+iFld.getCUID()+" si_name="+iFld.getTitle());
 			}
 			
 			
 			String iID = "240965";
 			//Liste des dossiers
-			sQuery = "SELECT SI_ID, SI_NAME, SI_PARENTID FROM "
-			//+ "CI_INFOOBJECTS WHERE ( SI_ID = "
-			+ "CI_INFOOBJECTS WHERE ( SI_PARENTID = "
-			+ iID + ") AND SI_KIND=\'"
+			sQuery = "SELECT SI_CUID, SI_NAME, SI_PARENT_CUID FROM "
+			+ "CI_INFOOBJECTS WHERE ( SI_PARENT_CUID = \'"
+			+ iID + "\') AND SI_KIND=\'"
 			+ CeKind.FOLDER
 			+ "\' ORDER BY SI_NAME ASC ";	
 			
@@ -298,13 +291,13 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			for	(int i=0; i<iSize; i++) {
 				IFolder	iFld = (IFolder)subFolders.get(i);
 				
-				System.out.println("sId="+iFld.getID()+" si_name="+iFld.getTitle());
+				System.out.println("sId="+iFld.getCUID()+" si_name="+iFld.getTitle());
 			}
 			
 			//liste des documents
-			sQuery = "SELECT SI_ID, SI_NAME, SI_PARENTID "
-					+ "FROM CI_INFOOBJECTS WHERE ( SI_PARENTID = "
-					+ iID + ") AND SI_KIND =\'"
+			sQuery = "SELECT SI_CUID, SI_NAME, SI_PARENT_CUID "
+					+ "FROM CI_INFOOBJECTS WHERE ( SI_PARENT_CUID = \'"
+					+ iID + "\') AND SI_KIND =\'"
 					+ CeKind.WEBI
 					+ "\' ORDER BY SI_NAME ASC";
 			IInfoObjects webiDocuments = (IInfoObjects) iInf.query(sQuery);
@@ -314,7 +307,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			
 			for	(int j=0; j<wSize; j++) {
 				IInfoObject iObj = (IInfoObject)webiDocuments.get(j);
-				System.out.println("sId="+iObj.getID()+" si_name="+iObj.getTitle());
+				System.out.println("sId="+iObj.getCUID()+" si_name="+iObj.getTitle());
 			}
 			
 		} catch (SDKException e) {
@@ -384,7 +377,7 @@ public static ArrayList<ObjectBO> listeDocumentsWebIduDossier (String idDossier)
 			throw new WrongValueException(e.getMessage());
 		}
 		
-		return Executions.encodeURL(URL_OPEN_DOCUMENT+"?iDocID="+iDocID+(tokenBO == null ? "" : "&token="+tokenBO));
+		return Executions.encodeURL(URL_OPEN_DOCUMENT+"?iDocID="+iDocID+(tokenBO == null ? "" : "&token="+tokenBO) +"&sIDType=CUID");
 		
 		
 	}

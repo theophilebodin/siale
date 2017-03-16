@@ -152,7 +152,7 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	@Listen("onClick = #folderListItem;")
 	public void onDoubleClick$folderListItem() {
 		
-		String idDossier = getFolderCourant().getDisplayName().equals("..") ? getFolderCourant().getParentId() :getFolderCourant().getId();
+		String idDossier = getFolderCourant().getDisplayName().equals("..") ? getFolderCourant().getParentCUID() :getFolderCourant().getCUID();
 		
 		setListFolderBO(initialiseListeDossierBO(idDossier));
 		setFolderCourant(getListFolderBO().get(0));
@@ -164,7 +164,7 @@ public class RapportBOPersoModel extends SelectorComposer<Component> {
 	@Listen("onClick = #documentListItem;")
 	public void onDoubleClick$documentListItem() {
 		
-		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getId()));
+		iframeBO.setSrc(RapportBO.getURLRapportBO(getDocumentCourant().getCUID()));
 		groupeRecherche.setOpen(false);
 		
 		binder.loadAll();
