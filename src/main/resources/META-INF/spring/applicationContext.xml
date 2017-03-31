@@ -87,12 +87,6 @@ xsi:schemaLocation=
     <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer" id="zkScopes">
         <property name="scopes">
             <map>
-                <entry key="desktop">
-                    <bean class="org.zkoss.zk.roo.scope.DesktopScope"/>
-                </entry>
-                <entry key="page">
-                    <bean class="org.zkoss.zk.roo.scope.PageScope"/>
-                </entry>
             </map>
         </property>
     </bean>

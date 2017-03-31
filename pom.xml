@@ -30,8 +30,6 @@
         <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
-    	<zk.roo.version>1.0.0.BUILD-SNAPSHOT</zk.roo.version>
-    	<zk.roo.runtime.version>1.0.1</zk.roo.runtime.version>
     	<zk.version>8.0.2.2</zk.version>
     	<joda-time.version>2.9.7</joda-time.version>
 		<giturl>github.com/DSI-Ville-Noumea/${project.name}</giturl>
@@ -53,13 +51,6 @@
 		<maven>3.0.5</maven>
 	</prerequisites>
     <repositories>
-    	<!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
-    	<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-		<!-- FIN pour le zk-roo-runtime sur notre github #31538-->
-    	
     
 <!--         <repository> -->
 <!--             <id>spring-maven-release</id> -->
@@ -71,21 +62,11 @@
 <!--             <name>Spring Maven Milestone Repository</name> -->
 <!--             <url>http://maven.springframework.org/milestone</url> -->
 <!--         </repository> -->
-        <repository>
-            <id>spring-roo-repository</id>
-            <name>Spring Roo Repository</name>
-            <url>http://spring-roo-repository.springsource.org/release</url>
-        </repository>
     <repository>
             <id>ZK repository</id>
             <url>http://mavensync.zkoss.org/maven2</url>
             <name>ZK repository</name>
         </repository>
-<!--     <repository> -->
-<!--             <id>ZK-Roo repository</id> -->
-<!--             <url>http://zk-roo.googlecode.com/svn/repo</url> -->
-<!--             <name>ZK-Roo repository</name> -->
-<!--         </repository> -->
     </repositories>
     <pluginRepositories>
 <!--         <pluginRepository> -->
@@ -98,22 +79,10 @@
 <!--             <name>Spring Maven Milestone Repository</name> -->
 <!--             <url>http://maven.springframework.org/milestone</url> -->
 <!--         </pluginRepository> -->
-        <pluginRepository>
-            <id>spring-roo-repository</id>
-            <name>Spring Roo Repository</name>
-            <url>http://spring-roo-repository.springsource.org/release</url>
-        </pluginRepository>
     </pluginRepositories>
     <dependencies>
     
-    	<!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
-    	<dependency>
-			<groupId>com.github.DSI-Ville-Noumea</groupId>
- 			<artifactId>zk-roo</artifactId>
-			<version>${zk.roo.runtime.version}</version>
- 		</dependency>
- 		<!-- FIN pour le zk-roo-runtime sur notre github #31538-->
-    
+   
     
     	<!--  Deb dépendances BO SDK -->
 	    <dependency>
@@ -425,13 +394,6 @@
             <artifactId>zkbind</artifactId>
             <version>${zk.version}</version>
         </dependency>
-        <!-- DEBUT  pour le zk-roo-runtime sur notre github #31538 -->
-<!--         <dependency> -->
-<!--             <groupId>org.zkoss.zk.roo</groupId> -->
-<!--             <artifactId>zk-roo-runtime</artifactId> -->
-<!--             <version>${zk.roo.runtime.version}</version> -->
-<!--         </dependency> -->
-<!-- FIN  pour le zk-roo-runtime sur notre github #31538 -->
         <dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -822,7 +784,6 @@
                     </additionalBuildcommands>
                     <additionalProjectnatures>
                         <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-                        <projectnature>com.springsource.sts.roo.core.nature</projectnature>
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
                     </additionalProjectnatures>
                 </configuration>
