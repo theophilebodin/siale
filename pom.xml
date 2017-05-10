@@ -26,12 +26,12 @@
         <java.version>8</java.version>
         <!--  Reste en 4.3.11 car bug avec 5.2.0.final (depuis 5.0.0)  http://stackoverflow.com/questions/37676463/attempt-to-resolve-foreign-key-metadata-from-jdbc-metadata-failed-to-find-column-->
         <org.hibernate.core.version>5.2.9.Final</org.hibernate.core.version>
-        <org.hibernate.entitymanager.version>5.2.8.Final</org.hibernate.entitymanager.version>
+        <org.hibernate.entitymanager.version>5.2.9.Final</org.hibernate.entitymanager.version>
         <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
     	<zk.version>8.0.2.2</zk.version>
-    	<joda-time.version>2.9.7</joda-time.version>
+    	<joda-time.version>2.9.9</joda-time.version>
 		<giturl>github.com/DSI-Ville-Noumea/${project.name}</giturl>
     	<monbasedir>${basedir}</monbasedir>
     	<spring-security.version>4.2.2.RELEASE</spring-security.version>
