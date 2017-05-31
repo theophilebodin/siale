@@ -46,6 +46,13 @@
 		<versioneye-maven-plugin.version>3.11.2</versioneye-maven-plugin.version>
 		<versioneye-maven-plugin.apiKey>${env.VERSIONEYE_APIKEY}</versioneye-maven-plugin.apiKey>
 		<versioneye-maven-plugin.projectId>${env.VERSIONEYE_PROJECTID}</versioneye-maven-plugin.projectId>
+        <!-- Dépendances BO SDK -->
+        <cecore.version>11.6</cecore.version>
+        <celib.version>11.6</celib.version>
+        <cecession.version>11.6</cecession.version>
+        <logging.version>11.6</logging.version>
+        <!-- Colobox -->
+        <colorbox.version>1.0</colorbox.version>
     </properties>
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -88,39 +95,29 @@
 	    <dependency>
 	      <groupId>com.bo</groupId>
 	      <artifactId>cecore</artifactId>
-	      <version>11.6</version>
-	      <scope>system</scope>
-	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/cecore.jar</systemPath>
+	      <version>${cecore.version}</version>
 	    </dependency>
 	    <dependency>
 	      <groupId>com.bo</groupId>
 	      <artifactId>celib</artifactId>
-	      <version>11.6</version>
-	      <scope>system</scope>
-	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/celib.jar</systemPath>
+	      <version>${celib.version}</version>
 	    </dependency>
 	    <dependency>
 	      <groupId>com.bo</groupId>
 	      <artifactId>cesession</artifactId>
-	      <version>11.6</version>
-	      <scope>system</scope>
-	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/cesession.jar</systemPath>
+	      <version>${cecession.version}</version>
 	    </dependency>
 	    <dependency>
 	      <groupId>com.bo</groupId>
 	      <artifactId>logging</artifactId>
-	      <version>11.6</version>
-	      <scope>system</scope>
-	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/logging.jar</systemPath>
+	      <version>${logging.version}</version>
 	    </dependency>
 	    <!--  Fin dépendances BO SDK -->
 		<!-- Deb Dependance colorbox -->
 		<dependency>
 	      <groupId>color.box</groupId>
 	      <artifactId>colorbox</artifactId>
-	      <version>1.0</version>
-	      <scope>system</scope>
-	      <systemPath>${monbasedir}/src/main/resources/WEB-INF/lib/colorbox.jar</systemPath>
+	      <version>${colorbox.version}</version>
 	    </dependency>
 	    <!-- Fin Dependance colorbox -->
 		
