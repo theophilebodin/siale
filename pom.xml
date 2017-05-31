@@ -43,7 +43,7 @@
     	<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
 		<cglib-nodep.version>3.2.5</cglib-nodep.version>
 		<!-- VersionEye -->
-		<versioneye-maven-plugin.version>3.11.2</versioneye-maven-plugin.version>
+		<versioneye-maven-plugin.version>3.11.4</versioneye-maven-plugin.version>
 		<versioneye-maven-plugin.apiKey>${env.VERSIONEYE_APIKEY}</versioneye-maven-plugin.apiKey>
 		<versioneye-maven-plugin.projectId>${env.VERSIONEYE_PROJECTID}</versioneye-maven-plugin.projectId>
         <!-- Dépendances BO SDK -->
