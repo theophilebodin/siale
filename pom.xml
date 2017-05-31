@@ -35,7 +35,7 @@
 		<giturl>github.com/DSI-Ville-Noumea/${project.name}</giturl>
     	<monbasedir>${basedir}</monbasedir>
     	<spring-security.version>4.2.2.RELEASE</spring-security.version>
-    	<postgresql.version>42.0.0</postgresql.version>
+    	<postgresql.version>42.1.1</postgresql.version>
     	<maven-site-plugin.version>3.6</maven-site-plugin.version>
     	<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
     	<aspectj-maven-plugin.version>1.10</aspectj-maven-plugin.version>
