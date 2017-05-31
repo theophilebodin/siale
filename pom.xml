@@ -51,7 +51,9 @@
         <celib.version>11.6</celib.version>
         <cecession.version>11.6</cecession.version>
         <logging.version>11.6</logging.version>
-        <!-- Colobox -->
+        <corbaidl.version>12.5.0.1190</corbaidl.version>
+        <ebus405.version>11.5.8.834</ebus405.version>
+        <!-- Colorbox -->
         <colorbox.version>1.0</colorbox.version>
     </properties>
 	<prerequisites>
@@ -112,6 +114,16 @@
 	      <artifactId>logging</artifactId>
 	      <version>${logging.version}</version>
 	    </dependency>
+        <dependency>
+            <groupId>com.bo</groupId>
+            <artifactId>corbaidl</artifactId>
+            <version>${corbaidl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bo</groupId>
+            <artifactId>ebus405</artifactId>
+            <version>${ebus405.version}</version>
+        </dependency>
 	    <!--  Fin dépendances BO SDK -->
 		<!-- Deb Dependance colorbox -->
 		<dependency>
