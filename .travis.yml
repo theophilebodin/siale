@@ -20,7 +20,27 @@ before_install:
   -Dpackaging=jar -DgeneratePom=true
 - mvn install:install-file -DgroupId=color.box -DartifactId=colorbox -Dversion=1.0
   -Dfile=./lib/colorbox.jar -Dpackaging=jar -DgeneratePom=true
-install: mvn clean install -DskipTests=true versioneye:update
+mvn install:install-file -DgroupId=com.bo -DartifactId=ebus405 -Dversion=11.5.8.834 -Dfile=./lib/ebus405.jar -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -DgroupId=com.bo -DartifactId=corbaidl -Dversion=12.5.0.1190 -Dfile=./lib/corbaidl.jar -Dpackaging=jar -DgeneratePom=true
+
+install: mvn clean install -DskipTests=true -DcreateChecksum=true versioneye:update
+before_deploy:
+- export RELEASE_PKG_FILE=$(ls target/*.war)
+- export RELEASE_PKG_MD5_FILE=$(ls target/*.war.md5)
+- export RELEASE_PKG_SHA_FILE=$(ls target/*.war.sha1)
+- echo "deploying $RELEASE_PKG_FILE , $RELEASE_PKG_MD5_FILE , $RELEASE_PKG_SHA_FILE
+to GitHub releases"
+deploy:
+  provider: releases
+  api_key:
+    secure: hh/V0HxJHDZF1s+n2VtTUM5HlUEmyNFF72qpt+pDolljvcRmQVkBV38kBAYOe7RVD753cZqzf2okVJmzMCsdqQJyyo4BRVPVEXA0DoioQ+hWFawABedXvn8mBtkMZNUl7q1ZS2zPgucEUSqzgxwD4l9vhzf3Jp4GAGN93r45aBQaVMMHryvjc4+4pEVZdS6CfusMTuqUR7xk8LD895k2IsNWGx9L2b2GY3qMmViZIRFQJaExAcrXH6DsKJRGsl2nW6EKtiLaEVpx+rnUICxJecay6O9FmnR6ukv8JZ5MZsLWcOfXofxZ1z4VZpw5yGzuTZ77Dbfl2oA3kFblhP2huqwoGiDiRlbtByX+/miJx2bSvI1/A+5ceIEQa9ICJAGhiWwTzcFX22HitkRtyfWvXbbxawXMsBYYBuIcFU5WmuvjM3sx937nW5SXNjm19GMB1UgQR6y7QM/ME7T9h1FlOG1MX0D2NV5/QNvae3qYrU4oifYa1XqjQ11aiVnAWlkcoP9VuArh65gEGm+zzuZJOcYObO/L9ayhlALuW6o2KFXGZ7PpsfGHlrpCQHxcwU1ugQh1OUM+ITkRwHauvgKdWOtKXQyIvfxRLFyMKia0VcIYwiTpDcPr5iDcO1oOKcAbuTsTNQyU5aeYg7rYThRDwJCvYGbZqr2+GNIEg8X4FZc=
+  file:
+    - "${RELEASE_PKG_FILE}"
+    - "${RELEASE_PKG_MD5_FILE}"
+    - "${RELEASE_PKG_SHA_FILE}"
+  on:
+    tags: true
+    repo: DSI-Ville-Noumea/siale
 notifications:
   slack:
     secure: lc1uqYSl6ubBhKjDWpmuJPB/2VtyINZmjbIEpXRPuafEz/pUCYUkUhawXhhrsp0jj9c0tFH+TohKuqEqPMba7fSXmdWxDQhkbve0kp2ljOqoaSrcU4x8nc0ibHWn7l6RDrxaFOkp/4z3O+TNkzEZL40vsH2vlvTCp5CO/ZUSq5dpm0HqOqQmYEDJmyn7jrsTuEXRVJowQu3bget9c3ULawxyx8Vy5dN3ZBSL118n2IBW22SbBcA0k8kuoWKaZ7x5qiEEY+iK5Sia01dFPfdSGtvnbcsJhbyosWUxCtulG6fftUQ2axwZ/T14w5u3xbpFozqliApiGzHEXrpjkGE+wJwhjOE4QtivuPfWqv/4O/bZzj5ih2++G0NoSsF1CsjfamWfZ7pfzwvox7zAiZQbZhp7Ik89NUOc/L48hsNaCgTYKhxZ+sG+dfrc/AOqBJZNugRVq0Oacz5y65oQyvtIc+wIbA+NrSR9J1Tn+KhhjeWYduEWDtlCSzwjN+OUDD7/Im03RDoFRpWGW8k0FB2Fj8xhO9vkLpw6mA6BZ3ezWFqyNTc3nPfCAIbK7eYuygSTtbiW9mh2X1iI/lTr9Q4iOZ/vSj4oRyuvzMvsOv2OTXNnCvw+q2lZEzTNfzG/g5U9UTBNs2KEeH8WabebT4X3YedgowPKTNzhAalKtGWZnFs=
