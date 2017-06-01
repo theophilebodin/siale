@@ -27,16 +27,15 @@ before_deploy:
 - export RELEASE_PKG_FILE=$(ls target/*.war)
 - export RELEASE_PKG_MD5_FILE=$(ls target/*.war.md5)
 - export RELEASE_PKG_SHA_FILE=$(ls target/*.war.sha1)
-- echo "deploying $RELEASE_PKG_FILE , $RELEASE_PKG_MD5_FILE , $RELEASE_PKG_SHA_FILE
-to GitHub releases"
+- echo "deploying $RELEASE_PKG_FILE , $RELEASE_PKG_MD5_FILE , $RELEASE_PKG_SHA_FILE to GitHub releases"
 deploy:
   provider: releases
   api_key:
     secure: hh/V0HxJHDZF1s+n2VtTUM5HlUEmyNFF72qpt+pDolljvcRmQVkBV38kBAYOe7RVD753cZqzf2okVJmzMCsdqQJyyo4BRVPVEXA0DoioQ+hWFawABedXvn8mBtkMZNUl7q1ZS2zPgucEUSqzgxwD4l9vhzf3Jp4GAGN93r45aBQaVMMHryvjc4+4pEVZdS6CfusMTuqUR7xk8LD895k2IsNWGx9L2b2GY3qMmViZIRFQJaExAcrXH6DsKJRGsl2nW6EKtiLaEVpx+rnUICxJecay6O9FmnR6ukv8JZ5MZsLWcOfXofxZ1z4VZpw5yGzuTZ77Dbfl2oA3kFblhP2huqwoGiDiRlbtByX+/miJx2bSvI1/A+5ceIEQa9ICJAGhiWwTzcFX22HitkRtyfWvXbbxawXMsBYYBuIcFU5WmuvjM3sx937nW5SXNjm19GMB1UgQR6y7QM/ME7T9h1FlOG1MX0D2NV5/QNvae3qYrU4oifYa1XqjQ11aiVnAWlkcoP9VuArh65gEGm+zzuZJOcYObO/L9ayhlALuW6o2KFXGZ7PpsfGHlrpCQHxcwU1ugQh1OUM+ITkRwHauvgKdWOtKXQyIvfxRLFyMKia0VcIYwiTpDcPr5iDcO1oOKcAbuTsTNQyU5aeYg7rYThRDwJCvYGbZqr2+GNIEg8X4FZc=
   file:
-    - "${RELEASE_PKG_FILE}"
-    - "${RELEASE_PKG_MD5_FILE}"
-    - "${RELEASE_PKG_SHA_FILE}"
+  - "${RELEASE_PKG_FILE}"
+  - "${RELEASE_PKG_MD5_FILE}"
+  - "${RELEASE_PKG_SHA_FILE}"
   on:
     tags: true
     repo: DSI-Ville-Noumea/siale
