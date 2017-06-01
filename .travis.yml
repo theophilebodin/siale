@@ -20,9 +20,8 @@ before_install:
   -Dpackaging=jar -DgeneratePom=true
 - mvn install:install-file -DgroupId=color.box -DartifactId=colorbox -Dversion=1.0
   -Dfile=./lib/colorbox.jar -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -DgroupId=com.bo -DartifactId=ebus405 -Dversion=11.5.8.834 -Dfile=./lib/ebus405.jar -Dpackaging=jar -DgeneratePom=true
-mvn install:install-file -DgroupId=com.bo -DartifactId=corbaidl -Dversion=12.5.0.1190 -Dfile=./lib/corbaidl.jar -Dpackaging=jar -DgeneratePom=true
-
+- mvn install:install-file -DgroupId=com.bo -DartifactId=ebus405 -Dversion=11.5.8.834 -Dfile=./lib/ebus405.jar -Dpackaging=jar -DgeneratePom=true
+- mvn install:install-file -DgroupId=com.bo -DartifactId=corbaidl -Dversion=12.5.0.1190 -Dfile=./lib/corbaidl.jar -Dpackaging=jar -DgeneratePom=true
 install: mvn clean install -DskipTests=true -DcreateChecksum=true versioneye:update
 before_deploy:
 - export RELEASE_PKG_FILE=$(ls target/*.war)
